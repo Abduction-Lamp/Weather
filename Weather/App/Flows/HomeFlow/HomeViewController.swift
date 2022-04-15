@@ -23,6 +23,29 @@ final class HomeViewController: UIPageViewController {
         configureUI()
     }
 
+    var settings = Settings()
+    var settingsManager = SettingsManager()
+    
+    
+    // MARK: - Lifecycle
+    //
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        settingsManager.featch { [weak self] response in
+            guard let self = self else { return }
+            switch response {
+            case .success(let result):
+                self.settings = result
+                print(self.settings.cities)
+            case .failure(let error):
+                print(error)
+                let city = CityData(city: "Москва", rusName: "Москва", engName: "Moscow", latitude: 55.7504461, longitude: 37.6174943)
+                self.settings.cities.append(city)
+                self.settingsManager.save(self.settings)
+            }
+        }
+    }
     
     private var listOfCities = [
         WeatherViewController(city: "Москва"),
@@ -46,7 +69,7 @@ final class HomeViewController: UIPageViewController {
 
         setViewControllers([listOfCities[0]], direction: .forward, animated: true, completion: nil)
         
-//        settingsButton.addTarget(self, action: #selector(pushSettingsButton(sender:)), for: .touchUpInside)
+        settingsButton.addTarget(self, action: #selector(tapSettingsButton(sender:)), for: .touchUpInside)
         placementUI()
     }
     
@@ -81,7 +104,6 @@ extension HomeViewController: UIPageViewControllerDelegate, UIPageViewController
     
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerAfter viewController: UIViewController) -> UIViewController? {
-
         guard
             let current = viewController as? WeatherViewController,
             let index = listOfCities.firstIndex(of: current)
@@ -99,5 +121,17 @@ extension HomeViewController: UIPageViewControllerDelegate, UIPageViewController
 
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
         return currentPageIndex
+    }
+}
+
+
+extension HomeViewController {
+    
+    @objc
+    func tapSettingsButton(sender: UIButton) {
+        let settingsViewModel = SettingsViewModel(settings: settings)
+        let settingsViewController = SettingsViewController(viewModel: settingsViewModel)
+        let navigationVC = UINavigationController(rootViewController: settingsViewController)
+        self.present(navigationVC, animated: true, completion: nil)
     }
 }
