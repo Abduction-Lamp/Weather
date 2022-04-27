@@ -28,7 +28,7 @@ final class WeatherViewController: UIViewController {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError("📛\tWeatherViewController init(coder:) has not been implemented")
     }
 
     
@@ -37,7 +37,7 @@ final class WeatherViewController: UIViewController {
     override func loadView() {
         super.loadView()
         
-        self.view = WeatherView(frame: self.view.frame)
+        view = WeatherView(frame: view.frame)
         weatherView.city.text = city
     }
 }

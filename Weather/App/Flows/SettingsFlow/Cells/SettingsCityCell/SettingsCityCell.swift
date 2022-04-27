@@ -55,7 +55,7 @@ final class SettingsCityCell: UITableViewCell {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError("📛\tSettingsCityCell init(coder:) has not been implemented")
     }
 
     override func prepareForReuse() {
@@ -68,24 +68,24 @@ final class SettingsCityCell: UITableViewCell {
     // MARK: - Configure Content & Set Data
     //
     private func configureContent() {
-        self.contentView.backgroundColor = .white
-        self.contentView.addSubview(city)
-        self.contentView.addSubview(icon)
-        self.contentView.addSubview(temperature)
+        contentView.backgroundColor = .white
+        contentView.addSubview(city)
+        contentView.addSubview(icon)
+        contentView.addSubview(temperature)
 
-        icon.rightAnchor.constraint(equalTo: self.contentView.rightAnchor, constant: -15.0).isActive = true
-        icon.centerYAnchor.constraint(equalTo: self.contentView.centerYAnchor).isActive = true
+        icon.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -15.0).isActive = true
+        icon.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         icon.widthAnchor.constraint(equalToConstant: 25.0).isActive = true
         icon.heightAnchor.constraint(equalToConstant: 25.0).isActive = true
 
-        temperature.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
-        temperature.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
+        temperature.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        temperature.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
         temperature.rightAnchor.constraint(equalTo: icon.leftAnchor, constant: -15.0).isActive = true
         temperature.widthAnchor.constraint(equalToConstant: 50.0).isActive = true
 
-        city.topAnchor.constraint(equalTo: self.contentView.topAnchor).isActive = true
-        city.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor).isActive = true
-        city.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 15.0).isActive = true
+        city.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        city.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
+        city.leftAnchor.constraint(equalTo: leftAnchor, constant: 15.0).isActive = true
         city.rightAnchor.constraint(equalTo: temperature.leftAnchor, constant: -5.0).isActive = true
     }
 }

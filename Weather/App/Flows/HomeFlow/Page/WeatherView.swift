@@ -27,17 +27,17 @@ final class WeatherView: UIView {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError("📛\tWeatherView init(coder:) has not been implemented")
     }
 
     
     // MARK: - Configure Content
     //
     private func configureUI() {
-        self.backgroundColor = .white
-        self.addSubview(city)
+        backgroundColor = .white
+        addSubview(city)
 
-        city.centerXAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        city.centerYAnchor.constraint(equalTo: self.safeAreaLayoutGuide.centerYAnchor).isActive = true
+        city.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
+        city.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor).isActive = true
     }
 }

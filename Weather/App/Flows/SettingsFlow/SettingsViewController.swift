@@ -9,6 +9,10 @@ import UIKit
 
 final class SettingsViewController: UIViewController {
     
+    private enum DisplayType: Int {
+        case cities, settings, search
+    }
+    
     private var settingsView: SettingsView {
         guard let view = self.view as? SettingsView else {
             return SettingsView(frame: self.view.frame)
@@ -16,17 +20,25 @@ final class SettingsViewController: UIViewController {
         return view
     }
     
-    
-    private var display: SettingsDisplayType = .cities {
+    private var display: DisplayType = .cities {
         didSet {
             DispatchQueue.main.async {
+                switch self.display {
+                case .cities:
+                    self.settingsView.hidenSearchBar(isHiden: true)
+                    self.hideNavigationToolbar(isHidden: false)
+                case .search:
+                    self.hideNavigationToolbar(isHidden: true)
+                    self.settingsView.hidenSearchBar(isHiden: false)
+                case .settings:
+                    self.hideNavigationToolbar(isHidden: true)
+                    self.settingsView.hidenSearchBar(isHiden: true)
+                }
                 self.settingsView.table.reloadData()
             }
         }
     }
     
-    private var viewModel: SettingsViewModelProtocol
-
     private var isTableEditing: Bool = false {
         didSet {
             if oldValue != isTableEditing {
@@ -35,9 +47,11 @@ final class SettingsViewController: UIViewController {
         }
     }
     
+    private var viewModel: SettingsViewModelProtocol
+
+
     
-    
-    // MARK: - Initiation
+    // MARK: Initiation
     //
     init(viewModel: SettingsViewModelProtocol) {
         self.viewModel = viewModel
@@ -45,51 +59,59 @@ final class SettingsViewController: UIViewController {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        fatalError("📛\tSettingsViewController init(coder:) has not been implemented")
     }
     
     deinit {
         print("♻️\tDeinit SettingsViewController")
     }
     
-    
-    
-    // MARK: - Lifecycle
+    // MARK: Lifecycle
     //
     override func loadView() {
         super.loadView()
-        
         configureUI()
-        viewModel.display.bind { [weak self] type in
-            self?.display = type
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        viewModel.searchResult.bind { _ in
+            DispatchQueue.main.async {
+                self.settingsView.table.reloadData()
+            }
         }
     }
     
-
-    // MARK: - Configure UI Content
+    
+    // MARK: Configure UI Content
     //
     private func configureUI() {
-        self.view = SettingsView(frame: self.view.frame)
+       view = SettingsView(frame: view.frame)
         
-        self.navigationController?.isNavigationBarHidden = true
-        self.navigationController?.isToolbarHidden = false
-        self.navigationController?.toolbar.tintColor = .systemBlue
-        self.navigationController?.toolbar.backgroundColor = .white
+        navigationController?.isNavigationBarHidden = true
+        navigationController?.isToolbarHidden = false
+        navigationController?.toolbar.tintColor = .systemBlue
+        navigationController?.toolbar.backgroundColor = .white
         
         let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(tapSearchButton(sender:)))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let orderButton = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3"), style: .plain, target: self, action: #selector(tapEditButton(sender:)))
-        self.setToolbarItems([searchButton, spaceButton, orderButton], animated: true)
+        setToolbarItems([searchButton, spaceButton, orderButton], animated: true)
 
         settingsView.segment.addTarget(self, action: #selector(changedDisplayType(sender:)), for: .valueChanged)
         
         settingsView.table.delegate = self
         settingsView.table.dataSource = self
+        
+        settingsView.searchController.searchResultsUpdater = self
+        settingsView.searchController.searchBar.delegate = self
+        settingsView.searchController.delegate = self
     }
 }
 
 
-
+// MARK: -  UITableViewDelegate & UITableViewDataSource
+//
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -97,89 +119,56 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.numberOfRows()
+        var numberOfRows: Int!
+        switch display {
+        case .cities:
+            numberOfRows = viewModel.numberOfRows()
+        case .settings:
+            numberOfRows = 3
+        case .search:
+            numberOfRows = viewModel.numberOfRowsSearchResult()
+        }
+        return numberOfRows
     }
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
 
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return page == .search ? 50 : 0
-        return 0
-    }
-
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        switch page {
-//        case .search:
-//            guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: SettingsCitiesHeader.reuseIdentifier) as? SettingsCitiesHeader else {
-//                return nil
-//            }
-//            header.searchBar.delegate = self
-//            return header
-//        case .settings, .cities:
-//            return nil
-//        }
-        
-        return nil
-    }
-
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        switch display {
-//        case .cities:
-//            guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCityCell.reuseIdentifier) as? SettingsCityCell else {
-//                return UITableViewCell()
-//            }
-//            cell.setData(city: cities.list[indexPath.row])
-//            return cell
-//
-//        case .settings:
-//            guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsSegmentCell.reuseIdentifier) as? SettingsSegmentCell else {
-//                return UITableViewCell()
-//            }
-//            switch indexPath.row {
-//            case 0:
-//                let index = UserDefaults.standard.integer(forKey: key.temperature)
-//                cell.setData(label: "Температура", items: ["\u{00B0}C", "\u{00B0}F", "\u{00B0}K"], selected: index)
-//                cell.segmentControl.addTarget(self, action: #selector(temperatureUnitsOfMeasurementChanged(sender:)), for: .valueChanged)
-//                return cell
-//
-//            case 1:
-//                let index = UserDefaults.standard.integer(forKey: key.wind)
-//                cell.setData(label: "Скорость ветра", items: ["м/с", "км/ч"], selected: index)
-//                cell.segmentControl.addTarget(self, action: #selector(windSpeedUnitsOfMeasurementChanged(sender:)), for: .valueChanged)
-//                return cell
-//
-//            case 2:
-//                let index = UserDefaults.standard.integer(forKey: key.pressure)
-//                cell.setData(label: "Давление", items: ["мм рт. ст.", "гПа"], selected: index)
-//                cell.segmentControl.addTarget(self, action: #selector(pressureUnitsOfMeasurementChanged(sender:)), for: .valueChanged)
-//                return cell
-//
-//            default:
-//                return UITableViewCell()
-//            }
-//        default:
-        
-        
-//            return UITableViewCell()
-//        }
-        
         switch display {
         case .cities:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCityCell.reuseIdentifier) as? SettingsCityCell else {
                 return UITableViewCell()
             }
-            cell.viewModel = viewModel.cityCellViewModel(for: indexPath)
+            cell.viewModel = viewModel.makeCityCellViewModel(for: indexPath)
             return cell
+            
         case .settings:
-            return UITableViewCell()
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCell.reuseIdentifier) as? SettingsCell else {
+                return UITableViewCell()
+            }
+            switch indexPath.row {
+            case 0:
+                cell.viewModel = viewModel.makeSettingsCellViewModel(Unit.Temperature.self)
+            case 1:
+                cell.viewModel = viewModel.makeSettingsCellViewModel(Unit.WindSpeed.self)
+            case 2:
+                cell.viewModel = viewModel.makeSettingsCellViewModel(Unit.Pressure.self)
+            default:
+                return UITableViewCell()
+            }
+            return cell
+            
         case .search:
-            return UITableViewCell()
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchCityCell.reuseIdentifier) as? SearchCityCell else {
+                return UITableViewCell()
+            }
+            cell.viewModel = viewModel.makeSearchCityCellViewModel(for: indexPath)
+            return cell
         }
     }
 
-    
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .none
@@ -205,6 +194,24 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 
+// MARK: - UISearchResultsUpdating & UISearchBarDelegate & UISearchControllerDelegate
+//
+extension SettingsViewController: UISearchResultsUpdating, UISearchBarDelegate, UISearchControllerDelegate {
+    
+    func didPresentSearchController(_ searchController: UISearchController) {
+        searchController.searchBar.becomeFirstResponder()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = nil
+        display = .cities
+    }
+        
+    func updateSearchResults(for searchController: UISearchController) {
+        guard let text = searchController.searchBar.text else { return }
+        viewModel.searchCity(city: text)
+    }
+}
 
 
 // MARK: - Actions extension
@@ -213,9 +220,11 @@ extension SettingsViewController {
     
     @objc
     func changedDisplayType(sender: UISegmentedControl) {
-        guard let type = SettingsDisplayType.init(rawValue: sender.selectedSegmentIndex) else { return }
-        type == .cities ? hideNavigationToolbar(isHidden: false) : hideNavigationToolbar(isHidden: true)
-        viewModel.changeDisplayType(type)
+        guard
+            let type = DisplayType.init(rawValue: sender.selectedSegmentIndex),
+            display != type
+        else { return }
+        display = type
     }
 
     @objc
@@ -225,11 +234,12 @@ extension SettingsViewController {
 
     @objc
     func tapSearchButton(sender: UIBarButtonItem) {
-        hideNavigationToolbar(isHidden: true)
-        viewModel.changeDisplayType(.search)
+        display = .search
     }
 
     
+    // MARK: Support actions methods
+    //
     private func hideNavigationToolbar(isHidden: Bool, animated: Bool = true) {
         isTableEditing = false
         navigationController?.setToolbarHidden(isHidden, animated: animated)
@@ -237,7 +247,7 @@ extension SettingsViewController {
     
     private func switchTableEditMode(isEditing: Bool, animated: Bool = true) {
         guard
-            let items = self.navigationController?.toolbar.items,
+            let items = navigationController?.toolbar.items,
             let searchButton = items.first,
             let orderButton = items.last
         else { return }
@@ -252,30 +262,5 @@ extension SettingsViewController {
             orderButton.tintColor = .systemBlue
             viewModel.save()
         }
-    }
-    
-
-    @objc
-    func changedTemperatureUnit(sender: UISegmentedControl) {
-//        DispatchQueue.main.async {
-//            UserDefaults.standard.set(sender.selectedSegmentIndex, forKey: self.key.temperature)
-//        }
-//        // TODO: - Обновить данные
-    }
-
-    @objc
-    func changedWindSpeedUnit(sender: UISegmentedControl) {
-//        DispatchQueue.main.async {
-//            UserDefaults.standard.set(sender.selectedSegmentIndex, forKey: self.key.wind)
-//        }
-//        // TODO: - Обновить данные
-    }
-
-    @objc
-    func changedPressureUnit(sender: UISegmentedControl) {
-//        DispatchQueue.main.async {
-//            UserDefaults.standard.set(sender.selectedSegmentIndex, forKey: self.key.pressure)
-//        }
-//        // TODO: - Обновить данные
     }
 }

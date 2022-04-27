@@ -25,6 +25,7 @@ final class HomeViewController: UIPageViewController {
 
     var settings = Settings()
     var settingsManager = SettingsManager()
+    var network = Network()
     
     
     // MARK: - Lifecycle
@@ -129,7 +130,7 @@ extension HomeViewController {
     
     @objc
     func tapSettingsButton(sender: UIButton) {
-        let settingsViewModel = SettingsViewModel(settings: settings)
+        let settingsViewModel = SettingsViewModel(settings: settings, network: network)
         let settingsViewController = SettingsViewController(viewModel: settingsViewModel)
         let navigationVC = UINavigationController(rootViewController: settingsViewController)
         self.present(navigationVC, animated: true, completion: nil)
