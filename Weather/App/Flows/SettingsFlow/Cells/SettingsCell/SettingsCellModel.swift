@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SettingsCellData {
+struct SettingsCellModel {
     let label: String
     let items: [String]
 }

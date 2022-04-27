@@ -8,15 +8,15 @@
 import Foundation
 
 protocol SettingsCityCellViewModelProtocol: AnyObject {
-    var data: SettingsCityCellData { get }
+    var data: SettingsCityCellModel { get }
 }
 
 
 final class SettingsCityCellViewModel: SettingsCityCellViewModelProtocol {
 
-    var data: SettingsCityCellData
+    var data: SettingsCityCellModel
     
-    init(city: SettingsCityCellData) {
+    init(city: SettingsCityCellModel) {
         data = city
     }
     

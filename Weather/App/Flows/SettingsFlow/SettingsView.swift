@@ -19,18 +19,15 @@ final class SettingsView: UIView {
         return segment
     }()
     
-    private(set) var searchController: UISearchController = {
-        let controller = UISearchController(searchResultsController: nil)
-        controller.searchBar.sizeToFit()
-        controller.searchBar.returnKeyType = .search
-        controller.searchBar.autocapitalizationType = .words
-        controller.searchBar.searchBarStyle = .prominent
-        controller.searchBar.showsCancelButton = true
-        controller.searchBar.enablesReturnKeyAutomatically = true
-        controller.searchBar.placeholder = "Поиск"
-        
-        controller.obscuresBackgroundDuringPresentation = false
-        return controller
+    private(set) var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.searchBarStyle = .prominent
+        searchBar.autocapitalizationType = .words
+        searchBar.returnKeyType = .search
+        searchBar.showsCancelButton = true
+        searchBar.placeholder = "Поиск"
+        searchBar.sizeToFit()
+        return searchBar
     }()
 
     private(set) var table: UITableView = {
@@ -88,11 +85,11 @@ final class SettingsView: UIView {
     
     func hidenSearchBar(isHiden: Bool) {
         if isHiden {
-            searchController.dismiss(animated: false, completion: nil)
+            searchBar.text = nil
             table.tableHeaderView = nil
         } else {
-            table.tableHeaderView = searchController.searchBar
-            searchController.isActive = true
+            table.tableHeaderView = searchBar
+            searchBar.becomeFirstResponder()
         }        
     }
 }

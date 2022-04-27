@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SettingsCityCellData {
+struct SettingsCityCellModel {
     let city: String
     let icon: String
     let temperature: String

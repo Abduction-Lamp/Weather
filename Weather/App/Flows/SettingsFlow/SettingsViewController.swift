@@ -25,14 +25,14 @@ final class SettingsViewController: UIViewController {
             DispatchQueue.main.async {
                 switch self.display {
                 case .cities:
-                    self.settingsView.hidenSearchBar(isHiden: true)
+                    self.hidenSearchBar(isHidden: true)
                     self.hideNavigationToolbar(isHidden: false)
                 case .search:
                     self.hideNavigationToolbar(isHidden: true)
-                    self.settingsView.hidenSearchBar(isHiden: false)
+                    self.hidenSearchBar(isHidden: false)
                 case .settings:
                     self.hideNavigationToolbar(isHidden: true)
-                    self.settingsView.hidenSearchBar(isHiden: true)
+                    self.hidenSearchBar(isHidden: true)
                 }
                 self.settingsView.table.reloadData()
             }
@@ -82,6 +82,11 @@ final class SettingsViewController: UIViewController {
         }
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        viewModel.save()
+    }
+    
     
     // MARK: Configure UI Content
     //
@@ -102,10 +107,8 @@ final class SettingsViewController: UIViewController {
         
         settingsView.table.delegate = self
         settingsView.table.dataSource = self
-        
-        settingsView.searchController.searchResultsUpdater = self
-        settingsView.searchController.searchBar.delegate = self
-        settingsView.searchController.delegate = self
+
+        settingsView.searchBar.delegate = self
     }
 }
 
@@ -194,22 +197,16 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 
-// MARK: - UISearchResultsUpdating & UISearchBarDelegate & UISearchControllerDelegate
+// MARK: - UISearchBarDelegate
 //
-extension SettingsViewController: UISearchResultsUpdating, UISearchBarDelegate, UISearchControllerDelegate {
-    
-    func didPresentSearchController(_ searchController: UISearchController) {
-        searchController.searchBar.becomeFirstResponder()
+extension SettingsViewController: UISearchBarDelegate {
+
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.searchCity(city: searchText)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = nil
         display = .cities
-    }
-        
-    func updateSearchResults(for searchController: UISearchController) {
-        guard let text = searchController.searchBar.text else { return }
-        viewModel.searchCity(city: text)
     }
 }
 
@@ -240,6 +237,13 @@ extension SettingsViewController {
     
     // MARK: Support actions methods
     //
+    private func hidenSearchBar(isHidden: Bool) {
+        if isHidden {
+            viewModel.searchCity(city: "")
+        }
+        settingsView.hidenSearchBar(isHiden: isHidden)
+    }
+    
     private func hideNavigationToolbar(isHidden: Bool, animated: Bool = true) {
         isTableEditing = false
         navigationController?.setToolbarHidden(isHidden, animated: animated)

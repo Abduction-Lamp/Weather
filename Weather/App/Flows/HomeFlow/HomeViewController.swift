@@ -23,9 +23,12 @@ final class HomeViewController: UIPageViewController {
         configureUI()
     }
 
-    var settings = Settings()
-    var settingsManager = SettingsManager()
+    var storage = Storage()
     var network = Network()
+    
+    
+    var settings = Settings()
+
     
     
     // MARK: - Lifecycle
@@ -33,7 +36,7 @@ final class HomeViewController: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        settingsManager.featch { [weak self] response in
+        storage.featch { [weak self] response in
             guard let self = self else { return }
             switch response {
             case .success(let result):
@@ -43,7 +46,7 @@ final class HomeViewController: UIPageViewController {
                 print(error)
                 let city = CityData(city: "Москва", rusName: "Москва", engName: "Moscow", latitude: 55.7504461, longitude: 37.6174943)
                 self.settings.cities.append(city)
-                self.settingsManager.save(self.settings)
+                self.storage.save(self.settings)
             }
         }
     }
@@ -130,7 +133,7 @@ extension HomeViewController {
     
     @objc
     func tapSettingsButton(sender: UIButton) {
-        let settingsViewModel = SettingsViewModel(settings: settings, network: network)
+        let settingsViewModel = SettingsViewModel(settings: settings, storage: storage, network: network)
         let settingsViewController = SettingsViewController(viewModel: settingsViewModel)
         let navigationVC = UINavigationController(rootViewController: settingsViewController)
         self.present(navigationVC, animated: true, completion: nil)

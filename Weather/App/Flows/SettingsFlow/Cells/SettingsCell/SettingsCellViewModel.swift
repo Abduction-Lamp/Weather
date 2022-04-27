@@ -8,7 +8,7 @@
 import Foundation
 
 protocol SettingsCellViewModelProtocol: AnyObject {
-    var data: SettingsCellData { get }
+    var data: SettingsCellModel { get }
     var selected: Int { get }
     
     init(_ type: MetaType.Type, from settings: Settings)
@@ -18,7 +18,7 @@ protocol SettingsCellViewModelProtocol: AnyObject {
 
 
 final class SettingsCellViewModel: SettingsCellViewModelProtocol {
-    var data: SettingsCellData
+    var data: SettingsCellModel
     var selected: Int
     private weak var settings: Settings?
     
@@ -30,16 +30,16 @@ final class SettingsCellViewModel: SettingsCellViewModelProtocol {
 
         switch metaType {
         case let meta where meta is Unit.Temperature.Type:
-            data = SettingsCellData(label: "Температура", items: ["\u{00B0}C", "\u{00B0}F", "\u{00B0}K"])
+            data = SettingsCellModel(label: "Температура", items: ["\u{00B0}C", "\u{00B0}F", "\u{00B0}K"])
             selected = settings.temperature.rawValue
         case let meta where meta is Unit.WindSpeed.Type:
-            data = SettingsCellData(label: "Скорость ветра", items: ["м/с", "км/ч"])
+            data = SettingsCellModel(label: "Скорость ветра", items: ["м/с", "км/ч"])
             selected = settings.windSpeed.rawValue
         case let meta where meta is Unit.Pressure.Type:
-            data = SettingsCellData(label: "Давление", items: ["мм рт. ст.", "гПа"])
+            data = SettingsCellModel(label: "Давление", items: ["мм рт. ст.", "гПа"])
             selected = settings.pressure.rawValue
         default:
-            data = SettingsCellData(label: "", items: [])
+            data = SettingsCellModel(label: "", items: [])
             selected = 0
         }
     }

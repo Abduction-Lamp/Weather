@@ -7,6 +7,6 @@
 
 import Foundation
 
-struct SearchCityCellData {
+struct SearchCityCellModel {
     let city: String
 }

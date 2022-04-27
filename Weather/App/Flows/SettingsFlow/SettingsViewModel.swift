@@ -25,13 +25,16 @@ protocol SettingsViewModelProtocol: AnyObject {
 }
 
 
-
 final class SettingsViewModel {
-    private weak var settings: Settings?
-    private weak var network: NetworkServiceProtocol?
     
-    init(settings: Settings, network: NetworkServiceProtocol) {
+    private weak var settings: Settings?
+    
+    private weak var storage: StorageServiceProtocol?
+    private weak var network: NetworkServiceProtocol?
+
+    init(settings: Settings, storage: StorageServiceProtocol, network: NetworkServiceProtocol) {
         self.settings = settings
+        self.storage = storage
         self.network = network
     }
     
@@ -69,14 +72,14 @@ extension SettingsViewModel: SettingsViewModelProtocol {
             let city = settings?.cities[indexPath.row]
         else { return nil }
         
-        let cityData = SettingsCityCellData(city: city.city, icon: "", temperature: "17")
+        let cityData = SettingsCityCellModel(city: city.city, icon: "", temperature: "17")
         return SettingsCityCellViewModel(city: cityData)
     }
     
     func makeSearchCityCellViewModel(for indexPath: IndexPath) -> SearchCityCellViewModelProtocol? {
         if indexPath.row < searchResult.value.count {
             let city = searchResult.value[indexPath.row]
-            let cityData = SearchCityCellData(city: city.name + ", " + city.country)
+            let cityData = SearchCityCellModel(city: city.name + ", " + city.country)
             return SearchCityCellViewModel(city: cityData)
         }
         return nil

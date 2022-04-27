@@ -1,5 +1,5 @@
 //
-//  SettingsService.swift
+//  StorageService.swift
 //  Weather
 //
 //  Created by Владимир on 13.04.2022.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol SettingsServiceProtocol {
+protocol StorageServiceProtocol: AnyObject {
     
     func featch(_ completion: @escaping (Result<Settings, CompletionError>) -> Void)
     func save(_ settings: Settings)
@@ -15,7 +15,7 @@ protocol SettingsServiceProtocol {
 }
 
 
-final class SettingsManager: SettingsServiceProtocol {
+final class Storage: StorageServiceProtocol {
     
     func featch(_ completion: @escaping (Result<Settings, CompletionError>) -> Void) {
         DispatchQueue.global().async {
