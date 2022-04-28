@@ -1,5 +1,5 @@
 //
-//  SettingsCityCell.swift
+//  CityCell.swift
 //  Weather
 //
 //  Created by Владимир on 15.04.2022.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-final class SettingsCityCell: UITableViewCell {
-    static let reuseIdentifier = "SettingsCityCell"
+final class CityCell: UITableViewCell {
+    static let reuseIdentifier = "CityCell"
 
     private lazy var city: UILabel = {
         let label = UILabel()
@@ -37,7 +37,7 @@ final class SettingsCityCell: UITableViewCell {
     }()
 
     
-    weak var viewModel: SettingsCityCellViewModelProtocol? {
+    weak var viewModel: CityCellViewModelProtocol? {
         willSet(viewModel) {
             guard let viewModel = viewModel else { return }
             city.text = viewModel.data.city
@@ -55,7 +55,7 @@ final class SettingsCityCell: UITableViewCell {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("📛\tSettingsCityCell init(coder:) has not been implemented")
+        fatalError("📛\tCityCell init(coder:) has not been implemented")
     }
 
     override func prepareForReuse() {

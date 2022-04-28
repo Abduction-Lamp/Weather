@@ -8,9 +8,8 @@
 import Foundation
 
 struct CityData: Codable {
-    let city: String
-    let rusName: String?
-    let engName: String?
+    let eng: String
+    let rus: String
     let latitude: Double
     let longitude: Double
 }
@@ -19,6 +18,6 @@ struct CityData: Codable {
 extension CityData: Equatable {
     
     static func == (lhs: Self, rhs: Self) -> Bool {
-        return lhs.city == rhs.city
+        (lhs.eng == rhs.eng) && (lhs.rus == rhs.rus) && (lhs.latitude == rhs.latitude) && (lhs.longitude == rhs.longitude)
     }
 }

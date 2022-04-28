@@ -141,7 +141,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch display {
         case .cities:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: SettingsCityCell.reuseIdentifier) as? SettingsCityCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: CityCell.reuseIdentifier) as? CityCell else {
                 return UITableViewCell()
             }
             cell.viewModel = viewModel.makeCityCellViewModel(for: indexPath)
@@ -207,6 +207,10 @@ extension SettingsViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         display = .cities
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
+        searchBar.endEditing(true)
     }
 }
 

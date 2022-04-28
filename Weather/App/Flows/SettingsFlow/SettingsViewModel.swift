@@ -14,7 +14,7 @@ protocol SettingsViewModelProtocol: AnyObject {
     func numberOfRows() -> Int
     func numberOfRowsSearchResult() -> Int
         
-    func makeCityCellViewModel(for indexPath: IndexPath) -> SettingsCityCellViewModelProtocol?
+    func makeCityCellViewModel(for indexPath: IndexPath) -> CityCellViewModelProtocol?
     func makeSearchCityCellViewModel(for indexPath: IndexPath) -> SearchCityCellViewModelProtocol?
     func makeSettingsCellViewModel(_ type: MetaType.Type) -> SettingsCellViewModelProtocol?
     
@@ -57,23 +57,23 @@ extension SettingsViewModel: SettingsViewModelProtocol {
     }
     
     func save() {
-        print("save")
+        guard let storage = self.storage, let settings = self.settings else { return }
+        storage.save(settings)
     }
     
     func moveItem(at sourceIndex: Int, to destinationIndex: Int) {
-        print(sourceIndex)
-        print(destinationIndex)
+        settings?.move(at: sourceIndex, to: destinationIndex)
     }
     
-    func makeCityCellViewModel(for indexPath: IndexPath) -> SettingsCityCellViewModelProtocol? {
+    func makeCityCellViewModel(for indexPath: IndexPath) -> CityCellViewModelProtocol? {
         guard
             let count = settings?.cities.count,
             indexPath.row < count,
             let city = settings?.cities[indexPath.row]
         else { return nil }
         
-        let cityData = SettingsCityCellModel(city: city.city, icon: "", temperature: "17")
-        return SettingsCityCellViewModel(city: cityData)
+        let cityData = CityCellModel(city: city.rus, icon: "", temperature: "17")
+        return CityCellViewModel(city: cityData)
     }
     
     func makeSearchCityCellViewModel(for indexPath: IndexPath) -> SearchCityCellViewModelProtocol? {

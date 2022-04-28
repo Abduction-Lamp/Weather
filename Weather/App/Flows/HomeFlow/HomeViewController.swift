@@ -44,7 +44,8 @@ final class HomeViewController: UIPageViewController {
                 print(self.settings.cities)
             case .failure(let error):
                 print(error)
-                let city = CityData(city: "Москва", rusName: "Москва", engName: "Moscow", latitude: 55.7504461, longitude: 37.6174943)
+                self.settings = self.storage.reset()
+                let city = CityData(eng: "Moscow", rus: "Москва", latitude: 55.7504461, longitude: 37.6174943)
                 self.settings.cities.append(city)
                 self.storage.save(self.settings)
             }

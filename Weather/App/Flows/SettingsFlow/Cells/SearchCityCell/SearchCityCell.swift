@@ -10,6 +10,15 @@ import UIKit
 final class SearchCityCell: UITableViewCell {
     static let reuseIdentifier = "SearchCityCell"
 
+    private lazy var mark: UIImageView = {
+        let image = UIImage(systemName: "bookmark.fill")
+        let imageView = UIImageView(image: image)
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.contentMode = .center
+        imageView.tintColor = .systemGray6
+        return imageView
+    }()
+    
     private lazy var city: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -49,10 +58,16 @@ final class SearchCityCell: UITableViewCell {
     private func configureContent() {
         contentView.backgroundColor = .white
         contentView.addSubview(city)
-
+        contentView.addSubview(mark)
+        
+        mark.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
+        mark.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
+        mark.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        mark.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
         city.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         city.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        city.leftAnchor.constraint(equalTo: leftAnchor, constant: 15.0).isActive = true
-        city.rightAnchor.constraint(equalTo: rightAnchor, constant: -5.0).isActive = true
+        city.leftAnchor.constraint(equalTo: mark.rightAnchor).isActive = true
+        city.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -5.0).isActive = true
     }
 }

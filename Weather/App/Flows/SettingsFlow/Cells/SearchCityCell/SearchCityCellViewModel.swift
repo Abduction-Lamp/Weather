@@ -21,6 +21,6 @@ final class SearchCityCellViewModel: SearchCityCellViewModelProtocol {
     }
     
     deinit {
-        print("♻️\tDeinit SettingsCityCellViewModel")
+        print("♻️\tDeinit CityCellViewModel")
     }
 }

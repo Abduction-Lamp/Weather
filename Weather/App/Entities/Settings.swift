@@ -7,6 +7,12 @@
 
 import Foundation
 
+protocol SettingsProtocol {
+    func move(at sourceIndex: Int, to destinationIndex: Int)
+    func add(_ city: CityData) -> Bool
+    func remove(_ city: CityData) -> CityData?
+}
+
 
 final class Settings: Codable {
     
@@ -25,13 +31,31 @@ final class Settings: Codable {
     }
     
     
-    public func move(at sourceIndex: Int, to destinationIndex: Int) {
+
+}
+
+extension Settings: SettingsProtocol {
+    
+    func add(_ city: CityData) -> Bool {
+        if cities.contains(city) { return false }
+        cities.append(city)
+        return true
+    }
+    
+    func remove(_ city: CityData) -> CityData? {
+        if let index = cities.firstIndex(of: city) {
+            return cities.remove(at: index)
+        }
+        return nil
+    }
+    
+    func move(at sourceIndex: Int, to destinationIndex: Int) {
         guard
             sourceIndex != destinationIndex,
             sourceIndex >= 0, sourceIndex < cities.count,
             destinationIndex >= 0, destinationIndex < cities.count
         else { return }
-
+        
         let city = cities[sourceIndex]
         cities.remove(at: sourceIndex)
         cities.insert(city, at: destinationIndex)

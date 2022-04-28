@@ -24,6 +24,7 @@ final class SettingsView: UIView {
         searchBar.searchBarStyle = .prominent
         searchBar.autocapitalizationType = .words
         searchBar.returnKeyType = .search
+        searchBar.enablesReturnKeyAutomatically = false
         searchBar.showsCancelButton = true
         searchBar.placeholder = "Поиск"
         searchBar.sizeToFit()
@@ -38,9 +39,10 @@ final class SettingsView: UIView {
         table.isEditing = false
         table.allowsSelection = false
         table.showsVerticalScrollIndicator = false
+        table.keyboardDismissMode = .onDrag
         table.tableFooterView = UIView()
         
-        table.register(SettingsCityCell.self, forCellReuseIdentifier: SettingsCityCell.reuseIdentifier)
+        table.register(CityCell.self, forCellReuseIdentifier: CityCell.reuseIdentifier)
         table.register(SearchCityCell.self, forCellReuseIdentifier: SearchCityCell.reuseIdentifier)
         table.register(SettingsCell.self, forCellReuseIdentifier: SettingsCell.reuseIdentifier)
     
