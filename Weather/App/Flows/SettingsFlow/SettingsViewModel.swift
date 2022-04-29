@@ -19,6 +19,9 @@ protocol SettingsViewModelProtocol: AnyObject {
     func makeSettingsCellViewModel(_ type: MetaType.Type) -> SettingsCellViewModelProtocol?
     
     func searchCity(city: String)
+    func addCity(for indexPath: IndexPath) -> Bool
+    func removeCity(for indexPath: IndexPath) -> Bool
+    func cancelSelection(for indexPath: IndexPath) -> Bool 
     
     func save()
     func moveItem(at sourceIndex: Int, to destinationIndex: Int)
@@ -79,8 +82,13 @@ extension SettingsViewModel: SettingsViewModelProtocol {
     func makeSearchCityCellViewModel(for indexPath: IndexPath) -> SearchCityCellViewModelProtocol? {
         if indexPath.row < searchResult.value.count {
             let city = searchResult.value[indexPath.row]
-            let cityData = SearchCityCellModel(city: city.name + ", " + city.country)
-            return SearchCityCellViewModel(city: cityData)
+            let str: String = city.localNames?.ru ?? city.name
+            let cityData = SearchCityCellModel(city: str + ", " + city.country)
+            let model = SearchCityCellViewModel(city: cityData)
+            if let settings = self.settings {
+                model.isSaved = settings.cities.contains(CityData(geocoding: city))
+            }
+            return model
         }
         return nil
     }
@@ -104,5 +112,49 @@ extension SettingsViewModel: SettingsViewModelProtocol {
                 }
             }
         }
+    }
+    
+    func addCity(for indexPath: IndexPath) -> Bool {
+        guard
+            let settings = self.settings,
+            let storage = self.storage,
+            indexPath.row < searchResult.value.count
+        else { return false }
+        
+        let city = CityData(geocoding: searchResult.value[indexPath.row])
+        if settings.add(city) {
+            storage.save(settings)
+            return true
+        }
+        return false
+    }
+    
+    func removeCity(for indexPath: IndexPath) -> Bool {
+        guard
+            let settings = self.settings,
+            let storage = self.storage,
+            indexPath.row < settings.cities.count
+        else { return false }
+        
+        if let _ = settings.remove(index: indexPath.row) {
+            storage.save(settings)
+            return true
+        }
+        return false
+    }
+    
+    func cancelSelection(for indexPath: IndexPath) -> Bool {
+        guard
+            let settings = self.settings,
+            let storage = self.storage,
+            indexPath.row < searchResult.value.count
+        else { return false }
+        
+        let city = CityData(geocoding: searchResult.value[indexPath.row])
+        if let _ = settings.remove(city: city) {
+            storage.save(settings)
+            return true
+        }
+        return false
     }
 }

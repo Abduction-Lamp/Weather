@@ -35,7 +35,7 @@ final class SettingsView: UIView {
         let table = UITableView(frame: .zero, style: .plain)
         table.translatesAutoresizingMaskIntoConstraints = false
         table.contentMode = .scaleToFill
-        table.separatorStyle = .singleLine
+        table.separatorStyle = .none
         table.isEditing = false
         table.allowsSelection = false
         table.showsVerticalScrollIndicator = false

@@ -25,14 +25,11 @@ final class SettingsViewController: UIViewController {
             DispatchQueue.main.async {
                 switch self.display {
                 case .cities:
-                    self.hidenSearchBar(isHidden: true)
-                    self.hideNavigationToolbar(isHidden: false)
+                    self.switchToCityMode()
                 case .search:
-                    self.hideNavigationToolbar(isHidden: true)
-                    self.hidenSearchBar(isHidden: false)
+                    self.switchToSearchMode()
                 case .settings:
-                    self.hideNavigationToolbar(isHidden: true)
-                    self.hidenSearchBar(isHidden: true)
+                    self.switchToSettingMode()
                 }
                 self.settingsView.table.reloadData()
             }
@@ -111,6 +108,65 @@ final class SettingsViewController: UIViewController {
         settingsView.searchBar.delegate = self
     }
 }
+ 
+
+
+// MARK: Support methods
+//
+extension SettingsViewController {
+
+    private func switchToCityMode() {
+        hidenSearchBar(isHidden: true)
+        hideNavigationToolbar(isHidden: false)
+        settingsView.table.allowsSelection = false
+        settingsView.table.isScrollEnabled = true
+    }
+    
+    private func switchToSearchMode() {
+        hideNavigationToolbar(isHidden: true)
+        hidenSearchBar(isHidden: false)
+        settingsView.table.allowsSelection = true
+        settingsView.table.isScrollEnabled = true
+    }
+    
+    private func switchToSettingMode() {
+        hideNavigationToolbar(isHidden: true)
+        hidenSearchBar(isHidden: true)
+        settingsView.table.allowsSelection = false
+        settingsView.table.isScrollEnabled = false
+    }
+    
+    private func hidenSearchBar(isHidden: Bool) {
+        if isHidden {
+            viewModel.searchCity(city: "")
+        }
+        settingsView.hidenSearchBar(isHiden: isHidden)
+    }
+    
+    private func hideNavigationToolbar(isHidden: Bool, animated: Bool = true) {
+        isTableEditing = false
+        navigationController?.setToolbarHidden(isHidden, animated: animated)
+    }
+    
+    private func switchTableEditMode(isEditing: Bool, animated: Bool = true) {
+        guard
+            let items = navigationController?.toolbar.items,
+            let searchButton = items.first,
+            let orderButton = items.last
+        else { return }
+            
+        settingsView.table.setEditing(isEditing, animated: animated)
+        switch settingsView.table.isEditing {
+        case true:
+            searchButton.isEnabled = false
+            orderButton.tintColor = .systemRed
+        case false:
+            searchButton.isEnabled = true
+            orderButton.tintColor = .systemBlue
+            viewModel.save()
+        }
+    }
+}
 
 
 // MARK: -  UITableViewDelegate & UITableViewDataSource
@@ -173,8 +229,34 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch display {
+        case .search:
+            guard
+                let cell = tableView.dequeueReusableCell(withIdentifier: SearchCityCell.reuseIdentifier) as? SearchCityCell,
+                let cellViewModel = viewModel.makeSearchCityCellViewModel(for: indexPath)
+            else { return }
+            cell.viewModel = cellViewModel
+            
+            if cellViewModel.isSaved {
+                if viewModel.cancelSelection(for: indexPath) {
+                    cell.viewModel?.isSaved = false
+                    DispatchQueue.main.async { tableView.reloadRows(at: [indexPath], with: .fade) }
+                }
+            } else  {
+                if viewModel.addCity(for: indexPath) {
+                    cell.viewModel?.isSaved = true
+                    DispatchQueue.main.async { tableView.reloadRows(at: [indexPath], with: .fade) }
+                }
+            }
+        default:
+            break
+        }
+    }
+    
+    
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .none
+        isTableEditing ? .delete : .none
     }
 
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -192,6 +274,12 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         if display == .cities {
             viewModel.moveItem(at: sourceIndexPath.row, to: destinationIndexPath.row)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete, viewModel.removeCity(for: indexPath) {
+            tableView.deleteRows(at: [indexPath], with: .fade)
         }
     }
 }
@@ -236,39 +324,5 @@ extension SettingsViewController {
     @objc
     func tapSearchButton(sender: UIBarButtonItem) {
         display = .search
-    }
-
-    
-    // MARK: Support actions methods
-    //
-    private func hidenSearchBar(isHidden: Bool) {
-        if isHidden {
-            viewModel.searchCity(city: "")
-        }
-        settingsView.hidenSearchBar(isHiden: isHidden)
-    }
-    
-    private func hideNavigationToolbar(isHidden: Bool, animated: Bool = true) {
-        isTableEditing = false
-        navigationController?.setToolbarHidden(isHidden, animated: animated)
-    }
-    
-    private func switchTableEditMode(isEditing: Bool, animated: Bool = true) {
-        guard
-            let items = navigationController?.toolbar.items,
-            let searchButton = items.first,
-            let orderButton = items.last
-        else { return }
-            
-        settingsView.table.setEditing(isEditing, animated: animated)
-        switch settingsView.table.isEditing {
-        case true:
-            searchButton.isEnabled = false
-            orderButton.tintColor = .systemRed
-        case false:
-            searchButton.isEnabled = true
-            orderButton.tintColor = .systemBlue
-            viewModel.save()
-        }
     }
 }

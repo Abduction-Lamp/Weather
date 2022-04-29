@@ -15,7 +15,7 @@ final class SearchCityCell: UITableViewCell {
         let imageView = UIImageView(image: image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .center
-        imageView.tintColor = .systemGray6
+        imageView.tintColor = .clear
         return imageView
     }()
     
@@ -33,6 +33,7 @@ final class SearchCityCell: UITableViewCell {
         willSet(viewModel) {
             guard let viewModel = viewModel else { return }
             city.text = viewModel.data.city
+            viewModel.isSaved ? (mark.tintColor = .systemRed) : (mark.tintColor = .systemGray6)
         }
     }
 
@@ -47,9 +48,11 @@ final class SearchCityCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("📛\tSearchCityCell init(coder:) has not been implemented")
     }
-
+    
     override func prepareForReuse() {
         city.text = nil
+        mark.tintColor = .clear
+        super.prepareForReuse()
     }
     
     

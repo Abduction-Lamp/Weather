@@ -42,6 +42,7 @@ final class SettingsCell: UITableViewCell {
         segmentControl.removeAllSegments()
         segmentControl.selectedSegmentIndex = 0
         viewModel = nil
+        super.prepareForReuse()
     }
 
     

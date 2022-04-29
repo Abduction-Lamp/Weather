@@ -10,18 +10,17 @@ import Foundation
 protocol SettingsProtocol {
     func move(at sourceIndex: Int, to destinationIndex: Int)
     func add(_ city: CityData) -> Bool
-    func remove(_ city: CityData) -> CityData?
+    func remove(city: CityData) -> CityData?
+    func remove(index: Int) -> CityData?
 }
 
 
 final class Settings: Codable {
-    
     var cities: [CityData]
     
     var temperature: Unit.Temperature
     var windSpeed: Unit.WindSpeed
     var pressure: Unit.Pressure
-    
     
     init() {
         cities = []
@@ -29,10 +28,8 @@ final class Settings: Codable {
         windSpeed = Unit.defaultValue.windSpeed
         pressure = Unit.defaultValue.pressure
     }
-    
-    
-
 }
+
 
 extension Settings: SettingsProtocol {
     
@@ -42,11 +39,15 @@ extension Settings: SettingsProtocol {
         return true
     }
     
-    func remove(_ city: CityData) -> CityData? {
+    func remove(city: CityData) -> CityData? {
         if let index = cities.firstIndex(of: city) {
             return cities.remove(at: index)
         }
         return nil
+    }
+    
+    func remove(index: Int) -> CityData? {
+        return cities.remove(at: index)
     }
     
     func move(at sourceIndex: Int, to destinationIndex: Int) {

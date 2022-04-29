@@ -22,7 +22,7 @@ final class CityCell: UITableViewCell {
     private lazy var icon: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = .scaleToFill
         imageView.tintColor = .black
         return imageView
     }()
@@ -62,9 +62,10 @@ final class CityCell: UITableViewCell {
         city.text = nil
         icon.image = nil
         temperature.text = nil
+        super.prepareForReuse()
     }
-    
-    
+
+
     // MARK: - Configure Content & Set Data
     //
     private func configureContent() {
@@ -72,7 +73,7 @@ final class CityCell: UITableViewCell {
         contentView.addSubview(city)
         contentView.addSubview(icon)
         contentView.addSubview(temperature)
-
+        
         icon.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -15.0).isActive = true
         icon.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
         icon.widthAnchor.constraint(equalToConstant: 25.0).isActive = true
@@ -85,7 +86,7 @@ final class CityCell: UITableViewCell {
 
         city.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
         city.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        city.leftAnchor.constraint(equalTo: leftAnchor, constant: 15.0).isActive = true
+        city.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 15.0).isActive = true
         city.rightAnchor.constraint(equalTo: temperature.leftAnchor, constant: -5.0).isActive = true
     }
 }

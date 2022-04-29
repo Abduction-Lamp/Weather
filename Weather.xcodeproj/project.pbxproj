@@ -181,7 +181,7 @@
 		4E6801CF280725A600337997 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				4EBA7CEE280B0F560084B586 /* SettingsCityCell */,
+				4EBA7CEE280B0F560084B586 /* CityCell */,
 				4E91A0742816D3C600A37732 /* SearchCityCell */,
 				4EBA7CEF280B0F740084B586 /* SettingsCell */,
 			);
@@ -402,14 +402,14 @@
 			path = SearchCityCell;
 			sourceTree = "<group>";
 		};
-		4EBA7CEE280B0F560084B586 /* SettingsCityCell */ = {
+		4EBA7CEE280B0F560084B586 /* CityCell */ = {
 			isa = PBXGroup;
 			children = (
 				4E9BDC3A2809A471007FDB7E /* CityCellModel.swift */,
 				4E9BDC382809A449007FDB7E /* CityCellViewModel.swift */,
 				4E9BDC362809A3FA007FDB7E /* CityCell.swift */,
 			);
-			path = SettingsCityCell;
+			path = CityCell;
 			sourceTree = "<group>";
 		};
 		4EBA7CEF280B0F740084B586 /* SettingsCell */ = {

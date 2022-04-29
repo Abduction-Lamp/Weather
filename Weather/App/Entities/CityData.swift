@@ -12,6 +12,20 @@ struct CityData: Codable {
     let rus: String
     let latitude: Double
     let longitude: Double
+    
+    init(eng: String, rus: String, latitude: Double, longitude: Double) {
+        self.eng = eng
+        self.rus = rus
+        self.latitude = latitude
+        self.longitude = longitude
+    }
+    
+    init(geocoding: GeocodingResponse) {
+        eng = geocoding.localNames?.en ?? geocoding.name
+        rus = geocoding.localNames?.ru ?? geocoding.name
+        latitude = geocoding.lat
+        longitude = geocoding.lon
+    }
 }
 
 
