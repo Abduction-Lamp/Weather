@@ -230,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				4E8F909228070DF5008E3BFA /* App */,
+				4E8F909428070E7D008E3BFA /* Security */,
 				4E2BC2C72808878000018EB3 /* Resources */,
 				4E7C33E52805A838006EBBE6 /* Info.plist */,
 			);
@@ -265,7 +266,6 @@
 		4E8F909228070DF5008E3BFA /* App */ = {
 			isa = PBXGroup;
 			children = (
-				4E8F909428070E7D008E3BFA /* Security */,
 				4E2BC2C8280887AD00018EB3 /* Core */,
 				4E8F9095280713B5008E3BFA /* Services */,
 				4E8F909128070DE6008E3BFA /* Flows */,
