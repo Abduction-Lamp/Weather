@@ -44,7 +44,7 @@ final class SettingsViewController: UIViewController {
         }
     }
     
-    private var viewModel: SettingsViewModelProtocol
+    private var viewModel: SettingsViewModelProtocol?
 
 
     
@@ -60,7 +60,7 @@ final class SettingsViewController: UIViewController {
     }
     
     deinit {
-        print("♻️\tDeinit SettingsViewController")
+        print("🗑\tDeinit SettingsViewController")
     }
     
     // MARK: Lifecycle
@@ -72,16 +72,21 @@ final class SettingsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.searchResult.bind { _ in
+        viewModel?.searchResult.bind { _ in
             DispatchQueue.main.async {
                 self.settingsView.table.reloadData()
             }
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        viewModel?.save()
+    }
+    
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        viewModel.save()
+        viewModel = nil
     }
     
     
@@ -138,7 +143,7 @@ extension SettingsViewController {
     
     private func hidenSearchBar(isHidden: Bool) {
         if isHidden {
-            viewModel.searchCity(city: "")
+            viewModel?.searchCity(city: "")
         }
         settingsView.hidenSearchBar(isHiden: isHidden)
     }
@@ -163,7 +168,7 @@ extension SettingsViewController {
         case false:
             searchButton.isEnabled = true
             orderButton.tintColor = .systemBlue
-            viewModel.save()
+            viewModel?.save()
         }
     }
 }
@@ -178,7 +183,8 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var numberOfRows: Int!
+        guard let viewModel = self.viewModel else { return 0 }
+        var numberOfRows: Int = 0
         switch display {
         case .cities:
             numberOfRows = viewModel.numberOfRows()
@@ -200,7 +206,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: CityCell.reuseIdentifier) as? CityCell else {
                 return UITableViewCell()
             }
-            cell.viewModel = viewModel.makeCityCellViewModel(for: indexPath)
+            cell.viewModel = viewModel?.makeCityCellViewModel(for: indexPath)
             return cell
             
         case .settings:
@@ -209,11 +215,11 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             }
             switch indexPath.row {
             case 0:
-                cell.viewModel = viewModel.makeSettingsCellViewModel(Unit.Temperature.self)
+                cell.viewModel = viewModel?.makeSettingsCellViewModel(Unit.Temperature.self)
             case 1:
-                cell.viewModel = viewModel.makeSettingsCellViewModel(Unit.WindSpeed.self)
+                cell.viewModel = viewModel?.makeSettingsCellViewModel(Unit.WindSpeed.self)
             case 2:
-                cell.viewModel = viewModel.makeSettingsCellViewModel(Unit.Pressure.self)
+                cell.viewModel = viewModel?.makeSettingsCellViewModel(Unit.Pressure.self)
             default:
                 return UITableViewCell()
             }
@@ -223,7 +229,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: SearchCityCell.reuseIdentifier) as? SearchCityCell else {
                 return UITableViewCell()
             }
-            cell.viewModel = viewModel.makeSearchCityCellViewModel(for: indexPath)
+            cell.viewModel = viewModel?.makeSearchCityCellViewModel(for: indexPath)
             return cell
         }
     }
@@ -234,7 +240,8 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         case .search:
             guard
                 let cell = tableView.dequeueReusableCell(withIdentifier: SearchCityCell.reuseIdentifier) as? SearchCityCell,
-                let cellViewModel = viewModel.makeSearchCityCellViewModel(for: indexPath)
+                let cellViewModel = viewModel?.makeSearchCityCellViewModel(for: indexPath),
+                let viewModel = self.viewModel
             else { return }
             cell.viewModel = cellViewModel
             
@@ -273,11 +280,12 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         if display == .cities {
-            viewModel.moveItem(at: sourceIndexPath.row, to: destinationIndexPath.row)
+            viewModel?.moveItem(at: sourceIndexPath.row, to: destinationIndexPath.row)
         }
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard let viewModel = self.viewModel else { return }
         if editingStyle == .delete, viewModel.removeCity(for: indexPath) {
             tableView.deleteRows(at: [indexPath], with: .fade)
         }
@@ -290,7 +298,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
 extension SettingsViewController: UISearchBarDelegate {
 
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        viewModel.searchCity(city: searchText)
+        viewModel?.searchCity(city: searchText)
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

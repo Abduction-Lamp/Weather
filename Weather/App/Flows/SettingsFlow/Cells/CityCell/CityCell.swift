@@ -37,7 +37,7 @@ final class CityCell: UITableViewCell {
     }()
 
     
-    weak var viewModel: CityCellViewModelProtocol? {
+    var viewModel: CityCellViewModelProtocol? {
         willSet(viewModel) {
             guard let viewModel = viewModel else { return }
             city.text = viewModel.data.city
@@ -62,6 +62,7 @@ final class CityCell: UITableViewCell {
         city.text = nil
         icon.image = nil
         temperature.text = nil
+        viewModel = nil
         super.prepareForReuse()
     }
 

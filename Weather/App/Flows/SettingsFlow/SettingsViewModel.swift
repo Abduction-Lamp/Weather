@@ -42,7 +42,7 @@ final class SettingsViewModel {
     }
     
     deinit {
-        print("♻️\tDeinit SettingsViewModel")
+        print("😻\tDeinit SettingsViewModel")
     }
     
     var searchResult = Bindable<[GeocodingResponse]>([])

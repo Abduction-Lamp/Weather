@@ -29,7 +29,7 @@ final class SearchCityCell: UITableViewCell {
     }()
 
     
-    weak var viewModel: SearchCityCellViewModelProtocol? {
+    var viewModel: SearchCityCellViewModelProtocol? {
         willSet(viewModel) {
             guard let viewModel = viewModel else { return }
             city.text = viewModel.data.city
@@ -52,6 +52,7 @@ final class SearchCityCell: UITableViewCell {
     override func prepareForReuse() {
         city.text = nil
         mark.tintColor = .clear
+        viewModel = nil
         super.prepareForReuse()
     }
     
