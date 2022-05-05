@@ -41,26 +41,28 @@ final class HomeViewController: UIPageViewController {
             switch response {
             case .success(let result):
                 self.settings = result
-                print(self.settings.cities)
+//                print(self.settings.cities)
+                self.makeList()
             case .failure(let error):
                 print(error)
                 self.settings = self.storage.reset()
                 let city = CityData(eng: "Moscow", rus: "Москва", latitude: 55.7504461, longitude: 37.6174943)
+                self.makeList()
                 self.settings.cities.append(city)
                 self.storage.save(self.settings)
             }
         }
     }
     
-    private var listOfCities = [
-        WeatherViewController(city: "Москва"),
-        WeatherViewController(city: "Санкт-Петербург"),
-        WeatherViewController(city: "Ялта"),
-        WeatherViewController(city: "Киев"),
-        WeatherViewController(city: "Владивосток"),
-        WeatherViewController(city: "Лондон"),
-        WeatherViewController(city: "Турин")
-    ]
+    private var listOfCities: [WeatherViewController] = []
+//        WeatherViewController(city: "Москва"),
+//        WeatherViewController(city: "Санкт-Петербург"),
+//        WeatherViewController(city: "Ялта"),
+//        WeatherViewController(city: "Киев"),
+//        WeatherViewController(city: "Владивосток"),
+//        WeatherViewController(city: "Лондон"),
+//        WeatherViewController(city: "Турин")
+//    ]
     private var currentPageIndex = 0
     
     
@@ -72,7 +74,7 @@ final class HomeViewController: UIPageViewController {
         delegate = self
         dataSource = self
 
-        setViewControllers([listOfCities[0]], direction: .forward, animated: true, completion: nil)
+//        setViewControllers([listOfCities[0]], direction: .forward, animated: true, completion: nil)
         
         settingsButton.addTarget(self, action: #selector(tapSettingsButton(sender:)), for: .touchUpInside)
         placementUI()
@@ -88,6 +90,18 @@ final class HomeViewController: UIPageViewController {
         settingsButton.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -padding.right).isActive = true
         settingsButton.widthAnchor.constraint(equalToConstant: size.width).isActive = true
         settingsButton.heightAnchor.constraint(equalToConstant: size.height).isActive = true
+    }
+    
+    private func makeList() {
+        for city in settings.cities {
+            let viewModel = WeatherViewModel(city: city)
+            listOfCities.append(WeatherViewController(viewModel: viewModel))
+        }
+        if !settings.cities.isEmpty {
+            DispatchQueue.main.async {
+                self.setViewControllers([self.listOfCities[0]], direction: .forward, animated: true, completion: nil)
+            }
+        }
     }
 }
 
@@ -140,3 +154,5 @@ extension HomeViewController {
         self.present(navigationVC, animated: true, completion: nil)
     }
 }
+
+

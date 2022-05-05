@@ -16,14 +16,14 @@ final class WeatherViewController: UIViewController {
         return view
     }
     
-    public var city: String
-
+    private var viewModel: WeatherViewModelProtocol?
+    
     
     
     // MARK: - Initiation
     //
-    init(city: String) {
-        self.city = city
+    init(viewModel: WeatherViewModelProtocol) {
+        self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -38,6 +38,27 @@ final class WeatherViewController: UIViewController {
         super.loadView()
         
         view = WeatherView(frame: view.frame)
-        weatherView.city.text = city
+        weatherView.city.text = viewModel?.city.rus
+        
+        viewModel?.weather.bind { weather in
+            guard let weather = weather else { return }
+            if let temp = weather.current?.temp,
+               let city = self.viewModel?.city.rus {
+                DispatchQueue.main.async {
+                    self.weatherView.city.text = "\(city) \(temp)"
+                }
+            }
+        }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+            
+        viewModel?.feach()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
     }
 }

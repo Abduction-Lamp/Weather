@@ -45,7 +45,7 @@ final class Network: NetworkServiceProtocol {
     /// - Для температуры в градусах Цельсия и скорости ветра в метрах/сек используйте единицы измерения units = "metric"
     /// - Температура в Кельвинах и скорость ветра в метрах / сек используются по умолчанию units = "standard"
     ///
-    func getWeatherOneCall(lat: Double, lon: Double, units: String, lang: String,
+    func getWeatherOneCall(lat: Double, lon: Double, units: String = "metric", lang: String = "ru",
                            completed: @escaping (Result<OneCallResponse, NetworkResponseError>) -> Void) {
         if let url = makeUrl(request: OneCallRequest(lat: lat, lon: lon, units: units, lang: lang)) {
             fetchData(from: url) { response in completed(response) }
