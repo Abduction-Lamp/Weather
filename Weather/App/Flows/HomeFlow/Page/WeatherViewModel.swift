@@ -19,8 +19,11 @@ final class WeatherViewModel: WeatherViewModelProtocol {
     var city: CityData
     var weather = Bindable<OneCallResponse?>(nil)
     
-    init(city: CityData) {
+    private weak var network: NetworkServiceProtocol?
+    
+    init(city: CityData, network: NetworkServiceProtocol) {
         self.city = city
+        self.network = network
     }
     
     deinit {
@@ -29,7 +32,7 @@ final class WeatherViewModel: WeatherViewModelProtocol {
     
     
     func feach() {
-        Network().getWeatherOneCall(lat: city.latitude, lon: city.longitude) { [weak self] response in
+        network?.getWeatherOneCall(lat: city.latitude, lon: city.longitude, units: "metric", lang: "ru") { [weak self] response in
             switch response {
             case .success(let result):
                 self?.weather.value = result
