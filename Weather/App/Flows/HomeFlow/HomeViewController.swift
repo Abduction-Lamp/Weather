@@ -94,7 +94,7 @@ final class HomeViewController: UIPageViewController {
     
     private func makeList() {
         for city in settings.cities {
-            let viewModel = WeatherViewModel(city: city)
+            let viewModel = WeatherViewModel(city: city, network: network)
             listOfCities.append(WeatherViewController(viewModel: viewModel))
         }
         if !settings.cities.isEmpty {
