@@ -52,7 +52,7 @@ final class SettingsViewModel {
 extension SettingsViewModel: SettingsViewModelProtocol {
     
     func numberOfRows() -> Int {
-        return settings?.cities.count ?? 0
+        return settings?.cities.value.count ?? 0
     }
 
     func numberOfRowsSearchResult() -> Int {
@@ -70,9 +70,9 @@ extension SettingsViewModel: SettingsViewModelProtocol {
     
     func makeCityCellViewModel(for indexPath: IndexPath) -> CityCellViewModelProtocol? {
         guard
-            let count = settings?.cities.count,
+            let count = settings?.cities.value.count,
             indexPath.row < count,
-            let city = settings?.cities[indexPath.row]
+            let city = settings?.cities.value[indexPath.row]
         else { return nil }
         
         let cityData = CityCellModel(city: city.rus, icon: "", temperature: "17")
@@ -86,7 +86,7 @@ extension SettingsViewModel: SettingsViewModelProtocol {
             let cityData = SearchCityCellModel(city: str + ", " + city.country)
             let model = SearchCityCellViewModel(city: cityData)
             if let settings = self.settings {
-                model.isSaved = settings.cities.contains(CityData(geocoding: city))
+                model.isSaved = settings.cities.value.contains(CityData(geocoding: city))
             }
             return model
         }
@@ -133,7 +133,7 @@ extension SettingsViewModel: SettingsViewModelProtocol {
         guard
             let settings = self.settings,
             let storage = self.storage,
-            indexPath.row < settings.cities.count
+            indexPath.row < settings.cities.value.count
         else { return false }
         
         if let _ = settings.remove(index: indexPath.row) {

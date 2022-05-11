@@ -7,46 +7,78 @@
 
 import Foundation
 
-final class Settings: Codable {
-    var cities: [CityData]
+final class Settings {
     
-    var temperature: Unit.Temperature
-    var windSpeed: Unit.WindSpeed
-    var pressure: Unit.Pressure
+    var cities: Bindable<[CityData]>
+    
+    var temperature: Bindable<Unit.Temperature>
+    var windSpeed: Bindable<Unit.WindSpeed>
+    var pressure: Bindable<Unit.Pressure>
+    
     
     init() {
-        cities = []
-        temperature = Unit.defaultValue.temperature
-        windSpeed = Unit.defaultValue.windSpeed
-        pressure = Unit.defaultValue.pressure
+        cities = Bindable<[CityData]>([])
+        
+        temperature = Bindable<Unit.Temperature>(Unit.defaultValue.temperature)
+        windSpeed = Bindable<Unit.WindSpeed>(Unit.defaultValue.windSpeed)
+        pressure = Bindable<Unit.Pressure>(Unit.defaultValue.pressure)
     }
+
     
     func add(_ city: CityData) -> Bool {
-        if cities.contains(city) { return false }
-        cities.append(city)
+        if cities.value.contains(city) { return false }
+        cities.value.append(city)
         return true
     }
     
     func remove(city: CityData) -> CityData? {
-        if let index = cities.firstIndex(of: city) {
-            return cities.remove(at: index)
+        if let index = cities.value.firstIndex(of: city) {
+            return cities.value.remove(at: index)
         }
         return nil
     }
     
     func remove(index: Int) -> CityData? {
-        return cities.remove(at: index)
+        return cities.value.remove(at: index)
     }
     
     func move(at sourceIndex: Int, to destinationIndex: Int) {
         guard
             sourceIndex != destinationIndex,
-            sourceIndex >= 0, sourceIndex < cities.count,
-            destinationIndex >= 0, destinationIndex < cities.count
+            sourceIndex >= 0, sourceIndex < cities.value.count,
+            destinationIndex >= 0, destinationIndex < cities.value.count
         else { return }
         
-        let city = cities[sourceIndex]
-        cities.remove(at: sourceIndex)
-        cities.insert(city, at: destinationIndex)
+        let city = cities.value[sourceIndex]
+        cities.value.remove(at: sourceIndex)
+        cities.value.insert(city, at: destinationIndex)
+    }
+}
+
+
+extension Settings: Codable {
+    
+    enum CodingKeys: String, CodingKey {
+        case cities, temperature, windSpeed, pressure
+    }
+    
+    
+    convenience init(from decoder: Decoder) throws {
+        self.init()
+        
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        
+        cities.value = try values.decode([CityData].self, forKey: .cities)
+        temperature.value = try values.decode(Unit.Temperature.self, forKey: .temperature)
+        windSpeed.value = try values.decode(Unit.WindSpeed.self, forKey: .windSpeed)
+        pressure.value = try values.decode(Unit.Pressure.self, forKey: .pressure)
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(cities.value, forKey: .cities)
+        try container.encode(temperature.value, forKey: .temperature)
+        try container.encode(windSpeed.value, forKey: .windSpeed)
+        try container.encode(pressure.value, forKey: .pressure)
     }
 }
