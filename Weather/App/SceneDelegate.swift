@@ -17,6 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var homeViewModel: HomeViewModelProtocol?
 
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
     
@@ -25,12 +26,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             case .success(let result):
                 self.settings = result
             case .failure(let error):
-                print(error.localizedDescription)
+                print(error)
             }
             
-            self.homeViewModel = HomeViewModel(settings: self.settings, storage: self.storage, network: self.network)
-            if let viewModel = self.homeViewModel {
-                DispatchQueue.main.sync {
+            DispatchQueue.main.sync {
+                self.homeViewModel = HomeViewModel(settings: self.settings, storage: self.storage, network: self.network)
+                if let viewModel = self.homeViewModel {
+                    
                     let homeVC = HomeViewController(viewModel: viewModel)
                     let window = UIWindow(windowScene: windowScene)
                     window.rootViewController = homeVC

@@ -36,6 +36,16 @@ final class HomeViewController: UIPageViewController {
     override func loadView() {
         super.loadView()
         configureUI()
+        
+        viewModel.pages.bind { [weak self] pages in
+            guard let self = self else { return }
+            self.currentPageIndex = 0
+            if pages.isEmpty {
+                self.setViewControllers([], direction: .forward, animated: false, completion: nil)
+            } else {
+                self.setViewControllers([pages[self.currentPageIndex]], direction: .forward, animated: false, completion: nil)
+            }
+        }
     }
 
     private func configureUI() {
@@ -46,8 +56,7 @@ final class HomeViewController: UIPageViewController {
         dataSource = self
 
         settingsButton.addTarget(self, action: #selector(tapSettingsButton(sender:)), for: .touchUpInside)
-        
-        reloadPages()
+    
         placementUI()
     }
     
@@ -61,13 +70,6 @@ final class HomeViewController: UIPageViewController {
         settingsButton.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -padding.right).isActive = true
         settingsButton.widthAnchor.constraint(equalToConstant: size.width).isActive = true
         settingsButton.heightAnchor.constraint(equalToConstant: size.height).isActive = true
-    }
-    
-    private func reloadPages() {
-        viewModel.pagemaker()
-        if !viewModel.pages.value.isEmpty {
-            setViewControllers([viewModel.pages.value[0]], direction: .forward, animated: true, completion: nil)
-        }
     }
 }
 
