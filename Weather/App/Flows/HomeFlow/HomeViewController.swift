@@ -17,66 +17,37 @@ final class HomeViewController: UIPageViewController {
         return button
     }()
     
+    private var currentPageIndex = 0
+    var viewModel: HomeViewModelProtocol
+
     
+    init(viewModel: HomeViewModelProtocol) {
+        self.viewModel = viewModel
+        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("📛\tHomeViewController init(coder:) has not been implemented")
+    }
+    
+    
+    // MARK: - Lifecycle
+    //
     override func loadView() {
         super.loadView()
         configureUI()
     }
 
-    var storage = Storage()
-    var network = Network()
-    
-    
-    var settings = Settings()
-
-    
-    
-    // MARK: - Lifecycle
-    //
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        storage.featch { [weak self] response in
-            guard let self = self else { return }
-            switch response {
-            case .success(let result):
-                self.settings = result
-//                print(self.settings.cities)
-                self.makeList()
-            case .failure(let error):
-                print(error)
-                self.settings = self.storage.reset()
-                let city = CityData(eng: "Moscow", rus: "Москва", latitude: 55.7504461, longitude: 37.6174943)
-                self.makeList()
-                self.settings.cities.append(city)
-                self.storage.save(self.settings)
-            }
-        }
-    }
-    
-    private var listOfCities: [WeatherViewController] = []
-//        WeatherViewController(city: "Москва"),
-//        WeatherViewController(city: "Санкт-Петербург"),
-//        WeatherViewController(city: "Ялта"),
-//        WeatherViewController(city: "Киев"),
-//        WeatherViewController(city: "Владивосток"),
-//        WeatherViewController(city: "Лондон"),
-//        WeatherViewController(city: "Турин")
-//    ]
-    private var currentPageIndex = 0
-    
-    
     private func configureUI() {
         view.backgroundColor = .black
-        
         view.addSubview(settingsButton)
         
         delegate = self
         dataSource = self
 
-//        setViewControllers([listOfCities[0]], direction: .forward, animated: true, completion: nil)
-        
         settingsButton.addTarget(self, action: #selector(tapSettingsButton(sender:)), for: .touchUpInside)
+        
+        reloadPages()
         placementUI()
     }
     
@@ -92,19 +63,13 @@ final class HomeViewController: UIPageViewController {
         settingsButton.heightAnchor.constraint(equalToConstant: size.height).isActive = true
     }
     
-    private func makeList() {
-        for city in settings.cities {
-            let viewModel = WeatherViewModel(city: city, network: network)
-            listOfCities.append(WeatherViewController(viewModel: viewModel))
-        }
-        if !settings.cities.isEmpty {
-            DispatchQueue.main.async {
-                self.setViewControllers([self.listOfCities[0]], direction: .forward, animated: true, completion: nil)
-            }
+    private func reloadPages() {
+        viewModel.pagemaker()
+        if !viewModel.pages.value.isEmpty {
+            setViewControllers([viewModel.pages.value[0]], direction: .forward, animated: true, completion: nil)
         }
     }
 }
-
 
 
 extension HomeViewController: UIPageViewControllerDelegate, UIPageViewControllerDataSource {
@@ -113,29 +78,29 @@ extension HomeViewController: UIPageViewControllerDelegate, UIPageViewController
                             viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard
             let current = viewController as? WeatherViewController,
-            let index = listOfCities.firstIndex(of: current)
+            let index = viewModel.pages.value.firstIndex(of: current)
         else { return nil }
         
         currentPageIndex = index
         guard index > 0 else { return nil }
-        return listOfCities[index - 1]
+        return viewModel.pages.value[index - 1]
     }
     
     func pageViewController(_ pageViewController: UIPageViewController,
                             viewControllerAfter viewController: UIViewController) -> UIViewController? {
         guard
             let current = viewController as? WeatherViewController,
-            let index = listOfCities.firstIndex(of: current)
+            let index = viewModel.pages.value.firstIndex(of: current)
         else { return nil }
 
         currentPageIndex = index
-        guard index < (listOfCities.count - 1) else { return nil }
-        return listOfCities[index + 1]
+        guard index < (viewModel.pages.value.count - 1) else { return nil }
+        return viewModel.pages.value[index + 1]
     }
     
     
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        return listOfCities.count
+        return viewModel.pages.value.count
     }
 
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
@@ -148,11 +113,10 @@ extension HomeViewController {
     
     @objc
     func tapSettingsButton(sender: UIButton) {
-        let settingsViewModel = SettingsViewModel(settings: settings, storage: storage, network: network)
-        let settingsViewController = SettingsViewController(viewModel: settingsViewModel)
-        let navigationVC = UINavigationController(rootViewController: settingsViewController)
-        self.present(navigationVC, animated: true, completion: nil)
+        if let settingsViewModel = viewModel.makeSettingsViewModel() {
+            let settingsViewController = SettingsViewController(viewModel: settingsViewModel)
+            let navigationVC = UINavigationController(rootViewController: settingsViewController)
+            self.present(navigationVC, animated: true, completion: nil)
+        }
     }
 }
-
-

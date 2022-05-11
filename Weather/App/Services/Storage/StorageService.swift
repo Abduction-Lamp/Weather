@@ -37,7 +37,6 @@ final class Storage: StorageServiceProtocol {
             do {
                 let data = try JSONEncoder().encode(settings)
                 UserDefaults.standard.set(data, forKey: AppKeys.shared.settings)
-                print("ok")
             } catch {
                 DispatchQueue.main.async {
                     print(error.localizedDescription)

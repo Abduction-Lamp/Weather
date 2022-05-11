@@ -48,6 +48,7 @@
 		4E9BDC372809A3FA007FDB7E /* CityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BDC362809A3FA007FDB7E /* CityCell.swift */; };
 		4E9BDC392809A449007FDB7E /* CityCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BDC382809A449007FDB7E /* CityCellViewModel.swift */; };
 		4E9BDC3B2809A471007FDB7E /* CityCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E9BDC3A2809A471007FDB7E /* CityCellModel.swift */; };
+		4EA25624282463950066FEEE /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EA25623282463950066FEEE /* HomeViewModel.swift */; };
 		4EBA7CF1280B0FA30084B586 /* SettingsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA7CF0280B0FA30084B586 /* SettingsCell.swift */; };
 		4EBA7CF3280B11AE0084B586 /* SettingsCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA7CF2280B11AE0084B586 /* SettingsCellModel.swift */; };
 		4EBA7CF5280B12290084B586 /* SettingsCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA7CF4280B12290084B586 /* SettingsCellViewModel.swift */; };
@@ -119,6 +120,7 @@
 		4E9BDC362809A3FA007FDB7E /* CityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCell.swift; sourceTree = "<group>"; };
 		4E9BDC382809A449007FDB7E /* CityCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCellViewModel.swift; sourceTree = "<group>"; };
 		4E9BDC3A2809A471007FDB7E /* CityCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityCellModel.swift; sourceTree = "<group>"; };
+		4EA25623282463950066FEEE /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
 		4EBA7CF0280B0FA30084B586 /* SettingsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCell.swift; sourceTree = "<group>"; };
 		4EBA7CF2280B11AE0084B586 /* SettingsCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCellModel.swift; sourceTree = "<group>"; };
 		4EBA7CF4280B12290084B586 /* SettingsCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCellViewModel.swift; sourceTree = "<group>"; };
@@ -193,6 +195,7 @@
 		4E6801D528072F6500337997 /* HomeFlow */ = {
 			isa = PBXGroup;
 			children = (
+				4EA25623282463950066FEEE /* HomeViewModel.swift */,
 				4E7C33DB2805A835006EBBE6 /* HomeViewController.swift */,
 				4E6801D628072F8000337997 /* Page */,
 			);
@@ -558,6 +561,7 @@
 				4E8F909928071452008E3BFA /* StorageService.swift in Sources */,
 				4E91A0542816C80F00A37732 /* GeocodingRequest.swift in Sources */,
 				4E8F908A2806F448008E3BFA /* Settings.swift in Sources */,
+				4EA25624282463950066FEEE /* HomeViewModel.swift in Sources */,
 				4EFF9EB928183674002A0FC6 /* SearchCityCellViewModel.swift in Sources */,
 				4E8F90882806DC42008E3BFA /* WeatherView.swift in Sources */,
 				4E91A0642816D01500A37732 /* SnowResponse.swift in Sources */,

@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol WeatherViewModelProtocol {
+protocol WeatherViewModelProtocol: AnyObject {
     var city: CityData { get }
     var weather: Bindable<OneCallResponse?> { get }
     
