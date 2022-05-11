@@ -7,14 +7,6 @@
 
 import Foundation
 
-protocol SettingsProtocol {
-    func move(at sourceIndex: Int, to destinationIndex: Int)
-    func add(_ city: CityData) -> Bool
-    func remove(city: CityData) -> CityData?
-    func remove(index: Int) -> CityData?
-}
-
-
 final class Settings: Codable {
     var cities: [CityData]
     
@@ -28,10 +20,6 @@ final class Settings: Codable {
         windSpeed = Unit.defaultValue.windSpeed
         pressure = Unit.defaultValue.pressure
     }
-}
-
-
-extension Settings: SettingsProtocol {
     
     func add(_ city: CityData) -> Bool {
         if cities.contains(city) { return false }

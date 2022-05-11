@@ -10,16 +10,35 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    
+    var settings = Settings()
+    var storage = Storage()
+    var network = Network()
+    
+    var homeViewModel: HomeViewModelProtocol?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
     
-        let homeVC = HomeViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
-        let window = UIWindow(windowScene: windowScene)
-        window.rootViewController = homeVC
-        self.window = window
-        window.makeKeyAndVisible()
+        storage.featch { response in
+            switch response {
+            case .success(let result):
+                self.settings = result
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+            
+            self.homeViewModel = HomeViewModel(settings: self.settings, storage: self.storage, network: self.network)
+            if let viewModel = self.homeViewModel {
+                DispatchQueue.main.sync {
+                    let homeVC = HomeViewController(viewModel: viewModel)
+                    let window = UIWindow(windowScene: windowScene)
+                    window.rootViewController = homeVC
+                    self.window = window
+                    window.makeKeyAndVisible()
+                }
+            }
+        }
     }
 
     
@@ -50,7 +69,5 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
-
 }
 
