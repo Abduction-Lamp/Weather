@@ -19,6 +19,13 @@ protocol NetworkServiceProtocol: AnyObject {
 
 final class Network: NetworkServiceProtocol {
     
+    private let session: URLSessionProtocol
+
+    init(session: URLSessionProtocol = URLSession.shared) {
+        self.session = session
+    }
+    
+    
     // MARK: - Coordinates By Location Name
     ///
     /// Возвращает координаты запрошенного города
@@ -72,10 +79,6 @@ extension Network {
     private func fetchData<ResponseType>(from url: URL,
                                          completed: @escaping (Result<ResponseType, NetworkResponseError>) -> Void) where ResponseType: Decodable {
         
-        let config = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = 20
-        let session = URLSession(configuration: config)
-
         session.dataTask(with: url) { (data, response, error) in
             if let error = error {
                 completed(.failure(.error(message: error.localizedDescription)))
