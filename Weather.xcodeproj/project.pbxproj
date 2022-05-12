@@ -77,6 +77,9 @@
 /* Begin PBXFileReference section */
 		4E2BC2C028087E2B00018EB3 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		4E2BC2C9280887F800018EB3 /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
+		4E4F6C29282D3BC6007BAE62 /* Unit.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Unit.xctestplan; sourceTree = "<group>"; };
+		4E4F6C2A282D3BE9007BAE62 /* UI.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = UI.xctestplan; sourceTree = "<group>"; };
+		4E4F6C2B282D3C24007BAE62 /* Full.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Full.xctestplan; sourceTree = "<group>"; };
 		4E50766D2822CA8E001B7E04 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
 		4E6801D1280725C200337997 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		4E6801D32807266400337997 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
@@ -171,6 +174,16 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
+		4E4F6C28282D3AD6007BAE62 /* WeatherTestPlans */ = {
+			isa = PBXGroup;
+			children = (
+				4E4F6C2B282D3C24007BAE62 /* Full.xctestplan */,
+				4E4F6C29282D3BC6007BAE62 /* Unit.xctestplan */,
+				4E4F6C2A282D3BE9007BAE62 /* UI.xctestplan */,
+			);
+			path = WeatherTestPlans;
+			sourceTree = "<group>";
+		};
 		4E6801CC2807257100337997 /* SettingsFlow */ = {
 			isa = PBXGroup;
 			children = (
@@ -216,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				4E7C33D62805A835006EBBE6 /* Weather */,
+				4E4F6C28282D3AD6007BAE62 /* WeatherTestPlans */,
 				4E7C33ED2805A839006EBBE6 /* WeatherTests */,
 				4E7C33F72805A839006EBBE6 /* WeatherUITests */,
 				4E7C33D52805A835006EBBE6 /* Products */,

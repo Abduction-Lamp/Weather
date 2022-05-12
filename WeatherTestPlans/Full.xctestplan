@@ -1,0 +1,36 @@
+{
+  "configurations" : [
+    {
+      "id" : "172ACFD7-0659-43F0-A4FC-5A73F0C7F822",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : false,
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:Weather.xcodeproj",
+      "identifier" : "4E7C33D32805A835006EBBE6",
+      "name" : "Weather"
+    }
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:Weather.xcodeproj",
+        "identifier" : "4E7C33E92805A839006EBBE6",
+        "name" : "WeatherTests"
+      }
+    },
+    {
+      "target" : {
+        "containerPath" : "container:Weather.xcodeproj",
+        "identifier" : "4E7C33F32805A839006EBBE6",
+        "name" : "WeatherUITests"
+      }
+    }
+  ],
+  "version" : 1
+}
