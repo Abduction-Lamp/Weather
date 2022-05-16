@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GeocodingResponse: Decodable {
+struct GeocodingResponse: Codable {
     let name: String
     let localNames: LocalNames?
     let country: String
@@ -25,7 +25,7 @@ struct GeocodingResponse: Decodable {
     }
     
     
-    struct LocalNames: Decodable {
+    struct LocalNames: Codable {
         let featureName: String?
         let ascii: String?
         let ru: String?

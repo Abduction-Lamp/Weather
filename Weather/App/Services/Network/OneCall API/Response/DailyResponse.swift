@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct DailyResponse: Decodable {
+struct DailyResponse: Codable {
     let time: TimeInterval              // Время прогнозируемых данных, Unix, UTC
     let sunrise: TimeInterval           // Время восхода солнца, Unix, UTC
     let sunset: TimeInterval            // Время захода Солнца, Unix, UTC
@@ -50,5 +50,32 @@ struct DailyResponse: Decodable {
         case rain
         case snow
         case weather
+    }
+}
+
+
+extension DailyResponse: Equatable {
+    
+    static func == (lhs: DailyResponse, rhs: DailyResponse) -> Bool {
+        lhs.time == rhs.time &&
+        lhs.sunrise == rhs.sunrise &&
+        lhs.sunset == rhs.sunset &&
+        lhs.moonrise == rhs.moonrise &&
+        lhs.moonset == rhs.moonset &&
+        lhs.moonPhase == rhs.moonPhase &&
+        lhs.temp == rhs.temp &&
+        lhs.feelsLike == rhs.feelsLike &&
+        lhs.pressure == rhs.pressure &&
+        lhs.humidity == rhs.humidity &&
+        lhs.dewPoint == rhs.dewPoint &&
+        lhs.windSpeed == rhs.windSpeed &&
+        lhs.windGust == rhs.windGust &&
+        lhs.windDeg == rhs.windDeg &&
+        lhs.uvi == rhs.uvi &&
+        lhs.clouds == rhs.clouds &&
+        lhs.pop == rhs.pop &&
+        lhs.rain == rhs.rain &&
+        lhs.snow == rhs.snow &&
+        lhs.weather == rhs.weather
     }
 }
