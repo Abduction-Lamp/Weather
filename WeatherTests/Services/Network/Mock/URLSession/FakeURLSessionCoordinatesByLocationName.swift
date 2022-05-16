@@ -1,14 +1,14 @@
 //
-//  FakeURLSession.swift
+//  FakeURLSessionCoordinatesByLocationName.swift
 //  WeatherTests
 //
-//  Created by Владимир on 13.05.2022.
+//  Created by Владимир on 16.05.2022.
 //
 
 import Foundation
 @testable import Weather
 
-class FakeURLSession: URLSessionProtocol {
+class FakeURLSessionCoordinatesByLocationName: URLSessionProtocol {
     
     let fakeURLs = FakeURL()
     
@@ -17,7 +17,7 @@ class FakeURLSession: URLSessionProtocol {
         
         // MARK: - Success
         if fakeURLs.excitesData.absoluteString.contains(url.absoluteString) {
-            let data = FakeWheather.init().data
+            let data = FakeCities.init().data
             let response = HTTPURLResponse.init(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
             
             completionHandler(data, response, nil)

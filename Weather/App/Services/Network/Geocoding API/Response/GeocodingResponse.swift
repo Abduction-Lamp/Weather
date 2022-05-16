@@ -39,3 +39,26 @@ struct GeocodingResponse: Codable {
         }
     }
 }
+
+
+extension GeocodingResponse: Equatable {
+    
+    static func == (lhs: GeocodingResponse, rhs: GeocodingResponse) -> Bool {
+        lhs.name == rhs.name &&
+        lhs.localNames == rhs.localNames &&
+        lhs.country == rhs.country &&
+        lhs.state == rhs.state &&
+        lhs.lat == rhs.lat &&
+        lhs.lon == rhs.lon
+    }
+}
+
+extension GeocodingResponse.LocalNames: Equatable {
+    
+    static func == (lhs: GeocodingResponse.LocalNames, rhs: GeocodingResponse.LocalNames) -> Bool {
+        lhs.ascii == rhs.ascii &&
+        lhs.featureName == rhs.featureName &&
+        lhs.ru == rhs.ru &&
+        lhs.en == rhs.en
+    }
+}
