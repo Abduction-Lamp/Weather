@@ -19,6 +19,13 @@ protocol NetworkServiceProtocol: AnyObject {
 
 final class Network: NetworkServiceProtocol {
     
+    private let session: URLSessionProtocol
+
+    init(session: URLSessionProtocol = URLSession.shared) {
+        self.session = session
+    }
+    
+    
     // MARK: - Coordinates By Location Name
     ///
     /// Возвращает координаты запрошенного города
@@ -72,20 +79,16 @@ extension Network {
     private func fetchData<ResponseType>(from url: URL,
                                          completed: @escaping (Result<ResponseType, NetworkResponseError>) -> Void) where ResponseType: Decodable {
         
-        let config = URLSessionConfiguration.default
-        config.timeoutIntervalForRequest = 20
-        let session = URLSession(configuration: config)
-
-        session.dataTask(with: url) { (data, response, error) in
+        session.dataTaskEx(with: url) { (data, response, error) in
             if let error = error {
-                completed(.failure(.error(message: error.localizedDescription)))
+                completed(.failure(.error(url: url.absoluteString, message: error.localizedDescription)))
             } else {
                 guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    completed(.failure(.status(code: 0)))
+                    completed(.failure(.status(url: url.absoluteString, code: 0)))
                     return
                 }
                 guard let data = data else {
-                    completed(.failure(.data(message: "date field is missing in the response")))
+                    completed(.failure(.data(url: url.absoluteString, message: "date field is missing in the response")))
                     return
                 }
                 
@@ -93,8 +96,7 @@ extension Network {
                     let result = try JSONDecoder().decode(ResponseType.self, from: data)
                     completed(.success(result))
                 } catch {
-                    completed(.failure(.error(message: error.localizedDescription)))
-                    print("⚠️\tNetwork > try Decoder: \(error.localizedDescription)\n\turl: \(url.absoluteString)")
+                    completed(.failure(.decode(url: url.absoluteString, message: error.localizedDescription)))
                 }
             }
         }.resume()

@@ -93,7 +93,7 @@ final class SettingsViewController: UIViewController {
     // MARK: Configure UI Content
     //
     private func configureUI() {
-       view = SettingsView(frame: view.frame)
+        view = SettingsView(frame: view.frame)
         
         navigationController?.isNavigationBarHidden = true
         navigationController?.isToolbarHidden = false
@@ -104,12 +104,12 @@ final class SettingsViewController: UIViewController {
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let orderButton = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3"), style: .plain, target: self, action: #selector(tapEditButton(sender:)))
         setToolbarItems([searchButton, spaceButton, orderButton], animated: true)
-
+        
         settingsView.segment.addTarget(self, action: #selector(changedDisplayType(sender:)), for: .valueChanged)
         
         settingsView.table.delegate = self
         settingsView.table.dataSource = self
-
+        
         settingsView.searchBar.delegate = self
     }
 }

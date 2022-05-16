@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct OneCallResponse: Decodable {
+struct OneCallResponse: Codable {
     let lat: Double                     // Географические координаты местоположения (широта)
     let lon: Double                     // Географические координаты местоположения (долгота)
     let timezone: String                // Название часового пояса для запрашиваемого местоположения
@@ -28,5 +28,21 @@ struct OneCallResponse: Decodable {
         case hourly
         case daily
         case alerts
+    }
+}
+
+
+extension OneCallResponse: Equatable {
+    
+    static func == (lhs: OneCallResponse, rhs: OneCallResponse) -> Bool {
+        lhs.lat == rhs.lat &&
+        lhs.lon == rhs.lon &&
+        lhs.timezone == rhs.timezone &&
+        lhs.timezoneOffset == rhs.timezoneOffset &&
+        lhs.current == rhs.current &&
+        lhs.minutely == rhs.minutely &&
+        lhs.hourly == rhs.hourly &&
+        lhs.daily == rhs.daily &&
+        lhs.alerts == rhs.alerts
     }
 }

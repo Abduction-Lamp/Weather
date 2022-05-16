@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct HourlyResponse: Decodable {
+struct HourlyResponse: Codable {
     let time: TimeInterval          // Время прогнозируемых данных, Unix, UTC
     let temp: Double                // Температура (по умолчанию: Кельвин, метрические: Цельсий, имперские: Фаренгейт)
     let feelsLike: Double           // Температура учитывающая человеческое восприятие погоды (по умолчанию: Кельвин)
@@ -42,5 +42,28 @@ struct HourlyResponse: Decodable {
         case rain
         case snow
         case weather
+    }
+}
+
+
+extension HourlyResponse: Equatable {
+    
+    static func == (lhs: HourlyResponse, rhs: HourlyResponse) -> Bool {
+        lhs.time == rhs.time &&
+        lhs.temp == rhs.temp &&
+        lhs.feelsLike == rhs.feelsLike &&
+        lhs.pressure == rhs.pressure &&
+        lhs.humidity == rhs.humidity &&
+        lhs.dewPoint == rhs.dewPoint &&
+        lhs.uvi == rhs.uvi &&
+        lhs.clouds == rhs.clouds &&
+        lhs.visibility == rhs.visibility &&
+        lhs.windSpeed == rhs.windSpeed &&
+        lhs.windGust == rhs.windGust &&
+        lhs.windDeg == rhs.windDeg &&
+        lhs.pop == rhs.pop &&
+        lhs.rain == rhs.rain &&
+        lhs.snow == rhs.snow &&
+        lhs.weather == rhs.weather
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CurrentResponse: Decodable {
+struct CurrentResponse: Codable {
     let time: TimeInterval          // Текущее время, Unix, UTC
     let sunrise: TimeInterval       // Время восхода солнца, Unix, UTC
     let sunset: TimeInterval        // Время захода солнца, Unix, UTC
@@ -44,5 +44,28 @@ struct CurrentResponse: Decodable {
         case rain
         case snow
         case weather
+    }
+}
+
+extension CurrentResponse: Equatable {
+    
+    static func == (lhs: CurrentResponse, rhs: CurrentResponse) -> Bool {
+        lhs.time == rhs.time &&
+        lhs.sunrise == rhs.sunrise &&
+        lhs.sunset == rhs.sunset &&
+        lhs.temp == rhs.temp &&
+        lhs.feelsLike == rhs.feelsLike &&
+        lhs.pressure == rhs.pressure &&
+        lhs.humidity == rhs.humidity &&
+        lhs.dewPoint == rhs.dewPoint &&
+        lhs.clouds == rhs.clouds &&
+        lhs.uvi == rhs.uvi &&
+        lhs.visibility == rhs.visibility &&
+        lhs.windSpeed == rhs.windSpeed &&
+        lhs.windGust == rhs.windGust &&
+        lhs.windDeg == rhs.windDeg &&
+        lhs.rain == rhs.rain &&
+        lhs.snow == rhs.snow &&
+        lhs.weather == rhs.weather
     }
 }

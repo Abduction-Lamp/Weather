@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct AlertsResponse: Decodable {
+struct AlertsResponse: Codable {
     let sender: String          // Название источника оповещений
     let event: String           // Имя события оповещения
     let start: TimeInterval     // Дата и время начала оповещения, Unix, UTC
@@ -18,5 +18,18 @@ struct AlertsResponse: Decodable {
     private enum CodingKeys: String, CodingKey {
         case sender = "sender_name"
         case event, start, end, description, tags
+    }
+}
+
+
+extension AlertsResponse: Equatable {
+    
+    static func == (lhs: AlertsResponse, rhs: AlertsResponse) -> Bool {
+        lhs.sender == rhs.sender &&
+        lhs.event == rhs.event &&
+        lhs.start == rhs.start &&
+        lhs.end == rhs.end &&
+        lhs.description == rhs.description &&
+        lhs.tags == rhs.tags
     }
 }
