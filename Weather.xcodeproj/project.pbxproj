@@ -305,19 +305,18 @@
 			children = (
 				4EA25623282463950066FEEE /* HomeViewModel.swift */,
 				4E7C33DB2805A835006EBBE6 /* HomeViewController.swift */,
-				4E6801D628072F8000337997 /* Page */,
 			);
 			path = HomeFlow;
 			sourceTree = "<group>";
 		};
-		4E6801D628072F8000337997 /* Page */ = {
+		4E6801D628072F8000337997 /* PageFlow */ = {
 			isa = PBXGroup;
 			children = (
 				4E50766D2822CA8E001B7E04 /* WeatherViewModel.swift */,
 				4E8F90852806DB16008E3BFA /* WeatherViewController.swift */,
 				4E8F90872806DC42008E3BFA /* WeatherView.swift */,
 			);
-			path = Page;
+			path = PageFlow;
 			sourceTree = "<group>";
 		};
 		4E7C33CB2805A835006EBBE6 = {
@@ -383,6 +382,7 @@
 			isa = PBXGroup;
 			children = (
 				4E6801D528072F6500337997 /* HomeFlow */,
+				4E6801D628072F8000337997 /* PageFlow */,
 				4E6801CC2807257100337997 /* SettingsFlow */,
 			);
 			path = Flows;
