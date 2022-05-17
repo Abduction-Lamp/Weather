@@ -82,3 +82,14 @@ extension Settings: Codable {
         try container.encode(pressure.value, forKey: .pressure)
     }
 }
+
+
+extension Settings: Equatable {
+    
+    static func == (lhs: Settings, rhs: Settings) -> Bool {
+        lhs.cities.value == rhs.cities.value &&
+        lhs.temperature.value == rhs.temperature.value &&
+        lhs.windSpeed.value == rhs.windSpeed.value &&
+        lhs.pressure.value == rhs.pressure.value
+    }
+}

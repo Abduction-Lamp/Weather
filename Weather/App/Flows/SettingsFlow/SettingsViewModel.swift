@@ -61,7 +61,7 @@ extension SettingsViewModel: SettingsViewModelProtocol {
     
     func save() {
         guard let storage = self.storage, let settings = self.settings else { return }
-        storage.save(settings)
+        storage.save(settings, completion: nil)
     }
     
     func moveItem(at sourceIndex: Int, to destinationIndex: Int) {
@@ -123,7 +123,7 @@ extension SettingsViewModel: SettingsViewModelProtocol {
         
         let city = CityData(geocoding: searchResult.value[indexPath.row])
         if settings.add(city) {
-            storage.save(settings)
+            storage.save(settings, completion: nil)
             return true
         }
         return false
@@ -137,7 +137,7 @@ extension SettingsViewModel: SettingsViewModelProtocol {
         else { return false }
         
         if let _ = settings.remove(index: indexPath.row) {
-            storage.save(settings)
+            storage.save(settings, completion: nil)
             return true
         }
         return false
@@ -152,7 +152,7 @@ extension SettingsViewModel: SettingsViewModelProtocol {
         
         let city = CityData(geocoding: searchResult.value[indexPath.row])
         if let _ = settings.remove(city: city) {
-            storage.save(settings)
+            storage.save(settings, completion: nil)
             return true
         }
         return false

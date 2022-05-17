@@ -10,7 +10,7 @@ import Foundation
 protocol StorageServiceProtocol: AnyObject {
     
     func featch(_ completion: @escaping (Result<Settings, CompletionError>) -> Void)
-    func save(_ settings: Settings)
+    func save(_ settings: Settings, completion: ((Bool) -> Void)?)
     func reset() -> Settings
 }
 
@@ -32,13 +32,15 @@ final class Storage: StorageServiceProtocol {
         }
     }
     
-    func save(_ settings: Settings) {
+    func save(_ settings: Settings, completion: ((Bool) -> Void)?) {
         DispatchQueue.global().async {
             do {
                 let data = try JSONEncoder().encode(settings)
                 UserDefaults.standard.set(data, forKey: AppKeys.shared.settings)
+                completion?(true)
             } catch {
                 DispatchQueue.main.async {
+                    completion?(false)
                     print(error.localizedDescription)
                 }
             }
