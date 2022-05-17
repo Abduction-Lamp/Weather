@@ -13,7 +13,8 @@ import Foundation
 struct FakeCities  {
     
     let data: Data
-    let cities: [GeocodingResponse] = [
+    var citiesList: [CityData] = []
+    let citiesRAW: [GeocodingResponse] = [
         GeocodingResponse(name: "Москва",
                           localNames: GeocodingResponse.LocalNames(featureName: "Moscow",
                                                                    ascii: "Москва",
@@ -66,10 +67,16 @@ struct FakeCities  {
     ]
     
 
+
+    
     init() {
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted
 
-        data = try! encoder.encode(cities)
+        data = try! encoder.encode(citiesRAW)
+        
+        citiesRAW.forEach { geo in
+            citiesList.append(CityData(geocoding: geo))
+        }
     }
 }

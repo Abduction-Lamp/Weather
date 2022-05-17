@@ -32,6 +32,9 @@ struct CityData: Codable {
 extension CityData: Equatable {
     
     static func == (lhs: Self, rhs: Self) -> Bool {
-        (lhs.eng == rhs.eng) && (lhs.rus == rhs.rus) && (lhs.latitude == rhs.latitude) && (lhs.longitude == rhs.longitude)
+        lhs.eng == rhs.eng &&
+        lhs.rus == rhs.rus &&
+        lhs.latitude == rhs.latitude &&
+        lhs.longitude == rhs.longitude
     }
 }

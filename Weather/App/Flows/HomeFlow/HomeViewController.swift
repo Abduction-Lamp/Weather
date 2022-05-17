@@ -41,7 +41,7 @@ final class HomeViewController: UIPageViewController {
             guard let self = self else { return }
             self.currentPageIndex = 0
             if pages.isEmpty {
-                self.setViewControllers([], direction: .forward, animated: false, completion: nil)
+                self.setViewControllers([UIViewController()], direction: .forward, animated: false, completion: nil)
             } else {
                 self.setViewControllers([pages[self.currentPageIndex]], direction: .forward, animated: false, completion: nil)
             }

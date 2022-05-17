@@ -52,7 +52,7 @@ extension GetCoordinatesByLocationNameTests {
         network?.getCoordinatesByLocationName(city: city, completed: { result in
             switch result {
             case .success(let list):
-                XCTAssertEqual(list, expression.cities)
+                XCTAssertEqual(list, expression.citiesRAW)
             case .failure(let error):
                 XCTFail(error.localizedDescription)
             }

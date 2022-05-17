@@ -27,6 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                 self.settings = result
             case .failure(let error):
                 print(error)
+                self.settings = Settings()
             }
             
             DispatchQueue.main.sync {
