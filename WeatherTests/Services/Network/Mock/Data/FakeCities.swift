@@ -67,8 +67,6 @@ struct FakeCities  {
     ]
     
 
-
-    
     init() {
         let encoder = JSONEncoder()
         encoder.outputFormatting = .prettyPrinted

@@ -39,7 +39,10 @@ final class Settings {
     }
     
     func remove(index: Int) -> CityData? {
-        return cities.value.remove(at: index)
+        if (index >= 0) && (index < cities.value.count) {
+            return cities.value.remove(at: index)
+        }
+        return nil
     }
     
     func move(at sourceIndex: Int, to destinationIndex: Int) {
