@@ -26,11 +26,11 @@ final class WeatherViewController: UIViewController {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("📛\tWeatherViewController init(coder:) has not been implemented")
     }
-
+    
     
     // MARK: - Lifecycle
     //
@@ -38,27 +38,53 @@ final class WeatherViewController: UIViewController {
         super.loadView()
         
         view = WeatherView(frame: view.frame)
-        weatherView.city.text = viewModel?.city.rus
+        
+        weatherView.table.delegate = self
+        weatherView.table.dataSource = self
         
         viewModel?.weather.bind { weather in
-            guard let weather = weather else { return }
-            if let temp = weather.current?.temp,
-               let city = self.viewModel?.city.rus {
-                DispatchQueue.main.async {
-                    self.weatherView.city.text = "\(city) \(temp)"
-                }
+            guard let _ = weather else { return }
+            DispatchQueue.main.async {
+                self.weatherView.table.reloadData()
             }
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-            
+        
         viewModel?.feach()
     }
+}
+
+
+extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        1
     }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        section == 0 ? 400 : 0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if section == 0 {
+            guard
+                let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: WeatherCityHeader.reuseIdentifier) as? WeatherCityHeader,
+                let model = viewModel?.weather.value
+            else { return nil }
+            
+            print(model.current?.temp.description ?? "nil")
+            header.setup(model: model)
+            return header
+        }
+        return nil
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        UITableViewCell()
+    }
+    
+    
 }

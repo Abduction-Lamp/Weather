@@ -9,15 +9,24 @@ import UIKit
 
 final class WeatherView: UIView {
 
-    private(set) var city: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: UIFont.labelFontSize)
-        label.numberOfLines = 17
-        return label
+    private(set) var table: UITableView = {
+        let table = UITableView(frame: .zero, style: .insetGrouped)
+        table.translatesAutoresizingMaskIntoConstraints = false
+        table.contentMode = .scaleToFill
+        table.separatorStyle = .none
+        table.isEditing = false
+        table.allowsSelection = false
+        table.showsVerticalScrollIndicator = false
+        
+        
+        table.register(WeatherCityHeader.self, forHeaderFooterViewReuseIdentifier: WeatherCityHeader.reuseIdentifier)
+//        table.register(CityCell.self, forCellReuseIdentifier: CityCell.reuseIdentifier)
+//        table.register(SearchCityCell.self, forCellReuseIdentifier: SearchCityCell.reuseIdentifier)
+//        table.register(SettingsCell.self, forCellReuseIdentifier: SettingsCell.reuseIdentifier)
+    
+        return table
     }()
-
+    
     
     // MARK: - Initiation
     //
@@ -35,9 +44,15 @@ final class WeatherView: UIView {
     //
     private func configureUI() {
         backgroundColor = .white
-        addSubview(city)
+        
+        addSubview(table)
 
-        city.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
-        city.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor).isActive = true
+        
+        NSLayoutConstraint.activate([
+            table.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            table.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),
+            table.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor),
+            table.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
+        ])
     }
 }

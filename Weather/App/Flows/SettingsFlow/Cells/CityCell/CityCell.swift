@@ -9,7 +9,7 @@ import UIKit
 
 final class CityCell: UITableViewCell {
     static let reuseIdentifier = "CityCell"
-
+    
     private lazy var city: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -18,7 +18,7 @@ final class CityCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: UIFont.labelFontSize)
         return label
     }()
-
+    
     private lazy var icon: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -26,7 +26,7 @@ final class CityCell: UITableViewCell {
         imageView.tintColor = .black
         return imageView
     }()
-
+    
     private lazy var temperature: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -35,7 +35,7 @@ final class CityCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: UIFont.labelFontSize)
         return label
     }()
-
+    
     
     var viewModel: CityCellViewModelProtocol? {
         willSet(viewModel) {
@@ -45,7 +45,7 @@ final class CityCell: UITableViewCell {
             temperature.text = viewModel.data.temperature
         }
     }
-
+    
     
     // MARK: - Initiation
     //
