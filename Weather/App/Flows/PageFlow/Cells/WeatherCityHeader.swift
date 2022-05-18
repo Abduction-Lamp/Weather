@@ -10,30 +10,32 @@ import UIKit
 final class WeatherCityHeader: UITableViewHeaderFooterView {
     static let reuseIdentifier = "WeatherCityHeader"
     
-    private var cityLabel: UILabel = {
+    private let const = DesignConstants.shared
+    
+    private lazy var cityLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.textColor = .black
-        label.text = ""
+        label.font = const.font.newyork
         return label
     }()
     
-    private var temperatureLabel: UILabel = {
+    private lazy var temperatureLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.textColor = .black
-        label.text = ""
+        label.font = const.font.newyork
         return label
     }()
     
-    private var descriptionLabel: UILabel = {
+    private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.textColor = .black
-        label.text = ""
+        label.font = const.font.newyork
         return label
     }()
     
@@ -66,8 +68,6 @@ final class WeatherCityHeader: UITableViewHeaderFooterView {
         contentView.addSubview(temperatureLabel)
         contentView.addSubview(descriptionLabel)
         
-        
-        let const = DesignConstants.shared
         
         NSLayoutConstraint.activate([
             cityLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: const.padding.medium.top),

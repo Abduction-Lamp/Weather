@@ -69,6 +69,8 @@
 		4EBA7CF3280B11AE0084B586 /* SettingsCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA7CF2280B11AE0084B586 /* SettingsCellModel.swift */; };
 		4EBA7CF5280B12290084B586 /* SettingsCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBA7CF4280B12290084B586 /* SettingsCellViewModel.swift */; };
 		4EBCC79D2835029500BF57A6 /* DesignConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EBCC79C2835029500BF57A6 /* DesignConstants.swift */; };
+		4EBCC7A2283520B700BF57A6 /* NewYork.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCC7A0283520B700BF57A6 /* NewYork.ttf */; };
+		4EBCC7A3283520B700BF57A6 /* NewYorkItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4EBCC7A1283520B700BF57A6 /* NewYorkItalic.ttf */; };
 		4EDAF9612832DBEE00890D27 /* FakeURLSessionCoordinatesByLocationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDAF9602832DBEE00890D27 /* FakeURLSessionCoordinatesByLocationName.swift */; };
 		4EDAF9632832DE6100890D27 /* GetCoordinatesByLocationNameTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDAF9622832DE6100890D27 /* GetCoordinatesByLocationNameTests.swift */; };
 		4EFF9EB728183664002A0FC6 /* SearchCityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EFF9EB628183664002A0FC6 /* SearchCityCell.swift */; };
@@ -163,6 +165,8 @@
 		4EBA7CF2280B11AE0084B586 /* SettingsCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCellModel.swift; sourceTree = "<group>"; };
 		4EBA7CF4280B12290084B586 /* SettingsCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsCellViewModel.swift; sourceTree = "<group>"; };
 		4EBCC79C2835029500BF57A6 /* DesignConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignConstants.swift; sourceTree = "<group>"; };
+		4EBCC7A0283520B700BF57A6 /* NewYork.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NewYork.ttf; sourceTree = "<group>"; };
+		4EBCC7A1283520B700BF57A6 /* NewYorkItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = NewYorkItalic.ttf; sourceTree = "<group>"; };
 		4EDAF9602832DBEE00890D27 /* FakeURLSessionCoordinatesByLocationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeURLSessionCoordinatesByLocationName.swift; sourceTree = "<group>"; };
 		4EDAF9622832DE6100890D27 /* GetCoordinatesByLocationNameTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetCoordinatesByLocationNameTests.swift; sourceTree = "<group>"; };
 		4EFF9EB628183664002A0FC6 /* SearchCityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCityCell.swift; sourceTree = "<group>"; };
@@ -198,6 +202,7 @@
 		4E2BC2C72808878000018EB3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4EBCC79E283520B700BF57A6 /* Fonts */,
 				4E7C33E02805A838006EBBE6 /* Assets.xcassets */,
 				4E7C33E22805A838006EBBE6 /* LaunchScreen.storyboard */,
 			);
@@ -563,6 +568,23 @@
 			path = SettingsCell;
 			sourceTree = "<group>";
 		};
+		4EBCC79E283520B700BF57A6 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				4EBCC79F283520B700BF57A6 /* NewYork */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		4EBCC79F283520B700BF57A6 /* NewYork */ = {
+			isa = PBXGroup;
+			children = (
+				4EBCC7A0283520B700BF57A6 /* NewYork.ttf */,
+				4EBCC7A1283520B700BF57A6 /* NewYorkItalic.ttf */,
+			);
+			path = NewYork;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -667,7 +689,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4EBCC7A2283520B700BF57A6 /* NewYork.ttf in Resources */,
 				4E7C33E42805A838006EBBE6 /* LaunchScreen.storyboard in Resources */,
+				4EBCC7A3283520B700BF57A6 /* NewYorkItalic.ttf in Resources */,
 				4E7C33E12805A838006EBBE6 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

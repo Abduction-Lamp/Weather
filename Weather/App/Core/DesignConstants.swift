@@ -14,12 +14,18 @@ final class DesignConstants {
     private init() { }
 
     let padding = Padding()
+    let font = Fonts()
     
     
-    
+    // MARK: - SUPPORT STRUCT
+    //
     struct Padding {
         let small: UIEdgeInsets = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
         let medium: UIEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
         let large: UIEdgeInsets = UIEdgeInsets(top: 27, left: 27, bottom: 27, right: 27)
+    }
+    
+    struct Fonts {
+        let newyork = UIFont(name: "NewYork-Regular", size: UIFont.labelFontSize) ?? UIFont.systemFont(ofSize: UIFont.labelFontSize)
     }
 }
