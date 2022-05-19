@@ -36,8 +36,8 @@ final class DesignConstants {
             let newyork = UIFont(name: "NewYork-Regular", size: UIFont.labelFontSize) ?? UIFont.systemFont(ofSize: UIFont.labelFontSize)
             tiny = newyork.withSize(15)
             small = newyork.withSize(17)
-            medium = newyork.withSize(23)
-            large = newyork.withSize(37)
+            medium = newyork.withSize(25)
+            large = newyork.withSize(41)
         }
     }
 }

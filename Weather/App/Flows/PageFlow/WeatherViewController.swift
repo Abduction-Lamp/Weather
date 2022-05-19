@@ -60,16 +60,27 @@ final class WeatherViewController: UIViewController {
 
 extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     
+    func numberOfSections(in tableView: UITableView) -> Int {
+        2
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         1
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        120
+        switch indexPath.section {
+        case 0:
+            return WeatherHourlyCell.height
+        case 1:
+            return WeatherDailyCell.height
+        default:
+            return 44
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        section == 0 ? WeatherCityHeader.height : 0
+        section == 0 ? WeatherCityHeader.height : 10
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -86,12 +97,28 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherHourlyCell.reuseIdentifier) as? WeatherHourlyCell else {
+        
+        switch indexPath.section {
+        case 0:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherHourlyCell.reuseIdentifier) as? WeatherHourlyCell else {
+                return UITableViewCell()
+            }
+            if let model = viewModel?.makeWeatherHourlyModel() {
+                cell.setup(model: model)
+            }
+            return cell
+            
+        case 1:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherDailyCell.reuseIdentifier) as? WeatherDailyCell else {
+                return UITableViewCell()
+            }
+            if let model = viewModel?.makeWeatherDailyModel() {
+                cell.setup(model: model)
+            }
+            return cell
+            
+        default:
             return UITableViewCell()
         }
-        if let model = viewModel?.makeWeatherHourlyModel(){
-            cell.setup(model: model)
-        }
-        return cell
     }
 }

@@ -15,6 +15,7 @@ protocol WeatherViewModelProtocol: AnyObject {
     
     func makeWeatherCityHeaderModel() -> WeatherCityHeaderModel
     func makeWeatherHourlyModel() -> [WeatherHourlyModel]
+    func makeWeatherDailyModel() -> [WeatherDailyModel]
 }
 
 final class WeatherViewModel: WeatherViewModelProtocol {
@@ -65,6 +66,20 @@ final class WeatherViewModel: WeatherViewModelProtocol {
                 model.append(WeatherHourlyModel(time: hour,
                                                 icon: "response",
                                                 temperature: response.temp.toStringWithDegreeSymbol()))
+            }
+        }
+        return model
+    }
+    
+    func makeWeatherDailyModel() -> [WeatherDailyModel] {
+        var model: [WeatherDailyModel] = []
+        if let value = weather.value, var daily = value.daily {
+            for response in daily {
+                let day = response.time.toStringLocolTime(offset: value.timezoneOffset, format: "E, d MMM")
+                let temperature = response.temp.min.toStringWithDegreeSymbol() + "-" + response.temp.max.toStringWithDegreeSymbol()
+                model.append(WeatherDailyModel(day: day,
+                                               icon: "response",
+                                               temperature: temperature))
             }
         }
         return model

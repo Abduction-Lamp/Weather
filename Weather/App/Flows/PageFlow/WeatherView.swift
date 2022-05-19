@@ -22,7 +22,7 @@ final class WeatherView: UIView {
         
         table.register(WeatherCityHeader.self, forHeaderFooterViewReuseIdentifier: WeatherCityHeader.reuseIdentifier)
         table.register(WeatherHourlyCell.self, forCellReuseIdentifier: WeatherHourlyCell.reuseIdentifier)
-//        table.register(SearchCityCell.self, forCellReuseIdentifier: SearchCityCell.reuseIdentifier)
+        table.register(WeatherDailyCell.self, forCellReuseIdentifier: WeatherDailyCell.reuseIdentifier)
 //        table.register(SettingsCell.self, forCellReuseIdentifier: SettingsCell.reuseIdentifier)
     
         return table

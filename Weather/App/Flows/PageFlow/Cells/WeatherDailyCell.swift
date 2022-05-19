@@ -1,5 +1,5 @@
 //
-//  WeatherHourlyCell.swift
+//  WeatherDailyCell.swift
 //  Weather
 //
 //  Created by Владимир on 19.05.2022.
@@ -7,13 +7,11 @@
 
 import UIKit
 
-final class WeatherHourlyCell: UITableViewCell {
-    static let reuseIdentifier = "WeatherHourlyCell"
+final class WeatherDailyCell: UITableViewCell {
+    static let reuseIdentifier = "WeatherDailyCell"
     static var height: CGFloat {
         let const = DesignConstants.shared
-        let padding = 4 * const.padding.small.top + const.padding.medium.top
-        let font = 4 * const.font.small.lineHeight
-        let result = padding + font
+        let result = 8 * (2 * const.padding.small.top + const.font.medium.lineHeight) + const.padding.medium.top
         return result.rounded(.up)
     }
     
@@ -24,7 +22,7 @@ final class WeatherHourlyCell: UITableViewCell {
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.contentMode = .scaleToFill
         icon.tintColor = .black
-        icon.image = UIImage(systemName: "clock")
+        icon.image = UIImage(systemName: "calendar")
         return icon
     }()
     
@@ -34,7 +32,7 @@ final class WeatherHourlyCell: UITableViewCell {
         label.textAlignment = .left
         label.textColor = .black
         label.font = const.font.tiny
-        label.text = "Почасовой прогноз"
+        label.text = "Прогноз на неделю"
         return label
     }()
     
@@ -45,26 +43,16 @@ final class WeatherHourlyCell: UITableViewCell {
         canvas.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         return canvas
     }()
-    
-    private var scroll: UIScrollView = {
-        let scroll = UIScrollView()
-        scroll.translatesAutoresizingMaskIntoConstraints = false
-        scroll.showsHorizontalScrollIndicator = false
-        scroll.showsVerticalScrollIndicator = false
-        return scroll
-    }()
-    
+        
     private lazy var mainStack: UIStackView = {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .horizontal
+        stack.axis = .vertical
         stack.distribution = .equalSpacing
         stack.alignment = .fill
-        stack.spacing = const.padding.medium.left
+        stack.spacing = const.padding.small.left
         return stack
     }()
-    
-    
     
     
     // MARK: - Initiation
@@ -93,8 +81,7 @@ final class WeatherHourlyCell: UITableViewCell {
         contentView.addSubview(canvasBlurEffect)
         contentView.addSubview(icon)
         contentView.addSubview(descriptionLabel)
-        contentView.addSubview(scroll)
-        scroll.addSubview(mainStack)
+        contentView.addSubview(mainStack)
 
         NSLayoutConstraint.activate([
             icon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: const.padding.small.top),
@@ -107,50 +94,43 @@ final class WeatherHourlyCell: UITableViewCell {
             descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.small.right),
             descriptionLabel.heightAnchor.constraint(equalToConstant: const.font.small.lineHeight),
             
-            scroll.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: const.padding.medium.top),
-            scroll.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: const.padding.small.left),
-            scroll.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.small.right),
-            scroll.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            
-            mainStack.topAnchor.constraint(equalTo: scroll.topAnchor),
-            mainStack.leadingAnchor.constraint(equalTo: scroll.leadingAnchor),
-            mainStack.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
-            mainStack.bottomAnchor.constraint(equalTo: scroll.bottomAnchor),
-            
-            mainStack.widthAnchor.constraint(greaterThanOrEqualTo: scroll.widthAnchor)
+            mainStack.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: const.padding.medium.top),
+            mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            mainStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+
         ])
     }
 
     
-    public func setup(model: [WeatherHourlyModel]) {
-        model.forEach { hourly in
-            let item = buildItem(model: hourly)
+    public func setup(model: [WeatherDailyModel]) {
+        model.forEach { daily in
+            let item = buildItem(model: daily)
             mainStack.addArrangedSubview(item)
         }
         mainStack.setNeedsLayout()
     }
     
     
-    private func buildItem(model: WeatherHourlyModel) -> UIStackView {
-        let stack = UIStackView()
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        stack.axis = .vertical
-        stack.distribution = .equalSpacing
-        stack.alignment = .center
-        stack.spacing = const.padding.small.top
-        
-        let time = UILabel()
-        time.translatesAutoresizingMaskIntoConstraints = false
-        time.textAlignment = .center
-        time.textColor = .black
-        time.font = const.font.small
-        time.text = model.time
+    private func buildItem(model: WeatherDailyModel) -> UIView {
+        let viewFrame = CGRect(origin: .zero,
+                               size: CGSize(width: contentView.frame.width,
+                                            height: (2 * const.padding.small.top + const.font.medium.lineHeight)))
+        let view = UIView(frame: viewFrame)
+        view.translatesAutoresizingMaskIntoConstraints = false
+
+        let day = UILabel()
+        day.translatesAutoresizingMaskIntoConstraints = false
+        day.textAlignment = .left
+        day.textColor = .black
+        day.font = const.font.small
+        day.text = model.day
         
         let icon = UIImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.contentMode = .scaleToFill
         icon.tintColor = .black
-        icon.image = UIImage(systemName: "cloud.moon.rain")
+        icon.image = UIImage(systemName: "sun.dust")
         
         let temperature = UILabel()
         temperature.translatesAutoresizingMaskIntoConstraints = false
@@ -159,10 +139,27 @@ final class WeatherHourlyCell: UITableViewCell {
         temperature.font = const.font.small
         temperature.text = model.temperature
         
-        stack.addArrangedSubview(time)
-        stack.addArrangedSubview(icon)
-        stack.addArrangedSubview(temperature)
+        view.addSubview(day)
+        view.addSubview(icon)
+        view.addSubview(temperature)
+
+        NSLayoutConstraint.activate([
+            temperature.topAnchor.constraint(equalTo: view.topAnchor, constant: const.padding.small.top),
+            temperature.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -const.padding.small.right),
+            temperature.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -const.padding.small.top),
+            temperature.widthAnchor.constraint(equalToConstant: 100),
+            
+            icon.topAnchor.constraint(equalTo: view.topAnchor, constant: const.padding.small.top),
+            icon.trailingAnchor.constraint(equalTo: temperature.leadingAnchor, constant: -const.padding.small.right),
+            icon.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -const.padding.small.top),
+            icon.widthAnchor.constraint(equalToConstant: const.font.medium.lineHeight),
+            
+            day.topAnchor.constraint(equalTo: view.topAnchor, constant: const.padding.small.top),
+            day.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: const.padding.small.right),
+            day.trailingAnchor.constraint(equalTo: icon.leadingAnchor, constant: -const.padding.small.right),
+            day.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -const.padding.small.top)
+        ])
         
-        return stack
+        return view
     }
 }
