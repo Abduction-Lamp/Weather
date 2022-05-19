@@ -18,6 +18,7 @@ protocol WeatherViewModelProtocol: AnyObject {
     func makeWeatherDailyModel() -> [WeatherDailyModel]
 }
 
+
 final class WeatherViewModel: WeatherViewModelProtocol {
     
     var city: CityData
@@ -60,10 +61,9 @@ final class WeatherViewModel: WeatherViewModelProtocol {
     func makeWeatherHourlyModel() -> [WeatherHourlyModel] {
         var model: [WeatherHourlyModel] = []
         if let value = weather.value, let hourly = value.hourly {
-            for (index, response) in hourly.enumerated() {
-                guard index < 24 else { break }
+            for (index, response) in hourly.enumerated() where index < 24 {
                 let hour = response.time.toStringLocolTime(offset: value.timezoneOffset, format: "HH")
-                model.append(WeatherHourlyModel(time: hour,
+                model.append(WeatherHourlyModel(time: index == 0 ? "Cейчас" : hour,
                                                 icon: "response",
                                                 temperature: response.temp.toStringWithDegreeSymbol()))
             }
@@ -73,10 +73,11 @@ final class WeatherViewModel: WeatherViewModelProtocol {
     
     func makeWeatherDailyModel() -> [WeatherDailyModel] {
         var model: [WeatherDailyModel] = []
-        if let value = weather.value, var daily = value.daily {
+        if let value = weather.value, let daily = value.daily {
             for response in daily {
-                let day = response.time.toStringLocolTime(offset: value.timezoneOffset, format: "E, d MMM")
-                let temperature = response.temp.min.toStringWithDegreeSymbol() + "-" + response.temp.max.toStringWithDegreeSymbol()
+                let day = response.time.toStringLocolTime(offset: value.timezoneOffset, format: "E.,  d MMM")
+                let temperature = response.temp.min.toStringWithDegreeSymbol() + " ... " + response.temp.max.toStringWithDegreeSymbol()
+                
                 model.append(WeatherDailyModel(day: day,
                                                icon: "response",
                                                temperature: temperature))

@@ -307,10 +307,8 @@
 		4E6801CC2807257100337997 /* SettingsFlow */ = {
 			isa = PBXGroup;
 			children = (
-				4E2BC2C028087E2B00018EB3 /* SettingsViewModel.swift */,
-				4E6801D1280725C200337997 /* SettingsViewController.swift */,
-				4E6801D32807266400337997 /* SettingsView.swift */,
-				4E6801CF280725A600337997 /* Cells */,
+				4EA56B352836F483003105FE /* View */,
+				4EA56B342836F47B003105FE /* ViewModel */,
 			);
 			path = SettingsFlow;
 			sourceTree = "<group>";
@@ -328,8 +326,8 @@
 		4E6801D528072F6500337997 /* HomeFlow */ = {
 			isa = PBXGroup;
 			children = (
-				4EA25623282463950066FEEE /* HomeViewModel.swift */,
-				4E7C33DB2805A835006EBBE6 /* HomeViewController.swift */,
+				4EA56B312836F402003105FE /* View */,
+				4EA56B302836F3EF003105FE /* ViewModel */,
 			);
 			path = HomeFlow;
 			sourceTree = "<group>";
@@ -338,10 +336,8 @@
 			isa = PBXGroup;
 			children = (
 				4EBCC7A4283532E100BF57A6 /* Models */,
-				4E8651E22834024300B883DD /* Cells */,
-				4E50766D2822CA8E001B7E04 /* WeatherViewModel.swift */,
-				4E8F90852806DB16008E3BFA /* WeatherViewController.swift */,
-				4E8F90872806DC42008E3BFA /* WeatherView.swift */,
+				4EA56B322836F423003105FE /* View */,
+				4EA56B332836F42D003105FE /* ViewModel */,
 			);
 			path = PageFlow;
 			sourceTree = "<group>";
@@ -430,8 +426,8 @@
 			children = (
 				4E2BC2C8280887AD00018EB3 /* Core */,
 				4E8F9095280713B5008E3BFA /* Services */,
-				4E8F909128070DE6008E3BFA /* Flows */,
 				4E8F909328070E38008E3BFA /* Entities */,
+				4E8F909128070DE6008E3BFA /* Flows */,
 				4E7C33D72805A835006EBBE6 /* AppDelegate.swift */,
 				4E7C33D92805A835006EBBE6 /* SceneDelegate.swift */,
 			);
@@ -564,6 +560,58 @@
 				4EFF9EB628183664002A0FC6 /* SearchCityCell.swift */,
 			);
 			path = SearchCityCell;
+			sourceTree = "<group>";
+		};
+		4EA56B302836F3EF003105FE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4EA25623282463950066FEEE /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4EA56B312836F402003105FE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4E7C33DB2805A835006EBBE6 /* HomeViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4EA56B322836F423003105FE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4E8651E22834024300B883DD /* Cells */,
+				4E8F90852806DB16008E3BFA /* WeatherViewController.swift */,
+				4E8F90872806DC42008E3BFA /* WeatherView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		4EA56B332836F42D003105FE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4E50766D2822CA8E001B7E04 /* WeatherViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4EA56B342836F47B003105FE /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				4E2BC2C028087E2B00018EB3 /* SettingsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		4EA56B352836F483003105FE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				4E6801CF280725A600337997 /* Cells */,
+				4E6801D1280725C200337997 /* SettingsViewController.swift */,
+				4E6801D32807266400337997 /* SettingsView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		4EBA7CEE280B0F560084B586 /* CityCell */ = {

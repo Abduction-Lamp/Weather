@@ -22,7 +22,7 @@ final class WeatherHourlyCell: UITableViewCell {
     private var icon: UIImageView = {
         let icon = UIImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
-        icon.contentMode = .scaleToFill
+        icon.contentMode = .scaleAspectFill
         icon.tintColor = .black
         icon.image = UIImage(systemName: "clock")
         return icon
@@ -143,12 +143,12 @@ final class WeatherHourlyCell: UITableViewCell {
         time.translatesAutoresizingMaskIntoConstraints = false
         time.textAlignment = .center
         time.textColor = .black
-        time.font = const.font.small
+        time.font = const.font.tiny
         time.text = model.time
         
         let icon = UIImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
-        icon.contentMode = .scaleToFill
+        icon.contentMode = .scaleAspectFill
         icon.tintColor = .black
         icon.image = UIImage(systemName: "cloud.moon.rain")
         

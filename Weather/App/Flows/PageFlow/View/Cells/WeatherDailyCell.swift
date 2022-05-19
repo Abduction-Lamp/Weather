@@ -20,7 +20,7 @@ final class WeatherDailyCell: UITableViewCell {
     private var icon: UIImageView = {
         let icon = UIImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
-        icon.contentMode = .scaleToFill
+        icon.contentMode = .scaleAspectFill
         icon.tintColor = .black
         icon.image = UIImage(systemName: "calendar")
         return icon
@@ -97,8 +97,7 @@ final class WeatherDailyCell: UITableViewCell {
             mainStack.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: const.padding.medium.top),
             mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             mainStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-
+            mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
         ])
     }
 
@@ -123,14 +122,14 @@ final class WeatherDailyCell: UITableViewCell {
         day.translatesAutoresizingMaskIntoConstraints = false
         day.textAlignment = .left
         day.textColor = .black
-        day.font = const.font.small
+        day.font = const.font.tiny
         day.text = model.day
         
         let icon = UIImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
-        icon.contentMode = .scaleToFill
+        icon.contentMode = .scaleAspectFill
         icon.tintColor = .black
-        icon.image = UIImage(systemName: "sun.dust")
+        icon.image = UIImage(systemName: "cloud.moon.rain")
         
         let temperature = UILabel()
         temperature.translatesAutoresizingMaskIntoConstraints = false
@@ -144,20 +143,20 @@ final class WeatherDailyCell: UITableViewCell {
         view.addSubview(temperature)
 
         NSLayoutConstraint.activate([
+            day.topAnchor.constraint(equalTo: view.topAnchor, constant: const.padding.small.top),
+            day.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: const.padding.medium.right),
+            day.trailingAnchor.constraint(equalTo: icon.leadingAnchor, constant: -const.padding.small.right),
+            day.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -const.padding.small.bottom),
+            
+            icon.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            icon.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            icon.widthAnchor.constraint(equalToConstant: const.font.small.lineHeight),
+            icon.heightAnchor.constraint(equalToConstant: const.font.small.lineHeight),
+            
             temperature.topAnchor.constraint(equalTo: view.topAnchor, constant: const.padding.small.top),
             temperature.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -const.padding.small.right),
-            temperature.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -const.padding.small.top),
+            temperature.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -const.padding.small.bottom),
             temperature.widthAnchor.constraint(equalToConstant: 100),
-            
-            icon.topAnchor.constraint(equalTo: view.topAnchor, constant: const.padding.small.top),
-            icon.trailingAnchor.constraint(equalTo: temperature.leadingAnchor, constant: -const.padding.small.right),
-            icon.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -const.padding.small.top),
-            icon.widthAnchor.constraint(equalToConstant: const.font.medium.lineHeight),
-            
-            day.topAnchor.constraint(equalTo: view.topAnchor, constant: const.padding.small.top),
-            day.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: const.padding.small.right),
-            day.trailingAnchor.constraint(equalTo: icon.leadingAnchor, constant: -const.padding.small.right),
-            day.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -const.padding.small.top)
         ])
         
         return view
