@@ -24,7 +24,7 @@ final class WeatherHourlyCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.textColor = .black
-        label.font = const.font.small
+        label.font = const.font.tiny
         label.text = "Почасовой прогноз"
         return label
     }()
@@ -51,7 +51,7 @@ final class WeatherHourlyCell: UITableViewCell {
         stack.axis = .horizontal
         stack.distribution = .equalSpacing
         stack.alignment = .fill
-        stack.spacing = const.padding.small.left
+        stack.spacing = const.padding.medium.left
         return stack
     }()
     
@@ -130,7 +130,7 @@ final class WeatherHourlyCell: UITableViewCell {
         time.textAlignment = .center
         time.textColor = .black
         time.font = const.font.small
-        time.text = "11"
+        time.text = model.time
         
         let icon = UIImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false

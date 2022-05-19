@@ -58,9 +58,11 @@ final class WeatherViewModel: WeatherViewModelProtocol {
     
     func makeWeatherHourlyModel() -> [WeatherHourlyModel] {
         var model: [WeatherHourlyModel] = []
-        if let hourly = weather.value?.hourly {
-            hourly.forEach { response in
-                model.append(WeatherHourlyModel(time: "response",
+        if let value = weather.value, let hourly = value.hourly {
+            for (index, response) in hourly.enumerated() {
+                guard index < 24 else { break }
+                let hour = response.time.toStringLocolTime(offset: value.timezoneOffset, format: "HH")
+                model.append(WeatherHourlyModel(time: hour,
                                                 icon: "response",
                                                 temperature: response.temp.toStringWithDegreeSymbol()))
             }

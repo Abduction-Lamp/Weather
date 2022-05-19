@@ -9,7 +9,7 @@ import Foundation
 
 extension Double {
     
-    func toStringWithDegreeSymbol() -> String {
+    public func toStringWithDegreeSymbol() -> String {
         let x = Int.init(self.rounded(.toNearestOrAwayFromZero))
         if x > 0 {
             return "+\(x)\u{00B0}"
