@@ -64,18 +64,21 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
         1
     }
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        120
+    }
+    
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        section == 0 ? 400 : 0
+        section == 0 ? WeatherCityHeader.height : 0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
             guard
                 let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: WeatherCityHeader.reuseIdentifier) as? WeatherCityHeader,
-                let model = viewModel?.weather.value
+                let model = viewModel?.makeWeatherCityHeaderModel()
             else { return nil }
-            
-            print(model.current?.temp.description ?? "nil")
+
             header.setup(model: model)
             return header
         }
@@ -83,8 +86,12 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        UITableViewCell()
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherHourlyCell.reuseIdentifier) as? WeatherHourlyCell else {
+            return UITableViewCell()
+        }
+        if let model = viewModel?.makeWeatherHourlyModel(){
+            cell.setup(model: model)
+        }
+        return cell
     }
-    
-    
 }

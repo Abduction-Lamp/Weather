@@ -17,6 +17,7 @@ final class DesignConstants {
     let font = Fonts()
     
     
+    
     // MARK: - SUPPORT STRUCT
     //
     struct Padding {
@@ -26,6 +27,15 @@ final class DesignConstants {
     }
     
     struct Fonts {
-        let newyork = UIFont(name: "NewYork-Regular", size: UIFont.labelFontSize) ?? UIFont.systemFont(ofSize: UIFont.labelFontSize)
+        let small: UIFont
+        let medium: UIFont
+        let large: UIFont
+        
+        init() {
+            let newyork = UIFont(name: "NewYork-Regular", size: UIFont.labelFontSize) ?? UIFont.systemFont(ofSize: UIFont.labelFontSize)
+            small = newyork.withSize(17)
+            medium = newyork.withSize(23)
+            large = newyork.withSize(37)
+        }
     }
 }

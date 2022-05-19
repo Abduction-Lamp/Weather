@@ -12,6 +12,7 @@ final class WeatherView: UIView {
     private(set) var table: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
         table.translatesAutoresizingMaskIntoConstraints = false
+        table.backgroundColor = .clear
         table.contentMode = .scaleToFill
         table.separatorStyle = .none
         table.isEditing = false
@@ -20,7 +21,7 @@ final class WeatherView: UIView {
         
         
         table.register(WeatherCityHeader.self, forHeaderFooterViewReuseIdentifier: WeatherCityHeader.reuseIdentifier)
-//        table.register(CityCell.self, forCellReuseIdentifier: CityCell.reuseIdentifier)
+        table.register(WeatherHourlyCell.self, forCellReuseIdentifier: WeatherHourlyCell.reuseIdentifier)
 //        table.register(SearchCityCell.self, forCellReuseIdentifier: SearchCityCell.reuseIdentifier)
 //        table.register(SettingsCell.self, forCellReuseIdentifier: SettingsCell.reuseIdentifier)
     
@@ -43,7 +44,7 @@ final class WeatherView: UIView {
     // MARK: - Configure Content
     //
     private func configureUI() {
-        backgroundColor = .white
+        backgroundColor = .gray
         
         addSubview(table)
 

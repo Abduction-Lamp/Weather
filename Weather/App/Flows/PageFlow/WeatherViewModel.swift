@@ -10,8 +10,11 @@ import Foundation
 protocol WeatherViewModelProtocol: AnyObject {
     var city: CityData { get }
     var weather: Bindable<OneCallResponse?> { get }
-    
+
     func feach()
+    
+    func makeWeatherCityHeaderModel() -> WeatherCityHeaderModel
+    func makeWeatherHourlyModel() -> [WeatherHourlyModel]
 }
 
 final class WeatherViewModel: WeatherViewModelProtocol {
@@ -40,5 +43,28 @@ final class WeatherViewModel: WeatherViewModelProtocol {
                 print("\(error.description)")
             }
         }
+    }
+    
+    
+    func makeWeatherCityHeaderModel() -> WeatherCityHeaderModel {
+        var temperature: String = ""
+        if let temp = weather.value?.current?.temp {
+            temperature = temp.toStringWithDegreeSymbol()
+        }
+        return WeatherCityHeaderModel(city: city.rus,
+                                      temperature: temperature,
+                                      description: weather.value?.current?.weather.first?.description ?? "")
+    }
+    
+    func makeWeatherHourlyModel() -> [WeatherHourlyModel] {
+        var model: [WeatherHourlyModel] = []
+        if let hourly = weather.value?.hourly {
+            hourly.forEach { response in
+                model.append(WeatherHourlyModel(time: "response",
+                                                icon: "response",
+                                                temperature: response.temp.toStringWithDegreeSymbol()))
+            }
+        }
+        return model
     }
 }
