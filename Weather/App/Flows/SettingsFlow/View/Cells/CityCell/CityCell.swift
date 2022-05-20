@@ -10,12 +10,14 @@ import UIKit
 final class CityCell: UITableViewCell {
     static let reuseIdentifier = "CityCell"
     
+    private let const = DesignConstants.shared
+    
     private lazy var city: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: UIFont.labelFontSize)
+        label.font = .systemFont(ofSize: UIFont.labelFontSize)
         return label
     }()
     
@@ -32,7 +34,7 @@ final class CityCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .right
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: UIFont.labelFontSize)
+        label.font = .systemFont(ofSize: UIFont.labelFontSize)
         return label
     }()
     
@@ -71,23 +73,26 @@ final class CityCell: UITableViewCell {
     //
     private func configureContent() {
         contentView.backgroundColor = .white
+        
         contentView.addSubview(city)
         contentView.addSubview(icon)
         contentView.addSubview(temperature)
         
-        icon.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -15.0).isActive = true
-        icon.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        icon.widthAnchor.constraint(equalToConstant: 25.0).isActive = true
-        icon.heightAnchor.constraint(equalToConstant: 25.0).isActive = true
+        NSLayoutConstraint.activate([
+            icon.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -const.padding.medium.right),
+            icon.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            icon.widthAnchor.constraint(equalToConstant: 25.0),
+            icon.heightAnchor.constraint(equalToConstant: 25.0),
 
-        temperature.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        temperature.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        temperature.rightAnchor.constraint(equalTo: icon.leftAnchor, constant: -15.0).isActive = true
-        temperature.widthAnchor.constraint(equalToConstant: 50.0).isActive = true
+            temperature.topAnchor.constraint(equalTo: contentView.topAnchor),
+            temperature.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            temperature.rightAnchor.constraint(equalTo: icon.leftAnchor, constant: -const.padding.medium.right),
+            temperature.widthAnchor.constraint(equalToConstant: 50.0),
 
-        city.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        city.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        city.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 15.0).isActive = true
-        city.rightAnchor.constraint(equalTo: temperature.leftAnchor, constant: -5.0).isActive = true
+            city.topAnchor.constraint(equalTo: contentView.topAnchor),
+            city.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            city.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: const.padding.medium.left),
+            city.rightAnchor.constraint(equalTo: temperature.leftAnchor, constant: -const.padding.small.right)
+        ])
     }
 }

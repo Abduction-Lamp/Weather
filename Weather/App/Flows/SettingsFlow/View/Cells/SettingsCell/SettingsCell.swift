@@ -10,12 +10,14 @@ import UIKit
 final class SettingsCell: UITableViewCell {
     static let reuseIdentifier = "SettingsCell"
 
+    private let const = DesignConstants.shared
+    
     private var label: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: UIFont.labelFontSize)
+        label.font = .systemFont(ofSize: UIFont.labelFontSize)
         return label
     }()
 
@@ -50,17 +52,20 @@ final class SettingsCell: UITableViewCell {
     //
     private func configureContent() {
         contentView.backgroundColor = .white
+        
         contentView.addSubview(segmentControl)
         contentView.addSubview(label)
 
-        segmentControl.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        segmentControl.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -7).isActive = true
-        segmentControl.widthAnchor.constraint(equalToConstant: 144).isActive = true
-        segmentControl.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        NSLayoutConstraint.activate([
+            segmentControl.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            segmentControl.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -const.padding.small.right),
+            segmentControl.widthAnchor.constraint(equalToConstant: 144),
+            segmentControl.heightAnchor.constraint(equalToConstant: 35),
 
-        label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor).isActive = true
-        label.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: 15).isActive = true
-        label.rightAnchor.constraint(equalTo: segmentControl.leftAnchor, constant: -5).isActive = true
+            label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+            label.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: const.padding.medium.left),
+            label.rightAnchor.constraint(equalTo: segmentControl.leftAnchor, constant: -const.padding.small.right)
+        ])
     }
 
     

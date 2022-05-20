@@ -9,10 +9,11 @@ import UIKit
 
 final class SearchCityCell: UITableViewCell {
     static let reuseIdentifier = "SearchCityCell"
+    
+    private let const = DesignConstants.shared
 
     private lazy var mark: UIImageView = {
-        let image = UIImage(systemName: "bookmark.fill")
-        let imageView = UIImageView(image: image)
+        let imageView = UIImageView(image: UIImage(systemName: "bookmark.fill"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .center
         imageView.tintColor = .clear
@@ -24,7 +25,7 @@ final class SearchCityCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.textColor = .black
-        label.font = UIFont.systemFont(ofSize: UIFont.labelFontSize)
+        label.font = .systemFont(ofSize: UIFont.labelFontSize)
         return label
     }()
 
@@ -33,7 +34,13 @@ final class SearchCityCell: UITableViewCell {
         willSet(viewModel) {
             guard let viewModel = viewModel else { return }
             city.text = viewModel.data.city
-            viewModel.isSaved ? (mark.tintColor = .systemRed) : (mark.tintColor = .systemGray6)
+            if viewModel.isSaved {
+                mark.tintColor = .systemRed
+                city.font = .boldSystemFont(ofSize: UIFont.labelFontSize)
+            } else {
+                mark.tintColor = .systemGray6
+                city.font = .systemFont(ofSize: UIFont.labelFontSize)
+            }
         }
     }
 
@@ -61,17 +68,20 @@ final class SearchCityCell: UITableViewCell {
     //
     private func configureContent() {
         contentView.backgroundColor = .white
+        
         contentView.addSubview(city)
         contentView.addSubview(mark)
         
-        mark.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        mark.leftAnchor.constraint(equalTo: contentView.leftAnchor).isActive = true
-        mark.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        mark.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        city.topAnchor.constraint(equalTo: contentView.topAnchor).isActive = true
-        city.bottomAnchor.constraint(equalTo: contentView.bottomAnchor).isActive = true
-        city.leftAnchor.constraint(equalTo: mark.rightAnchor).isActive = true
-        city.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -5.0).isActive = true
+        NSLayoutConstraint.activate([
+            mark.topAnchor.constraint(equalTo: contentView.topAnchor),
+            mark.leftAnchor.constraint(equalTo: contentView.leftAnchor),
+            mark.widthAnchor.constraint(equalToConstant: 50),
+            mark.heightAnchor.constraint(equalToConstant: 50),
+            
+            city.topAnchor.constraint(equalTo: contentView.topAnchor),
+            city.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            city.leftAnchor.constraint(equalTo: mark.rightAnchor),
+            city.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -const.padding.small.right)
+        ])
     }
 }

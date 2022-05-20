@@ -19,11 +19,9 @@ final class WeatherView: UIView {
         table.allowsSelection = false
         table.showsVerticalScrollIndicator = false
         
-        
         table.register(WeatherCityHeader.self, forHeaderFooterViewReuseIdentifier: WeatherCityHeader.reuseIdentifier)
         table.register(WeatherHourlyCell.self, forCellReuseIdentifier: WeatherHourlyCell.reuseIdentifier)
         table.register(WeatherDailyCell.self, forCellReuseIdentifier: WeatherDailyCell.reuseIdentifier)
-//        table.register(SettingsCell.self, forCellReuseIdentifier: SettingsCell.reuseIdentifier)
     
         return table
     }()
@@ -44,11 +42,10 @@ final class WeatherView: UIView {
     // MARK: - Configure Content
     //
     private func configureUI() {
-        backgroundColor = .gray
+        backgroundColor = .systemGray5
         
         addSubview(table)
 
-        
         NSLayoutConstraint.activate([
             table.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             table.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),

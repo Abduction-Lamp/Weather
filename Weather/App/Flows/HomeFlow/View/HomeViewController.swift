@@ -9,6 +9,8 @@ import UIKit
 
 final class HomeViewController: UIPageViewController {
 
+    private let const = DesignConstants.shared
+    
     private var settingsButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -60,16 +62,14 @@ final class HomeViewController: UIPageViewController {
         placementUI()
     }
     
-    private func placementUI() {
-        let padding = UIEdgeInsets(top: 5, left: 16, bottom: 5, right: 16)
+    private func placementUI() {        
         let size = CGSize(width: 25, height: 25)
-
-        let safeArea = self.view.safeAreaLayoutGuide
-        
-        settingsButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor).isActive = true
-        settingsButton.rightAnchor.constraint(equalTo: safeArea.rightAnchor, constant: -padding.right).isActive = true
-        settingsButton.widthAnchor.constraint(equalToConstant: size.width).isActive = true
-        settingsButton.heightAnchor.constraint(equalToConstant: size.height).isActive = true
+        NSLayoutConstraint.activate([
+            settingsButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            settingsButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -const.padding.medium.right),
+            settingsButton.widthAnchor.constraint(equalToConstant: size.width),
+            settingsButton.heightAnchor.constraint(equalToConstant: size.height)
+        ])
     }
 }
 

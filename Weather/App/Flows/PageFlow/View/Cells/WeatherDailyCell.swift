@@ -133,7 +133,7 @@ final class WeatherDailyCell: UITableViewCell {
         
         let temperature = UILabel()
         temperature.translatesAutoresizingMaskIntoConstraints = false
-        temperature.textAlignment = .center
+        temperature.textAlignment = .right
         temperature.textColor = .black
         temperature.font = const.font.small
         temperature.text = model.temperature
@@ -148,13 +148,14 @@ final class WeatherDailyCell: UITableViewCell {
             day.trailingAnchor.constraint(equalTo: icon.leadingAnchor, constant: -const.padding.small.right),
             day.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -const.padding.small.bottom),
             
-            icon.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            icon.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             icon.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            icon.trailingAnchor.constraint(equalTo: temperature.leadingAnchor, constant: -const.padding.small.right),
             icon.widthAnchor.constraint(equalToConstant: const.font.small.lineHeight),
             icon.heightAnchor.constraint(equalToConstant: const.font.small.lineHeight),
             
             temperature.topAnchor.constraint(equalTo: view.topAnchor, constant: const.padding.small.top),
-            temperature.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -const.padding.small.right),
+            temperature.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -const.padding.medium.right),
             temperature.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -const.padding.small.bottom),
             temperature.widthAnchor.constraint(equalToConstant: 100),
         ])
