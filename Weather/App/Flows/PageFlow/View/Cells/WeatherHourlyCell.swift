@@ -147,10 +147,20 @@ final class WeatherHourlyCell: UITableViewCell {
         time.text = model.time
         
         let icon = UIImageView()
+
+        
+        let fontConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .regular, scale: .default)
+        let colorConfig = UIImage.SymbolConfiguration(paletteColors: [.systemGray4, .systemYellow, .systemBlue])
+        let config = fontConfig.applying(colorConfig)
+        
+        let image = UIImage.init(systemName: "cloud.moon.rain", withConfiguration: config)
+        
+        
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.contentMode = .scaleAspectFill
-        icon.tintColor = .black
-        icon.image = UIImage(systemName: "cloud.moon.rain")
+        icon.image = image
+//        icon.preferredSymbolConfiguration = config
+
         
         let temperature = UILabel()
         temperature.translatesAutoresizingMaskIntoConstraints = false
