@@ -9,8 +9,8 @@ import Foundation
 
 struct CurrentResponse: Codable {
     let time: TimeInterval          // Текущее время, Unix, UTC
-    let sunrise: TimeInterval       // Время восхода солнца, Unix, UTC
-    let sunset: TimeInterval        // Время захода солнца, Unix, UTC
+    let sunrise: TimeInterval?      // Время восхода солнца, Unix, UTC
+    let sunset: TimeInterval?       // Время захода солнца, Unix, UTC
     let temp: Double                // Температура (по умолчанию: Кельвин, метрические: Цельсий, имперские: Фаренгейт)
     let feelsLike: Double           // Температура учитывающая человеческое восприятие погоды (по умолчанию: Кельвин)
     let pressure: Int               // Атмосферное давление на уровне моря, гПа

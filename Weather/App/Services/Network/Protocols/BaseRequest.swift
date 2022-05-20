@@ -21,6 +21,7 @@ extension BaseRequest {
     var scheme: String {
         "https"
     }
+    
     var host: String {
         "api.openweathermap.org"
     }

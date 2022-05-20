@@ -9,6 +9,8 @@ import UIKit
 
 final class SettingsView: UIView {
     
+    private let const = DesignConstants.shared
+    
     private(set) var segment: UISegmentedControl = {
         let segment = UISegmentedControl()
         segment.translatesAutoresizingMaskIntoConstraints = false
@@ -70,18 +72,21 @@ final class SettingsView: UIView {
     //
     private func configureContent() {
         backgroundColor = .systemRed
+        
         addSubview(segment)
         addSubview(table)
 
-        segment.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
-        segment.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor).isActive = true
-        segment.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        segment.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        NSLayoutConstraint.activate([
+            segment.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: const.padding.medium.top),
+            segment.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            segment.widthAnchor.constraint(equalToConstant: 200),
+            segment.heightAnchor.constraint(equalToConstant: 35),
 
-        table.topAnchor.constraint(equalTo: segment.bottomAnchor, constant: 20).isActive = true
-        table.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor).isActive = true
-        table.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor).isActive = true
-        table.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+            table.topAnchor.constraint(equalTo: segment.bottomAnchor, constant: const.padding.medium.top),
+            table.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),
+            table.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor),
+            table.bottomAnchor.constraint(equalTo: bottomAnchor)
+        ])
     }
     
     
