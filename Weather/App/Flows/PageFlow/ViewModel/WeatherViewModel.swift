@@ -61,11 +61,28 @@ final class WeatherViewModel: WeatherViewModelProtocol {
     func makeWeatherHourlyModel() -> [WeatherHourlyModel] {
         var model: [WeatherHourlyModel] = []
         if let value = weather.value, let hourly = value.hourly {
+            
             for (index, response) in hourly.enumerated() where index < 24 {
                 let hour = response.time.toStringLocolTime(offset: value.timezoneOffset, format: "HH")
                 model.append(WeatherHourlyModel(time: index == 0 ? "Cейчас" : hour,
                                                 icon: "response",
                                                 temperature: response.temp.toStringWithDegreeSymbol()))
+            }   
+            ///
+            /// Вставка sunrise, sunset в выходной массив
+            ///
+            if let sunrise = weather.value?.current?.sunrise,
+               let sunset = weather.value?.current?.sunset {
+                if let sunriseIndex = model.firstIndex(where: { $0.time == sunrise.toStringLocolTime(offset: value.timezoneOffset, format: "HH") }) {
+                    model.insert(WeatherHourlyModel(time: sunrise.toStringLocolTime(offset: value.timezoneOffset, format: "HH:mm"),
+                                                    icon: "sunrise",
+                                                    temperature: "Восход солнца"), at: sunriseIndex + 1)
+                }
+                if let sunsetIndex = model.firstIndex(where: { $0.time == sunset.toStringLocolTime(offset: value.timezoneOffset, format: "HH") }) {
+                    model.insert(WeatherHourlyModel(time: sunset.toStringLocolTime(offset: value.timezoneOffset, format: "HH:mm"),
+                                                    icon: "sunset",
+                                                    temperature: "Заход солнца"), at: sunsetIndex + 1)
+                }
             }
         }
         return model
@@ -74,11 +91,11 @@ final class WeatherViewModel: WeatherViewModelProtocol {
     func makeWeatherDailyModel() -> [WeatherDailyModel] {
         var model: [WeatherDailyModel] = []
         if let value = weather.value, let daily = value.daily {
-            for response in daily {
+            for (index, response) in daily.enumerated() {
                 let day = response.time.toStringLocolTime(offset: value.timezoneOffset, format: "E.,  d MMM")
                 let temperature = response.temp.min.toStringWithDegreeSymbol() + " ... " + response.temp.max.toStringWithDegreeSymbol()
                 
-                model.append(WeatherDailyModel(day: day,
+                model.append(WeatherDailyModel(day: index == 0 ? "Сегодня" : day,
                                                icon: "response",
                                                temperature: temperature))
             }

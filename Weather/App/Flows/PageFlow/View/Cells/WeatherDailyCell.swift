@@ -97,7 +97,7 @@ final class WeatherDailyCell: UITableViewCell {
             mainStack.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: const.padding.medium.top),
             mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             mainStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor)
+            mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -const.padding.small.top)
         ])
     }
 
