@@ -42,7 +42,7 @@ final class WeatherView: UIView {
     // MARK: - Configure Content
     //
     private func configureUI() {
-        backgroundColor = .systemGray5
+        backgroundColor = .systemGray4
         
         addSubview(table)
 

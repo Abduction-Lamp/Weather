@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E10EA44283843BC00074D3E /* IconManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10EA43283843BC00074D3E /* IconManager.swift */; };
 		4E2BC2C128087E2B00018EB3 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2BC2C028087E2B00018EB3 /* SettingsViewModel.swift */; };
 		4E2BC2CA280887F800018EB3 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2BC2C9280887F800018EB3 /* Bindable.swift */; };
 		4E4F6C30282D40BD007BAE62 /* FakeWheather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F6C2F282D40BD007BAE62 /* FakeWheather.swift */; };
@@ -103,6 +104,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E10EA43283843BC00074D3E /* IconManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconManager.swift; sourceTree = "<group>"; };
 		4E2BC2C028087E2B00018EB3 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		4E2BC2C9280887F800018EB3 /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		4E4F6C29282D3BC6007BAE62 /* Unit.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Unit.xctestplan; sourceTree = "<group>"; };
@@ -213,6 +215,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E10EA422838437500074D3E /* IconManager */ = {
+			isa = PBXGroup;
+			children = (
+				4E10EA43283843BC00074D3E /* IconManager.swift */,
+			);
+			path = IconManager;
+			sourceTree = "<group>";
+		};
 		4E2BC2C72808878000018EB3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -458,6 +468,7 @@
 			children = (
 				4E8F9096280713C5008E3BFA /* Network */,
 				4E8F9097280713D2008E3BFA /* Storage */,
+				4E10EA422838437500074D3E /* IconManager */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -810,6 +821,7 @@
 				4E8F908A2806F448008E3BFA /* Settings.swift in Sources */,
 				4EA25624282463950066FEEE /* HomeViewModel.swift in Sources */,
 				4EBCC7AB28364E4600BF57A6 /* WeatherHourlyCell.swift in Sources */,
+				4E10EA44283843BC00074D3E /* IconManager.swift in Sources */,
 				4EFF9EB928183674002A0FC6 /* SearchCityCellViewModel.swift in Sources */,
 				4E8F90882806DC42008E3BFA /* WeatherView.swift in Sources */,
 				4E91A0642816D01500A37732 /* SnowResponse.swift in Sources */,

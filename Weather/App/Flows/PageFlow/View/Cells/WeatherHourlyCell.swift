@@ -38,14 +38,16 @@ final class WeatherHourlyCell: UITableViewCell {
         return label
     }()
     
-    private var canvasBlurEffect: UIVisualEffectView = {
-        let canvas = UIVisualEffectView()
-        canvas.translatesAutoresizingMaskIntoConstraints = false
-        canvas.effect = UIBlurEffect(style: .regular)
-        canvas.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        return canvas
-    }()
+//    private var canvasBlurEffect: UIVisualEffectView = {
+//        let canvas = UIVisualEffectView()
+////        canvas.backgroundColor = .systemGray4
+//        canvas.effect = UIBlurEffect(style: .regular)
+//        canvas.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+//        return canvas
+//    }()
     
+    private var canvasBlurEffect = UIVisualEffectView()
+
     private var scroll: UIScrollView = {
         let scroll = UIScrollView()
         scroll.translatesAutoresizingMaskIntoConstraints = false
@@ -86,9 +88,12 @@ final class WeatherHourlyCell: UITableViewCell {
     
     
     private func configureContent() {
+        self.backgroundColor = .clear
         contentView.backgroundColor = .clear
         
         canvasBlurEffect.frame = contentView.bounds
+        canvasBlurEffect.effect = UIBlurEffect(style: .regular)
+        canvasBlurEffect.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         contentView.addSubview(canvasBlurEffect)
         contentView.addSubview(icon)
@@ -146,22 +151,11 @@ final class WeatherHourlyCell: UITableViewCell {
         time.font = const.font.tiny
         time.text = model.time
         
-        let icon = UIImageView()
-
-        
-        let fontConfig = UIImage.SymbolConfiguration(pointSize: 20, weight: .regular, scale: .default)
-        let colorConfig = UIImage.SymbolConfiguration(paletteColors: [.systemGray4, .systemYellow, .systemBlue])
-        let config = fontConfig.applying(colorConfig)
-        
-        let image = UIImage.init(systemName: "cloud.moon.rain", withConfiguration: config)
-        
-        
+        let icon = UIImageView(frame: CGRect(origin: .zero, size: const.size.icon))
         icon.translatesAutoresizingMaskIntoConstraints = false
-        icon.contentMode = .scaleAspectFill
-        icon.image = image
-//        icon.preferredSymbolConfiguration = config
+        icon.contentMode = .scaleAspectFit
+        icon.image = model.icon
 
-        
         let temperature = UILabel()
         temperature.translatesAutoresizingMaskIntoConstraints = false
         temperature.textAlignment = .center

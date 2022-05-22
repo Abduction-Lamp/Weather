@@ -74,6 +74,7 @@ final class WeatherDailyCell: UITableViewCell {
     
     
     private func configureContent() {
+        self.backgroundColor = .clear
         contentView.backgroundColor = .clear
         
         canvasBlurEffect.frame = contentView.bounds
@@ -127,9 +128,8 @@ final class WeatherDailyCell: UITableViewCell {
         
         let icon = UIImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
-        icon.contentMode = .scaleAspectFill
-        icon.tintColor = .black
-        icon.image = UIImage(systemName: "cloud.moon.rain")
+        icon.contentMode = .scaleAspectFit
+        icon.image = model.icon
         
         let temperature = UILabel()
         temperature.translatesAutoresizingMaskIntoConstraints = false
@@ -148,11 +148,10 @@ final class WeatherDailyCell: UITableViewCell {
             day.trailingAnchor.constraint(equalTo: icon.leadingAnchor, constant: -const.padding.small.right),
             day.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -const.padding.small.bottom),
             
-//            icon.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             icon.centerYAnchor.constraint(equalTo: view.centerYAnchor),
             icon.trailingAnchor.constraint(equalTo: temperature.leadingAnchor, constant: -const.padding.small.right),
-            icon.widthAnchor.constraint(equalToConstant: const.font.small.lineHeight),
-            icon.heightAnchor.constraint(equalToConstant: const.font.small.lineHeight),
+            icon.widthAnchor.constraint(equalToConstant: const.size.icon.width),
+            icon.heightAnchor.constraint(equalToConstant: const.size.icon.height),
             
             temperature.topAnchor.constraint(equalTo: view.topAnchor, constant: const.padding.small.top),
             temperature.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -const.padding.medium.right),

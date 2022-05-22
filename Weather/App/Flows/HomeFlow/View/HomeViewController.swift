@@ -51,7 +51,7 @@ final class HomeViewController: UIPageViewController {
     }
 
     private func configureUI() {
-        view.backgroundColor = .black
+        view.backgroundColor = .clear
         view.addSubview(settingsButton)
         
         delegate = self
