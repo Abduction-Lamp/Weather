@@ -15,6 +15,7 @@ final class DesignConstants {
 
     let padding = Padding()
     let font = Fonts()
+    let size = Sizes()
     
     
     
@@ -39,5 +40,9 @@ final class DesignConstants {
             medium = newyork.withSize(25)
             large = newyork.withSize(41)
         }
+    }
+    
+    struct Sizes {
+        let icon = CGSize(width: 25, height: 25)
     }
 }
