@@ -8,10 +8,7 @@
 import UIKit
 
 protocol IconManagerProtocol {
-    func fetch(conditions id: Int?,
-               time: TimeInterval?,
-               sunrise: TimeInterval?,
-               sunset: TimeInterval?) -> UIImage?
+    func fetch(conditions id: Int?, time: TimeInterval?, sunrise: TimeInterval?, sunset: TimeInterval?) -> UIImage?
 }
 
 
@@ -22,19 +19,16 @@ final class IconManager: IconManagerProtocol {
         case sunset = 1001
     }
     
-    func fetch(conditions id: Int?,
-               time: TimeInterval? = nil,
-               sunrise: TimeInterval? = nil,
-               sunset: TimeInterval? = nil) -> UIImage? {
+    func fetch(conditions id: Int?, time: TimeInterval? = nil, sunrise: TimeInterval? = nil, sunset: TimeInterval? = nil) -> UIImage? {
         
         var isNight: Bool = false
-        if  let time = time, let sunrise = sunrise, let sunset = sunset {
-            switch time {
-            case sunrise ..< sunset: isNight = false
-            default: isNight = true
-            }
+        if let time = time,
+           let sunrise = sunrise,
+           let sunset = sunset,
+           (time < sunrise || time > sunset) {
+            isNight = true
         }
-        
+
         var systemName: String
         var colorConfig: UIImage.SymbolConfiguration
         
