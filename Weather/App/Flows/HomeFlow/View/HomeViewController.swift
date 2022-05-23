@@ -7,9 +7,29 @@
 
 import UIKit
 
-final class HomeViewController: UIPageViewController {
+final class HomeViewController: UIViewController {
 
     private let const = DesignConstants.shared
+    
+    private let gradientLayer: CALayer = {
+        let layer = CAGradientLayer()
+        
+        let begin: UIColor = .systemPink
+        let end: UIColor = .systemTeal
+
+        layer.colors = [begin.cgColor, end.cgColor]
+        layer.locations = [0 as NSNumber, 1 as NSNumber]
+        layer.startPoint = CGPoint.zero
+        layer.endPoint = CGPoint(x: 0, y: 1)
+        return layer
+    }()
+    
+    private let pageViewController: UIPageViewController = {
+        let page = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
+        page.view.translatesAutoresizingMaskIntoConstraints = false
+        page.view.backgroundColor = .clear
+        return page
+    }()
     
     private var settingsButton: UIButton = {
         let button = UIButton()
@@ -25,7 +45,8 @@ final class HomeViewController: UIPageViewController {
     
     init(viewModel: HomeViewModelProtocol) {
         self.viewModel = viewModel
-        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
+//        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
+        super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder: NSCoder) {
@@ -43,19 +64,28 @@ final class HomeViewController: UIPageViewController {
             guard let self = self else { return }
             self.currentPageIndex = 0
             if pages.isEmpty {
-                self.setViewControllers([UIViewController()], direction: .forward, animated: false, completion: nil)
+                self.pageViewController.setViewControllers([UIViewController()], direction: .forward, animated: false, completion: nil)
             } else {
-                self.setViewControllers([pages[self.currentPageIndex]], direction: .forward, animated: false, completion: nil)
+                self.pageViewController.setViewControllers([pages[self.currentPageIndex]], direction: .forward, animated: false, completion: nil)
             }
         }
     }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        gradientLayer.frame = view.bounds
+    }
+    
 
     private func configureUI() {
-        view.backgroundColor = .clear
+        view.layer.addSublayer(gradientLayer)
+
+        addChild(pageViewController)
+        view.addSubview(pageViewController.view)
         view.addSubview(settingsButton)
         
-        delegate = self
-        dataSource = self
+        pageViewController.delegate = self
+        pageViewController.dataSource = self
 
         settingsButton.addTarget(self, action: #selector(tapSettingsButton(sender:)), for: .touchUpInside)
     
@@ -64,7 +94,13 @@ final class HomeViewController: UIPageViewController {
     
     private func placementUI() {        
         let size = CGSize(width: 25, height: 25)
+        
         NSLayoutConstraint.activate([
+            pageViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            pageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            pageViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            pageViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            
             settingsButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             settingsButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -const.padding.medium.right),
             settingsButton.widthAnchor.constraint(equalToConstant: size.width),

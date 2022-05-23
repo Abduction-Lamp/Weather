@@ -23,7 +23,7 @@ final class WeatherCityHeader: UITableViewHeaderFooterView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.textColor = .black
+        label.textColor = .white
         label.font = const.font.medium
         return label
     }()
@@ -32,7 +32,7 @@ final class WeatherCityHeader: UITableViewHeaderFooterView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.textColor = .black
+        label.textColor = .white
         label.font = const.font.large
         return label
     }()
@@ -41,7 +41,7 @@ final class WeatherCityHeader: UITableViewHeaderFooterView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
-        label.textColor = .black
+        label.textColor = .white
         label.font = const.font.small
         return label
     }()

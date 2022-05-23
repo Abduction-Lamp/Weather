@@ -21,7 +21,7 @@ final class WeatherDailyCell: UITableViewCell {
         let icon = UIImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.contentMode = .scaleAspectFill
-        icon.tintColor = .black
+        icon.tintColor = .white
         icon.image = UIImage(systemName: "calendar")
         return icon
     }()
@@ -30,7 +30,7 @@ final class WeatherDailyCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.textColor = .black
+        label.textColor = .white
         label.font = const.font.tiny
         label.text = "Прогноз на неделю"
         return label
@@ -122,7 +122,7 @@ final class WeatherDailyCell: UITableViewCell {
         let day = UILabel()
         day.translatesAutoresizingMaskIntoConstraints = false
         day.textAlignment = .left
-        day.textColor = .black
+        day.textColor = .white
         day.font = const.font.tiny
         day.text = model.day
         
@@ -134,7 +134,7 @@ final class WeatherDailyCell: UITableViewCell {
         let temperature = UILabel()
         temperature.translatesAutoresizingMaskIntoConstraints = false
         temperature.textAlignment = .right
-        temperature.textColor = .black
+        temperature.textColor = .white
         temperature.font = const.font.small
         temperature.text = model.temperature
         

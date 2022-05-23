@@ -23,7 +23,7 @@ final class WeatherHourlyCell: UITableViewCell {
         let icon = UIImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.contentMode = .scaleAspectFill
-        icon.tintColor = .black
+        icon.tintColor = .white
         icon.image = UIImage(systemName: "clock")
         return icon
     }()
@@ -32,7 +32,7 @@ final class WeatherHourlyCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.textColor = .black
+        label.textColor = .white
         label.font = const.font.tiny
         label.text = "Почасовой прогноз"
         return label
@@ -147,7 +147,7 @@ final class WeatherHourlyCell: UITableViewCell {
         let time = UILabel()
         time.translatesAutoresizingMaskIntoConstraints = false
         time.textAlignment = .center
-        time.textColor = .black
+        time.textColor = .white
         time.font = const.font.tiny
         time.text = model.time
         
@@ -159,7 +159,7 @@ final class WeatherHourlyCell: UITableViewCell {
         let temperature = UILabel()
         temperature.translatesAutoresizingMaskIntoConstraints = false
         temperature.textAlignment = .center
-        temperature.textColor = .black
+        temperature.textColor = .white
         temperature.font = const.font.small
         temperature.text = model.temperature
         
