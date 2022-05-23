@@ -47,9 +47,8 @@ final class SettingsViewController: UIViewController {
     private var viewModel: SettingsViewModelProtocol?
 
 
-    
-    // MARK: Initiation
-    //
+    // MARK: Initialization
+    ///
     init(viewModel: SettingsViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -63,8 +62,9 @@ final class SettingsViewController: UIViewController {
         print("🗑\tDeinit SettingsViewController")
     }
     
+    
     // MARK: Lifecycle
-    //
+    ///
     override func loadView() {
         super.loadView()
         configureUI()
@@ -88,10 +88,15 @@ final class SettingsViewController: UIViewController {
         super.viewDidDisappear(animated)
         viewModel = nil
     }
-    
-    
+}
+
+
+// MARK: - Support methods
+//
+extension SettingsViewController {
+
     // MARK: Configure UI Content
-    //
+    ///
     private func configureUI() {
         view = SettingsView(frame: view.frame)
         
@@ -112,14 +117,7 @@ final class SettingsViewController: UIViewController {
         
         settingsView.searchBar.delegate = self
     }
-}
- 
-
-
-// MARK: Support methods
-//
-extension SettingsViewController {
-
+    
     private func switchToCityMode() {
         hidenSearchBar(isHidden: true)
         hideNavigationToolbar(isHidden: false)
@@ -170,6 +168,31 @@ extension SettingsViewController {
             orderButton.tintColor = .systemBlue
             viewModel?.save()
         }
+    }
+}
+
+
+// MARK: - Actions extension
+//
+extension SettingsViewController {
+    
+    @objc
+    func changedDisplayType(sender: UISegmentedControl) {
+        guard
+            let type = DisplayType.init(rawValue: sender.selectedSegmentIndex),
+            display != type
+        else { return }
+        display = type
+    }
+
+    @objc
+    func tapEditButton(sender: UIBarButtonItem) {
+        isTableEditing = !isTableEditing
+    }
+
+    @objc
+    func tapSearchButton(sender: UIBarButtonItem) {
+        display = .search
     }
 }
 
@@ -234,7 +257,6 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         }
     }
 
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch display {
         case .search:
@@ -260,7 +282,6 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             break
         }
     }
-    
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         isTableEditing ? .delete : .none
@@ -309,30 +330,5 @@ extension SettingsViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
         searchBar.endEditing(true)
-    }
-}
-
-
-// MARK: - Actions extension
-//
-extension SettingsViewController {
-    
-    @objc
-    func changedDisplayType(sender: UISegmentedControl) {
-        guard
-            let type = DisplayType.init(rawValue: sender.selectedSegmentIndex),
-            display != type
-        else { return }
-        display = type
-    }
-
-    @objc
-    func tapEditButton(sender: UIBarButtonItem) {
-        isTableEditing = !isTableEditing
-    }
-
-    @objc
-    func tapSearchButton(sender: UIBarButtonItem) {
-        display = .search
     }
 }

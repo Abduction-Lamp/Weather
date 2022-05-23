@@ -27,8 +27,8 @@ final class WeatherView: UIView {
     }()
     
     
-    // MARK: - Initiation
-    //
+    // MARK: Initialization
+    ///
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
@@ -38,11 +38,11 @@ final class WeatherView: UIView {
         fatalError("📛\tWeatherView init(coder:) has not been implemented")
     }
 
-    
-    // MARK: - Configure Content
-    //
+
+    // MARK: Configure сontent
+    ///
     private func configureUI() {
-        backgroundColor = .systemGray4
+        backgroundColor = .clear
         
         addSubview(table)
 

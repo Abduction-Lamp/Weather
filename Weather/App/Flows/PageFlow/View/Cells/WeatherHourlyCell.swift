@@ -23,7 +23,7 @@ final class WeatherHourlyCell: UITableViewCell {
         let icon = UIImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.contentMode = .scaleAspectFill
-        icon.tintColor = .black
+        icon.tintColor = .white
         icon.image = UIImage(systemName: "clock")
         return icon
     }()
@@ -32,21 +32,11 @@ final class WeatherHourlyCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.textColor = .black
+        label.textColor = .white
         label.font = const.font.tiny
         label.text = "Почасовой прогноз"
         return label
     }()
-    
-//    private var canvasBlurEffect: UIVisualEffectView = {
-//        let canvas = UIVisualEffectView()
-////        canvas.backgroundColor = .systemGray4
-//        canvas.effect = UIBlurEffect(style: .regular)
-//        canvas.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        return canvas
-//    }()
-    
-    private var canvasBlurEffect = UIVisualEffectView()
 
     private var scroll: UIScrollView = {
         let scroll = UIScrollView()
@@ -66,11 +56,16 @@ final class WeatherHourlyCell: UITableViewCell {
         return stack
     }()
     
+    private var canvasBlurEffect: UIVisualEffectView = {
+        let canvas = UIVisualEffectView()
+        canvas.effect = UIBlurEffect(style: .regular)
+        canvas.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        return canvas
+    }()
     
     
-    
-    // MARK: - Initiation
-    //
+    // MARK: Initialization
+    ///
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -82,18 +77,20 @@ final class WeatherHourlyCell: UITableViewCell {
     }
 
     override func prepareForReuse() {
-
         super.prepareForReuse()
     }
-    
+}
+
+
+// MARK: - Support methods
+//
+extension WeatherHourlyCell {
     
     private func configureContent() {
         self.backgroundColor = .clear
         contentView.backgroundColor = .clear
         
         canvasBlurEffect.frame = contentView.bounds
-        canvasBlurEffect.effect = UIBlurEffect(style: .regular)
-        canvasBlurEffect.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         contentView.addSubview(canvasBlurEffect)
         contentView.addSubview(icon)
@@ -125,16 +122,6 @@ final class WeatherHourlyCell: UITableViewCell {
             mainStack.widthAnchor.constraint(greaterThanOrEqualTo: scroll.widthAnchor)
         ])
     }
-
-    
-    public func setup(model: [WeatherHourlyModel]) {
-        model.forEach { hourly in
-            let item = buildItem(model: hourly)
-            mainStack.addArrangedSubview(item)
-        }
-        mainStack.setNeedsLayout()
-    }
-    
     
     private func buildItem(model: WeatherHourlyModel) -> UIStackView {
         let stack = UIStackView()
@@ -147,7 +134,7 @@ final class WeatherHourlyCell: UITableViewCell {
         let time = UILabel()
         time.translatesAutoresizingMaskIntoConstraints = false
         time.textAlignment = .center
-        time.textColor = .black
+        time.textColor = .white
         time.font = const.font.tiny
         time.text = model.time
         
@@ -159,7 +146,7 @@ final class WeatherHourlyCell: UITableViewCell {
         let temperature = UILabel()
         temperature.translatesAutoresizingMaskIntoConstraints = false
         temperature.textAlignment = .center
-        temperature.textColor = .black
+        temperature.textColor = .white
         temperature.font = const.font.small
         temperature.text = model.temperature
         
@@ -168,5 +155,13 @@ final class WeatherHourlyCell: UITableViewCell {
         stack.addArrangedSubview(temperature)
         
         return stack
+    }
+    
+    public func setup(model: [WeatherHourlyModel]) {
+        model.forEach { hourly in
+            let item = buildItem(model: hourly)
+            mainStack.addArrangedSubview(item)
+        }
+        mainStack.setNeedsLayout()
     }
 }

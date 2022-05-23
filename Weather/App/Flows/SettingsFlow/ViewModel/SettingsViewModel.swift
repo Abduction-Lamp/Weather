@@ -18,13 +18,15 @@ protocol SettingsViewModelProtocol: AnyObject {
     func makeSearchCityCellViewModel(for indexPath: IndexPath) -> SearchCityCellViewModelProtocol?
     func makeSettingsCellViewModel(_ type: MetaType.Type) -> SettingsCellViewModelProtocol?
     
-    func searchCity(city: String)
+    func save()
+    
+    func moveItem(at sourceIndex: Int, to destinationIndex: Int)
     func addCity(for indexPath: IndexPath) -> Bool
     func removeCity(for indexPath: IndexPath) -> Bool
-    func cancelSelection(for indexPath: IndexPath) -> Bool 
     
-    func save()
-    func moveItem(at sourceIndex: Int, to destinationIndex: Int)
+    func cancelSelection(for indexPath: IndexPath) -> Bool 
+
+    func searchCity(city: String)
 }
 
 
@@ -49,6 +51,8 @@ final class SettingsViewModel {
 }
 
 
+// MARK: - SettingsViewModelProtocol
+//
 extension SettingsViewModel: SettingsViewModelProtocol {
     
     func numberOfRows() -> Int {
@@ -59,15 +63,8 @@ extension SettingsViewModel: SettingsViewModelProtocol {
         return searchResult.value.count
     }
     
-    func save() {
-        guard let storage = self.storage, let settings = self.settings else { return }
-        storage.save(settings, completion: nil)
-    }
-    
-    func moveItem(at sourceIndex: Int, to destinationIndex: Int) {
-        settings?.move(at: sourceIndex, to: destinationIndex)
-    }
-    
+    // MARK: Make models
+    ///
     func makeCityCellViewModel(for indexPath: IndexPath) -> CityCellViewModelProtocol? {
         guard
             let count = settings?.cities.value.count,
@@ -98,22 +95,17 @@ extension SettingsViewModel: SettingsViewModelProtocol {
         return SettingsCellViewModel(type, from: settings)
     }
     
-    func searchCity(city: String) {
-        if city.isEmpty {
-            searchResult.value = []
-        } else {
-            network?.getCoordinatesByLocationName(city: city) { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .success(let cities):
-                    self.searchResult.value = cities
-                case .failure(let error):
-                    print(error.description)
-                }
-            }
-        }
+    // MARK: Actions
+    ///
+    func save() {
+        guard let storage = self.storage, let settings = self.settings else { return }
+        storage.save(settings, completion: nil)
     }
     
+    func moveItem(at sourceIndex: Int, to destinationIndex: Int) {
+        settings?.move(at: sourceIndex, to: destinationIndex)
+    }
+        
     func addCity(for indexPath: IndexPath) -> Bool {
         guard
             let settings = self.settings,
@@ -156,5 +148,23 @@ extension SettingsViewModel: SettingsViewModelProtocol {
             return true
         }
         return false
+    }
+    
+    // MARK: Network
+    ///
+    func searchCity(city: String) {
+        if city.isEmpty {
+            searchResult.value = []
+        } else {
+            network?.getCoordinatesByLocationName(city: city) { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .success(let cities):
+                    self.searchResult.value = cities
+                case .failure(let error):
+                    print(error.description)
+                }
+            }
+        }
     }
 }

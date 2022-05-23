@@ -14,7 +14,7 @@ protocol HomeViewModelProtocol: AnyObject {
 }
 
 
-final class HomeViewModel: HomeViewModelProtocol {
+final class HomeViewModel {
 
     private weak var storage: StorageServiceProtocol?
     private weak var network: NetworkServiceProtocol?
@@ -47,7 +47,12 @@ final class HomeViewModel: HomeViewModelProtocol {
         } 
         pages.value = list
     }
-    
+}
+
+
+// MARK: - HomeViewModelProtocol
+//
+extension HomeViewModel: HomeViewModelProtocol {
     
     func makeSettingsViewModel() -> SettingsViewModelProtocol? {
         guard let settings = settings, let storage = storage, let network = network else { return nil }

@@ -19,13 +19,13 @@ protocol WeatherViewModelProtocol: AnyObject {
 }
 
 
-final class WeatherViewModel: WeatherViewModelProtocol {
+final class WeatherViewModel {
     
     var city: CityData
     var weather = Bindable<OneCallResponse?>(nil)
     
     private weak var network: NetworkServiceProtocol?
-    private var iconManager = IconManager()
+    private var iconManager = IconService()
     
     init(city: CityData, network: NetworkServiceProtocol) {
         self.city = city
@@ -35,7 +35,12 @@ final class WeatherViewModel: WeatherViewModelProtocol {
     deinit {
         print("😻\tDeinit WeatherViewModel")
     }
-    
+}
+
+
+// MARK: - WeatherViewModelProtocol
+//
+extension WeatherViewModel: WeatherViewModelProtocol {
     
     func feach() {
         network?.getWeatherOneCall(lat: city.latitude, lon: city.longitude, units: "metric", lang: "ru") { [weak self] response in
@@ -49,6 +54,8 @@ final class WeatherViewModel: WeatherViewModelProtocol {
     }
     
     
+    // MARK: Make models
+    ///
     func makeWeatherCityHeaderModel() -> WeatherCityHeaderModel {
         var temperature: String = ""
         if let temp = weather.value?.current?.temp {
@@ -81,10 +88,10 @@ final class WeatherViewModel: WeatherViewModelProtocol {
                let sunriseIndex = model.firstIndex(where: { $0.time == sunrise.toStringLocolTime(offset: value.timezoneOffset, format: "HH") }),
                let sunsetIndex = model.firstIndex(where: { $0.time == sunset.toStringLocolTime(offset: value.timezoneOffset, format: "HH") }) {
                 model.insert(WeatherHourlyModel(time: sunrise.toStringLocolTime(offset: value.timezoneOffset, format: "HH:mm"),
-                                                icon: iconManager.fetch(conditions: IconManager.ExpandedIconSet.sunrise.rawValue),
+                                                icon: iconManager.fetch(conditions: IconService.ExpandedIconSet.sunrise.rawValue),
                                                 temperature: "Восход солнца"), at: sunriseIndex + 1)
                 model.insert(WeatherHourlyModel(time: sunset.toStringLocolTime(offset: value.timezoneOffset, format: "HH:mm"),
-                                                icon: iconManager.fetch(conditions: IconManager.ExpandedIconSet.sunset.rawValue),
+                                                icon: iconManager.fetch(conditions: IconService.ExpandedIconSet.sunset.rawValue),
                                                 temperature: "Заход солнца"), at: sunsetIndex + 1)
             }
         }

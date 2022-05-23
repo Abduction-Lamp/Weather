@@ -51,25 +51,25 @@ final class SettingsView: UIView {
         return table
     }()
     
-
-    // MARK: - Initiation
-    //
+    
+    // MARK: Initialization
+    ///
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
-
+    
     required init?(coder: NSCoder) {
         fatalError("📛\tSettingsView init(coder:) has not been implemented")
     }
-
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         configureContent()
     }
-
     
-    // MARK: - Configure Content
-    //
+    
+    // MARK: Configure content
+    ///
     private func configureContent() {
         backgroundColor = .systemRed
         
@@ -89,7 +89,8 @@ final class SettingsView: UIView {
         ])
     }
     
-    
+    // MARK: Actions
+    ///
     func hidenSearchBar(isHiden: Bool) {
         if isHiden {
             searchBar.text = nil

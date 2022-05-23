@@ -16,12 +16,11 @@ final class WeatherViewController: UIViewController {
         return view
     }
     
-    private var viewModel: WeatherViewModelProtocol?
+    var viewModel: WeatherViewModelProtocol?
     
     
-    
-    // MARK: - Initiation
-    //
+    // MARK: Initialization
+    ///
     init(viewModel: WeatherViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -32,8 +31,8 @@ final class WeatherViewController: UIViewController {
     }
     
     
-    // MARK: - Lifecycle
-    //
+    // MARK: Lifecycle
+    ///
     override func loadView() {
         super.loadView()
         
@@ -55,9 +54,17 @@ final class WeatherViewController: UIViewController {
         
         viewModel?.feach()
     }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+//        print(viewModel?.city.rus)
+    }
 }
 
 
+// MARK: - UITableViewDelegate, UITableViewDataSource
+//
 extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {

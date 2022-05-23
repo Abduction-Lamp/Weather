@@ -21,7 +21,7 @@ final class WeatherDailyCell: UITableViewCell {
         let icon = UIImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
         icon.contentMode = .scaleAspectFill
-        icon.tintColor = .black
+        icon.tintColor = .white
         icon.image = UIImage(systemName: "calendar")
         return icon
     }()
@@ -30,18 +30,10 @@ final class WeatherDailyCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.textColor = .black
+        label.textColor = .white
         label.font = const.font.tiny
         label.text = "Прогноз на неделю"
         return label
-    }()
-    
-    private var canvasBlurEffect: UIVisualEffectView = {
-        let canvas = UIVisualEffectView()
-        canvas.translatesAutoresizingMaskIntoConstraints = false
-        canvas.effect = UIBlurEffect(style: .regular)
-        canvas.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        return canvas
     }()
         
     private lazy var mainStack: UIStackView = {
@@ -54,9 +46,17 @@ final class WeatherDailyCell: UITableViewCell {
         return stack
     }()
     
+    private var canvasBlurEffect: UIVisualEffectView = {
+        let canvas = UIVisualEffectView()
+        canvas.translatesAutoresizingMaskIntoConstraints = false
+        canvas.effect = UIBlurEffect(style: .regular)
+        canvas.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        return canvas
+    }()
     
-    // MARK: - Initiation
-    //
+    
+    // MARK: Initialization
+    ///
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -68,10 +68,14 @@ final class WeatherDailyCell: UITableViewCell {
     }
 
     override func prepareForReuse() {
-
         super.prepareForReuse()
     }
-    
+}
+
+
+// MARK: - Support methods
+//
+extension WeatherDailyCell {
     
     private func configureContent() {
         self.backgroundColor = .clear
@@ -102,16 +106,6 @@ final class WeatherDailyCell: UITableViewCell {
         ])
     }
 
-    
-    public func setup(model: [WeatherDailyModel]) {
-        model.forEach { daily in
-            let item = buildItem(model: daily)
-            mainStack.addArrangedSubview(item)
-        }
-        mainStack.setNeedsLayout()
-    }
-    
-    
     private func buildItem(model: WeatherDailyModel) -> UIView {
         let viewFrame = CGRect(origin: .zero,
                                size: CGSize(width: contentView.frame.width,
@@ -122,7 +116,7 @@ final class WeatherDailyCell: UITableViewCell {
         let day = UILabel()
         day.translatesAutoresizingMaskIntoConstraints = false
         day.textAlignment = .left
-        day.textColor = .black
+        day.textColor = .white
         day.font = const.font.tiny
         day.text = model.day
         
@@ -134,7 +128,7 @@ final class WeatherDailyCell: UITableViewCell {
         let temperature = UILabel()
         temperature.translatesAutoresizingMaskIntoConstraints = false
         temperature.textAlignment = .right
-        temperature.textColor = .black
+        temperature.textColor = .white
         temperature.font = const.font.small
         temperature.text = model.temperature
         
@@ -160,5 +154,13 @@ final class WeatherDailyCell: UITableViewCell {
         ])
         
         return view
+    }
+    
+    public func setup(model: [WeatherDailyModel]) {
+        model.forEach { daily in
+            let item = buildItem(model: daily)
+            mainStack.addArrangedSubview(item)
+        }
+        mainStack.setNeedsLayout()
     }
 }
