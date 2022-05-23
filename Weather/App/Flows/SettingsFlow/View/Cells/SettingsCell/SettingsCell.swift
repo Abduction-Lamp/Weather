@@ -27,9 +27,23 @@ final class SettingsCell: UITableViewCell {
         return segment
     }()
 
+    
+    var viewModel: SettingsCellViewModelProtocol? {
+        willSet(viewModel) {
+            guard let viewModel = viewModel else { return }
 
-    // MARK: - Initiation
-    //
+            label.text = viewModel.data.label
+            for (index, title) in viewModel.data.items.enumerated() {
+                segmentControl.insertSegment(withTitle: title, at: index, animated: false)
+            }
+            segmentControl.selectedSegmentIndex = viewModel.selected
+            segmentControl.addTarget(self, action: #selector(changed(sender: )), for: .valueChanged)
+        }
+    }
+
+    
+    // MARK: Initialization
+    ///
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureContent()
@@ -46,10 +60,15 @@ final class SettingsCell: UITableViewCell {
         viewModel = nil
         super.prepareForReuse()
     }
+}
+ 
 
+// MARK: - Support methods
+//
+extension SettingsCell {
     
-    // MARK: - Configure Content & Set Data
-    //
+    // MARK: Configure content
+    ////
     private func configureContent() {
         contentView.backgroundColor = .white
         
@@ -67,23 +86,11 @@ final class SettingsCell: UITableViewCell {
             label.rightAnchor.constraint(equalTo: segmentControl.leftAnchor, constant: -const.padding.small.right)
         ])
     }
-
-    
-    var viewModel: SettingsCellViewModelProtocol? {
-        willSet(viewModel) {
-            guard let viewModel = viewModel else { return }
-
-            label.text = viewModel.data.label
-            for (index, title) in viewModel.data.items.enumerated() {
-                segmentControl.insertSegment(withTitle: title, at: index, animated: false)
-            }
-            segmentControl.selectedSegmentIndex = viewModel.selected
-            segmentControl.addTarget(self, action: #selector(changed(sender: )), for: .valueChanged)
-        }
-    }
 }
- 
 
+
+// MARK: - Actions extension
+//
 extension SettingsCell {
     
     @objc

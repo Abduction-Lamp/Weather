@@ -39,13 +39,15 @@ final class HomeViewController: UIViewController {
         return button
     }()
     
+    
     private var currentPageIndex = 0
     var viewModel: HomeViewModelProtocol
 
     
+    // MARK: Initialization
+    ///
     init(viewModel: HomeViewModelProtocol) {
         self.viewModel = viewModel
-//        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -54,8 +56,8 @@ final class HomeViewController: UIViewController {
     }
     
     
-    // MARK: - Lifecycle
-    //
+    // MARK: Lifecycle
+    ///
     override func loadView() {
         super.loadView()
         configureUI()
@@ -75,8 +77,13 @@ final class HomeViewController: UIViewController {
         super.viewWillLayoutSubviews()
         gradientLayer.frame = view.bounds
     }
-    
+}
 
+
+// MARK: - Support methods
+//
+extension HomeViewController {
+    
     private func configureUI() {
         view.layer.addSublayer(gradientLayer)
 
@@ -92,7 +99,7 @@ final class HomeViewController: UIViewController {
         placementUI()
     }
     
-    private func placementUI() {        
+    private func placementUI() {
         let size = CGSize(width: 25, height: 25)
         
         NSLayoutConstraint.activate([
@@ -110,6 +117,23 @@ final class HomeViewController: UIViewController {
 }
 
 
+// MARK: - Actions
+//
+extension HomeViewController {
+    
+    @objc
+    func tapSettingsButton(sender: UIButton) {
+        if let settingsViewModel = viewModel.makeSettingsViewModel() {
+            let settingsViewController = SettingsViewController(viewModel: settingsViewModel)
+            let navigationVC = UINavigationController(rootViewController: settingsViewController)
+            self.present(navigationVC, animated: true, completion: nil)
+        }
+    }
+}
+
+
+// MARK: - UIPageViewControllerDelegate, UIPageViewControllerDataSource
+//
 extension HomeViewController: UIPageViewControllerDelegate, UIPageViewControllerDataSource {
     
     func pageViewController(_ pageViewController: UIPageViewController,
@@ -143,18 +167,5 @@ extension HomeViewController: UIPageViewControllerDelegate, UIPageViewController
 
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
         return currentPageIndex
-    }
-}
-
-
-extension HomeViewController {
-    
-    @objc
-    func tapSettingsButton(sender: UIButton) {
-        if let settingsViewModel = viewModel.makeSettingsViewModel() {
-            let settingsViewController = SettingsViewController(viewModel: settingsViewModel)
-            let navigationVC = UINavigationController(rootViewController: settingsViewController)
-            self.present(navigationVC, animated: true, completion: nil)
-        }
     }
 }

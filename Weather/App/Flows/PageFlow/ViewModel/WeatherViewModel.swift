@@ -19,7 +19,7 @@ protocol WeatherViewModelProtocol: AnyObject {
 }
 
 
-final class WeatherViewModel: WeatherViewModelProtocol {
+final class WeatherViewModel {
     
     var city: CityData
     var weather = Bindable<OneCallResponse?>(nil)
@@ -35,7 +35,12 @@ final class WeatherViewModel: WeatherViewModelProtocol {
     deinit {
         print("😻\tDeinit WeatherViewModel")
     }
-    
+}
+
+
+// MARK: - WeatherViewModelProtocol
+//
+extension WeatherViewModel: WeatherViewModelProtocol {
     
     func feach() {
         network?.getWeatherOneCall(lat: city.latitude, lon: city.longitude, units: "metric", lang: "ru") { [weak self] response in
@@ -49,6 +54,8 @@ final class WeatherViewModel: WeatherViewModelProtocol {
     }
     
     
+    // MARK: Make models
+    ///
     func makeWeatherCityHeaderModel() -> WeatherCityHeaderModel {
         var temperature: String = ""
         if let temp = weather.value?.current?.temp {

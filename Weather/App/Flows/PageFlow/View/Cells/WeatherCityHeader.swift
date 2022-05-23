@@ -47,9 +47,8 @@ final class WeatherCityHeader: UITableViewHeaderFooterView {
     }()
     
     
-    
-    // MARK: - Initiation
-    //
+    // MARK: Initialization
+    ///
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
@@ -66,7 +65,12 @@ final class WeatherCityHeader: UITableViewHeaderFooterView {
         descriptionLabel.text = nil
         super.prepareForReuse()
     }
-    
+}
+
+
+// MARK: - Support methods
+//
+extension WeatherCityHeader {
     
     private func configureContent() {
         contentView.backgroundColor = .clear

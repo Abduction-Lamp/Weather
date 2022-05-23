@@ -27,7 +27,6 @@ final class Network: NetworkServiceProtocol {
     
     
     // MARK: - Coordinates By Location Name
-    ///
     /// Возвращает координаты запрошенного города
     ///
     func getCoordinatesByLocationName(city: String,
