@@ -10,14 +10,10 @@ import UIKit
 final class HomeViewController: UIViewController {
 
     private let const = DesignConstants.shared
+    private let layerManager = GradientLayerService()
     
-    private let gradientLayer: CALayer = {
+    private let gradientLayer: CAGradientLayer = {
         let layer = CAGradientLayer()
-        
-        let begin: UIColor = .systemPink
-        let end: UIColor = .systemTeal
-
-        layer.colors = [begin.cgColor, end.cgColor]
         layer.locations = [0 as NSNumber, 1 as NSNumber]
         layer.startPoint = CGPoint.zero
         layer.endPoint = CGPoint(x: 0, y: 1)
@@ -39,8 +35,7 @@ final class HomeViewController: UIViewController {
         return button
     }()
     
-    
-    private var currentPageIndex = 0
+    private var currentIndexPage = 0
     var viewModel: HomeViewModelProtocol
 
     
@@ -64,11 +59,17 @@ final class HomeViewController: UIViewController {
         
         viewModel.pages.bind { [weak self] pages in
             guard let self = self else { return }
-            self.currentPageIndex = 0
+            self.currentIndexPage = 0
             if pages.isEmpty {
                 self.pageViewController.setViewControllers([UIViewController()], direction: .forward, animated: false, completion: nil)
+                self.gradientLayer.colors = self.layerManager.indefinite
             } else {
-                self.pageViewController.setViewControllers([pages[self.currentPageIndex]], direction: .forward, animated: false, completion: nil)
+                self.pageViewController.setViewControllers([pages[self.currentIndexPage]], direction: .forward, animated: false, completion: nil)
+                
+                let time = pages[self.currentIndexPage].viewModel?.weather.value?.current?.time
+                let sunrise = pages[self.currentIndexPage].viewModel?.weather.value?.current?.sunrise
+                let sunset = pages[self.currentIndexPage].viewModel?.weather.value?.current?.sunset
+                self.gradientLayer.colors = self.layerManager.fetch(time: time, sunrise: sunrise, sunset: sunset)
             }
         }
     }
@@ -85,6 +86,7 @@ final class HomeViewController: UIViewController {
 extension HomeViewController {
     
     private func configureUI() {
+        gradientLayer.colors = layerManager.indefinite
         view.layer.addSublayer(gradientLayer)
 
         addChild(pageViewController)
@@ -143,7 +145,7 @@ extension HomeViewController: UIPageViewControllerDelegate, UIPageViewController
             let index = viewModel.pages.value.firstIndex(of: current)
         else { return nil }
         
-        currentPageIndex = index
+        currentIndexPage = index
         guard index > 0 else { return nil }
         return viewModel.pages.value[index - 1]
     }
@@ -155,17 +157,30 @@ extension HomeViewController: UIPageViewControllerDelegate, UIPageViewController
             let index = viewModel.pages.value.firstIndex(of: current)
         else { return nil }
 
-        currentPageIndex = index
+        currentIndexPage = index
         guard index < (viewModel.pages.value.count - 1) else { return nil }
         return viewModel.pages.value[index + 1]
     }
     
+    
+    func pageViewController(_ pageViewController: UIPageViewController,
+                            didFinishAnimating finished: Bool,
+                            previousViewControllers: [UIViewController],
+                            transitionCompleted completed: Bool) {
+        guard
+            completed,
+            let current = pageViewController.viewControllers?.first as? WeatherViewController
+        else { return }
+        gradientLayer.colors = layerManager.fetch(time: current.viewModel?.weather.value?.current?.time,
+                                                  sunrise: current.viewModel?.weather.value?.current?.sunrise,
+                                                  sunset: current.viewModel?.weather.value?.current?.sunset)
+    }
     
     func presentationCount(for pageViewController: UIPageViewController) -> Int {
         return viewModel.pages.value.count
     }
 
     func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        return currentPageIndex
+        return currentIndexPage
     }
 }

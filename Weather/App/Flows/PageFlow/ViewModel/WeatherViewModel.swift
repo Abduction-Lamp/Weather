@@ -25,7 +25,7 @@ final class WeatherViewModel {
     var weather = Bindable<OneCallResponse?>(nil)
     
     private weak var network: NetworkServiceProtocol?
-    private var iconManager = IconManager()
+    private var iconManager = IconService()
     
     init(city: CityData, network: NetworkServiceProtocol) {
         self.city = city
@@ -88,10 +88,10 @@ extension WeatherViewModel: WeatherViewModelProtocol {
                let sunriseIndex = model.firstIndex(where: { $0.time == sunrise.toStringLocolTime(offset: value.timezoneOffset, format: "HH") }),
                let sunsetIndex = model.firstIndex(where: { $0.time == sunset.toStringLocolTime(offset: value.timezoneOffset, format: "HH") }) {
                 model.insert(WeatherHourlyModel(time: sunrise.toStringLocolTime(offset: value.timezoneOffset, format: "HH:mm"),
-                                                icon: iconManager.fetch(conditions: IconManager.ExpandedIconSet.sunrise.rawValue),
+                                                icon: iconManager.fetch(conditions: IconService.ExpandedIconSet.sunrise.rawValue),
                                                 temperature: "Восход солнца"), at: sunriseIndex + 1)
                 model.insert(WeatherHourlyModel(time: sunset.toStringLocolTime(offset: value.timezoneOffset, format: "HH:mm"),
-                                                icon: iconManager.fetch(conditions: IconManager.ExpandedIconSet.sunset.rawValue),
+                                                icon: iconManager.fetch(conditions: IconService.ExpandedIconSet.sunset.rawValue),
                                                 temperature: "Заход солнца"), at: sunsetIndex + 1)
             }
         }

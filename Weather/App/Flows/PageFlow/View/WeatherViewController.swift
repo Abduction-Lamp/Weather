@@ -16,7 +16,7 @@ final class WeatherViewController: UIViewController {
         return view
     }
     
-    private var viewModel: WeatherViewModelProtocol?
+    var viewModel: WeatherViewModelProtocol?
     
     
     // MARK: Initialization
@@ -53,6 +53,12 @@ final class WeatherViewController: UIViewController {
         super.viewDidLoad()
         
         viewModel?.feach()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+//        print(viewModel?.city.rus)
     }
 }
 
