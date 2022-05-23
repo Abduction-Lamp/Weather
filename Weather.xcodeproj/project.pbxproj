@@ -219,12 +219,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4E10EA422838437500074D3E /* Icon */ = {
+		4E10EA422838437500074D3E /* Icons */ = {
 			isa = PBXGroup;
 			children = (
 				4E10EA43283843BC00074D3E /* IconService.swift */,
 			);
-			path = Icon;
+			path = Icons;
 			sourceTree = "<group>";
 		};
 		4E1C1186283BD777009537F4 /* GradientLayer */ = {
@@ -481,7 +481,7 @@
 			children = (
 				4E8F9096280713C5008E3BFA /* Network */,
 				4E8F9097280713D2008E3BFA /* Storage */,
-				4E10EA422838437500074D3E /* Icon */,
+				4E10EA422838437500074D3E /* Icons */,
 				4E1C1186283BD777009537F4 /* GradientLayer */,
 			);
 			path = Services;
