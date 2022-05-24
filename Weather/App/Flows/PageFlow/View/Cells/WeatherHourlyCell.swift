@@ -77,6 +77,9 @@ final class WeatherHourlyCell: UITableViewCell {
     }
 
     override func prepareForReuse() {
+        mainStack.arrangedSubviews.forEach { view in
+            view.removeFromSuperview()
+        }
         super.prepareForReuse()
     }
 }

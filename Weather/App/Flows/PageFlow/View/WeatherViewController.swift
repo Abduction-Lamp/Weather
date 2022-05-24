@@ -41,9 +41,12 @@ final class WeatherViewController: UIViewController {
         weatherView.table.delegate = self
         weatherView.table.dataSource = self
         
+        weatherView.refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
+        
         viewModel?.weather.bind { weather in
-            guard let _ = weather else { return }
             DispatchQueue.main.async {
+                self.weatherView.refreshControl.endRefreshing()
+                guard let _ = weather else { return }
                 self.weatherView.table.reloadData()
             }
         }
@@ -53,12 +56,6 @@ final class WeatherViewController: UIViewController {
         super.viewDidLoad()
         
         viewModel?.feach()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-//        print(viewModel?.city.rus)
     }
 }
 
@@ -127,5 +124,16 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
         default:
             return UITableViewCell()
         }
+    }
+}
+
+
+// MARK: - Actions
+//
+extension WeatherViewController {
+    
+    @objc func refresh(_ sender: AnyObject) {
+        weatherView.refreshControl.beginRefreshing()
+        viewModel?.feach()
     }
 }

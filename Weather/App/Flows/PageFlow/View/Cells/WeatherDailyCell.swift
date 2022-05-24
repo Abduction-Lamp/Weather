@@ -68,6 +68,9 @@ final class WeatherDailyCell: UITableViewCell {
     }
 
     override func prepareForReuse() {
+        mainStack.arrangedSubviews.forEach { view in
+            view.removeFromSuperview()
+        }
         super.prepareForReuse()
     }
 }
