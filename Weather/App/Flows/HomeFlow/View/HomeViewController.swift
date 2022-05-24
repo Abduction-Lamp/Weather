@@ -65,7 +65,6 @@ final class HomeViewController: UIViewController {
                 self.view.setNeedsLayout()
             } else {
                 self.pageViewController.setViewControllers([pages[self.currentIndexPage]], direction: .forward, animated: false, completion: nil)
-                
                 let time = pages[self.currentIndexPage].viewModel?.weather.value?.current?.time
                 let sunrise = pages[self.currentIndexPage].viewModel?.weather.value?.current?.sunrise
                 let sunset = pages[self.currentIndexPage].viewModel?.weather.value?.current?.sunset
