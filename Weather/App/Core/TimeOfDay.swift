@@ -19,7 +19,7 @@ enum TimeOfDay {
             self = .morning
         case (sunrise + twoHours + 1) ... (sunset - oneHour - 1):
             self = .afternoon
-        case (sunset - twoHours) ... (sunset + oneHour):
+        case (sunset - oneHour) ... (sunset + twoHours):
             self = .evening
         default:
             self = .night

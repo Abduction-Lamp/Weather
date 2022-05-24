@@ -10,7 +10,6 @@ import UIKit
 final class HomeViewController: UIViewController {
 
     private let const = DesignConstants.shared
-    private let layerManager = GradientLayerService()
     
     private let gradientLayer: CAGradientLayer = {
         let layer = CAGradientLayer()
@@ -62,14 +61,16 @@ final class HomeViewController: UIViewController {
             self.currentIndexPage = 0
             if pages.isEmpty {
                 self.pageViewController.setViewControllers([UIViewController()], direction: .forward, animated: false, completion: nil)
-                self.gradientLayer.colors = self.layerManager.indefinite
+                self.gradientLayer.colors = self.const.gradient.indefinite
+                self.view.setNeedsLayout()
             } else {
                 self.pageViewController.setViewControllers([pages[self.currentIndexPage]], direction: .forward, animated: false, completion: nil)
                 
                 let time = pages[self.currentIndexPage].viewModel?.weather.value?.current?.time
                 let sunrise = pages[self.currentIndexPage].viewModel?.weather.value?.current?.sunrise
                 let sunset = pages[self.currentIndexPage].viewModel?.weather.value?.current?.sunset
-                self.gradientLayer.colors = self.layerManager.fetch(time: time, sunrise: sunrise, sunset: sunset)
+                self.gradientLayer.colors = self.const.gradient.fetch(time: time, sunrise: sunrise, sunset: sunset)
+                self.view.setNeedsLayout()
             }
         }
     }
@@ -86,7 +87,6 @@ final class HomeViewController: UIViewController {
 extension HomeViewController {
     
     private func configureUI() {
-        gradientLayer.colors = layerManager.indefinite
         view.layer.addSublayer(gradientLayer)
 
         addChild(pageViewController)
@@ -171,9 +171,10 @@ extension HomeViewController: UIPageViewControllerDelegate, UIPageViewController
             completed,
             let current = pageViewController.viewControllers?.first as? WeatherViewController
         else { return }
-        gradientLayer.colors = layerManager.fetch(time: current.viewModel?.weather.value?.current?.time,
-                                                  sunrise: current.viewModel?.weather.value?.current?.sunrise,
-                                                  sunset: current.viewModel?.weather.value?.current?.sunset)
+        gradientLayer.colors = const.gradient.fetch(time: current.viewModel?.weather.value?.current?.time,
+                                                    sunrise: current.viewModel?.weather.value?.current?.sunrise,
+                                                    sunset: current.viewModel?.weather.value?.current?.sunset)
+        view.setNeedsLayout()
     }
     
     func presentationCount(for pageViewController: UIPageViewController) -> Int {

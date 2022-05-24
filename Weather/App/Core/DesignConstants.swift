@@ -15,6 +15,7 @@ final class DesignConstants {
     let padding = Padding()
     let font = Fonts()
     let size = Sizes()
+    let gradient = GradientLayer()
     
     
     // MARK: Support structs
@@ -42,5 +43,32 @@ final class DesignConstants {
     
     struct Sizes {
         let icon = CGSize(width: 25, height: 25)
+    }
+    
+    struct GradientLayer {
+        typealias Gradient = [CGColor]
+        
+        let indefinite: Gradient = [UIColor.systemGray.cgColor, UIColor.black.cgColor]
+        let morning:    Gradient = [UIColor.systemGreen.cgColor, UIColor.systemBlue.cgColor]
+        let afternoon:  Gradient = [UIColor.systemYellow.cgColor, UIColor.systemBlue.cgColor]
+        let evening:    Gradient = [UIColor.systemBlue.cgColor, UIColor.systemRed.cgColor]
+        let night:      Gradient = [
+            UIColor.init(red: 132, green: 94, blue: 152).cgColor,
+            UIColor.init(red: 46, green: 48, blue: 96).cgColor
+        ]
+        
+        func fetch(time: TimeInterval? = nil, sunrise: TimeInterval? = nil, sunset: TimeInterval? = nil) -> Gradient {
+            guard let time = time, let sunrise = sunrise, let sunset = sunset else { return indefinite }
+            switch TimeOfDay.init(time: time, sunrise: sunrise, sunset: sunset) {
+            case .morning:
+                return morning
+            case .afternoon:
+                return afternoon
+            case .evening:
+                return evening
+            case .night:
+                return night
+            }
+        }
     }
 }
