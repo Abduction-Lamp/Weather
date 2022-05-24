@@ -9,6 +9,12 @@ import UIKit
 
 final class WeatherView: UIView {
 
+    private(set) var refreshControl: UIRefreshControl = {
+        let refresh = UIRefreshControl()
+        refresh.tintColor = .systemRed
+        return refresh
+    }()
+    
     private(set) var table: UITableView = {
         let table = UITableView(frame: .zero, style: .insetGrouped)
         table.translatesAutoresizingMaskIntoConstraints = false
@@ -44,6 +50,7 @@ final class WeatherView: UIView {
     private func configureUI() {
         backgroundColor = .clear
         
+        table.addSubview(refreshControl)
         addSubview(table)
 
         NSLayoutConstraint.activate([
