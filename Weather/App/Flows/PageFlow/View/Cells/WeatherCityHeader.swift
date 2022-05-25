@@ -56,7 +56,7 @@ final class WeatherCityHeader: UITableViewHeaderFooterView {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("📛\tCityCell init(coder:) has not been implemented")
+        fatalError("📛\tWeatherCityHeader init(coder:) has not been implemented")
     }
 
     override func prepareForReuse() {

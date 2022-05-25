@@ -28,7 +28,8 @@ final class WeatherView: UIView {
         table.register(WeatherCityHeader.self, forHeaderFooterViewReuseIdentifier: WeatherCityHeader.reuseIdentifier)
         table.register(WeatherHourlyCell.self, forCellReuseIdentifier: WeatherHourlyCell.reuseIdentifier)
         table.register(WeatherDailyCell.self, forCellReuseIdentifier: WeatherDailyCell.reuseIdentifier)
-    
+        table.register(WeatherWindCell.self, forCellReuseIdentifier: WeatherWindCell.reuseIdentifier)
+        
         return table
     }()
     
