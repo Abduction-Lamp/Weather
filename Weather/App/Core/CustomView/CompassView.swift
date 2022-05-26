@@ -252,8 +252,10 @@ final class CompassView: UIView {
         endArrow.fillColor = UIColor.clear.cgColor
         endArrow.lineWidth = 3
 
-        bodyArrow.transform = CATransform3DMakeRotation(degrees.degreesToRadians(), 0.0, 0.0, 1.0)
+        let legal = degrees - 180
+        bodyArrow.transform = CATransform3DMakeRotation(legal.degreesToRadians(), 0.0, 0.0, 1.0)
     }
+    
     
     public func setup(measurement: String, degrees: Int, units: String) {
         self.measurement = measurement

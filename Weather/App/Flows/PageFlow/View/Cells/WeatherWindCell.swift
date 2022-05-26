@@ -9,7 +9,7 @@ import UIKit
 
 final class WeatherWindCell: UITableViewCell {
     static let reuseIdentifier = "WeatherWindCell"
-    static let height: CGFloat = 200
+    static let height: CGFloat = 180
     
     private let const = DesignConstants.shared
     
@@ -38,7 +38,26 @@ final class WeatherWindCell: UITableViewCell {
     }()
     
     private var compass = CompassView()
+ 
+    private lazy var infoLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .left
+        label.textColor = .white
+        label.font = const.font.small
+        label.text = ""
+        return label
+    }()
     
+    private lazy var infoText: UITextView = {
+        let textView = UITextView()
+        textView.isEditable = false
+        textView.textAlignment = .left
+        textView.backgroundColor = .clear
+        textView.textColor = .white
+        textView.font = const.font.tiny
+        textView.text = ""
+        return textView
+    }()
     
     // MARK: Initialization
     ///
@@ -58,6 +77,8 @@ final class WeatherWindCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
+        infoLabel.text = nil
+        infoText.text = nil
 
         super.prepareForReuse()
     }
@@ -76,25 +97,44 @@ extension WeatherWindCell {
         contentView.addSubview(icon)
         contentView.addSubview(descriptionLabel)
         contentView.addSubview(compass)
-
+        contentView.addSubview(infoLabel)
+        contentView.addSubview(infoText)
+        
         setNeedsLayout()
     }
     
     private func makeLayoutByFrame() {
+        var origin: CGPoint = .zero
+        var size: CGSize = .zero
+        
         canvasBlurEffect.frame = contentView.bounds
         
-        icon.frame = CGRect(x: const.padding.medium.left,
-                            y: const.padding.small.top,
-                            width: const.font.height.small,
-                            height: const.font.height.small)
-        descriptionLabel.frame = CGRect(x: icon.frame.maxX + const.padding.medium.left,
-                                        y: const.padding.small.top,
-                                        width: contentView.bounds.width - icon.frame.maxX - 2 * const.padding.medium.left,
-                                        height: const.font.height.small)
-        compass.frame = CGRect(x: const.padding.medium.left,
-                               y: icon.frame.maxY + const.padding.medium.top,
-                               width: contentView.bounds.height - icon.frame.maxY - 2 * const.padding.medium.top,
-                               height: contentView.bounds.height - icon.frame.maxY - 2 * const.padding.medium.top)
+        origin.x = const.padding.medium.left
+        origin.y = const.padding.small.top
+        size.width = const.font.height.small
+        size.height = size.width
+        icon.frame = CGRect(origin: origin, size: size)
+        
+        origin.x = icon.frame.maxX + const.padding.medium.left
+        size.width = contentView.bounds.width - icon.frame.maxX - 2 * const.padding.medium.left
+        descriptionLabel.frame = CGRect(origin: origin, size: size)
+        
+        origin.x = const.padding.medium.left
+        origin.y = icon.frame.maxY + const.padding.medium.top
+        size.width = contentView.bounds.height - icon.frame.maxY - 2 * const.padding.medium.top
+        size.height = size.width
+        compass.frame = CGRect(origin: origin, size: size)
         compass.layoutSubviews()
+
+        origin.x = compass.frame.maxX + const.padding.medium.left
+        size.width = contentView.bounds.width - compass.frame.maxX - 2 * const.padding.medium.top
+        size.height = contentView.bounds.height - origin.y - const.padding.medium.bottom
+        infoText.frame = CGRect(origin: origin, size: size)
+    }
+    
+    
+    public func setup(model: WeatherWindModel) {
+        infoText.text = model.text
+        compass.setup(measurement: model.measurement, degrees: model.degrees, units: model.units)
     }
 }

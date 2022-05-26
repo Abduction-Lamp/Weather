@@ -127,6 +127,9 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherWindCell.reuseIdentifier) as? WeatherWindCell else {
                 return UITableViewCell()
             }
+            if let model = viewModel?.makeWeatherWindModel() {
+                cell.setup(model: model)
+            }
             return cell
             
         default:
