@@ -162,7 +162,6 @@ final class IconService: IconServiceProtocol {
             systemName = isNight ? "cloud.fog.fill" : "sun.dust.fill"
             colorConfig = UIImage.SymbolConfiguration(paletteColors: isNight ? [.white, .white] : [.white, .systemYellow])
 
-            
         ///      hurricane
         /// 771     Шквал
         ///
