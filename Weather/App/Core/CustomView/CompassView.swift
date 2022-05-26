@@ -17,7 +17,6 @@ final class CompassView: UIView {
     private let dot = CALayer()
     private let level = CALayer()
     
-    
     private let dial: UIView = {
         let view = UIView()
         view.clipsToBounds = true
@@ -68,6 +67,7 @@ final class CompassView: UIView {
         label.font = const.font.medium
         return label
     }()
+    
     private lazy var units: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
@@ -76,12 +76,16 @@ final class CompassView: UIView {
         return label
     }()
     
-    private let arrow = CALayer()
-    private let tip = CALayer()
+    private let bodyArrow = CALayer()
+    private let tipArrow = CAShapeLayer()
+    private let endArrow = CAShapeLayer()
         
     private var color = UIColor.white
-    private var attributes: [NSAttributedString.Key: Any] = [:]
-
+    
+    private var measurement: String = "0"
+    private var degrees: Int = 0
+    private var unitsMeasurement: String = "м/с"
+    
 
     // MARK: Initialization
     ///
@@ -105,8 +109,8 @@ final class CompassView: UIView {
         
         textConfiguration()
         
-        arrowConfiguration(degrees: 90)
-        dialConfiguration(measurement: "21")
+        arrowConfiguration(degrees: degrees)
+        dialConfiguration(measurement: measurement, unitsMeasurement: unitsMeasurement)
     }
     
     
@@ -114,7 +118,6 @@ final class CompassView: UIView {
     ///
     private func buildContent() {
         backgroundColor = .clear
-        attributes[.foregroundColor] = color
 
         circle.addSublayer(dot)
         layer.addSublayer(circle)
@@ -127,9 +130,10 @@ final class CompassView: UIView {
         addSubview(west)
         addSubview(east)
         
-        arrow.addSublayer(tip)
+        bodyArrow.addSublayer(tipArrow)
+        bodyArrow.addSublayer(endArrow)
         
-        dial.layer.addSublayer(arrow)
+        dial.layer.addSublayer(bodyArrow)
         dial.addSubview(value)
         dial.addSubview(units)
         
@@ -196,7 +200,7 @@ final class CompassView: UIView {
         east.center = CGPoint(x:  bounds.size.width - const.font.height.tiny, y: bounds.midY)
     }
 
-    private func dialConfiguration(measurement: String) {
+    private func dialConfiguration(measurement: String, unitsMeasurement: String) {
         dial.frame = bounds
 
         value.bounds = CGRect(origin: .zero, size: CGSize(width: dial.bounds.width, height: const.font.height.medium))
@@ -205,27 +209,56 @@ final class CompassView: UIView {
         
         units.bounds = CGRect(origin: .zero, size: CGSize(width: dial.bounds.width, height: const.font.height.small))
         units.center = CGPoint(x: dial.bounds.midX, y: dial.bounds.midY + 10)
-        units.text = "м/с"
+        units.text = unitsMeasurement
     }
     
     private func arrowConfiguration(degrees: Int) {
-        let size = CGSize(width: 3, height: bounds.height/4)
-        let tipImage = UIImage(systemName: "location.north.fill")?.withTintColor(color).cgImage
-
-        tip.bounds = CGRect(origin: .zero, size: CGSize(width: 17, height: 17))
-        tip.position = CGPoint(x: 2, y: 0)
-        tip.masksToBounds = true
-        tip.contents = tipImage
-        tip.borderColor = UIColor.white.cgColor
-
-        arrow.bounds = CGRect(origin: .zero, size: size)
-        arrow.position = CGPoint(x: bounds.midX, y: bounds.midY)
-        arrow.anchorPoint = center
+        let size = CGSize(width: 3, height: dial.bounds.height)
         
-        arrow.masksToBounds = false
-        arrow.opacity = 0.8
-        arrow.backgroundColor = color.cgColor
+        bodyArrow.bounds = CGRect(origin: .zero, size: size)
+        bodyArrow.position = CGPoint(x: dial.bounds.midX, y: dial.bounds.midY)
+        bodyArrow.masksToBounds = false
+        bodyArrow.opacity = 1.0
+        bodyArrow.backgroundColor = UIColor.clear.cgColor
         
-        arrow.transform = CATransform3DMakeRotation(degrees.degreesToRadians(), 0.0, 0.0, 1.0)
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: -5, y: 20))
+        path.addLine(to: CGPoint(x: 0, y: 17))
+        path.addLine(to: CGPoint(x: 0, y: dial.bounds.height/4))
+        path.addLine(to: CGPoint(x: 3, y: dial.bounds.height/4))
+        path.addLine(to: CGPoint(x: 3, y: 17))
+        path.addLine(to: CGPoint(x: 8, y: 20))
+        path.addLine(to: CGPoint(x: 2, y: 0))
+        path.addLine(to: CGPoint(x: -5, y: 20))
+        
+        path.move(to: CGPoint(x: 0, y: 3/4 * dial.bounds.height))
+        path.addLine(to: CGPoint(x: 0, y: dial.bounds.height - const.padding.small.top - 10))
+        path.addLine(to: CGPoint(x: 3, y: dial.bounds.height - const.padding.small.top - 10))
+        path.addLine(to: CGPoint(x: 3, y: 3/4 * dial.bounds.height))
+        path.addLine(to: CGPoint(x: 0, y: 3/4 * dial.bounds.height))
+        path.close()
+
+        tipArrow.path = path.cgPath
+        tipArrow.strokeColor = color.cgColor
+        tipArrow.fillColor = color.cgColor
+        tipArrow.lineWidth = 1
+        
+        let oval = UIBezierPath(ovalIn: CGRect(x: -5,
+                                               y: dial.bounds.height - const.padding.small.top - 10,
+                                               width: 13,
+                                               height: 13))
+        endArrow.path = oval.cgPath
+        endArrow.strokeColor = color.cgColor
+        endArrow.fillColor = UIColor.clear.cgColor
+        endArrow.lineWidth = 3
+
+        bodyArrow.transform = CATransform3DMakeRotation(degrees.degreesToRadians(), 0.0, 0.0, 1.0)
+    }
+    
+    public func setup(measurement: String, degrees: Int, units: String) {
+        self.measurement = measurement
+        self.degrees = degrees
+        self.unitsMeasurement = units
+        setNeedsLayout()
     }
 }
