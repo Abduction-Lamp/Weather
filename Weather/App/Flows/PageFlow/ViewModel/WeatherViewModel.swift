@@ -16,6 +16,7 @@ protocol WeatherViewModelProtocol: AnyObject {
     func makeWeatherCityHeaderModel() -> WeatherCityHeaderModel
     func makeWeatherHourlyModel() -> [WeatherHourlyModel]
     func makeWeatherDailyModel() -> [WeatherDailyModel]
+    func makeWeatherWindModel() -> WeatherWindModel
 }
 
 
@@ -110,5 +111,41 @@ extension WeatherViewModel: WeatherViewModelProtocol {
             }
         }
         return model
+    }
+    
+    func makeWeatherWindModel() -> WeatherWindModel {
+        var measurement: String = ""
+        var degrees: Int = 0
+        let units: String = "м/с"
+        var text = ""
+        var gust = ""
+        var direction = ""
+        
+        if let value = weather.value?.current {
+            measurement = String(Int.init(value.windSpeed.rounded(.toNearestOrAwayFromZero)))
+            degrees = value.windDeg
+            
+            if let windGust = value.windGust {
+                gust = ", с порывами до " + String(Int.init(windGust.rounded(.toNearestOrAwayFromZero))) + " " + units
+            }
+            
+            let stringDirection = WindDirection.init(degrees).rawValue
+            if !stringDirection.isEmpty {
+                direction = ", " + stringDirection
+            }
+            
+            let measurementDescription = BeaufortScale.init(speed: value.windSpeed)
+            switch measurementDescription {
+            case .calm:
+                text = measurementDescription.rawValue
+            case .air, .light, .gentle, .moderate, .fresh, .strong, .high, .gale, .severe:
+                text = "Ветер \(measurementDescription.rawValue)\(direction)\nСкорасть ветра \(measurement) \(units) \(gust)"
+            case .storm, .violent, .hurricane:
+                text = "\(measurementDescription.rawValue)\(direction)\nСкорасть ветра \(measurement) \(units)\(gust)"
+            case .indefinite:
+                text = ""
+            }
+        }
+        return WeatherWindModel(measurement: measurement, degrees: degrees, units: units, text: text)
     }
 }
