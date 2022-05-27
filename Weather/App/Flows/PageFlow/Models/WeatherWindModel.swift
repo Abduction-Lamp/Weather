@@ -5,7 +5,7 @@
 //  Created by Владимир on 26.05.2022.
 //
 
-import UIKit
+import Foundation
 
 struct WeatherWindModel {
     let measurement: String
