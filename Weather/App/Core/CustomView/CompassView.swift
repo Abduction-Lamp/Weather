@@ -27,7 +27,7 @@ final class CompassView: UIView {
     private let north: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.textColor = .white.withAlphaComponent(0.7)
+        label.textColor = .white.withAlphaComponent(0.5)
         label.font = .boldSystemFont(ofSize: UIFont.labelFontSize)
         label.text = "C"
         return label
@@ -36,7 +36,7 @@ final class CompassView: UIView {
     private let south: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.textColor = .white.withAlphaComponent(0.7)
+        label.textColor = .white.withAlphaComponent(0.5)
         label.font = .boldSystemFont(ofSize: UIFont.labelFontSize)
         label.text = "Ю"
         return label
@@ -45,7 +45,7 @@ final class CompassView: UIView {
     private let west: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.textColor = .white.withAlphaComponent(0.7)
+        label.textColor = .white.withAlphaComponent(0.5)
         label.font = .boldSystemFont(ofSize: UIFont.labelFontSize)
         label.text = "З"
         return label
@@ -54,7 +54,7 @@ final class CompassView: UIView {
     private let east: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        label.textColor = .white.withAlphaComponent(0.7)
+        label.textColor = .white.withAlphaComponent(0.5)
         label.font = .boldSystemFont(ofSize: UIFont.labelFontSize)
         label.text = "В"
         return label

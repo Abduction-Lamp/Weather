@@ -32,7 +32,7 @@ final class WeatherWindCell: UITableViewCell {
         let label = UILabel()
         label.textAlignment = .left
         label.textColor = .white
-        label.font = const.font.tiny
+        label.font = const.font.small
         label.text = "Ветер"
         return label
     }()
@@ -51,6 +51,8 @@ final class WeatherWindCell: UITableViewCell {
     private lazy var infoText: UITextView = {
         let textView = UITextView()
         textView.isEditable = false
+        textView.showsVerticalScrollIndicator = false
+        textView.showsHorizontalScrollIndicator = false
         textView.textAlignment = .left
         textView.backgroundColor = .clear
         textView.textColor = .white
@@ -79,7 +81,6 @@ final class WeatherWindCell: UITableViewCell {
     override func prepareForReuse() {
         infoLabel.text = nil
         infoText.text = nil
-
         super.prepareForReuse()
     }
 }
@@ -115,7 +116,7 @@ extension WeatherWindCell {
         size.height = size.width
         icon.frame = CGRect(origin: origin, size: size)
         
-        origin.x = icon.frame.maxX + const.padding.medium.left
+        origin.x = icon.frame.maxX + const.padding.small.left
         size.width = contentView.bounds.width - icon.frame.maxX - 2 * const.padding.medium.left
         descriptionLabel.frame = CGRect(origin: origin, size: size)
         

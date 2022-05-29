@@ -86,13 +86,13 @@ extension CityCell {
         NSLayoutConstraint.activate([
             icon.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -const.padding.medium.right),
             icon.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            icon.widthAnchor.constraint(equalToConstant: 25.0),
-            icon.heightAnchor.constraint(equalToConstant: 25.0),
+            icon.widthAnchor.constraint(equalToConstant: const.size.icon.width),
+            icon.heightAnchor.constraint(equalToConstant: const.size.icon.height),
 
             temperature.topAnchor.constraint(equalTo: contentView.topAnchor),
             temperature.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             temperature.rightAnchor.constraint(equalTo: icon.leftAnchor, constant: -const.padding.medium.right),
-            temperature.widthAnchor.constraint(equalToConstant: 50.0),
+            temperature.widthAnchor.constraint(equalToConstant: 50),
 
             city.topAnchor.constraint(equalTo: contentView.topAnchor),
             city.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),

@@ -10,9 +10,8 @@ import UIKit
 final class WeatherHourlyCell: UITableViewCell {
     static let reuseIdentifier = "WeatherHourlyCell"
     static var height: CGFloat {
-        let const = DesignConstants.shared
-        let padding = 4 * const.padding.small.top + const.padding.medium.top
-        let font = 4 * const.font.small.lineHeight
+        let padding = 4 * DesignConstants.shared.padding.small.top + DesignConstants.shared.padding.medium.top
+        let font = 4 * DesignConstants.shared.font.height.small
         let result = padding + font
         return result.rounded(.up)
     }
@@ -33,7 +32,7 @@ final class WeatherHourlyCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.textColor = .white
-        label.font = const.font.tiny
+        label.font = const.font.small
         label.text = "Почасовой прогноз"
         return label
     }()
@@ -103,14 +102,14 @@ extension WeatherHourlyCell {
 
         NSLayoutConstraint.activate([
             icon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: const.padding.small.top),
-            icon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: const.padding.small.left),
-            icon.widthAnchor.constraint(equalToConstant: const.font.small.lineHeight),
-            icon.heightAnchor.constraint(equalToConstant: const.font.small.lineHeight),
+            icon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: const.padding.medium.left),
+            icon.widthAnchor.constraint(equalToConstant: const.font.height.small),
+            icon.heightAnchor.constraint(equalToConstant: const.font.height.small),
             
             descriptionLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: const.padding.small.top),
             descriptionLabel.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: const.padding.small.left),
             descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.small.right),
-            descriptionLabel.heightAnchor.constraint(equalToConstant: const.font.small.lineHeight),
+            descriptionLabel.heightAnchor.constraint(equalToConstant: const.font.height.small),
             
             scroll.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: const.padding.medium.top),
             scroll.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: const.padding.small.left),

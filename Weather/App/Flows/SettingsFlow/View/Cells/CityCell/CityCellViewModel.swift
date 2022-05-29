@@ -14,6 +14,7 @@ protocol CityCellViewModelProtocol: AnyObject {
 
 final class CityCellViewModel: CityCellViewModelProtocol {
 
+    
     var data: CityCellModel
     
     init(city: CityCellModel) {

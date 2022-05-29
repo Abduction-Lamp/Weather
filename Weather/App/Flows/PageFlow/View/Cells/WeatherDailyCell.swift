@@ -31,7 +31,7 @@ final class WeatherDailyCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.textColor = .white
-        label.font = const.font.tiny
+        label.font = const.font.small
         label.text = "Прогноз на неделю"
         return label
     }()
@@ -93,14 +93,14 @@ extension WeatherDailyCell {
 
         NSLayoutConstraint.activate([
             icon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: const.padding.small.top),
-            icon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: const.padding.small.left),
-            icon.widthAnchor.constraint(equalToConstant: const.font.small.lineHeight),
-            icon.heightAnchor.constraint(equalToConstant: const.font.small.lineHeight),
+            icon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: const.padding.medium.left),
+            icon.widthAnchor.constraint(equalToConstant: const.font.height.small),
+            icon.heightAnchor.constraint(equalToConstant: const.font.height.small),
             
             descriptionLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: const.padding.small.top),
             descriptionLabel.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: const.padding.small.left),
             descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.small.right),
-            descriptionLabel.heightAnchor.constraint(equalToConstant: const.font.small.lineHeight),
+            descriptionLabel.heightAnchor.constraint(equalToConstant: const.font.height.small),
             
             mainStack.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: const.padding.medium.top),
             mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),

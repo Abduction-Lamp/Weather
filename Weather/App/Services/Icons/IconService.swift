@@ -22,11 +22,14 @@ final class IconService: IconServiceProtocol {
     func fetch(conditions id: Int?, time: TimeInterval? = nil, sunrise: TimeInterval? = nil, sunset: TimeInterval? = nil) -> UIImage? {
         
         var isNight: Bool = false
-        if let time = time,
-           let sunrise = sunrise,
-           let sunset = sunset,
-           (time < sunrise || time > sunset) {
-            isNight = true
+        if let time = time, let sunrise = sunrise, let sunset = sunset {
+            let day24hours: TimeInterval = 24 * 3600
+            switch time {
+            case sunrise ... sunset, (sunrise + day24hours) ... (sunset + day24hours):
+                isNight = false
+            default:
+                isNight = true
+            }
         }
 
         var systemName: String
