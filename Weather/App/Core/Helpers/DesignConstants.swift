@@ -75,9 +75,8 @@ final class DesignConstants {
             UIColor.init(red: 46, green: 48, blue: 96).cgColor
         ]
         
-        func fetch(time: TimeInterval? = nil, sunrise: TimeInterval? = nil, sunset: TimeInterval? = nil) -> Gradient {
-            guard let time = time, let sunrise = sunrise, let sunset = sunset else { return indefinite }
-            switch TimeOfDay.init(time: time, sunrise: sunrise, sunset: sunset) {
+        func fetch(status: TimeOfDay?) -> Gradient {
+            switch status {
             case .morning:
                 return morning
             case .afternoon:
@@ -86,7 +85,14 @@ final class DesignConstants {
                 return evening
             case .night:
                 return night
+            default:
+                return indefinite
             }
+        }
+        
+        func fetch(time: TimeInterval? = nil, sunrise: TimeInterval? = nil, sunset: TimeInterval? = nil) -> Gradient {
+            guard let time = time, let sunrise = sunrise, let sunset = sunset else { return indefinite }
+            return fetch(status: TimeOfDay.init(time: time, sunrise: sunrise, sunset: sunset))
         }
     }
 }

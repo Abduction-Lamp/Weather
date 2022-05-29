@@ -10,6 +10,7 @@ import Foundation
 protocol WeatherViewModelProtocol: AnyObject {
     var city: CityData { get }
     var weather: Bindable<OneCallResponse?> { get }
+    var statusDay: Bindable<TimeOfDay?> { get }
 
     func feach()
     
@@ -24,6 +25,7 @@ final class WeatherViewModel {
     
     var city: CityData
     var weather = Bindable<OneCallResponse?>(nil)
+    var statusDay = Bindable<TimeOfDay?>(nil)
     
     private weak var network: NetworkServiceProtocol?
     private var iconManager = IconService()
@@ -48,6 +50,11 @@ extension WeatherViewModel: WeatherViewModelProtocol {
             switch response {
             case .success(let result):
                 self?.weather.value = result
+                if let time = result.current?.time,
+                   let sunrise = result.current?.sunrise,
+                   let sunset = result.current?.sunset {
+                    self?.statusDay.value = .init(time: time, sunrise: sunrise, sunset: sunset)
+                }
             case .failure(let error):
                 print("\(error.description)")
             }

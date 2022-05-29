@@ -34,6 +34,17 @@ final class HomeViewController: UIViewController {
         return button
     }()
     
+    private var statusDay: TimeOfDay? {
+        didSet {
+            if oldValue != statusDay {
+                DispatchQueue.main.async {
+                    self.gradientLayer.colors = self.const.gradient.fetch(status: self.statusDay)
+                    self.view.setNeedsLayout()
+                }
+            }
+        }
+    }
+    
     private var currentIndexPage = 0
     var viewModel: HomeViewModelProtocol
 
@@ -65,11 +76,10 @@ final class HomeViewController: UIViewController {
                 self.view.setNeedsLayout()
             } else {
                 self.pageViewController.setViewControllers([pages[self.currentIndexPage]], direction: .forward, animated: false, completion: nil)
-                let time = pages[self.currentIndexPage].viewModel?.weather.value?.current?.time
-                let sunrise = pages[self.currentIndexPage].viewModel?.weather.value?.current?.sunrise
-                let sunset = pages[self.currentIndexPage].viewModel?.weather.value?.current?.sunset
-                self.gradientLayer.colors = self.const.gradient.fetch(time: time, sunrise: sunrise, sunset: sunset)
-                self.view.setNeedsLayout()
+                pages[self.currentIndexPage].viewModel?.statusDay.bind({ status in
+                    self.statusDay = status
+                    self.gradientLayer.colors = self.const.gradient.indefinite
+                })
             }
         }
     }
@@ -170,10 +180,9 @@ extension HomeViewController: UIPageViewControllerDelegate, UIPageViewController
             completed,
             let current = pageViewController.viewControllers?.first as? WeatherViewController
         else { return }
-        gradientLayer.colors = const.gradient.fetch(time: current.viewModel?.weather.value?.current?.time,
-                                                    sunrise: current.viewModel?.weather.value?.current?.sunrise,
-                                                    sunset: current.viewModel?.weather.value?.current?.sunset)
-        view.setNeedsLayout()
+        current.viewModel?.statusDay.bind({ status in
+            self.statusDay = status
+        })
     }
     
     func presentationCount(for pageViewController: UIPageViewController) -> Int {

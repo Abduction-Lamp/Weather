@@ -254,11 +254,7 @@
 			children = (
 				4ED41441283D36A900024E17 /* CustomView */,
 				4EBCC7A928364D3800BF57A6 /* Extentions */,
-				4E2BC2C9280887F800018EB3 /* Bindable.swift */,
-				4EBCC79C2835029500BF57A6 /* DesignConstants.swift */,
-				4E1C1189283BE015009537F4 /* TimeOfDay.swift */,
-				4EE8A044283FC0AC00902950 /* BeaufortScale.swift */,
-				4EE8A046283FD22600902950 /* WindDirection.swift */,
+				4EFE3C762843F88900E9C9EA /* Helpers */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -711,6 +707,18 @@
 				4ED41442283D36E700024E17 /* CompassView.swift */,
 			);
 			path = CustomView;
+			sourceTree = "<group>";
+		};
+		4EFE3C762843F88900E9C9EA /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				4E2BC2C9280887F800018EB3 /* Bindable.swift */,
+				4EBCC79C2835029500BF57A6 /* DesignConstants.swift */,
+				4E1C1189283BE015009537F4 /* TimeOfDay.swift */,
+				4EE8A044283FC0AC00902950 /* BeaufortScale.swift */,
+				4EE8A046283FD22600902950 /* WindDirection.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
