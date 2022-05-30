@@ -73,7 +73,6 @@ final class HomeViewController: UIViewController {
             if pages.isEmpty {
                 self.pageViewController.setViewControllers([UIViewController()], direction: .forward, animated: false, completion: nil)
                 self.gradientLayer.colors = self.const.gradient.indefinite
-                self.view.setNeedsLayout()
             } else {
                 self.pageViewController.setViewControllers([pages[self.currentIndexPage]], direction: .forward, animated: false, completion: nil)
                 pages[self.currentIndexPage].viewModel?.statusDay.bind({ status in
