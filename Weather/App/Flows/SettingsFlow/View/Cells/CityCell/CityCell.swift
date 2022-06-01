@@ -43,8 +43,8 @@ final class CityCell: UITableViewCell {
         willSet(viewModel) {
             guard let viewModel = viewModel else { return }
             city.text = viewModel.data.city
-            icon.image = UIImage(systemName: "cloud.moon.rain")
-            temperature.text = viewModel.data.temperature
+            icon.image = nil
+            temperature.text = nil
         }
     }
     
