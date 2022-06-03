@@ -101,6 +101,7 @@ final class CompassView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         dotConfiguration()
         circleConfiguration(dotCount: 120)
         
@@ -110,7 +111,7 @@ final class CompassView: UIView {
         textConfiguration()
         
         arrowConfiguration(degrees: degrees)
-        dialConfiguration(measurement: measurement, unitsMeasurement: unitsMeasurement)
+        dialConfiguration()
     }
     
     
@@ -169,8 +170,8 @@ final class CompassView: UIView {
         graduation.instanceCount = dotCount
         graduation.instanceColor = color.cgColor
 
-        let angle = (Float.pi * 2)/Float(dotCount)
-        graduation.instanceTransform = CATransform3DMakeRotation(CGFloat(angle), 0.0, 0.0, 1.0)
+        let angle: CGFloat = (360.degreesToRadians())/Double(dotCount)
+        graduation.instanceTransform = CATransform3DMakeRotation(angle, 0.0, 0.0, 1.0)
     }
 
     private func circleConfiguration(dotCount: Int) {
@@ -180,8 +181,8 @@ final class CompassView: UIView {
         circle.instanceCount = dotCount
         circle.instanceColor = color.cgColor
 
-        let angle = (Float.pi * 2)/Float(dotCount)
-        circle.instanceTransform = CATransform3DMakeRotation(CGFloat(angle), 0.0, 0.0, 1.0)
+        let angle: CGFloat = (360.degreesToRadians())/Double(dotCount)
+        circle.instanceTransform = CATransform3DMakeRotation(angle, 0.0, 0.0, 1.0)
     }
     
     private func textConfiguration() {
@@ -200,7 +201,7 @@ final class CompassView: UIView {
         east.center = CGPoint(x:  bounds.size.width - const.font.height.tiny, y: bounds.midY)
     }
 
-    private func dialConfiguration(measurement: String, unitsMeasurement: String) {
+    private func dialConfiguration() {
         dial.frame = bounds
 
         value.bounds = CGRect(origin: .zero, size: CGSize(width: dial.bounds.width, height: const.font.height.medium))

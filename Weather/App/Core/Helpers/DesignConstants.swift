@@ -69,7 +69,7 @@ final class DesignConstants {
         let indefinite: Gradient = [UIColor.systemGray.cgColor, UIColor.black.cgColor]
         let morning:    Gradient = [UIColor.systemGreen.cgColor, UIColor.systemBlue.cgColor]
         let afternoon:  Gradient = [UIColor.systemYellow.cgColor, UIColor.systemBlue.cgColor]
-        let evening:    Gradient = [UIColor.systemBlue.cgColor, UIColor.systemRed.cgColor]
+        let evening:    Gradient = [UIColor.systemBlue.cgColor, UIColor.systemPink.cgColor]
         let night:      Gradient = [
             UIColor.init(red: 132, green: 94, blue: 152).cgColor,
             UIColor.init(red: 46, green: 48, blue: 96).cgColor
