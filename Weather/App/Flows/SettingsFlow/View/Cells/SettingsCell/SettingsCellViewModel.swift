@@ -44,10 +44,6 @@ final class SettingsCellViewModel: SettingsCellViewModelProtocol {
         }
     }
     
-    deinit {
-        print("♻️\tDeinit SettingsCellViewModel")
-    }
-    
     
     func save(selected index: Int) {
         selected = index

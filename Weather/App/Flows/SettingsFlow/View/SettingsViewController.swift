@@ -58,10 +58,6 @@ final class SettingsViewController: UIViewController {
         fatalError("📛\tSettingsViewController init(coder:) has not been implemented")
     }
     
-    deinit {
-        print("🗑\tDeinit SettingsViewController")
-    }
-    
     
     // MARK: Lifecycle
     ///

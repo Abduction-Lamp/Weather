@@ -81,7 +81,7 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
         case 2:
             return WeatherWindCell.height
         case 3:
-            return WeatherPressureCell.height
+            return WeatherPressureAndHumidityCell.height
         default:
             return 44
         }
@@ -135,10 +135,10 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
             
         case 3:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherPressureCell.reuseIdentifier) as? WeatherPressureCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherPressureAndHumidityCell.reuseIdentifier) as? WeatherPressureAndHumidityCell else {
                 return UITableViewCell()
             }
-            if let model = viewModel?.makeWeatherPressureModel() {
+            if let model = viewModel?.makeWeatherPressureAndHumidityModel() {
                 cell.setup(model: model)
             }
             return cell

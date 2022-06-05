@@ -167,7 +167,6 @@ final class BarometerView: UIView {
 }
 
 
-
 extension BarometerView {
     
     // MARK: - Calculation Deviation Arrow

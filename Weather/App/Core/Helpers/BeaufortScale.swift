@@ -7,6 +7,9 @@
 
 import Foundation
 
+///
+/// Шкала Бофорта
+///
 enum BeaufortScale: String {
     case calm       = "Штиль"
     case air        = "Тихий"

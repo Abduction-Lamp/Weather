@@ -43,7 +43,6 @@ final class SearchCityCell: UITableViewCell {
             }
         }
     }
-
     
     // MARK: Initialization
     ///

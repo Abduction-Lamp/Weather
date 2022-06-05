@@ -18,7 +18,7 @@ protocol WeatherViewModelProtocol: AnyObject {
     func makeWeatherHourlyModel() -> [WeatherHourlyModel]
     func makeWeatherDailyModel() -> [WeatherDailyModel]
     func makeWeatherWindModel() -> WeatherWindModel
-    func makeWeatherPressureModel() -> WeatherPressureModel
+    func makeWeatherPressureAndHumidityModel() -> WeatherPressureAndHumidityModel
 }
 
 
@@ -35,17 +35,13 @@ final class WeatherViewModel {
         self.city = city
         self.network = network
     }
-    
-    deinit {
-        print("😻\tDeinit WeatherViewModel")
-    }
 }
 
 
 // MARK: - WeatherViewModelProtocol
 //
 extension WeatherViewModel: WeatherViewModelProtocol {
-    
+
     func feach() {
         network?.getWeatherOneCall(lat: city.latitude, lon: city.longitude, units: "metric", lang: "ru") { [weak self] response in
             switch response {
@@ -156,23 +152,34 @@ extension WeatherViewModel: WeatherViewModelProtocol {
         }
         return WeatherWindModel(measurement: measurement, degrees: degrees, units: units, text: text)
     }
-    
-    func makeWeatherPressureModel() -> WeatherPressureModel {
+
+    func makeWeatherPressureAndHumidityModel() -> WeatherPressureAndHumidityModel {
         var measurement: String = ""
         var pressure: Int = 0
         let units: String = "мм рт. ст."
-        var text = ""
+        var humidity: String = ""
+        var dewPoint: String = ""
 
+        ///
         /// 1 Па = 7.5006×10−3 Торр
         /// 1 гПа = 0.750064 Торр
         /// 1 Торр = 1 мм рт. ст.
+        ///
         if let value = weather.value?.current {
             let torr = 0.750064
             let mmHg = torr * Double(value.pressure)
             
             measurement = "\(Int.init(mmHg.rounded(.toNearestOrAwayFromZero)))"
             pressure = value.pressure
+            
+            humidity = "\(value.humidity) %"
+            dewPoint = "Точка росы\nСейча: \(value.dewPoint.toStringWithDegreeSymbol())."
         }
-        return WeatherPressureModel(measurement: measurement, pressure: pressure, units: units, text: text)
+        
+        return WeatherPressureAndHumidityModel(measurement: measurement,
+                                               pressure: pressure,
+                                               units: units,
+                                               humidity: humidity,
+                                               dewPoint: dewPoint)
     }
 }

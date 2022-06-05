@@ -7,9 +7,10 @@
 
 import Foundation
 
-struct WeatherPressureModel {
+struct WeatherPressureAndHumidityModel {
     let measurement: String
     let pressure: Int
     let units: String
-    let text: String
+    let humidity: String
+    let dewPoint: String
 }

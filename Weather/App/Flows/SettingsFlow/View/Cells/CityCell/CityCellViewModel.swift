@@ -20,8 +20,4 @@ final class CityCellViewModel: CityCellViewModelProtocol {
     init(city: CityCellModel) {
         data = city
     }
-    
-    deinit {
-        print("♻️\tDeinit CityCellViewModel")
-    }
 }

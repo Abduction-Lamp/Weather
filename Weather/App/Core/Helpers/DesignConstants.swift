@@ -37,17 +37,20 @@ final class DesignConstants {
         
         init() {
             let newyork = UIFont(name: "NewYork-Regular", size: UIFont.labelFontSize) ?? UIFont.systemFont(ofSize: UIFont.labelFontSize)
+            
             tiny = newyork.withSize(15)
             small = newyork.withSize(17)
             medium = newyork.withSize(25)
             large = newyork.withSize(41)
             huge = newyork.withSize(57)
             
-            height = LineHeight(tiny: tiny.lineHeight.rounded(.up),
-                                small: small.lineHeight.rounded(.up),
-                                medium: medium.lineHeight.rounded(.up),
-                                large: large.lineHeight.rounded(.up),
-                                huge: huge.lineHeight.rounded(.up))
+            height = LineHeight(
+                tiny: tiny.lineHeight.rounded(.up),
+                small: small.lineHeight.rounded(.up),
+                medium: medium.lineHeight.rounded(.up),
+                large: large.lineHeight.rounded(.up),
+                huge: huge.lineHeight.rounded(.up)
+            )
         }
         
         struct LineHeight {

@@ -43,10 +43,6 @@ final class SettingsViewModel {
         self.network = network
     }
     
-    deinit {
-        print("😻\tDeinit SettingsViewModel")
-    }
-    
     var searchResult = Bindable<[GeocodingResponse]>([])
 }
 
