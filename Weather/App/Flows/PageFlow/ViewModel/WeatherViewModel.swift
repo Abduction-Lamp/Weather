@@ -129,7 +129,7 @@ extension WeatherViewModel: WeatherViewModelProtocol {
             measurement = String(Int.init(value.windSpeed.rounded(.toNearestOrAwayFromZero)))
             degrees = value.windDeg
             
-            if let windGust = value.windGust {
+            if let windGust = value.windGust, value.windSpeed < windGust {
                 gust = ", с порывами до " + String(Int.init(windGust.rounded(.toNearestOrAwayFromZero))) + " " + units
             }
             
@@ -143,7 +143,7 @@ extension WeatherViewModel: WeatherViewModelProtocol {
             case .calm:
                 text = measurementDescription.rawValue
             case .air, .light, .gentle, .moderate, .fresh, .strong, .high, .gale, .severe:
-                text = "Ветер \(measurementDescription.rawValue)\(direction)\nСкорасть ветра \(measurement) \(units) \(gust)"
+                text = "Ветер \(measurementDescription.rawValue)\(direction)\nСкорасть ветра \(measurement) \(units)\(gust)"
             case .storm, .violent, .hurricane:
                 text = "\(measurementDescription.rawValue)\(direction)\nСкорасть ветра \(measurement) \(units)\(gust)"
             case .indefinite:
