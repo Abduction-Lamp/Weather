@@ -50,7 +50,7 @@ final class HomeViewController: UIViewController {
 
     
     // MARK: Initialization
-    ///
+    //
     init(viewModel: HomeViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -62,7 +62,7 @@ final class HomeViewController: UIViewController {
     
     
     // MARK: Lifecycle
-    ///
+    //
     override func loadView() {
         super.loadView()
         configureUI()

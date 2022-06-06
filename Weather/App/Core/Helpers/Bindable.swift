@@ -18,7 +18,6 @@ final class Bindable<T> {
         }
     }
     
-    
     init(_ value: T) {
         self.value = value
     }

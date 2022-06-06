@@ -60,7 +60,7 @@ extension SettingsViewModel: SettingsViewModelProtocol {
     }
     
     // MARK: Make models
-    ///
+    //
     func makeCityCellViewModel(for indexPath: IndexPath) -> CityCellViewModelProtocol? {
         guard
             let count = settings?.cities.value.count,
@@ -92,7 +92,7 @@ extension SettingsViewModel: SettingsViewModelProtocol {
     }
     
     // MARK: Actions
-    ///
+    //
     func save() {
         guard let storage = self.storage, let settings = self.settings else { return }
         storage.save(settings, completion: nil)
@@ -147,7 +147,7 @@ extension SettingsViewModel: SettingsViewModelProtocol {
     }
     
     // MARK: Network
-    ///
+    //
     func searchCity(city: String) {
         if city.isEmpty {
             searchResult.value = []

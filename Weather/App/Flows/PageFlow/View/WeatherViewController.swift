@@ -20,7 +20,7 @@ final class WeatherViewController: UIViewController {
     
     
     // MARK: Initialization
-    ///
+    //
     init(viewModel: WeatherViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -32,7 +32,7 @@ final class WeatherViewController: UIViewController {
     
     
     // MARK: Lifecycle
-    ///
+    //
     override func loadView() {
         super.loadView()
         

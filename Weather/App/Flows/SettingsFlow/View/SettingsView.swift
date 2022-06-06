@@ -53,7 +53,7 @@ final class SettingsView: UIView {
     
     
     // MARK: Initialization
-    ///
+    //
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -69,7 +69,7 @@ final class SettingsView: UIView {
     
     
     // MARK: Configure content
-    ///
+    //
     private func configureContent() {
         backgroundColor = .systemRed
         
@@ -90,7 +90,7 @@ final class SettingsView: UIView {
     }
     
     // MARK: Actions
-    ///
+    //
     func hidenSearchBar(isHiden: Bool) {
         if isHiden {
             searchBar.text = nil

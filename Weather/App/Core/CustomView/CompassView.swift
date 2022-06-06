@@ -88,7 +88,7 @@ final class CompassView: UIView {
     
 
     // MARK: Initialization
-    ///
+    //
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -116,7 +116,7 @@ final class CompassView: UIView {
     
     
     // MARK: Configuration content
-    ///
+    //
     private func buildContent() {
         backgroundColor = .clear
 

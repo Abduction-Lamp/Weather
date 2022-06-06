@@ -46,7 +46,7 @@ final class BarometerView: UIView {
     
 
     // MARK: Initialization
-    ///
+    //
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -70,7 +70,7 @@ final class BarometerView: UIView {
     
     
     // MARK: Configuration content
-    ///
+    //
     private func buildContent() {
         backgroundColor = .clear
         

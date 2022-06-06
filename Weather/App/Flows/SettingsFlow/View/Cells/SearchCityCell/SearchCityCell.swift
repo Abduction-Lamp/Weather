@@ -45,7 +45,7 @@ final class SearchCityCell: UITableViewCell {
     }
     
     // MARK: Initialization
-    ///
+    //
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureContent()
@@ -69,7 +69,7 @@ final class SearchCityCell: UITableViewCell {
 extension SearchCityCell {
     
     // MARK: Configure content
-    ///
+    //
     private func configureContent() {
         contentView.backgroundColor = .white
         

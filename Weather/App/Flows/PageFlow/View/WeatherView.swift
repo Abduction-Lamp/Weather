@@ -36,7 +36,7 @@ final class WeatherView: UIView {
     
     
     // MARK: Initialization
-    ///
+    //
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()
@@ -48,7 +48,7 @@ final class WeatherView: UIView {
 
 
     // MARK: Configure сontent
-    ///
+    //
     private func configureUI() {
         backgroundColor = .clear
         
