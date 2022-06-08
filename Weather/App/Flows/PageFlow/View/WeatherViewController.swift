@@ -9,7 +9,7 @@ import UIKit
 
 final class WeatherViewController: UIViewController {
     
-    private var weatherView: WeatherView {
+    public var weatherView: WeatherView {
         guard let view = self.view as? WeatherView else {
             return WeatherView(frame: self.view.frame)
         }

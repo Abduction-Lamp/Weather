@@ -29,10 +29,13 @@ final class HomeViewModel {
         self.storage = storage
         self.network = network
         
-        settings.cities.bind { list in
-            self.pagemaker(cities: list)
+        settings.cities.bind { [weak self] list in
+            self?.pagemaker(cities: list)
         }
         
+        settings.units.bind { [weak self] unit in
+            self?.updateView()
+        }
     }
 
     private func pagemaker(cities: [CityData]) {
@@ -51,7 +54,7 @@ final class HomeViewModel {
     
     private func updateView() {
         pages.value.forEach { weatherViewcontroller in
-            weatherViewcontroller.view.setNeedsLayout()
+            weatherViewcontroller.weatherView.table.reloadData()
         }
     }
 }
