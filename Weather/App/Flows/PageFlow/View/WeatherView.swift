@@ -56,10 +56,10 @@ final class WeatherView: UIView {
         addSubview(table)
 
         NSLayoutConstraint.activate([
-            table.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
-            table.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),
-            table.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor),
-            table.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor)
+            table.topAnchor.constraint(equalTo: topAnchor),
+            table.leftAnchor.constraint(equalTo: leftAnchor),
+            table.rightAnchor.constraint(equalTo: rightAnchor),
+            table.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 }

@@ -80,7 +80,7 @@ final class SettingsView: UIView {
             segment.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: const.padding.medium.top),
             segment.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             segment.widthAnchor.constraint(equalToConstant: 200),
-            segment.heightAnchor.constraint(equalToConstant: 35),
+            segment.heightAnchor.constraint(equalToConstant: 37),
 
             table.topAnchor.constraint(equalTo: segment.bottomAnchor, constant: const.padding.medium.top),
             table.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),

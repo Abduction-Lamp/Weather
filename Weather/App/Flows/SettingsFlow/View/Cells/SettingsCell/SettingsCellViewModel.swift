@@ -29,15 +29,18 @@ final class SettingsCellViewModel: SettingsCellViewModelProtocol {
         self.settings = settings
 
         switch metaType {
-        case let meta where meta is Unit.Temperature.Type:
-            data = SettingsCellModel(label: "Температура", items: ["\u{00B0}C", "\u{00B0}F", "\u{00B0}K"])
-            selected = settings.temperature.value.rawValue
-        case let meta where meta is Unit.WindSpeed.Type:
-            data = SettingsCellModel(label: "Скорость ветра", items: ["м/с", "км/ч"])
-            selected = settings.windSpeed.value.rawValue
-        case let meta where meta is Unit.Pressure.Type:
-            data = SettingsCellModel(label: "Давление", items: ["мм рт. ст.", "гПа"])
-            selected = settings.pressure.value.rawValue
+        case let meta where meta is TemperatureUnits.Type:
+            let items = [TemperatureUnits.celsius.description, TemperatureUnits.fahrenheit.description, TemperatureUnits.kelvin.description]
+            data = SettingsCellModel(label: "Температура", items: items)
+            selected = settings.units.value.temperature.rawValue
+        case let meta where meta is WindSpeedUnits.Type:
+            let items = [WindSpeedUnits.ms.description, WindSpeedUnits.kmh.description, WindSpeedUnits.mph.description]
+            data = SettingsCellModel(label: "Скорость ветра", items: items)
+            selected = settings.units.value.windSpeed.rawValue
+        case let meta where meta is PressureUnits.Type:
+            let items = [PressureUnits.mmHg.description, PressureUnits.hPa.description]
+            data = SettingsCellModel(label: "Давление", items: items)
+            selected = settings.units.value.pressure.rawValue
         default:
             data = SettingsCellModel(label: "", items: [])
             selected = 0
@@ -46,16 +49,30 @@ final class SettingsCellViewModel: SettingsCellViewModelProtocol {
     
     
     func save(selected index: Int) {
-        selected = index
-        switch metaType {
-        case let meta where meta is Unit.Temperature.Type:
-            settings?.temperature.value = Unit.Temperature.init(rawValue: selected) ?? Unit.defaultValue.temperature
-        case let meta where meta is Unit.WindSpeed.Type:
-            settings?.windSpeed.value = Unit.WindSpeed.init(rawValue: selected) ?? Unit.defaultValue.windSpeed
-        case let meta where meta is Unit.Pressure.Type:
-            settings?.pressure.value = Unit.Pressure.init(rawValue: selected) ?? Unit.defaultValue.pressure
-        default:
-            break
+        guard let settings = settings else {
+            return
         }
+        let units: Unit
+        selected = index
+
+        switch metaType {
+        case let meta where meta is TemperatureUnits.Type:
+            units = Unit(temperature: TemperatureUnits.init(rawValue: selected) ?? Unit.defaultValue.temperature,
+                         windSpeed: settings.units.value.windSpeed,
+                         pressure: settings.units.value.pressure)
+        case let meta where meta is WindSpeedUnits.Type:
+            units = Unit(temperature: settings.units.value.temperature,
+                         windSpeed: WindSpeedUnits.init(rawValue: selected) ?? Unit.defaultValue.windSpeed,
+                         pressure: settings.units.value.pressure)
+        case let meta where meta is PressureUnits.Type:
+            units = Unit(temperature: settings.units.value.temperature,
+                         windSpeed: settings.units.value.windSpeed,
+                         pressure: PressureUnits.init(rawValue: selected) ?? Unit.defaultValue.pressure)
+        default:
+            units = Unit(temperature: Unit.defaultValue.temperature,
+                         windSpeed: Unit.defaultValue.windSpeed,
+                         pressure: Unit.defaultValue.pressure)
+        }
+        settings.units.value = units
     }
 }

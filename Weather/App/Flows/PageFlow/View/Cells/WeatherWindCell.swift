@@ -53,7 +53,7 @@ final class WeatherWindCell: UITableViewCell {
         textView.isEditable = false
         textView.showsVerticalScrollIndicator = false
         textView.showsHorizontalScrollIndicator = false
-        textView.textAlignment = .left
+        textView.textAlignment = .natural
         textView.backgroundColor = .clear
         textView.textColor = .white
         textView.font = const.font.tiny

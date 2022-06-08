@@ -63,7 +63,7 @@ final class DesignConstants {
     }
     
     struct Sizes {
-        let icon = CGSize(width: 25, height: 25)
+        let icon = CGSize(width: 50, height: 25)
     }
     
     struct GradientLayer {
@@ -73,8 +73,7 @@ final class DesignConstants {
         let morning:    Gradient = [UIColor.systemMint.cgColor, UIColor.systemPurple.cgColor]
         let afternoon:  Gradient = [UIColor.systemOrange.cgColor, UIColor.systemIndigo.cgColor]
         let evening:    Gradient = [UIColor.systemBlue.cgColor, UIColor.systemPink.cgColor]
-        let night:      Gradient = [UIColor.init(red: 132, green: 94, blue: 152).cgColor,
-                                    UIColor.init(red: 46, green: 48, blue: 96).cgColor]
+        let night:      Gradient = [UIColor.init(red: 132, green: 94, blue: 152).cgColor, UIColor.init(red: 46, green: 48, blue: 96).cgColor]
         
         func fetch(status: TimeOfDay?) -> Gradient {
             switch status {

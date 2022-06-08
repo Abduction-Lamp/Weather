@@ -77,9 +77,9 @@ extension SettingsCell {
 
         NSLayoutConstraint.activate([
             segmentControl.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            segmentControl.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -const.padding.small.right),
-            segmentControl.widthAnchor.constraint(equalToConstant: 144),
-            segmentControl.heightAnchor.constraint(equalToConstant: 35),
+            segmentControl.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -const.padding.medium.right),
+            segmentControl.widthAnchor.constraint(equalToConstant: 175),
+            segmentControl.heightAnchor.constraint(equalToConstant: 37),
 
             label.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
             label.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: const.padding.medium.left),

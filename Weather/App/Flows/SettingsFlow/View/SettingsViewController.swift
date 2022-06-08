@@ -234,11 +234,11 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
             }
             switch indexPath.row {
             case 0:
-                cell.viewModel = viewModel?.makeSettingsCellViewModel(Unit.Temperature.self)
+                cell.viewModel = viewModel?.makeSettingsCellViewModel(TemperatureUnits.self)
             case 1:
-                cell.viewModel = viewModel?.makeSettingsCellViewModel(Unit.WindSpeed.self)
+                cell.viewModel = viewModel?.makeSettingsCellViewModel(WindSpeedUnits.self)
             case 2:
-                cell.viewModel = viewModel?.makeSettingsCellViewModel(Unit.Pressure.self)
+                cell.viewModel = viewModel?.makeSettingsCellViewModel(PressureUnits.self)
             default:
                 return UITableViewCell()
             }

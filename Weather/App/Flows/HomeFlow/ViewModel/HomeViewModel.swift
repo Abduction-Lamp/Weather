@@ -32,6 +32,7 @@ final class HomeViewModel {
         settings.cities.bind { list in
             self.pagemaker(cities: list)
         }
+        
     }
 
     private func pagemaker(cities: [CityData]) {
@@ -42,10 +43,16 @@ final class HomeViewModel {
         
         var list: [WeatherViewController] = []
         for city in settings.cities.value {
-            let weatherViewModel = WeatherViewModel(city: city, network: network)
+            let weatherViewModel = WeatherViewModel(city: city, network: network, settings: settings)
             list.append(WeatherViewController(viewModel: weatherViewModel))
         } 
         pages.value = list
+    }
+    
+    private func updateView() {
+        pages.value.forEach { weatherViewcontroller in
+            weatherViewcontroller.view.setNeedsLayout()
+        }
     }
 }
 

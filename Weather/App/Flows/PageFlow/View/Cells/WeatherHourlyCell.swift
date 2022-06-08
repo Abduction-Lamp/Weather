@@ -11,7 +11,7 @@ final class WeatherHourlyCell: UITableViewCell {
     static let reuseIdentifier = "WeatherHourlyCell"
     static var height: CGFloat {
         let padding = 4 * DesignConstants.shared.padding.small.top + DesignConstants.shared.padding.medium.top
-        let font = 4 * DesignConstants.shared.font.height.small
+        let font = 3 * DesignConstants.shared.font.height.small + DesignConstants.shared.font.height.medium
         let result = padding + font
         return result.rounded(.up)
     }
@@ -42,6 +42,7 @@ final class WeatherHourlyCell: UITableViewCell {
         scroll.translatesAutoresizingMaskIntoConstraints = false
         scroll.showsHorizontalScrollIndicator = false
         scroll.showsVerticalScrollIndicator = false
+        scroll.contentMode = .center
         return scroll
     }()
     
@@ -114,14 +115,14 @@ extension WeatherHourlyCell {
             scroll.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: const.padding.medium.top),
             scroll.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: const.padding.small.left),
             scroll.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.small.right),
-            scroll.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            scroll.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -const.padding.small.bottom),
             
             mainStack.topAnchor.constraint(equalTo: scroll.topAnchor),
             mainStack.leadingAnchor.constraint(equalTo: scroll.leadingAnchor),
             mainStack.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
             mainStack.bottomAnchor.constraint(equalTo: scroll.bottomAnchor),
             
-            mainStack.widthAnchor.constraint(greaterThanOrEqualTo: scroll.widthAnchor)
+//            mainStack.widthAnchor.constraint(greaterThanOrEqualTo: scroll.widthAnchor)
         ])
     }
     
@@ -129,9 +130,10 @@ extension WeatherHourlyCell {
         let stack = UIStackView()
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
-        stack.distribution = .equalSpacing
+        stack.distribution = .fill
         stack.alignment = .center
-        stack.spacing = const.padding.small.top
+        stack.contentMode = .scaleToFill
+        stack.spacing = 7
         
         let time = UILabel()
         time.translatesAutoresizingMaskIntoConstraints = false
@@ -140,10 +142,15 @@ extension WeatherHourlyCell {
         time.font = const.font.tiny
         time.text = model.time
         
-        let icon = UIImageView(frame: CGRect(origin: .zero, size: const.size.icon))
+        let icon = UIImageView()
         icon.translatesAutoresizingMaskIntoConstraints = false
+        icon.clipsToBounds = true
         icon.contentMode = .scaleAspectFit
         icon.image = model.icon
+        icon.setContentHuggingPriority(UILayoutPriority(rawValue: 249), for: .horizontal)
+        icon.setContentHuggingPriority(UILayoutPriority(rawValue: 250), for: .vertical)
+        icon.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 749), for: .horizontal)
+        icon.setContentCompressionResistancePriority(UILayoutPriority(rawValue: 750), for: .vertical)
 
         let temperature = UILabel()
         temperature.translatesAutoresizingMaskIntoConstraints = false

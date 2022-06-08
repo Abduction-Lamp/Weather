@@ -140,20 +140,20 @@ extension WeatherDailyCell {
         view.addSubview(temperature)
 
         NSLayoutConstraint.activate([
+            icon.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            icon.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            icon.widthAnchor.constraint(equalToConstant: const.size.icon.width),
+            icon.heightAnchor.constraint(equalToConstant: const.size.icon.height),
+            
             day.topAnchor.constraint(equalTo: view.topAnchor, constant: const.padding.small.top),
             day.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: const.padding.medium.right),
             day.trailingAnchor.constraint(equalTo: icon.leadingAnchor, constant: -const.padding.small.right),
             day.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -const.padding.small.bottom),
             
-            icon.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            icon.trailingAnchor.constraint(equalTo: temperature.leadingAnchor, constant: -const.padding.small.right),
-            icon.widthAnchor.constraint(equalToConstant: const.size.icon.width),
-            icon.heightAnchor.constraint(equalToConstant: const.size.icon.height),
-            
             temperature.topAnchor.constraint(equalTo: view.topAnchor, constant: const.padding.small.top),
+            temperature.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: const.padding.small.right),
             temperature.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -const.padding.medium.right),
-            temperature.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -const.padding.small.bottom),
-            temperature.widthAnchor.constraint(equalToConstant: 100),
+            temperature.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -const.padding.small.bottom)
         ])
         
         return view

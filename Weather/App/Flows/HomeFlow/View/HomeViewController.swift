@@ -30,7 +30,7 @@ final class HomeViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .white
-        button.setImage(UIImage.init(systemName: "bookmark.fill"), for: .normal)
+        button.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
         return button
     }()
     
@@ -110,8 +110,6 @@ extension HomeViewController {
     }
     
     private func placementUI() {
-        let size = CGSize(width: 25, height: 25)
-        
         NSLayoutConstraint.activate([
             pageViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
             pageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -119,9 +117,9 @@ extension HomeViewController {
             pageViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             
             settingsButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            settingsButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor, constant: -const.padding.medium.right),
-            settingsButton.widthAnchor.constraint(equalToConstant: size.width),
-            settingsButton.heightAnchor.constraint(equalToConstant: size.height)
+            settingsButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
+            settingsButton.widthAnchor.constraint(equalToConstant: const.size.icon.width),
+            settingsButton.heightAnchor.constraint(equalToConstant: const.size.icon.height)
         ])
     }
 }
