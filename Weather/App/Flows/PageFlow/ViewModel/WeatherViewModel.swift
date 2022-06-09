@@ -61,7 +61,7 @@ extension WeatherViewModel: WeatherViewModelProtocol {
     
     
     // MARK: Make models
-    ///
+    //
     func makeWeatherCityHeaderModel() -> WeatherCityHeaderModel {
         var temperature: String = ""
         if let temp = weather.value?.current?.temp, let settings = settings {
@@ -165,11 +165,6 @@ extension WeatherViewModel: WeatherViewModelProtocol {
         var humidity: String = ""
         var dewPoint: String = ""
 
-        ///
-        /// 1 Па = 7.5006×10−3 Торр
-        /// 1 гПа = 0.750064 Торр
-        /// 1 Торр = 1 мм рт. ст.
-        ///
         if let value = weather.value?.current, let settings = settings {            
             measurement = value.pressure.pressureToString(in: settings.units.value.pressure)
             pressure = value.pressure

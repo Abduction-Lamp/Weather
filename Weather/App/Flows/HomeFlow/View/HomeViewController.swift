@@ -30,17 +30,16 @@ final class HomeViewController: UIViewController {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = .white
-        button.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
+        button.setImage(UIImage(systemName: "bookmark.fill"), for: .highlighted)
+        button.setImage(UIImage(systemName: "bookmark"), for: .normal)
         return button
     }()
     
     private var statusDay: TimeOfDay? {
         didSet {
-            if oldValue != statusDay {
-                DispatchQueue.main.async {
-                    self.gradientLayer.colors = self.const.gradient.fetch(status: self.statusDay)
-                    self.view.setNeedsLayout()
-                }
+            DispatchQueue.main.async {
+                self.gradientLayer.colors = self.const.gradient.fetch(status: self.statusDay)
+                self.view.setNeedsLayout()
             }
         }
     }

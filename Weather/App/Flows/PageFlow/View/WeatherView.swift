@@ -11,7 +11,7 @@ final class WeatherView: UIView {
 
     private(set) var refreshControl: UIRefreshControl = {
         let refresh = UIRefreshControl()
-        refresh.tintColor = .systemRed
+        refresh.tintColor = .white
         return refresh
     }()
     

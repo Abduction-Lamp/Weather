@@ -21,30 +21,11 @@ final class CityCell: UITableViewCell {
         return label
     }()
     
-    private lazy var icon: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleToFill
-        imageView.tintColor = .black
-        return imageView
-    }()
-    
-    private lazy var temperature: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.textAlignment = .right
-        label.textColor = .black
-        label.font = .systemFont(ofSize: UIFont.labelFontSize)
-        return label
-    }()
-    
     
     var viewModel: CityCellViewModelProtocol? {
         willSet(viewModel) {
             guard let viewModel = viewModel else { return }
             city.text = viewModel.data.city
-            icon.image = nil
-            temperature.text = nil
         }
     }
     
@@ -62,8 +43,6 @@ final class CityCell: UITableViewCell {
 
     override func prepareForReuse() {
         city.text = nil
-        icon.image = nil
-        temperature.text = nil
         viewModel = nil
         super.prepareForReuse()
     }
@@ -80,24 +59,12 @@ extension CityCell {
         contentView.backgroundColor = .white
         
         contentView.addSubview(city)
-        contentView.addSubview(icon)
-        contentView.addSubview(temperature)
         
         NSLayoutConstraint.activate([
-            icon.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -const.padding.medium.right),
-            icon.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            icon.widthAnchor.constraint(equalToConstant: const.size.icon.width),
-            icon.heightAnchor.constraint(equalToConstant: const.size.icon.height),
-
-            temperature.topAnchor.constraint(equalTo: contentView.topAnchor),
-            temperature.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            temperature.rightAnchor.constraint(equalTo: icon.leftAnchor, constant: -const.padding.medium.right),
-            temperature.widthAnchor.constraint(equalToConstant: 50),
-
             city.topAnchor.constraint(equalTo: contentView.topAnchor),
             city.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             city.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: const.padding.medium.left),
-            city.rightAnchor.constraint(equalTo: temperature.leftAnchor, constant: -const.padding.small.right)
+            city.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -const.padding.medium.right)
         ])
     }
 }

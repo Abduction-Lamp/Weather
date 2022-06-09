@@ -120,9 +120,7 @@ extension WeatherHourlyCell {
             mainStack.topAnchor.constraint(equalTo: scroll.topAnchor),
             mainStack.leadingAnchor.constraint(equalTo: scroll.leadingAnchor),
             mainStack.trailingAnchor.constraint(equalTo: scroll.trailingAnchor),
-            mainStack.bottomAnchor.constraint(equalTo: scroll.bottomAnchor),
-            
-//            mainStack.widthAnchor.constraint(greaterThanOrEqualTo: scroll.widthAnchor)
+            mainStack.bottomAnchor.constraint(equalTo: scroll.bottomAnchor)
         ])
     }
     

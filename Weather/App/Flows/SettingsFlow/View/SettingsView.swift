@@ -21,20 +21,8 @@ final class SettingsView: UIView {
         return segment
     }()
     
-    private(set) var searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.searchBarStyle = .prominent
-        searchBar.autocapitalizationType = .words
-        searchBar.returnKeyType = .search
-        searchBar.enablesReturnKeyAutomatically = false
-        searchBar.showsCancelButton = true
-        searchBar.placeholder = "Поиск"
-        searchBar.sizeToFit()
-        return searchBar
-    }()
-
     private(set) var table: UITableView = {
-        let table = UITableView(frame: .zero, style: .plain)
+        let table = UITableView(frame: .zero, style: .insetGrouped)
         table.translatesAutoresizingMaskIntoConstraints = false
         table.contentMode = .scaleToFill
         table.separatorStyle = .none
@@ -42,8 +30,8 @@ final class SettingsView: UIView {
         table.allowsSelection = false
         table.showsVerticalScrollIndicator = false
         table.keyboardDismissMode = .onDrag
-        table.tableFooterView = UIView()
         
+        table.register(SearchBarHeader.self, forHeaderFooterViewReuseIdentifier: SearchBarHeader.reuseIdentifier)
         table.register(CityCell.self, forCellReuseIdentifier: CityCell.reuseIdentifier)
         table.register(SearchCityCell.self, forCellReuseIdentifier: SearchCityCell.reuseIdentifier)
         table.register(SettingsCell.self, forCellReuseIdentifier: SettingsCell.reuseIdentifier)
@@ -87,17 +75,5 @@ final class SettingsView: UIView {
             table.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor),
             table.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
-    }
-    
-    // MARK: Actions
-    //
-    func hidenSearchBar(isHiden: Bool) {
-        if isHiden {
-            searchBar.text = nil
-            table.tableHeaderView = nil
-        } else {
-            table.tableHeaderView = searchBar
-            searchBar.becomeFirstResponder()
-        }        
     }
 }

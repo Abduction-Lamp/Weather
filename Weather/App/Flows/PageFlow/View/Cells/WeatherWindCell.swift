@@ -51,6 +51,7 @@ final class WeatherWindCell: UITableViewCell {
     private lazy var infoText: UITextView = {
         let textView = UITextView()
         textView.isEditable = false
+        textView.isSelectable = false
         textView.showsVerticalScrollIndicator = false
         textView.showsHorizontalScrollIndicator = false
         textView.textAlignment = .natural

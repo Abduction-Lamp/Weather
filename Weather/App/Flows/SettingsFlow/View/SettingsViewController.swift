@@ -23,14 +23,17 @@ final class SettingsViewController: UIViewController {
     private var display: DisplayType = .cities {
         didSet {
             DispatchQueue.main.async {
-                switch self.display {
-                case .cities:
-                    self.switchToCityMode()
-                case .search:
-                    self.switchToSearchMode()
-                case .settings:
-                    self.switchToSettingMode()
+                if oldValue == .search {
+                    self.view.endEditing(true)
+                    self.viewModel?.searchCity(city: "")
                 }
+                
+                switch self.display {
+                case .cities:   self.switchToCityMode()
+                case .search:   self.switchToSearchMode()
+                case .settings: self.switchToSettingMode()
+                }
+                
                 self.settingsView.table.reloadData()
             }
         }
@@ -99,23 +102,21 @@ extension SettingsViewController {
         navigationController?.isNavigationBarHidden = true
         navigationController?.isToolbarHidden = false
         navigationController?.toolbar.tintColor = .systemBlue
-        navigationController?.toolbar.backgroundColor = .white
+        navigationController?.toolbar.backgroundColor = .clear
         
+        let orderIcon = UIImage(systemName: "line.horizontal.3")
         let searchButton = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(tapSearchButton(sender:)))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-        let orderButton = UIBarButtonItem(image: UIImage(systemName: "line.horizontal.3"), style: .plain, target: self, action: #selector(tapEditButton(sender:)))
+        let orderButton = UIBarButtonItem(image: orderIcon, style: .plain, target: self, action: #selector(tapEditButton(sender:)))
         setToolbarItems([searchButton, spaceButton, orderButton], animated: true)
         
         settingsView.segment.addTarget(self, action: #selector(changedDisplayType(sender:)), for: .valueChanged)
         
         settingsView.table.delegate = self
         settingsView.table.dataSource = self
-        
-        settingsView.searchBar.delegate = self
     }
     
     private func switchToCityMode() {
-        hidenSearchBar(isHidden: true)
         hideNavigationToolbar(isHidden: false)
         settingsView.table.allowsSelection = false
         settingsView.table.isScrollEnabled = true
@@ -123,25 +124,16 @@ extension SettingsViewController {
     
     private func switchToSearchMode() {
         hideNavigationToolbar(isHidden: true)
-        hidenSearchBar(isHidden: false)
         settingsView.table.allowsSelection = true
         settingsView.table.isScrollEnabled = true
     }
     
     private func switchToSettingMode() {
         hideNavigationToolbar(isHidden: true)
-        hidenSearchBar(isHidden: true)
         settingsView.table.allowsSelection = false
         settingsView.table.isScrollEnabled = false
     }
-    
-    private func hidenSearchBar(isHidden: Bool) {
-        if isHidden {
-            viewModel?.searchCity(city: "")
-        }
-        settingsView.hidenSearchBar(isHiden: isHidden)
-    }
-    
+
     private func hideNavigationToolbar(isHidden: Bool, animated: Bool = true) {
         isTableEditing = false
         navigationController?.setToolbarHidden(isHidden, animated: animated)
@@ -198,7 +190,7 @@ extension SettingsViewController {
 extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        1
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -217,6 +209,26 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if display == .search {
+            return SearchBarHeader.height
+        }
+        return 50
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if display == .search {
+            guard
+                let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: SearchBarHeader.reuseIdentifier) as? SearchBarHeader
+            else { return nil }
+            header.searchBar.delegate = self
+            header.backButton.addTarget(self, action: #selector(tapBackButton(sender:)), for: .touchUpInside)
+            header.setup()
+            return header
+        }
+        return nil
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -321,10 +333,19 @@ extension SettingsViewController: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
         display = .cities
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar){
         searchBar.endEditing(true)
+    }
+}
+
+extension SettingsViewController {
+    
+    @objc
+    func tapBackButton(sender: UIButton) {
+        display = .cities
     }
 }

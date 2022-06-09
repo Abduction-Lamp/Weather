@@ -55,7 +55,7 @@ public enum WindSpeedUnits: Int, Codable, CustomStringConvertible, MetaType {
         case .kmh:
             return "км/ч"
         case .mph:
-            return "миля/ч"
+            return "миль/ч"
         }
     }
 }
