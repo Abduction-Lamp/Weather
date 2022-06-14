@@ -34,7 +34,7 @@ final class WeatherPressureAndHumidityCell: UITableViewCell {
         let icon = UIImageView()
         icon.contentMode = .scaleAspectFill
         icon.tintColor = .white
-        icon.image = UIImage(systemName: "barometer")
+        icon.image = UIImage(systemName: "gauge")
         return icon
     }()
     
