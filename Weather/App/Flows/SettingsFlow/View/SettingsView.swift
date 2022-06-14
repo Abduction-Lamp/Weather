@@ -39,6 +39,12 @@ final class SettingsView: UIView {
         return table
     }()
     
+    private var emptyView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     
     // MARK: Initialization
     //
@@ -60,9 +66,11 @@ final class SettingsView: UIView {
     //
     private func configureContent() {
         backgroundColor = .systemRed
+        emptyView.backgroundColor = table.backgroundColor
         
         addSubview(segment)
         addSubview(table)
+        addSubview(emptyView)
 
         NSLayoutConstraint.activate([
             segment.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: const.padding.medium.top),
@@ -73,7 +81,12 @@ final class SettingsView: UIView {
             table.topAnchor.constraint(equalTo: segment.bottomAnchor, constant: const.padding.medium.top),
             table.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),
             table.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor),
-            table.bottomAnchor.constraint(equalTo: bottomAnchor)
+            table.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            
+            emptyView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
+            emptyView.leftAnchor.constraint(equalTo: leftAnchor),
+            emptyView.rightAnchor.constraint(equalTo: rightAnchor),
+            emptyView.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
 }
