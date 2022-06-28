@@ -14,6 +14,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var settings = Settings()
     var storage = Storage()
     var network = Network()
+    var location = Location()
     
     var homeViewModel: HomeViewModelProtocol?
 
@@ -26,14 +27,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             case .success(let result):
                 self.settings = result
             case .failure(let error):
-                print(error)
                 self.settings = Settings()
+                print(error)
             }
             
             DispatchQueue.main.sync {
-                self.homeViewModel = HomeViewModel(settings: self.settings, storage: self.storage, network: self.network)
+                self.homeViewModel = HomeViewModel(settings: self.settings, storage: self.storage, network: self.network, location: self.location)
                 if let viewModel = self.homeViewModel {
-                    
                     let homeVC = HomeViewController(viewModel: viewModel)
                     let window = UIWindow(windowScene: windowScene)
                     window.rootViewController = homeVC

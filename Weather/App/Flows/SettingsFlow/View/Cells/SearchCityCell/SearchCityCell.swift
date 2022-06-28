@@ -24,7 +24,7 @@ final class SearchCityCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.textColor = .black
+        label.textColor = .label
         label.font = .systemFont(ofSize: UIFont.labelFontSize)
         return label
     }()
@@ -70,9 +70,7 @@ extension SearchCityCell {
     
     // MARK: Configure content
     //
-    private func configureContent() {
-        contentView.backgroundColor = .white
-        
+    private func configureContent() {        
         contentView.addSubview(city)
         contentView.addSubview(mark)
         

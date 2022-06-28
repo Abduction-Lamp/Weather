@@ -16,7 +16,7 @@ final class SettingsCell: UITableViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
-        label.textColor = .black
+        label.textColor = .label
         label.font = .systemFont(ofSize: UIFont.labelFontSize)
         return label
     }()
@@ -68,10 +68,8 @@ final class SettingsCell: UITableViewCell {
 extension SettingsCell {
     
     // MARK: Configure content
-    ////
+    ///
     private func configureContent() {
-        contentView.backgroundColor = .white
-        
         contentView.addSubview(segmentControl)
         contentView.addSubview(label)
 

@@ -20,10 +20,20 @@ final class HomeViewController: UIViewController {
     }()
     
     private let pageViewController: UIPageViewController = {
-        let page = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
+        let page = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
         page.view.translatesAutoresizingMaskIntoConstraints = false
         page.view.backgroundColor = .clear
         return page
+    }()
+    
+    private var pageControl: UIPageControl = {
+        let control = UIPageControl()
+        control.translatesAutoresizingMaskIntoConstraints = false
+        control.allowsContinuousInteraction = true
+        control.isUserInteractionEnabled = false
+        control.backgroundStyle = .automatic
+        control.tintColor = .white
+        return control
     }()
     
     private var settingsButton: UIButton = {
@@ -44,10 +54,9 @@ final class HomeViewController: UIViewController {
         }
     }
     
-    private var currentIndexPage = 0
     var viewModel: HomeViewModelProtocol
 
-    
+
     // MARK: Initialization
     //
     init(viewModel: HomeViewModelProtocol) {
@@ -68,17 +77,19 @@ final class HomeViewController: UIViewController {
         
         viewModel.pages.bind { [weak self] pages in
             guard let self = self else { return }
-            self.currentIndexPage = 0
             if pages.isEmpty {
                 self.pageViewController.setViewControllers([UIViewController()], direction: .forward, animated: false, completion: nil)
                 self.gradientLayer.colors = self.const.gradient.indefinite
             } else {
-                self.pageViewController.setViewControllers([pages[self.currentIndexPage]], direction: .forward, animated: false, completion: nil)
-                pages[self.currentIndexPage].viewModel?.statusDay.bind({ status in
+                self.pageViewController.setViewControllers([pages[0]], direction: .forward, animated: false, completion: nil)
+                pages[0].viewModel?.statusDay.bind({ status in
                     self.statusDay = status
                     self.gradientLayer.colors = self.const.gradient.indefinite
                 })
             }
+            self.pageControl.numberOfPages = self.viewModel.pages.value.count
+            self.pageControl.setIndicatorImage(UIImage(systemName: "location.fill"), forPage: 0)
+            self.pageControl.currentPage = 0
         }
     }
     
@@ -99,26 +110,32 @@ extension HomeViewController {
         addChild(pageViewController)
         view.addSubview(pageViewController.view)
         view.addSubview(settingsButton)
+        view.addSubview(pageControl)
         
         pageViewController.delegate = self
         pageViewController.dataSource = self
-
+        
         settingsButton.addTarget(self, action: #selector(tapSettingsButton(sender:)), for: .touchUpInside)
-    
+                
         placementUI()
     }
     
     private func placementUI() {
         NSLayoutConstraint.activate([
-            pageViewController.view.topAnchor.constraint(equalTo: view.topAnchor),
+            pageViewController.view.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             pageViewController.view.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             pageViewController.view.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            pageViewController.view.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            pageViewController.view.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -40),
             
+            pageControl.topAnchor.constraint(equalTo: pageViewController.view.bottomAnchor),
+            pageControl.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            pageControl.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            pageControl.widthAnchor.constraint(equalToConstant: 250),
+
+            settingsButton.topAnchor.constraint(equalTo: pageViewController.view.bottomAnchor),
             settingsButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             settingsButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
-            settingsButton.widthAnchor.constraint(equalToConstant: const.size.icon.width),
-            settingsButton.heightAnchor.constraint(equalToConstant: const.size.icon.height)
+            settingsButton.widthAnchor.constraint(equalToConstant: const.size.icon.width)
         ])
     }
 }
@@ -150,7 +167,6 @@ extension HomeViewController: UIPageViewControllerDelegate, UIPageViewController
             let index = viewModel.pages.value.firstIndex(of: current)
         else { return nil }
         
-        currentIndexPage = index
         guard index > 0 else { return nil }
         return viewModel.pages.value[index - 1]
     }
@@ -162,30 +178,23 @@ extension HomeViewController: UIPageViewControllerDelegate, UIPageViewController
             let index = viewModel.pages.value.firstIndex(of: current)
         else { return nil }
 
-        currentIndexPage = index
         guard index < (viewModel.pages.value.count - 1) else { return nil }
         return viewModel.pages.value[index + 1]
     }
     
-    
+    // TODO:    - pageControl:
+    /// Индикатор текущей страницы определяеться не оптимальным образом
+    /// путем поиска индекса в массиве
     func pageViewController(_ pageViewController: UIPageViewController,
                             didFinishAnimating finished: Bool,
                             previousViewControllers: [UIViewController],
                             transitionCompleted completed: Bool) {
-        guard
-            completed,
-            let current = pageViewController.viewControllers?.first as? WeatherViewController
+        guard completed,
+              let current = pageViewController.viewControllers?.first as? WeatherViewController,
+              let index = viewModel.pages.value.firstIndex(where: { $0 == current })
         else { return }
-        current.viewModel?.statusDay.bind({ status in
-            self.statusDay = status
-        })
-    }
-    
-    func presentationCount(for pageViewController: UIPageViewController) -> Int {
-        return viewModel.pages.value.count
-    }
-
-    func presentationIndex(for pageViewController: UIPageViewController) -> Int {
-        return currentIndexPage
+        
+        current.viewModel?.statusDay.bind({ self.statusDay = $0 })
+        pageControl.currentPage = index
     }
 }

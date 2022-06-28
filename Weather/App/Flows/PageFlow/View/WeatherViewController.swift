@@ -54,7 +54,7 @@ final class WeatherViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         viewModel?.feach()
     }
 }

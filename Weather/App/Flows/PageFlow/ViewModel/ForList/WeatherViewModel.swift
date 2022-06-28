@@ -8,7 +8,7 @@
 import Foundation
 
 protocol WeatherViewModelProtocol: AnyObject {
-    var city: CityData { get }
+    var city: CityData? { get set }
     var weather: Bindable<OneCallResponse?> { get }
     var statusDay: Bindable<TimeOfDay?> { get }
     
@@ -22,9 +22,9 @@ protocol WeatherViewModelProtocol: AnyObject {
 }
 
 
-final class WeatherViewModel {
+class WeatherViewModel {
     
-    var city: CityData
+    var city: CityData?
     var weather = Bindable<OneCallResponse?>(nil)
     var statusDay = Bindable<TimeOfDay?>(nil)
     
@@ -33,7 +33,7 @@ final class WeatherViewModel {
     
     private var iconManager = IconService()
     
-    init(city: CityData, network: NetworkServiceProtocol, settings: Settings?) {
+    init(city: CityData?, network: NetworkServiceProtocol, settings: Settings?) {
         self.city = city
         self.network = network
         self.settings = settings
@@ -45,7 +45,10 @@ final class WeatherViewModel {
 //
 extension WeatherViewModel: WeatherViewModelProtocol {
 
-    func feach() {
+    @objc
+    public func feach() {
+        guard let city = city else { return }
+        
         network?.getWeatherOneCall(lat: city.latitude, lon: city.longitude, units: "metric", lang: "ru") { [weak self] response in
             switch response {
             case .success(let result):
@@ -63,6 +66,8 @@ extension WeatherViewModel: WeatherViewModelProtocol {
     // MARK: Make models
     //
     func makeWeatherCityHeaderModel() -> WeatherCityHeaderModel {
+        guard let city = city else { return WeatherCityHeaderModel(city: "", temperature: "", description: "") }
+        
         var temperature: String = ""
         if let temp = weather.value?.current?.temp, let settings = settings {
             temperature = temp.temperature(in: settings.units.value.temperature).toStringWithDegreeSymbol()

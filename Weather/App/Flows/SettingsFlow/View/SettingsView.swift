@@ -14,7 +14,6 @@ final class SettingsView: UIView {
     private(set) var segment: UISegmentedControl = {
         let segment = UISegmentedControl()
         segment.translatesAutoresizingMaskIntoConstraints = false
-        segment.backgroundColor = .systemBackground
         segment.insertSegment(withTitle: "Города", at: 0, animated: false)
         segment.insertSegment(withTitle: "Настройки", at: 1, animated: false)
         segment.selectedSegmentIndex = 0
