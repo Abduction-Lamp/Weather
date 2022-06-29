@@ -317,7 +317,7 @@ extension SettingsViewController: UITableViewDelegate, UITableViewDataSource {
         guard let viewModel = self.viewModel else { return }
         if editingStyle == .delete, viewModel.removeCity(for: indexPath) {
             DispatchQueue.main.async {
-                tableView.deleteRows(at: [indexPath], with: .fade)
+                tableView.deleteRows(at: [indexPath], with: .left)
             }
         }
     }

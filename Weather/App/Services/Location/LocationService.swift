@@ -8,32 +8,9 @@
 import Foundation
 import CoreLocation
 
-protocol LocationObserver: AnyObject {
-    var uuid: String { get }
-    
-    func refresh(location: Result<CityData, Error>)
-}
-
-protocol LocationServiceProtoco: AnyObject {
-    var state: StateLocation { get }
-    
-    func subscribe(listener: LocationObserver)
-    func remove(_ listener: LocationObserver)
-    func removeAll()
-    
-    func current()
-}
-
-enum  StateLocation {
-    case locating
-    case success(CityData)
-    case failure
-}
-
-
 final class Location: NSObject, LocationServiceProtoco {
     
-    var state: StateLocation = .locating
+    var state: LocationState = .locating
     
     private let manager: CLLocationManager?
     private lazy var observers = [LocationObserver]()
@@ -84,7 +61,7 @@ extension Location: CLLocationManagerDelegate {
         guard let location = locations.last else { return }
         CLGeocoder.init().reverseGeocodeLocation(location) { [weak self] (places, error) in
             if let error = error {
-                self?.state = .failure
+                self?.state = .failure(error)
                 self?.notify(location: .failure(error))
             }
             if let fist = places?.first, let locality = fist.locality {
@@ -96,7 +73,7 @@ extension Location: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        state = .failure
+        state = .failure(error)
         notify(location: .failure(error))
         print("⚠️\t" + error.localizedDescription)
     }
