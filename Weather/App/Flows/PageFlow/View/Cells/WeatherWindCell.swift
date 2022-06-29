@@ -33,7 +33,7 @@ final class WeatherWindCell: UITableViewCell {
         label.textAlignment = .left
         label.textColor = .white
         label.font = const.font.small
-        label.text = "Ветер"
+        label.text = NSLocalizedString("WeatherView.WindCell.DescriptionLabel", comment: "Wind")
         return label
     }()
     

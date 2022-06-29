@@ -19,8 +19,9 @@ final class SearchBarHeader: UITableViewHeaderFooterView {
     
     private(set) var backButton: UIButton = {
         let button = UIButton()
+        let title = NSLocalizedString("SettingsView.SearchCityCell.BackButton", comment: "Back Button")
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("К списку", for: .normal)
+        button.setTitle(title, for: .normal)
         button.setTitleColor(.systemBlue, for: .normal)
         button.setTitleColor(.systemRed, for: .highlighted)
         return button
@@ -28,12 +29,13 @@ final class SearchBarHeader: UITableViewHeaderFooterView {
     
     private(set) var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
+        let placeholder = NSLocalizedString("SettingsView.SearchCityCell.Search", comment: "placeholder")
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.searchBarStyle = .minimal
         searchBar.autocapitalizationType = .words
         searchBar.returnKeyType = .search
         searchBar.enablesReturnKeyAutomatically = false
-        searchBar.placeholder = "Поиск"
+        searchBar.placeholder = placeholder
         return searchBar
     }()
 

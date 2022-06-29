@@ -29,7 +29,7 @@ final class CompassView: UIView {
         label.textAlignment = .center
         label.textColor = .white.withAlphaComponent(0.5)
         label.font = .boldSystemFont(ofSize: UIFont.labelFontSize)
-        label.text = "C"
+        label.text = NSLocalizedString("CompassView.North", comment: "N")
         return label
     }()
     
@@ -38,7 +38,7 @@ final class CompassView: UIView {
         label.textAlignment = .center
         label.textColor = .white.withAlphaComponent(0.5)
         label.font = .boldSystemFont(ofSize: UIFont.labelFontSize)
-        label.text = "Ю"
+        label.text = NSLocalizedString("CompassView.South", comment: "S")
         return label
     }()
     
@@ -47,7 +47,7 @@ final class CompassView: UIView {
         label.textAlignment = .center
         label.textColor = .white.withAlphaComponent(0.5)
         label.font = .boldSystemFont(ofSize: UIFont.labelFontSize)
-        label.text = "З"
+        label.text = NSLocalizedString("CompassView.Western", comment: "W")
         return label
     }()
     
@@ -56,7 +56,7 @@ final class CompassView: UIView {
         label.textAlignment = .center
         label.textColor = .white.withAlphaComponent(0.5)
         label.font = .boldSystemFont(ofSize: UIFont.labelFontSize)
-        label.text = "В"
+        label.text = NSLocalizedString("CompassView.East", comment: "E")
         return label
     }()
     
@@ -84,7 +84,7 @@ final class CompassView: UIView {
     
     private var measurement: String = "0"
     private var degrees: Int = 0
-    private var unitsMeasurement: String = "м/с"
+    private var unitsMeasurement: String = NSLocalizedString("Units.Speed.ms", comment: "m/s")
     
 
     // MARK: Initialization

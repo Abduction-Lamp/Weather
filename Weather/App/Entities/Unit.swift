@@ -51,11 +51,11 @@ public enum WindSpeedUnits: Int, Codable, CustomStringConvertible, MetaType {
     public var description: String {
         switch self {
         case .ms:
-            return "м/c"
+            return NSLocalizedString("Units.Speed.ms", comment: "ms")
         case .kmh:
-            return "км/ч"
+            return NSLocalizedString("Units.Speed.kmh", comment: "km/h")
         case .mph:
-            return "миль/ч"
+            return NSLocalizedString("Units.Speed.mph", comment: "mph")
         }
     }
 }
@@ -66,11 +66,11 @@ public enum PressureUnits: Int, Codable, CustomStringConvertible, MetaType {
     public var description: String {
         switch self {
         case .mmHg:
-            return "мм рт. ст."
+            return NSLocalizedString("Units.Pressure.mmHg", comment: "mm Hg")
         case .hPa:
-            return "гПа"
+            return NSLocalizedString("Units.Pressure.hPa", comment: "hPa")
         case .bar:
-            return "бар"
+            return NSLocalizedString("Units.Pressure.bar", comment: "bar")
         }
     }
 }

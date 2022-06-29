@@ -32,7 +32,7 @@ final class WeatherDailyCell: UITableViewCell {
         label.textAlignment = .left
         label.textColor = .white
         label.font = const.font.small
-        label.text = "Прогноз на неделю"
+        label.text = NSLocalizedString("WeatherView.DailyCell.DescriptionLabel", comment: "Forecast for the week")
         return label
     }()
         

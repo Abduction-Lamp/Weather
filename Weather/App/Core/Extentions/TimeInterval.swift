@@ -27,7 +27,7 @@ extension TimeInterval {
     public func toStringLocolTime(offset: TimeInterval, format: String) -> String {
         let formatter = DateFormatter()
         formatter.timeZone = TimeZone.init(secondsFromGMT: offset.inHours())
-        formatter.locale = Locale(identifier: "ru_RU")
+        formatter.locale = Locale(identifier: NSLocalizedString("General.Locale.Identifier", comment: "Locale Identifier"))
         formatter.dateFormat = format
             
         let date = Date(timeIntervalSince1970: self + offset)

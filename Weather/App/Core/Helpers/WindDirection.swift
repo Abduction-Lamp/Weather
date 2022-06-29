@@ -7,24 +7,24 @@
 
 import Foundation
 
-enum WindDirection: String {
-    case north               = "С"
-    case northNorthEast      = "ССВ"
-    case northEast           = "СВ"
-    case eastNorthEast       = "ВСВ"
-    case east                = "В"
-    case eastSouthEast       = "ВЮВ"
-    case southEast           = "ЮВ"
-    case southSouthEast      = "ЮЮВ"
-    case south               = "Ю"
-    case southSouthWestern   = "ЮЮЗ"
-    case southWestern        = "ЮЗ"
-    case westernWesternSouth = "ЗЗЮ"
-    case western             = "З"
-    case westernNorthWestern = "ЗСЗ"
-    case northWestern        = "СЗ"
-    case northNorthWestern   = "ССЗ"
-    case unknown             = ""
+enum WindDirection {
+    case north
+    case northNorthEast
+    case northEast
+    case eastNorthEast
+    case east
+    case eastSouthEast
+    case southEast
+    case southSouthEast
+    case south
+    case southSouthWestern
+    case southWestern
+    case westernWesternSouth
+    case western
+    case westernNorthWestern
+    case northWestern
+    case northNorthWestern
+    case unknown
 
     init(_ deg: Int?) {
         guard let direction = deg else {
@@ -49,8 +49,32 @@ enum WindDirection: String {
         case 304...326: self = .northWestern
         case 327...348: self = .northNorthWestern
         case 349...360: self = .north
-        default:
-            self = .unknown
+        default:        self = .unknown
+        }
+    }
+}
+
+extension WindDirection: CustomStringConvertible {
+    
+    var description: String {
+        switch self {
+        case .north:                return NSLocalizedString("WindDirection.North"              , comment: "North")
+        case .northNorthEast:       return NSLocalizedString("WindDirection.NorthNorthEast"     , comment: "North North East")
+        case .northEast:            return NSLocalizedString("WindDirection.NorthEast"          , comment: "North East")
+        case .eastNorthEast:        return NSLocalizedString("WindDirection.EastNorthEast"      , comment: "East North East")
+        case .east:                 return NSLocalizedString("WindDirection.East"               , comment: "East")
+        case .eastSouthEast:        return NSLocalizedString("WindDirection.EastSouthEast"      , comment: "East South East")
+        case .southEast:            return NSLocalizedString("WindDirection.SouthEast"          , comment: "South East")
+        case .southSouthEast:       return NSLocalizedString("WindDirection.SouthSouthEast"     , comment: "South South East")
+        case .south:                return NSLocalizedString("WindDirection.South"              , comment: "South")
+        case .southSouthWestern:    return NSLocalizedString("WindDirection.SouthSouthWestern"  , comment: "South South Western")
+        case .southWestern:         return NSLocalizedString("WindDirection.SouthWestern"       , comment: "South Western")
+        case .westernWesternSouth:  return NSLocalizedString("WindDirection.WesternWesternSouth", comment: "Western Western South")
+        case .western:              return NSLocalizedString("WindDirection.Western"            , comment: "Western")
+        case .westernNorthWestern:  return NSLocalizedString("WindDirection.WesternNorthWestern", comment: "Western North Western")
+        case .northWestern:         return NSLocalizedString("WindDirection.NorthWestern"       , comment: "North Western")
+        case .northNorthWestern:    return NSLocalizedString("WindDirection.NorthNorthWestern"  , comment: "North North Western")
+        default:                    return ""
         }
     }
 }

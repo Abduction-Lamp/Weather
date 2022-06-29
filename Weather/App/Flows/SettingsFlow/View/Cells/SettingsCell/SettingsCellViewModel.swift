@@ -28,18 +28,23 @@ final class SettingsCellViewModel: SettingsCellViewModelProtocol {
         self.metaType = type
         self.settings = settings
 
+        var label: String
+        
         switch metaType {
         case let meta where meta is TemperatureUnits.Type:
             let items = [TemperatureUnits.celsius.description, TemperatureUnits.fahrenheit.description, TemperatureUnits.kelvin.description]
-            data = SettingsCellModel(label: "Температура", items: items)
+            label = NSLocalizedString("SettingsView.SettingsCell.Temperature", comment: "Temperature")
+            data = SettingsCellModel(label: label, items: items)
             selected = settings.units.value.temperature.rawValue
         case let meta where meta is WindSpeedUnits.Type:
             let items = [WindSpeedUnits.ms.description, WindSpeedUnits.kmh.description, WindSpeedUnits.mph.description]
-            data = SettingsCellModel(label: "Скорость ветра", items: items)
+            label = NSLocalizedString("SettingsView.SettingsCell.WindSpeed", comment: "Wind speed")
+            data = SettingsCellModel(label: label, items: items)
             selected = settings.units.value.windSpeed.rawValue
         case let meta where meta is PressureUnits.Type:
             let items = [PressureUnits.mmHg.description, PressureUnits.hPa.description]
-            data = SettingsCellModel(label: "Давление", items: items)
+            label = NSLocalizedString("SettingsView.SettingsCell.Pressure", comment: "Pressure")
+            data = SettingsCellModel(label: label, items: items)
             selected = settings.units.value.pressure.rawValue
         default:
             data = SettingsCellModel(label: "", items: [])

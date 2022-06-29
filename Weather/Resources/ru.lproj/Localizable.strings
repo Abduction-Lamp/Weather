@@ -1,0 +1,101 @@
+/* 
+  Localizable.strings
+  Weather
+
+  Created by Владимир on 29.06.2022.
+  
+*/
+
+// MARK: - General
+
+"General.Lang" = "ru";
+"General.Locale.Identifier" = "ru_RU";
+
+
+// MARK: - Units
+
+"Units.Speed.ms"    = "м/с";
+"Units.Speed.kmh"   = "км/ч";
+"Units.Speed.mph"   = "миль/ч";
+
+"Units.Pressure.mmHg"   = "мм рт. ст.";
+"Units.Pressure.hPa"    = "гПа";
+"Units.Pressure.bar"    = "бар";
+
+
+// MARK: - WindDirection
+
+"WindDirection.North"               = "С";
+"WindDirection.NorthNorthEast"      = "ССВ";
+"WindDirection.NorthEast"           = "СВ";
+"WindDirection.EastNorthEast"       = "ВСВ";
+"WindDirection.East"                = "В";
+"WindDirection.EastSouthEast"       = "ВЮВ";
+"WindDirection.SouthEast"           = "ЮВ";
+"WindDirection.SouthSouthEast"      = "ЮЮВ";
+"WindDirection.South"               = "Ю";
+"WindDirection.SouthSouthWestern"   = "ЮЮЗ";
+"WindDirection.SouthWestern"        = "ЮЗ";
+"WindDirection.WesternWesternSouth" = "ЗЗЮ";
+"WindDirection.Western"             = "З";
+"WindDirection.WesternNorthWestern" = "ЗСЗ";
+"WindDirection.NorthWestern"        = "СЗ";
+"WindDirection.NorthNorthWestern"   = "ССЗ";
+
+
+// MARK: - BeaufortScale
+
+"BeaufortScale.calm"      = "Штиль";
+"BeaufortScale.air"       = "Тихий";
+"BeaufortScale.light"     = "Лёгкий";
+"BeaufortScale.gentle"    = "Слабый";
+"BeaufortScale.moderate"  = "Умеренный";
+"BeaufortScale.fresh"     = "Свежий";
+"BeaufortScale.strong"    = "Сильный";
+"BeaufortScale.high"      = "Крепкий";
+"BeaufortScale.gale"      = "Очень крепкий";
+"BeaufortScale.severe"    = "Шторм";
+"BeaufortScale.storm"     = "Сильный шторм";
+"BeaufortScale.violent"   = "Жестокий шторм";
+"BeaufortScale.hurricane" = "Ураган";
+
+
+// MARK: - CompassView
+
+"CompassView.North"   = "С";
+"CompassView.East"    = "В";
+"CompassView.South"   = "Ю";
+"CompassView.Western" = "З";
+
+
+// MARK: - WeatherView
+
+"WeatherView.HourlyCell.DescriptionLabel"   = "Почасовой прогноз";
+"WeatherView.DailyCell.DescriptionLabel"    = "Прогноз на неделю";
+"WeatherView.WindCell.DescriptionLabel"     = "Ветер";
+"WeatherView.PressureCell.DescriptionLabel" = "Давление";
+"WeatherView.HumidityCell.DescriptionLabel" = "Влажность";
+
+"WeatherView.CommonWords.Now"     = "Сейчас";
+"WeatherView.CommonWords.Today"   = "Сегодня";
+"WeatherView.CommonWords.Sunrise" = "Восход солнца";
+"WeatherView.CommonWords.Sunset"  = "Заход солнца";
+
+"WeatherView.CommonWords.WindTitle"  = "Ветер";
+"WeatherView.CommonWords.WindSpeed"  = "Скорасть ветра";
+"WeatherView.CommonWords.GustWind"   = ", с порывами до ";
+
+"WeatherView.CommonWords.DewPoint"   = "Точка росы";
+
+
+// MARK: - SettingsView
+
+"SettingsView.Title.Cities"   = "Города";
+"SettingsView.Title.Settings" = "Настройки";
+
+"SettingsView.SearchCityCell.BackButton" = "К списку";
+"SettingsView.SearchCityCell.Search"     = "Поиск";
+
+"SettingsView.SettingsCell.Temperature" = "Температура";
+"SettingsView.SettingsCell.WindSpeed"   = "Скорасть ветра";
+"SettingsView.SettingsCell.Pressure"    = "Давление";

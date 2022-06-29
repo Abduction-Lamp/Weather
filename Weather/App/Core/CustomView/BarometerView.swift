@@ -42,7 +42,7 @@ final class BarometerView: UIView {
     
     private var measurement: String = ""
     private var pressure: Int = 0
-    private var unitsMeasurement: String = "мм рт. ст."
+    private var unitsMeasurement: String = NSLocalizedString("Units.Pressure.mmHg", comment: "mm Hg")
     
 
     // MARK: Initialization

@@ -68,14 +68,14 @@ extension SettingsViewModel: SettingsViewModelProtocol {
             let city = settings?.cities.value[indexPath.row]
         else { return nil }
         
-        let cityData = CityCellModel(city: city.rus, icon: "", temperature: "17")
+        let cityData = CityCellModel(city: city.getName(lang: NSLocalizedString("General.Lang", comment: "Lang")), icon: "", temperature: "")
         return CityCellViewModel(city: cityData)
     }
     
     func makeSearchCityCellViewModel(for indexPath: IndexPath) -> SearchCityCellViewModelProtocol? {
         if indexPath.row < searchResult.value.count {
             let city = searchResult.value[indexPath.row]
-            let str: String = city.localNames?.ru ?? city.name
+            let str: String = city.localNames?.getName(lang: NSLocalizedString("General.Lang", comment: "Lang")) ?? city.name
             let cityData = SearchCityCellModel(city: str + ", " + city.country)
             let model = SearchCityCellViewModel(city: cityData)
             if let settings = self.settings {

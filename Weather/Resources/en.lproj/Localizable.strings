@@ -1,0 +1,101 @@
+/* 
+  Localizable.strings
+  Weather
+
+  Created by Владимир on 29.06.2022.
+  
+*/
+
+// MARK: - General
+
+"General.Lang" = "en";
+"General.Locale.Identifier" = "en-US";
+
+
+// MARK: - Units
+
+"Units.Speed.ms"    = "m/s";
+"Units.Speed.kmh"   = "km/h";
+"Units.Speed.mph"   = "mph";
+
+"Units.Pressure.mmHg"   = "mm Hg";
+"Units.Pressure.hPa"    = "hPa";
+"Units.Pressure.bar"    = "bar";
+
+
+// MARK: - WindDirection
+
+"WindDirection.North"               = "N";
+"WindDirection.NorthNorthEast"      = "NNE";
+"WindDirection.NorthEast"           = "NE";
+"WindDirection.EastNorthEast"       = "ENE";
+"WindDirection.East"                = "E";
+"WindDirection.EastSouthEast"       = "ESE";
+"WindDirection.SouthEast"           = "SE";
+"WindDirection.SouthSouthEast"      = "SSE";
+"WindDirection.South"               = "S";
+"WindDirection.SouthSouthWestern"   = "SSW";
+"WindDirection.SouthWestern"        = "SW";
+"WindDirection.WesternWesternSouth" = "WWS";
+"WindDirection.Western"             = "W";
+"WindDirection.WesternNorthWestern" = "WNW";
+"WindDirection.NorthWestern"        = "NW";
+"WindDirection.NorthNorthWestern"   = "NNW";
+
+
+// MARK: - BeaufortScale
+
+"BeaufortScale.calm"      = "Calm";
+"BeaufortScale.air"       = "Light air";
+"BeaufortScale.light"     = "Light breeze";
+"BeaufortScale.gentle"    = "Gentle breeze";
+"BeaufortScale.moderate"  = "Moderate breeze";
+"BeaufortScale.fresh"     = "Fresh breeze";
+"BeaufortScale.strong"    = "Strong breeze";
+"BeaufortScale.high"      = "High wind";
+"BeaufortScale.gale"      = "Gale";
+"BeaufortScale.severe"    = "Strong gale";
+"BeaufortScale.storm"     = "Storm";
+"BeaufortScale.violent"   = "Violent storm";
+"BeaufortScale.hurricane" = "Hurricane force";
+
+
+// MARK: - CompassView
+
+"CompassView.North"   = "N";
+"CompassView.East"    = "E";
+"CompassView.South"   = "S";
+"CompassView.Western" = "W";
+
+
+// MARK: - WeatherView
+
+"WeatherView.HourlyCell.DescriptionLabel"   = "Hourly forecast";
+"WeatherView.DailyCell.DescriptionLabel"    = "Forecast for the week";
+"WeatherView.WindCell.DescriptionLabel"     = "Wind";
+"WeatherView.PressureCell.DescriptionLabel" = "Pressure";
+"WeatherView.HumidityCell.DescriptionLabel" = "Humidity";
+
+"WeatherView.CommonWords.Now"     = "Now";
+"WeatherView.CommonWords.Today"   = "Today";
+"WeatherView.CommonWords.Sunrise" = "Sunrise";
+"WeatherView.CommonWords.Sunset"  = "Sunset";
+
+"WeatherView.CommonWords.WindTitle"  = "Wind";
+"WeatherView.CommonWords.WindSpeed"  = "Wind speed";
+"WeatherView.CommonWords.GustWind"   = ", gust of wind ";
+
+"WeatherView.CommonWords.DewPoint"   = "Dew point";
+
+
+// MARK: - SettingsView
+
+"SettingsView.Title.Cities"   = "Cities";
+"SettingsView.Title.Settings" = "Settings";
+
+"SettingsView.SearchCityCell.BackButton" = "To the list";
+"SettingsView.SearchCityCell.Search"     = "Search";
+
+"SettingsView.SettingsCell.Temperature" = "Temperature";
+"SettingsView.SettingsCell.WindSpeed"   = "Wind speed";
+"SettingsView.SettingsCell.Pressure"    = "Pressure";

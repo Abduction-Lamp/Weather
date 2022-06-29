@@ -37,6 +37,18 @@ struct GeocodingResponse: Codable {
             case ru
             case en
         }
+        
+        /// Возвращает название города в зависимости от языка системы
+        ///
+        /// - Parameter lang: Язык выходных данных ["ru", "en", и др.]
+        ///
+        func getName(lang: String) -> String? {
+            if lang == "ru" {
+                return ru
+            } else {
+                return en
+            }
+        }
     }
 }
 

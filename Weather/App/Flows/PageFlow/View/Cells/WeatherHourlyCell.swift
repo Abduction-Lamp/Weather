@@ -33,7 +33,7 @@ final class WeatherHourlyCell: UITableViewCell {
         label.textAlignment = .left
         label.textColor = .white
         label.font = const.font.small
-        label.text = "Почасовой прогноз"
+        label.text = NSLocalizedString("WeatherView.HourlyCell.DescriptionLabel", comment: "Hourly forecast")
         return label
     }()
 

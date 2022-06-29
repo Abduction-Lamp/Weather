@@ -43,7 +43,7 @@ final class WeatherPressureAndHumidityCell: UITableViewCell {
         label.textAlignment = .left
         label.textColor = .white
         label.font = const.font.small
-        label.text = "Давление"
+        label.text = NSLocalizedString("WeatherView.PressureCell.DescriptionLabel", comment: "Pressure")
         return label
     }()
     
@@ -79,7 +79,7 @@ final class WeatherPressureAndHumidityCell: UITableViewCell {
         label.textAlignment = .left
         label.textColor = .white
         label.font = const.font.small
-        label.text = "Влажность"
+        label.text = NSLocalizedString("WeatherView.HumidityCell.DescriptionLabel", comment: "Humidity")
         return label
     }()
     

@@ -8,8 +8,8 @@
 import Foundation
 
 struct CityData: Codable {
-    let eng: String
-    let rus: String
+    private let eng: String
+    private let rus: String
     let latitude: Double
     let longitude: Double
     
@@ -25,6 +25,19 @@ struct CityData: Codable {
         rus = geocoding.localNames?.ru ?? geocoding.name
         latitude = geocoding.lat
         longitude = geocoding.lon
+    }
+    
+    
+    /// Возвращает название города в зависимости от языка системы
+    ///
+    /// - Parameter lang: Язык выходных данных ["ru", "en", и др.]
+    ///
+    func getName(lang: String) -> String {
+        if lang == "ru" {
+            return rus
+        } else {
+            return eng
+        }
     }
 }
 
