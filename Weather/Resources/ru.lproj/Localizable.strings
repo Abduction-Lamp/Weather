@@ -11,6 +11,9 @@
 "General.Lang" = "ru";
 "General.Locale.Identifier" = "ru_RU";
 
+"General.Alert.Cancel" = "Закрыть";
+"General.Locale.Error" = "Не удалось определить местоположение";
+
 
 // MARK: - Units
 

@@ -9,9 +9,7 @@ import Foundation
 import CoreLocation
 
 final class Location: NSObject, LocationServiceProtoco {
-    
-    var state: LocationState = .locating
-    
+
     private let manager: CLLocationManager?
     private lazy var observers = [LocationObserver]()
     
@@ -21,6 +19,10 @@ final class Location: NSObject, LocationServiceProtoco {
         
         manager?.requestWhenInUseAuthorization()
         manager?.delegate = self
+    }
+    
+    deinit {
+        removeAll()
     }
         
     func subscribe(listener: LocationObserver) {
@@ -38,7 +40,6 @@ final class Location: NSObject, LocationServiceProtoco {
     }
     
     func current() {
-        state = .locating
         manager?.requestLocation()
     }
     
@@ -61,19 +62,16 @@ extension Location: CLLocationManagerDelegate {
         guard let location = locations.last else { return }
         CLGeocoder.init().reverseGeocodeLocation(location) { [weak self] (places, error) in
             if let error = error {
-                self?.state = .failure(error)
                 self?.notify(location: .failure(error))
             }
             if let fist = places?.first, let locality = fist.locality {
                 let city = CityData(eng: locality, rus: locality, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-                self?.state = .success(city)
                 self?.notify(location: .success(city))
             }
         }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        state = .failure(error)
         notify(location: .failure(error))
         print("⚠️\t" + error.localizedDescription)
     }

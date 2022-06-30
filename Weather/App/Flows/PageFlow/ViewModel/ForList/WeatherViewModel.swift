@@ -5,12 +5,12 @@
 //  Created by Владимир on 04.05.2022.
 //
 
-import Foundation
+import UIKit
 
 protocol WeatherViewModelProtocol: AnyObject {
     var city: CityData? { get set }
-    var weather: Bindable<OneCallResponse?> { get }
     var statusDay: Bindable<TimeOfDay?> { get }
+    var state: Bindable<UIViewController.Mode> { get }
     
     func feach()
     
@@ -23,14 +23,14 @@ protocol WeatherViewModelProtocol: AnyObject {
 
 
 class WeatherViewModel {
-    
     var city: CityData?
-    var weather = Bindable<OneCallResponse?>(nil)
     var statusDay = Bindable<TimeOfDay?>(nil)
+    var state = Bindable<UIViewController.Mode>(.none)
+    
+    private var weather: OneCallResponse?
     
     private weak var settings: Settings?
     private weak var network: NetworkServiceProtocol?
-    
     private var iconManager = IconService()
     
     init(city: CityData?, network: NetworkServiceProtocol, settings: Settings?) {
@@ -49,17 +49,22 @@ extension WeatherViewModel: WeatherViewModelProtocol {
     public func feach() {
         guard let city = city else { return }
         
+        state.value = .loading
+        
         network?.getWeatherOneCall(lat: city.latitude,
                                    lon: city.longitude,
                                    units: "metric",
                                    lang: NSLocalizedString("General.Lang", comment: "Lang")) { [weak self] response in
+            guard let self = self else { return }
             switch response {
             case .success(let result):
-                self?.weather.value = result
-                if let time = result.current?.time, let sunrise = result.current?.sunrise,  let sunset = result.current?.sunset {
-                    self?.statusDay.value = .init(time: time, sunrise: sunrise, sunset: sunset)
+                self.weather = result
+                if let time = result.current?.time, let sunrise = result.current?.sunrise, let sunset = result.current?.sunset {
+                    self.statusDay.value = .init(time: time, sunrise: sunrise, sunset: sunset)
                 }
+                self.state.value = .success(nil)
             case .failure(let error):
+                self.state.value = .failure(error.description)
                 print("\(error.description)")
             }
         }
@@ -72,17 +77,17 @@ extension WeatherViewModel: WeatherViewModelProtocol {
         guard let city = city else { return WeatherCityHeaderModel(city: "", temperature: "", description: "") }
         
         var temperature: String = ""
-        if let temp = weather.value?.current?.temp, let settings = settings {
+        if let temp = weather?.current?.temp, let settings = settings {
             temperature = temp.temperature(in: settings.units.value.temperature).toStringWithDegreeSymbol()
         }
         return WeatherCityHeaderModel(city: city.getName(lang: NSLocalizedString("General.Lang", comment: "Lang")),
                                       temperature: temperature,
-                                      description: weather.value?.current?.weather.first?.description ?? "")
+                                      description: weather?.current?.weather.first?.description ?? "")
     }
     
     func makeWeatherHourlyModel() -> [WeatherHourlyModel] {
         var model: [WeatherHourlyModel] = []
-        if let value = weather.value, let hourly = value.hourly, let settings = settings {
+        if let value = weather, let hourly = value.hourly, let settings = settings {
             let wordNow = NSLocalizedString("WeatherView.CommonWords.Now", comment: "Now")
             for (index, response) in hourly.enumerated() where index < 24 {
                 let hour = response.time.toStringLocolTime(offset: value.timezoneOffset, format: "HH")
@@ -97,8 +102,8 @@ extension WeatherViewModel: WeatherViewModelProtocol {
             ///
             /// Вставка информации о sunrise и sunset
             ///
-            if let sunrise = weather.value?.current?.sunrise,
-               let sunset = weather.value?.current?.sunset,
+            if let sunrise = weather?.current?.sunrise,
+               let sunset = weather?.current?.sunset,
                let sunriseIndex = model.firstIndex(where: { $0.time == sunrise.toStringLocolTime(offset: value.timezoneOffset, format: "HH") }),
                let sunsetIndex = model.firstIndex(where: { $0.time == sunset.toStringLocolTime(offset: value.timezoneOffset, format: "HH") }) {
                 let wordSunrise = NSLocalizedString("WeatherView.CommonWords.Sunrise", comment: "Sunrise")
@@ -116,7 +121,7 @@ extension WeatherViewModel: WeatherViewModelProtocol {
     
     func makeWeatherDailyModel() -> [WeatherDailyModel] {
         var model: [WeatherDailyModel] = []
-        if let value = weather.value, let daily = value.daily, let settings = settings {
+        if let value = weather, let daily = value.daily, let settings = settings {
             for (index, response) in daily.enumerated() {
                 let day = response.time.toStringLocolTime(offset: value.timezoneOffset, format: "E.,  d MMM")
                 let temperature = response.temp.min.temperature(in: settings.units.value.temperature).toStringWithDegreeSymbol()
@@ -143,7 +148,7 @@ extension WeatherViewModel: WeatherViewModelProtocol {
         let windLocalWord = NSLocalizedString("WeatherView.CommonWords.WindTitle", comment: "Wind")
         let windSpeedLocalWord = NSLocalizedString("WeatherView.CommonWords.WindSpeed", comment: "Wind speed")
         
-        if let value = weather.value?.current, let settings = settings {
+        if let value = weather?.current, let settings = settings {
             let speed = value.windSpeed.windSpeed(in: settings.units.value.windSpeed)
             
             measurement = String(Int(speed.rounded(.toNearestOrAwayFromZero)))
@@ -181,7 +186,7 @@ extension WeatherViewModel: WeatherViewModelProtocol {
         var humidity: String = ""
         var dewPoint: String = ""
 
-        if let value = weather.value?.current, let settings = settings {            
+        if let value = weather?.current, let settings = settings {
             measurement = value.pressure.pressureToString(in: settings.units.value.pressure)
             pressure = value.pressure
             

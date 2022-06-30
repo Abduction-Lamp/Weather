@@ -14,17 +14,9 @@ protocol LocationObserver: AnyObject {
 }
 
 protocol LocationServiceProtoco: AnyObject {
-    var state: LocationState { get }
-    
     func subscribe(listener: LocationObserver)
     func remove(_ listener: LocationObserver)
     func removeAll()
     
     func current()
-}
-
-enum  LocationState {
-    case locating
-    case success(CityData)
-    case failure(Error)
 }

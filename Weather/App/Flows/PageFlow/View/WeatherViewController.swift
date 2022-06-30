@@ -16,6 +16,23 @@ final class WeatherViewController: UIViewController {
         return view
     }
     
+    private var mode: Mode = .none {
+        didSet {
+            switch self.mode {
+            case .success(_):
+                self.weatherView.refreshControl.endRefreshing()
+                self.weatherView.table.reloadData()
+            case .failure(let message as String):
+                self.weatherView.refreshControl.endRefreshing()
+                self.alert(title: "",
+                           message: message as String,
+                           actionTitle: NSLocalizedString("General.Alert.Cancel", comment: "Cancel"),
+                           handler: nil)
+            default: break
+            }
+        }
+    }
+    
     var viewModel: WeatherViewModelProtocol?
     
     
@@ -43,11 +60,9 @@ final class WeatherViewController: UIViewController {
         
         weatherView.refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         
-        viewModel?.weather.bind { weather in
+        viewModel?.state.bind { state in
             DispatchQueue.main.async {
-                self.weatherView.refreshControl.endRefreshing()
-                guard let _ = weather else { return }
-                self.weatherView.table.reloadData()
+                self.mode = state
             }
         }
     }
@@ -55,6 +70,7 @@ final class WeatherViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        weatherView.refreshControl.beginRefreshing()
         viewModel?.feach()
     }
 }

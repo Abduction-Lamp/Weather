@@ -11,6 +11,9 @@
 "General.Lang" = "en";
 "General.Locale.Identifier" = "en-US";
 
+"General.Alert.Cancel" = "Cancel";
+"General.Locale.Error" = "Location could not be determined";
+
 
 // MARK: - Units
 

@@ -13,8 +13,6 @@ final class LocationWeatherViewModel: WeatherViewModel {
     let uuid: String = UUID().uuidString
     private weak var location: LocationServiceProtoco?
     
-    var state: Bindable<LocationState> = Bindable<LocationState>(.locating)
-    
     
     init(city: CityData?, network: NetworkServiceProtocol, settings: Settings?, location: LocationServiceProtoco?) {
         super.init(city: city, network: network, settings: settings)
@@ -43,7 +41,7 @@ extension LocationWeatherViewModel: LocationObserver {
             self.city = city
             super.feach()
         case .failure(let error):
-            state.value = .failure(error)
+            self.state.value = .failure(NSLocalizedString("General.Locale.Error", comment: "Error"))
             print(error)
         }
     }

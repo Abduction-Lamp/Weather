@@ -8,6 +8,13 @@
 import UIKit
 
 extension UIViewController {
+    
+    public enum Mode {
+        case loading
+        case success(Any?)
+        case failure(Any?)
+        case none
+    }
 
     public func alert(title: String, message: String, actionTitle: String, handler: (() -> Void)? = nil) {
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)

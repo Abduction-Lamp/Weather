@@ -54,7 +54,7 @@ final class HomeViewController: UIViewController {
         }
     }
     
-    var viewModel: HomeViewModelProtocol
+    private var viewModel: HomeViewModelProtocol
 
 
     // MARK: Initialization
