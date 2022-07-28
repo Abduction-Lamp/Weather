@@ -58,23 +58,23 @@ extension WindDirection: CustomStringConvertible {
     
     var description: String {
         switch self {
-        case .north:                return NSLocalizedString("WindDirection.North"              , comment: "North")
-        case .northNorthEast:       return NSLocalizedString("WindDirection.NorthNorthEast"     , comment: "North North East")
-        case .northEast:            return NSLocalizedString("WindDirection.NorthEast"          , comment: "North East")
-        case .eastNorthEast:        return NSLocalizedString("WindDirection.EastNorthEast"      , comment: "East North East")
-        case .east:                 return NSLocalizedString("WindDirection.East"               , comment: "East")
-        case .eastSouthEast:        return NSLocalizedString("WindDirection.EastSouthEast"      , comment: "East South East")
-        case .southEast:            return NSLocalizedString("WindDirection.SouthEast"          , comment: "South East")
-        case .southSouthEast:       return NSLocalizedString("WindDirection.SouthSouthEast"     , comment: "South South East")
-        case .south:                return NSLocalizedString("WindDirection.South"              , comment: "South")
-        case .southSouthWestern:    return NSLocalizedString("WindDirection.SouthSouthWestern"  , comment: "South South Western")
-        case .southWestern:         return NSLocalizedString("WindDirection.SouthWestern"       , comment: "South Western")
-        case .westernWesternSouth:  return NSLocalizedString("WindDirection.WesternWesternSouth", comment: "Western Western South")
-        case .western:              return NSLocalizedString("WindDirection.Western"            , comment: "Western")
-        case .westernNorthWestern:  return NSLocalizedString("WindDirection.WesternNorthWestern", comment: "Western North Western")
-        case .northWestern:         return NSLocalizedString("WindDirection.NorthWestern"       , comment: "North Western")
-        case .northNorthWestern:    return NSLocalizedString("WindDirection.NorthNorthWestern"  , comment: "North North Western")
-        default:                    return ""
+        case .north:               return NSLocalizedString("WindDirection.North"              , comment: "North")
+        case .northNorthEast:      return NSLocalizedString("WindDirection.NorthNorthEast"     , comment: "North North East")
+        case .northEast:           return NSLocalizedString("WindDirection.NorthEast"          , comment: "North East")
+        case .eastNorthEast:       return NSLocalizedString("WindDirection.EastNorthEast"      , comment: "East North East")
+        case .east:                return NSLocalizedString("WindDirection.East"               , comment: "East")
+        case .eastSouthEast:       return NSLocalizedString("WindDirection.EastSouthEast"      , comment: "East South East")
+        case .southEast:           return NSLocalizedString("WindDirection.SouthEast"          , comment: "South East")
+        case .southSouthEast:      return NSLocalizedString("WindDirection.SouthSouthEast"     , comment: "South South East")
+        case .south:               return NSLocalizedString("WindDirection.South"              , comment: "South")
+        case .southSouthWestern:   return NSLocalizedString("WindDirection.SouthSouthWestern"  , comment: "South South Western")
+        case .southWestern:        return NSLocalizedString("WindDirection.SouthWestern"       , comment: "South Western")
+        case .westernWesternSouth: return NSLocalizedString("WindDirection.WesternWesternSouth", comment: "Western Western South")
+        case .western:             return NSLocalizedString("WindDirection.Western"            , comment: "Western")
+        case .westernNorthWestern: return NSLocalizedString("WindDirection.WesternNorthWestern", comment: "Western North Western")
+        case .northWestern:        return NSLocalizedString("WindDirection.NorthWestern"       , comment: "North Western")
+        case .northNorthWestern:   return NSLocalizedString("WindDirection.NorthNorthWestern"  , comment: "North North Western")
+        default:                   return ""
         }
     }
 }

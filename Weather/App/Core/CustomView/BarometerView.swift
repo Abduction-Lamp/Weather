@@ -5,8 +5,6 @@
 //  Created by Владимир on 02.06.2022.
 //
 
-import Foundation
-
 import UIKit
 
 final class BarometerView: UIView {
@@ -136,13 +134,11 @@ final class BarometerView: UIView {
         indicator.bounds = CGRect(origin: .zero, size: indicatorSize)
         indicator.position = CGPoint(x: indicatorSize.width/2, y: indicatorSize.height/2)
         
-        
         arrow.masksToBounds = true
         arrow.backgroundColor = UIColor.clear.cgColor
         
         arrow.bounds = CGRect(origin: .zero, size: arrowSize)
         arrow.position = CGPoint(x: bounds.midX, y: bounds.midY)
-        
         
         arrow.transform = CATransform3DMakeRotation(calculationDeviationArrow(pressure: value), 0.0, 0.0, 1.0)
     }

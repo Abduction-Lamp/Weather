@@ -56,6 +56,7 @@ extension WeatherViewModel: WeatherViewModelProtocol {
                                    units: "metric",
                                    lang: NSLocalizedString("General.Lang", comment: "Lang")) { [weak self] response in
             guard let self = self else { return }
+            
             switch response {
             case .success(let result):
                 self.weather = result
