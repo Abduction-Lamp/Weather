@@ -15,9 +15,9 @@ extension UIColor {
         assert(0...255 ~= blue, "⚠️\tInvalid blue component")
         assert(0.0...1.0 ~= alpha, "⚠️\tInvalid alpha component")
         
-        self.init(red: CGFloat(red)/255.0,
+        self.init(red:   CGFloat(red)/255.0,
                   green: CGFloat(green)/255.0,
-                  blue: CGFloat(blue)/255.0,
+                  blue:  CGFloat(blue)/255.0,
                   alpha: alpha)
     }
 }
