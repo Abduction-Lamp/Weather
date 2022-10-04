@@ -10,23 +10,25 @@ import XCTest
 
 
 class StorageTests: XCTestCase {
+
+    let timeout: TimeInterval = 0.5
     
-    let storage = Storage()
+    var storage: Storage?
     var settings: Settings?
     
-    var expectation: XCTestExpectation!
     
     override func setUpWithError() throws {
         try super.setUpWithError()
         
+        storage = Storage()
         settings = Settings()
         initSettingsEntitie()
-        expectation = XCTestExpectation(description: "[ Storage Unit-Test ]")
     }
     
     override func tearDownWithError() throws {
+        storage = nil
         settings = nil
-        expectation = nil
+        
         try super.tearDownWithError()
     }
     
@@ -41,52 +43,73 @@ class StorageTests: XCTestCase {
 //
 extension StorageTests {
     
-    func testInitStorage() throws {
-        XCTAssertNotNil(storage)
-        XCTAssertNotNil(settings)
-    }
-    
-    
-    func testStorageSave_Success() throws {
-        if settings == nil {
-            XCTFail("⚠️\tWrong settings == nil")
+    func test_SaveAndFeatch_Success() throws {
+        guard let storage = storage else {
+            XCTFail("Wrong storage == nil")
+            return
+        }
+        guard let settings = settings else {
+            XCTFail("Wrong settings == nil")
+            return
         }
         
-        storage.save(settings!) { isSuccess in
+        let saveExpectation = XCTestExpectation(description: "[Save Expectation]: ")
+        let featchExpectation = XCTestExpectation(description: "[Featch Expectation]: ")
+        
+        
+        // MARK: Save
+        storage.save(settings) { isSuccess in
             XCTAssertTrue(isSuccess)
-            self.expectation.fulfill()
+            saveExpectation.fulfill()
         }
-        wait(for: [self.expectation], timeout: 1.0)
-    }
-    
-    
-    func testStorageFeatch_Success() throws {
-        let expectation_save = XCTestExpectation(description: "[ Storage Unit-Test > Save ]")
-        let expectation_featch = XCTestExpectation(description: "[ Storage Unit-Test > Featch ]")
+        wait(for: [saveExpectation], timeout: timeout)
         
-        storage.save(settings!) { isSuccess in
-            XCTAssertTrue(isSuccess)
-            expectation_save.fulfill()
-        }
-
-        wait(for: [expectation_save], timeout: 1.0)
         
+        // MARK: Featch
         storage.featch { response in
             switch response {
             case .success(let result):
                 XCTAssertEqual(result, self.settings)
-                expectation_featch.fulfill()
+                featchExpectation.fulfill()
             case .failure(_):
-                XCTFail("⚠️\tWrong branch (Error)")
-                expectation_featch.fulfill()
+                XCTFail("Wrong branch (Error)")
+                featchExpectation.fulfill()
             }
         }
+        wait(for: [featchExpectation], timeout: timeout)
+    }
+    
+    func test_Featch_Failure() throws {
+        guard let storage = storage else {
+            XCTFail("Wrong storage == nil")
+            return
+        }
         
-        wait(for: [expectation_featch], timeout: 1.0)
+        let featchExpectation = XCTestExpectation(description: "[Featch Expectation]: ")
+
+        // MARK: Featch
+        let _ = storage.reset()
+        storage.featch { response in
+            switch response {
+            case .success:
+                XCTFail("Wrong case == .success")
+                featchExpectation.fulfill()
+            case .failure(let result):
+                XCTAssertEqual(result, .empty(source: "featch", message: "No data available"))
+                featchExpectation.fulfill()
+            }
+        }
+        wait(for: [featchExpectation], timeout: timeout)
     }
     
     
-    func testStorageReset_Success() throws {
+    func test_Reset_Success() throws {
+        guard let storage = storage else {
+            XCTFail("Wrong storage == nil")
+            return
+        }
+        
+        // MARK: Reset
         let result = storage.reset()
         XCTAssertEqual(result, Settings())
     }

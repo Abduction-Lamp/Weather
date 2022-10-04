@@ -24,10 +24,10 @@ final class Storage: StorageServiceProtocol {
                     let settings = try JSONDecoder().decode(Settings.self, from: data)
                     completion(.success(settings))
                 } catch {
-                    completion(.failure(.decode(message: "Decoding error when extracting settings")))
+                    completion(.failure(.decode(source: "featch", message: "Decoding error when extracting settings")))
                 }
             } else {
-                completion(.failure(.empty(message: "No data available")))
+                completion(.failure(.empty(source: "featch", message: "No data available")))
             }
         }
     }
