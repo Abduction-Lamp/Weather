@@ -28,6 +28,8 @@ class SettingsTests: XCTestCase {
 }
 
 
+// MARK: - Functional test case
+//
 extension SettingsTests {
     
     func testInitSettings() throws {

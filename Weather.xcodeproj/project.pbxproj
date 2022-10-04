@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4E0A660228EC5FFC000061F5 /* BindableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A660128EC5FFC000061F5 /* BindableTests.swift */; };
 		4E10EA44283843BC00074D3E /* IconService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10EA43283843BC00074D3E /* IconService.swift */; };
 		4E1C118A283BE015009537F4 /* TimeOfDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1C1189283BE015009537F4 /* TimeOfDay.swift */; };
 		4E2BC2C128087E2B00018EB3 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2BC2C028087E2B00018EB3 /* SettingsViewModel.swift */; };
@@ -121,6 +122,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4E0A660128EC5FFC000061F5 /* BindableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindableTests.swift; sourceTree = "<group>"; };
 		4E10EA43283843BC00074D3E /* IconService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconService.swift; sourceTree = "<group>"; };
 		4E1C1189283BE015009537F4 /* TimeOfDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeOfDay.swift; sourceTree = "<group>"; };
 		4E2BC2C028087E2B00018EB3 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
@@ -251,6 +253,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4E0A660028EC5FAF000061F5 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				4E0A660128EC5FFC000061F5 /* BindableTests.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
 		4E10EA422838437500074D3E /* Icons */ = {
 			isa = PBXGroup;
 			children = (
@@ -433,6 +443,7 @@
 		4E7C33ED2805A839006EBBE6 /* WeatherTests */ = {
 			isa = PBXGroup;
 			children = (
+				4E0A660028EC5FAF000061F5 /* Core */,
 				4E4F6C2C282D4034007BAE62 /* Services */,
 				4E8651E02833D4A400B883DD /* SettingsTests.swift */,
 				4E7C33EE2805A839006EBBE6 /* WeatherTests.swift */,
@@ -994,6 +1005,7 @@
 				4E500BCE282EE35600F2E006 /* FakeURLSessionWeatherOneCall.swift in Sources */,
 				4E50F7BD2832A3AB00E8AF32 /* URLsExcitesDataDecoderError.swift in Sources */,
 				4E50F7B228327AF700E8AF32 /* GetWeatherOneCallTests.swift in Sources */,
+				4E0A660228EC5FFC000061F5 /* BindableTests.swift in Sources */,
 				4E4F6C30282D40BD007BAE62 /* FakeWheather.swift in Sources */,
 				4E500BD3282EED1000F2E006 /* FakeURLSessionDataTask.swift in Sources */,
 				4E8651DF2833B73D00B883DD /* StorageTests.swift in Sources */,

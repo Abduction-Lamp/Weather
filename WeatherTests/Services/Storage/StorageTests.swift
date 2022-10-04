@@ -30,15 +30,15 @@ class StorageTests: XCTestCase {
         try super.tearDownWithError()
     }
     
-    private func initSettingsEntitie() {
+    private func initSettingsEntitie() {        
         settings?.cities.value = FakeCities().citiesList
-        settings?.temperature.value = .kelvin
-        settings?.pressure.value = .mmHg
-        settings?.windSpeed.value = .mph
+        settings?.units.value = Unit()
     }
 }
 
 
+// MARK: - Functional test case
+//
 extension StorageTests {
     
     func testInitStorage() throws {

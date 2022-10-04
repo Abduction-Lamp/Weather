@@ -35,7 +35,7 @@ class GetCoordinatesByLocationNameTests: XCTestCase {
 }
 
 
-// MARK: - Network: GetCoordinatesByLocationName
+// MARK: - Functional test case
 //
 extension GetCoordinatesByLocationNameTests {
     

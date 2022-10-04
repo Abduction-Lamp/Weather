@@ -33,7 +33,7 @@ class GetWeatherOneCallTests: XCTestCase {
 }
 
 
-// MARK: - Network: GetWeatherOneCall
+// MARK: - Functional test case
 //
 extension GetWeatherOneCallTests {
     
