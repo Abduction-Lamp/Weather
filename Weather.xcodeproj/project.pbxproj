@@ -430,7 +430,7 @@
 				4E0A660628EC8300000061F5 /* Mocks */,
 				4E0A660028EC5FAF000061F5 /* Core */,
 				4E4F6C2C282D4034007BAE62 /* Services */,
-				4E8651E02833D4A400B883DD /* SettingsTests.swift */,
+				4ECC1D8728EF35E500FCDF92 /* Entities */,
 				4E7C33EE2805A839006EBBE6 /* WeatherTests.swift */,
 			);
 			path = WeatherTests;
@@ -747,6 +747,14 @@
 				4EBFF6EA2869F9F900C435BE /* LocationWeatherViewModel.swift */,
 			);
 			path = ForLocation;
+			sourceTree = "<group>";
+		};
+		4ECC1D8728EF35E500FCDF92 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				4E8651E02833D4A400B883DD /* SettingsTests.swift */,
+			);
+			path = Entities;
 			sourceTree = "<group>";
 		};
 		4ED41441283D36A900024E17 /* CustomView */ = {

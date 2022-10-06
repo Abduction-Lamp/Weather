@@ -16,6 +16,7 @@ class SettingsTests: XCTestCase {
     
     override func setUpWithError() throws {
         try super.setUpWithError()
+        
         settings = Settings()
         expectation = XCTestExpectation(description: "[ Settings Unit-Test ]")
     }
@@ -23,6 +24,7 @@ class SettingsTests: XCTestCase {
     override func tearDownWithError() throws {
         settings = nil
         expectation = nil
+        
         try super.tearDownWithError()
     }
 }
@@ -32,19 +34,19 @@ class SettingsTests: XCTestCase {
 //
 extension SettingsTests {
     
-    func testInitSettings() throws {
+    func testSettings() throws {
         XCTAssertNotNil(settings)
     }
     
-    
     func testSettingsAdd_Success() throws {
-        MockCityData.init().cities.forEach { city in
+        let list = MockCityData.init().cities
+        
+        list.forEach { city in
             let result = self.settings.add(city)
             XCTAssertTrue(result)
         }
-        XCTAssertEqual(settings.cities.value, MockCityData.init().cities)
+        XCTAssertEqual(settings.cities.value, list)
     }
-    
     
     func testSettingsAdd_Failure() throws {
         if let city = MockCityData.init().cities.first {
@@ -57,65 +59,54 @@ extension SettingsTests {
         }
     }
     
-    
     func testSettingsRemove_Success() throws {
         let city1 = MockCityData.init().cities[0]
         let city2 = MockCityData.init().cities[1]
         let city3 = MockCityData.init().cities[2]
         
-        var result: Bool = false
+        let _ = settings.add(city1)
+        let _ = settings.add(city2)
+        let _ = settings.add(city3)
+        XCTAssertEqual(settings.cities.value.count, 3)
         
-        result = settings.add(city1)
-        XCTAssertTrue(result)
-        
-        result = settings.add(city2)
-        XCTAssertTrue(result)
-        
-        result = settings.add(city3)
-        XCTAssertTrue(result)
-        
-
         var city: CityData? = nil
         
         city = settings.remove(city: city1)
         XCTAssertEqual(city, city1)
+        XCTAssertEqual(settings.cities.value.count, 2)
         
         city = settings.remove(city: city2)
         XCTAssertEqual(city, city2)
+        XCTAssertEqual(settings.cities.value.count, 1)
         
         city = settings.remove(city: city3)
         XCTAssertEqual(city, city3)
+        XCTAssertEqual(settings.cities.value.count, 0)
         
         city = settings.remove(city: city3)
         XCTAssertNil(city)
     }
-    
     
     func testSettingsRemoveByIndex_Success() throws {
         let city1 = MockCityData.init().cities[0]
         let city2 = MockCityData.init().cities[1]
         let city3 = MockCityData.init().cities[2]
         
-        var result: Bool = false
-        
-        result = settings.add(city1)
-        XCTAssertTrue(result)
-        
-        result = settings.add(city2)
-        XCTAssertTrue(result)
-        
-        result = settings.add(city3)
-        XCTAssertTrue(result)
+        let _ = settings.add(city1)
+        let _ = settings.add(city2)
+        let _ = settings.add(city3)
+        XCTAssertEqual(settings.cities.value.count, 3)
         
         var city: CityData? = nil
         
         city = settings.remove(index: 2)
         XCTAssertEqual(city, city3)
+        XCTAssertEqual(settings.cities.value.count, 2)
         
         city = settings.remove(index: 2)
         XCTAssertNil(city)
+        XCTAssertEqual(settings.cities.value.count, 2)
     }
-    
     
     func testSettingsMove_Success() throws {
         let city1 = MockCityData.init().cities[0]

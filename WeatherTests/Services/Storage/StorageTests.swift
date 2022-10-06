@@ -43,7 +43,7 @@ class StorageTests: XCTestCase {
 //
 extension StorageTests {
     
-    func test_SaveAndFeatch_Success() throws {
+    func testSaveAndFeatch_Success() throws {
         guard let storage = storage else {
             XCTFail("Wrong storage == nil")
             return
@@ -56,7 +56,7 @@ extension StorageTests {
         let saveExpectation = XCTestExpectation(description: "[Save Expectation]: ")
         let featchExpectation = XCTestExpectation(description: "[Featch Expectation]: ")
         
-        
+    
         // MARK: Save
         storage.save(settings) { isSuccess in
             XCTAssertTrue(isSuccess)
@@ -79,7 +79,7 @@ extension StorageTests {
         wait(for: [featchExpectation], timeout: timeout)
     }
     
-    func test_Featch_Failure() throws {
+    func testFeatch_Failure() throws {
         guard let storage = storage else {
             XCTFail("Wrong storage == nil")
             return
@@ -103,7 +103,7 @@ extension StorageTests {
     }
     
     
-    func test_Reset_Success() throws {
+    func testReset_Success() throws {
         guard let storage = storage else {
             XCTFail("Wrong storage == nil")
             return
