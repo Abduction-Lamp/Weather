@@ -8,27 +8,27 @@
 import Foundation
 
 enum NetworkResponseError: Error {
-    case status(url: String, code: Int?)
-    case error(url: String, message: String?)
-    case data(url: String, message: String?)
-    case decode(url: String, message: String?)
-    case url(message: String?)
+    case status (url: String, code: Int?)
+    case error  (url: String, message: String?)
+    case data   (url: String, message: String?)
+    case decode (url: String, message: String?)
+    case url    (message: String?)
 }
 
 extension NetworkResponseError: CustomStringConvertible {
     
     var description: String {
         switch self {
-        case .status(url: let url, code: let code):
-            return "⚠️\tNetwork > Status Code [\(url)]\n\tcode: \(code ?? 0)"
-        case .error(url: let url, message: let message):
-            return "⚠️\tNetwork > Error [\(url)]\n\tmessage: \(message ?? "")"
-        case .data(url: let url, message: let message):
-            return "⚠️\tNetwork > Data [\(url)]\n\tmessage: \(message ?? "")"
-        case .decode(url: let url, message: let message):
-            return "⚠️\tNetwork > Decode [\(url)]\n\tmessage: \(message ?? "")"
+        case .status(let url, let code):
+            return "⚠️ Network > Status [\(url)]\nStatus = \(code ?? 0)\n"
+        case .error(let url, let message):
+            return "⚠️ Network > Error [\(url)]\nmessage: \(message ?? "")\n"
+        case .data(let url, let message):
+            return "⚠️ Network > Data [\(url)]\nmessage: \(message ?? "")\n"
+        case .decode(let url, let message):
+            return "⚠️ Network > Decode [\(url)]\nmessage: \(message ?? "")\n"
         case .url(message: let message):
-            return "⚠️\tNetwork : \(message ?? "")"
+            return "⚠️ Network > URL []\nmessage: \(message ?? "")\n"
         }
     }
 }

@@ -73,6 +73,6 @@ extension Location: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         notify(location: .failure(error))
-        print("⚠️\t" + error.localizedDescription)
+        print("⚠️ Location: \(error.localizedDescription)")
     }
 }

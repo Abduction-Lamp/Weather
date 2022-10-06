@@ -14,7 +14,6 @@ enum CompletionError: Error, Equatable {
     case undefined  (source: String, message: String)
 }
 
-
 extension CompletionError: CustomStringConvertible {
     
     var description: String {
