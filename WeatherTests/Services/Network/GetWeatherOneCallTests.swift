@@ -2,32 +2,35 @@
 //  GetWeatherOneCallTests.swift
 //  WeatherTests
 //
-//  Created by Владимир on 16.05.2022.
+//  Created by Владимир on 05.10.2022.
 //
 
 import XCTest
 @testable import Weather
 
-
 class GetWeatherOneCallTests: XCTestCase {
     
-    var network: Network?
-    var session: URLSessionProtocol = FakeURLSessionWeatherOneCall()
-    var fakeURLs: FakeURL = FakeURL()
-    
+    let timeout = TimeInterval(0.5)
     var expectation: XCTestExpectation!
+    
+    
+    var mockURLs: MockURLs = MockURLs()
+    var session: URLSessionProtocol = MockURLSession_WeatherOneCall()
+    
+    var network: Network!
     
     
     override func setUpWithError() throws {
         try super.setUpWithError()
         
+        expectation = XCTestExpectation(description: "[ Network > WeatherOneCall ]")
         network = Network(session: session)
-        expectation = XCTestExpectation(description: "[ Network Unit-Test > GetWeatherOneCall ]")
     }
-    
+
     override func tearDownWithError() throws {
-        network = nil
         expectation = nil
+        network = nil
+        
         try super.tearDownWithError()
     }
 }
@@ -37,166 +40,143 @@ class GetWeatherOneCallTests: XCTestCase {
 //
 extension GetWeatherOneCallTests {
     
-    func testInitNetwork() throws {
+    func testNetwork() throws {
         XCTAssertNotNil(network)
     }
     
-    
     func testGetWeatherOneCall_Success() throws {
-        let expression = FakeWheather()
+        let params = mockURLs.getWeatherOneCall.urlExcitesData.params
+        let weather = MockWeatherData().weather
         
-        let lat = fakeURLs.excitesData.getWeatherOneCall.lat
-        let lon = fakeURLs.excitesData.getWeatherOneCall.lon
-        
-        network?.getWeatherOneCall(lat: lat, lon: lon, completed: { result in
+        network?.getWeatherOneCall(lat: params.lat, lon: params.lon, completed: { result in
             switch result {
-            case .success(let weather):
-                XCTAssertEqual(weather, expression.weather)
+            case .success(let response):
+                XCTAssertEqual(response, weather)
             case .failure(let error):
-                XCTFail(error.localizedDescription)
+                XCTFail(error.description)
             }
             self.expectation.fulfill()
         })
-        wait(for: [self.expectation], timeout: 1.0)
+        wait(for: [self.expectation], timeout: timeout)
     }
-    
     
     func testGetWeatherOneCall_ResponseError() throws {
+        let params = mockURLs.getWeatherOneCall.urlExcitesResponseError
         var happened = false
         
-        let lat = fakeURLs.excitesResponseError.getWeatherOneCall.lat
-        let lon = fakeURLs.excitesResponseError.getWeatherOneCall.lon
-        let units = fakeURLs.excitesResponseError.getWeatherOneCall.units
-        let lang = fakeURLs.excitesResponseError.getWeatherOneCall.lang
-         
-        network?.getWeatherOneCall(lat: lat, lon: lon, units: units, lang: lang, completed: { result in
+        network?.getWeatherOneCall(lat: params.params.lat, lon: params.params.lon, completed: { result in
             switch result {
             case .success(_):
-                XCTFail("⚠️\tWrong branch (success)")
+                XCTFail("Wrong branch (success)")
             case .failure(let error):
                 switch error {
-                case .error(_, _):
-                    XCTFail("⚠️\tWrong branch (error)")
-                case .status(url: let url, code: let code):
-                    XCTAssertNotNil(url)
-                    XCTAssertNotNil(code)
+                case .status(let url, let code):
+                    XCTAssertEqual(url, params.url?.absoluteString)
+                    XCTAssertEqual(code, 501)
                     happened = true
+                case .error(_, _):
+                    XCTFail("Wrong branch (error: error)")
                 case .data(_, _):
-                    XCTFail("⚠️\tWrong branch (data)")
+                    XCTFail("Wrong branch (error: data)")
                 case .decode(_, _):
-                    XCTFail("⚠️\tWrong branch (decode)")
+                    XCTFail("Wrong branch (error: decode)")
                 case .url(_):
-                    XCTFail("⚠️\tWrong branch (url)")
+                    XCTFail("Wrong branch (error: url)")
                 }
             }
             XCTAssertTrue(happened)
             self.expectation.fulfill()
         })
-        wait(for: [self.expectation], timeout: 1.0)
+        wait(for: [self.expectation], timeout: timeout)
     }
-    
     
     func testGetWeatherOneCall_Error() throws {
+        let params = mockURLs.getWeatherOneCall.urlExcitesError
         var happened = false
         
-        let lat = fakeURLs.excitesError.getWeatherOneCall.lat
-        let lon = fakeURLs.excitesError.getWeatherOneCall.lon
-        let units = fakeURLs.excitesError.getWeatherOneCall.units
-        let lang = fakeURLs.excitesError.getWeatherOneCall.lang
-         
-        network?.getWeatherOneCall(lat: lat, lon: lon, units: units, lang: lang, completed: { result in
+        network?.getWeatherOneCall(lat: params.params.lat, lon: params.params.lon, completed: { result in
             switch result {
             case .success(_):
-                XCTFail("⚠️\tWrong branch (success)")
+                XCTFail("Wrong branch (success)")
             case .failure(let error):
                 switch error {
-                case .error(url: let url, message: let message):
-                    XCTAssertNotNil(url)
-                    XCTAssertNotNil(message)
-                    happened = true
                 case .status(_, _):
-                    XCTFail("⚠️\tWrong branch (status)")
+                    XCTFail("Wrong branch (error: status)")
+                case .error(let url, let message):
+                    XCTAssertEqual(url, params.url?.absoluteString)
+                    XCTAssertEqual(message, "Error")
+                    happened = true
                 case .data(_, _):
-                    XCTFail("⚠️\tWrong branch (data)")
+                    XCTFail("Wrong branch (error: data)")
                 case .decode(_, _):
-                    XCTFail("⚠️\tWrong branch (decode)")
+                    XCTFail("Wrong branch (error: decode)")
                 case .url(_):
-                    XCTFail("⚠️\tWrong branch (url)")
+                    XCTFail("Wrong branch (error: url)")
                 }
             }
             XCTAssertTrue(happened)
             self.expectation.fulfill()
         })
-        wait(for: [self.expectation], timeout: 1.0)
+        wait(for: [self.expectation], timeout: timeout)
     }
-
     
     func testGetWeatherOneCall_NilData() throws {
+        let params = mockURLs.getWeatherOneCall.urlExcitesNilData
         var happened = false
         
-        let lat = fakeURLs.excitesNilData.getWeatherOneCall.lat
-        let lon = fakeURLs.excitesNilData.getWeatherOneCall.lon
-        let units = fakeURLs.excitesNilData.getWeatherOneCall.units
-        let lang = fakeURLs.excitesNilData.getWeatherOneCall.lang
-         
-        network?.getWeatherOneCall(lat: lat, lon: lon, units: units, lang: lang, completed: { result in
+        network?.getWeatherOneCall(lat: params.params.lat, lon: params.params.lon, completed: { result in
             switch result {
             case .success(_):
-                XCTFail("⚠️\tWrong branch (success)")
+                XCTFail("Wrong branch (success)")
             case .failure(let error):
                 switch error {
-                case .error(_, _):
-                    XCTFail("⚠️\tWrong branch (error)")
                 case .status(_, _):
-                    XCTFail("⚠️\tWrong branch (status)")
-                case .data(url: let url, message: let message):
-                    XCTAssertNotNil(url)
-                    XCTAssertNotNil(message)
+                    XCTFail("Wrong branch (error: status)")
+                case .error(_, _):
+                    XCTFail("Wrong branch (error: error)")
+                case .data(let url, let message):
+                    XCTAssertEqual(url, params.url?.absoluteString)
+                    XCTAssertEqual(message, "Data field is missing in the response.")
                     happened = true
                 case .decode(_, _):
-                    XCTFail("⚠️\tWrong branch (decode)")
+                    XCTFail("Wrong branch (error: decode)")
                 case .url(_):
-                    XCTFail("⚠️\tWrong branch (url)")
+                    XCTFail("Wrong branch (error: url)")
                 }
             }
             XCTAssertTrue(happened)
             self.expectation.fulfill()
         })
-        wait(for: [self.expectation], timeout: 1.0)
+        wait(for: [self.expectation], timeout: timeout)
     }
     
-    
     func testGetWeatherOneCall_DataDecodeError() throws {
+        let params = mockURLs.getWeatherOneCall.urlExcitesDecoderError
         var happened = false
         
-        let lat = fakeURLs.excitesDataDecoderError.getWeatherOneCall.lat
-        let lon = fakeURLs.excitesDataDecoderError.getWeatherOneCall.lon
-        let units = fakeURLs.excitesDataDecoderError.getWeatherOneCall.units
-        let lang = fakeURLs.excitesDataDecoderError.getWeatherOneCall.lang
-         
-        network?.getWeatherOneCall(lat: lat, lon: lon, units: units, lang: lang, completed: { result in
+        network?.getWeatherOneCall(lat: params.params.lat, lon: params.params.lon, completed: { result in
             switch result {
             case .success(_):
-                XCTFail("⚠️\tWrong branch (success)")
+                XCTFail("Wrong branch (success)")
             case .failure(let error):
                 switch error {
-                case .error(_, _):
-                    XCTFail("⚠️\tWrong branch (error)")
                 case .status(_, _):
-                    XCTFail("⚠️\tWrong branch (status)")
+                    XCTFail("Wrong branch (error: status)")
+                case .error(_, _):
+                    XCTFail("Wrong branch (error: error)")
                 case .data(_, _):
-                    XCTFail("⚠️\tWrong branch (data)")
-                case .decode(url: let url, message: let message):
-                    XCTAssertNotNil(url)
-                    XCTAssertNotNil(message)
+                    XCTFail("Wrong branch (error: data)")
+                case .decode(let url, let message):
+                    XCTAssertEqual(url, params.url?.absoluteString)
+                    XCTAssertEqual(message, "Data could not be decoded.")
                     happened = true
                 case .url(_):
-                    XCTFail("⚠️\tWrong branch (url)")
+                    XCTFail("Wrong branch (error: url)")
                 }
             }
             XCTAssertTrue(happened)
             self.expectation.fulfill()
         })
-        wait(for: [self.expectation], timeout: 1.0)
+        wait(for: [self.expectation], timeout: timeout)
     }
 }

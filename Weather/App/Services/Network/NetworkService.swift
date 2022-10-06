@@ -34,7 +34,7 @@ final class Network: NetworkServiceProtocol {
         if let url = makeUrl(request: GeocodingRequest(сity: city)) {
             fetchData(from: url) { response in completed(response) }
         } else {
-            completed(.failure(.url(message: "failed to retrieve url")))
+            completed(.failure(.url(message: "Failed to retrieve url.")))
         }
     }
     
@@ -58,7 +58,7 @@ final class Network: NetworkServiceProtocol {
         if let url = makeUrl(request: OneCallRequest(lat: lat, lon: lon, units: units, lang: lang)) {
             fetchData(from: url) { response in completed(response) }
         } else {
-            completed(.failure(.url(message: "failed to retrieve url")))
+            completed(.failure(.url(message: "Failed to retrieve url.")))
         }
     }
 }
@@ -68,6 +68,44 @@ final class Network: NetworkServiceProtocol {
 //
 extension Network {
     
+    private func fetchData<ResponseType>(from url: URL,
+                                         completed: @escaping (Result<ResponseType, NetworkResponseError>) -> Void) where ResponseType: Decodable {
+        
+        session.dataTaskEx(with: url) { (data, response, error) in
+            if let error = error {
+                if let networkResponseError = error as? NetworkResponseError {
+                    completed(.failure(networkResponseError))
+                } else {
+                    completed(.failure(.error(url: url.absoluteString, message: error.localizedDescription)))
+                }
+            } else {
+                if let httpResponse = response as? HTTPURLResponse {
+                    guard (200...299).contains(httpResponse.statusCode) else {
+                        completed(.failure(.status(url: url.absoluteString, code: httpResponse.statusCode)))
+                        return
+                    }
+                    guard let data = data else {
+                        completed(.failure(.data(url: url.absoluteString, message: "Data field is missing in the response.")))
+                        return
+                    }
+                    
+                    do {
+                        let result = try JSONDecoder().decode(ResponseType.self, from: data)
+                        completed(.success(result))
+                    } catch {
+                        completed(.failure(.decode(url: url.absoluteString, message: "Data could not be decoded.")))
+                    }
+                } else {
+                    completed(.failure(.status(url: url.absoluteString, code: nil)))
+                }
+            }
+        }.resume()
+    }
+}
+
+
+extension Network {
+    
     private func makeUrl(request: BaseRequest) -> URL? {
         var urlComponents = URLComponents()
         urlComponents.scheme = request.scheme
@@ -75,31 +113,5 @@ extension Network {
         urlComponents.path  = request.path
         urlComponents.queryItems = request.params
         return urlComponents.url
-    }
-    
-    private func fetchData<ResponseType>(from url: URL,
-                                         completed: @escaping (Result<ResponseType, NetworkResponseError>) -> Void) where ResponseType: Decodable {
-        
-        session.dataTaskEx(with: url) { (data, response, error) in
-            if let error = error {
-                completed(.failure(.error(url: url.absoluteString, message: error.localizedDescription)))
-            } else {
-                guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                    completed(.failure(.status(url: url.absoluteString, code: 0)))
-                    return
-                }
-                guard let data = data else {
-                    completed(.failure(.data(url: url.absoluteString, message: "date field is missing in the response")))
-                    return
-                }
-                
-                do {
-                    let result = try JSONDecoder().decode(ResponseType.self, from: data)
-                    completed(.success(result))
-                } catch {
-                    completed(.failure(.decode(url: url.absoluteString, message: error.localizedDescription)))
-                }
-            }
-        }.resume()
     }
 }

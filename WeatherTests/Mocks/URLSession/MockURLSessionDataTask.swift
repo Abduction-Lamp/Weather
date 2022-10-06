@@ -1,14 +1,14 @@
 //
-//  FakeURLSessionDataTask.swift
+//  MockURLSessionDataTask.swift
 //  WeatherTests
 //
-//  Created by Владимир on 13.05.2022.
+//  Created by Владимир on 04.10.2022.
 //
 
 import Foundation
 @testable import Weather
 
-class FakeURLSessionDataTask: URLSessionDataTaskProtocol {
+class MockURLSessionDataTask: URLSessionDataTaskProtocol {
     
     private(set) var happened = false
     

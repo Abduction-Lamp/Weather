@@ -33,7 +33,7 @@ class StorageTests: XCTestCase {
     }
     
     private func initSettingsEntitie() {        
-        settings?.cities.value = FakeCities().citiesList
+        settings?.cities.value = MockCityData.init().cities
         settings?.units.value = Unit()
     }
 }

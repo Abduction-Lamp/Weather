@@ -2,34 +2,35 @@
 //  GetCoordinatesByLocationNameTests.swift
 //  WeatherTests
 //
-//  Created by Владимир on 16.05.2022.
+//  Created by Владимир on 06.10.2022.
 //
-
-import Foundation
 
 import XCTest
 @testable import Weather
 
-
 class GetCoordinatesByLocationNameTests: XCTestCase {
     
-    var network: Network?
-    var session: URLSessionProtocol = FakeURLSessionCoordinatesByLocationName()
-    var fakeURLs: FakeURL = FakeURL()
-    
+    let timeout = TimeInterval(0.5)
     var expectation: XCTestExpectation!
+    
+    
+    var mockURLs: MockURLs = MockURLs()
+    var session: URLSessionProtocol = MockURLSession_CoordinatesByLocationName()
+    
+    var network: Network!
     
     
     override func setUpWithError() throws {
         try super.setUpWithError()
         
+        expectation = XCTestExpectation(description: "[ Network > CoordinatesByLocationName ]")
         network = Network(session: session)
-        expectation = XCTestExpectation(description: "[ Network Unit-Test > GetCoordinatesByLocationName ]")
     }
-    
+
     override func tearDownWithError() throws {
-        network = nil
         expectation = nil
+        network = nil
+        
         try super.tearDownWithError()
     }
 }
@@ -39,152 +40,143 @@ class GetCoordinatesByLocationNameTests: XCTestCase {
 //
 extension GetCoordinatesByLocationNameTests {
     
-    func testInitNetwork() throws {
+    func testNetwork() throws {
         XCTAssertNotNil(network)
     }
     
-    
     func testGetCoordinatesByLocationName_Success() throws {
-        let expression = FakeCities()
+        let params = mockURLs.getCoordinatesByLocationName.urlExcitesData
+        let cities = MockCityData()
         
-        let city = fakeURLs.excitesData.getCoordinatesByLocationName
-        
-        network?.getCoordinatesByLocationName(city: city, completed: { result in
+        network?.getCoordinatesByLocationName(city: params.params, completed: { result in
             switch result {
             case .success(let list):
-                XCTAssertEqual(list, expression.citiesRAW)
+                XCTAssertEqual(list, cities.raw)
             case .failure(let error):
                 XCTFail(error.localizedDescription)
             }
             self.expectation.fulfill()
         })
-        wait(for: [self.expectation], timeout: 1.0)
+        wait(for: [self.expectation], timeout: timeout)
     }
-    
     
     func testGetCoordinatesByLocationName_ResponseError() throws {
+        let params = mockURLs.getCoordinatesByLocationName.urlExcitesResponseError
         var happened = false
         
-        let city = fakeURLs.excitesResponseError.getCoordinatesByLocationName
-         
-        network?.getCoordinatesByLocationName(city: city, completed: { result in
+        network?.getCoordinatesByLocationName(city: params.params, completed: { result in
             switch result {
             case .success(_):
-                XCTFail("⚠️\tWrong branch (success)")
+                XCTFail("Wrong branch (success)")
             case .failure(let error):
                 switch error {
-                case .error(_, _):
-                    XCTFail("⚠️\tWrong branch (error)")
-                case .status(url: let url, code: let code):
-                    XCTAssertNotNil(url)
-                    XCTAssertNotNil(code)
+                case .status(let url, let code):
+                    XCTAssertEqual(url, params.url?.absoluteString)
+                    XCTAssertEqual(code, 501)
                     happened = true
+                case .error(_, _):
+                    XCTFail("Wrong branch (error: error)")
                 case .data(_, _):
-                    XCTFail("⚠️\tWrong branch (data)")
+                    XCTFail("Wrong branch (error: data)")
                 case .decode(_, _):
-                    XCTFail("⚠️\tWrong branch (decode)")
+                    XCTFail("Wrong branch (error: decode)")
                 case .url(_):
-                    XCTFail("⚠️\tWrong branch (url)")
+                    XCTFail("Wrong branch (error: url)")
                 }
             }
             XCTAssertTrue(happened)
             self.expectation.fulfill()
         })
-        wait(for: [self.expectation], timeout: 1.0)
+        wait(for: [self.expectation], timeout: timeout)
     }
     
-    
     func testGetCoordinatesByLocationName_Error() throws {
+        let params = mockURLs.getCoordinatesByLocationName.urlExcitesError
         var happened = false
         
-        let city = fakeURLs.excitesError.getCoordinatesByLocationName
-         
-        network?.getCoordinatesByLocationName(city: city, completed: { result in
+        network?.getCoordinatesByLocationName(city: params.params, completed: { result in
             switch result {
             case .success(_):
-                XCTFail("⚠️\tWrong branch (success)")
+                XCTFail("Wrong branch (success)")
             case .failure(let error):
                 switch error {
-                case .error(url: let url, message: let message):
-                    XCTAssertNotNil(url)
-                    XCTAssertNotNil(message)
-                    happened = true
                 case .status(_, _):
-                    XCTFail("⚠️\tWrong branch (status)")
+                    XCTFail("Wrong branch (error: status)")
+                case .error(let url, let message):
+                    XCTAssertEqual(url, params.url?.absoluteString)
+                    XCTAssertEqual(message, "Error")
+                    happened = true
                 case .data(_, _):
-                    XCTFail("⚠️\tWrong branch (data)")
+                    XCTFail("Wrong branch (error: data)")
                 case .decode(_, _):
-                    XCTFail("⚠️\tWrong branch (decode)")
+                    XCTFail("Wrong branch (error: decode)")
                 case .url(_):
-                    XCTFail("⚠️\tWrong branch (url)")
+                    XCTFail("Wrong branch (error: url)")
                 }
             }
             XCTAssertTrue(happened)
             self.expectation.fulfill()
         })
-        wait(for: [self.expectation], timeout: 1.0)
+        wait(for: [self.expectation], timeout: timeout)
     }
     
     func testGetCoordinatesByLocationName_NilData() throws {
+        let params = mockURLs.getCoordinatesByLocationName.urlExcitesNilData
         var happened = false
-        
-        let city = fakeURLs.excitesNilData.getCoordinatesByLocationName
          
-        network?.getCoordinatesByLocationName(city: city, completed: { result in
+        network?.getCoordinatesByLocationName(city: params.params, completed: { result in
             switch result {
             case .success(_):
-                XCTFail("⚠️\tWrong branch (success)")
+                XCTFail("Wrong branch (success)")
             case .failure(let error):
                 switch error {
-                case .error(_, _):
-                    XCTFail("⚠️\tWrong branch (error)")
                 case .status(_, _):
-                    XCTFail("⚠️\tWrong branch (status)")
-                case .data(url: let url, message: let message):
-                    XCTAssertNotNil(url)
-                    XCTAssertNotNil(message)
+                    XCTFail("Wrong branch (error: status)")
+                case .error(_, _):
+                    XCTFail("Wrong branch (error: error)")
+                case .data(let url, let message):
+                    XCTAssertEqual(url, params.url?.absoluteString)
+                    XCTAssertEqual(message, "Data field is missing in the response.")
                     happened = true
                 case .decode(_, _):
-                    XCTFail("⚠️\tWrong branch (decode)")
+                    XCTFail("Wrong branch (error: decode)")
                 case .url(_):
-                    XCTFail("⚠️\tWrong branch (url)")
+                    XCTFail("Wrong branch (error: url)")
                 }
             }
             XCTAssertTrue(happened)
             self.expectation.fulfill()
         })
-        wait(for: [self.expectation], timeout: 1.0)
+        wait(for: [self.expectation], timeout: timeout)
     }
     
-    
     func testGetCoordinatesByLocationName_DataDecodeError() throws {
+        let params = mockURLs.getCoordinatesByLocationName.urlExcitesDecoderError
         var happened = false
-        
-        let city = fakeURLs.excitesDataDecoderError.getCoordinatesByLocationName
          
-        network?.getCoordinatesByLocationName(city: city, completed: { result in
+        network?.getCoordinatesByLocationName(city: params.params, completed: { result in
             switch result {
             case .success(_):
-                XCTFail("⚠️\tWrong branch (success)")
+                XCTFail("Wrong branch (success)")
             case .failure(let error):
                 switch error {
-                case .error(_, _):
-                    XCTFail("⚠️\tWrong branch (error)")
                 case .status(_, _):
-                    XCTFail("⚠️\tWrong branch (status)")
+                    XCTFail("Wrong branch (error: status)")
+                case .error(_, _):
+                    XCTFail("Wrong branch (error: error)")
                 case .data(_, _):
-                    XCTFail("⚠️\tWrong branch (data)")
-                case .decode(url: let url, message: let message):
-                    XCTAssertNotNil(url)
-                    XCTAssertNotNil(message)
+                    XCTFail("Wrong branch (error: data)")
+                case .decode(let url, let message):
+                    XCTAssertEqual(url, params.url?.absoluteString)
+                    XCTAssertEqual(message, "Data could not be decoded.")
                     happened = true
                 case .url(_):
-                    XCTFail("⚠️\tWrong branch (url)")
+                    XCTFail("Wrong branch (error: url)")
                 }
             }
             XCTAssertTrue(happened)
             self.expectation.fulfill()
         })
-        wait(for: [self.expectation], timeout: 1.0)
+        wait(for: [self.expectation], timeout: timeout)
     }
 }

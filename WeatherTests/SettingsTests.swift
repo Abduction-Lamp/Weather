@@ -38,16 +38,16 @@ extension SettingsTests {
     
     
     func testSettingsAdd_Success() throws {
-        FakeCities.init().citiesList.forEach { city in
+        MockCityData.init().cities.forEach { city in
             let result = self.settings.add(city)
             XCTAssertTrue(result)
         }
-        XCTAssertEqual(settings.cities.value, FakeCities.init().citiesList)
+        XCTAssertEqual(settings.cities.value, MockCityData.init().cities)
     }
     
     
     func testSettingsAdd_Failure() throws {
-        if let city = FakeCities.init().citiesList.first {
+        if let city = MockCityData.init().cities.first {
             var result = settings.add(city)
             XCTAssertTrue(result)
             result = settings.add(city)
@@ -59,9 +59,9 @@ extension SettingsTests {
     
     
     func testSettingsRemove_Success() throws {
-        let city1 = FakeCities.init().citiesList[0]
-        let city2 = FakeCities.init().citiesList[1]
-        let city3 = FakeCities.init().citiesList[2]
+        let city1 = MockCityData.init().cities[0]
+        let city2 = MockCityData.init().cities[1]
+        let city3 = MockCityData.init().cities[2]
         
         var result: Bool = false
         
@@ -92,9 +92,9 @@ extension SettingsTests {
     
     
     func testSettingsRemoveByIndex_Success() throws {
-        let city1 = FakeCities.init().citiesList[0]
-        let city2 = FakeCities.init().citiesList[1]
-        let city3 = FakeCities.init().citiesList[2]
+        let city1 = MockCityData.init().cities[0]
+        let city2 = MockCityData.init().cities[1]
+        let city3 = MockCityData.init().cities[2]
         
         var result: Bool = false
         
@@ -118,8 +118,8 @@ extension SettingsTests {
     
     
     func testSettingsMove_Success() throws {
-        let city1 = FakeCities.init().citiesList[0]
-        let city2 = FakeCities.init().citiesList[1]
+        let city1 = MockCityData.init().cities[0]
+        let city2 = MockCityData.init().cities[1]
         
         var result: Bool = false
         
