@@ -73,7 +73,7 @@ final class WeatherHourlyCell: UITableViewCell {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("📛\tWeatherHourlyCell init(coder:) has not been implemented")
+        fatalError("📛 WeatherHourlyCell init(coder:) has not been implemented")
     }
 
     override func prepareForReuse() {

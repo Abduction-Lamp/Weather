@@ -38,7 +38,7 @@ final class CityCell: UITableViewCell {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("📛\tCityCell init(coder:) has not been implemented")
+        fatalError("📛 CityCell init(coder:) has not been implemented")
     }
 
     override func prepareForReuse() {

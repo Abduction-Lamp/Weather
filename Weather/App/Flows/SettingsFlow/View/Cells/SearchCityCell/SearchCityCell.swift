@@ -52,7 +52,7 @@ final class SearchCityCell: UITableViewCell {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("📛\tSearchCityCell init(coder:) has not been implemented")
+        fatalError("📛 SearchCityCell init(coder:) has not been implemented")
     }
     
     override func prepareForReuse() {

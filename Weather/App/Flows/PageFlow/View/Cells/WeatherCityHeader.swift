@@ -59,7 +59,7 @@ final class WeatherCityHeader: UITableViewHeaderFooterView {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("📛\tWeatherCityHeader init(coder:) has not been implemented")
+        fatalError("📛 WeatherCityHeader init(coder:) has not been implemented")
     }
 
     override func prepareForReuse() {

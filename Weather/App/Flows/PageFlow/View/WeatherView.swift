@@ -43,7 +43,7 @@ final class WeatherView: UIView {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("📛\tWeatherView init(coder:) has not been implemented")
+        fatalError("📛 WeatherView init(coder:) has not been implemented")
     }
 
 

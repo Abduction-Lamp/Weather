@@ -71,7 +71,7 @@ final class WeatherWindCell: UITableViewCell {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("📛\tWeatherWindCell init(coder:) has not been implemented")
+        fatalError("📛 WeatherWindCell init(coder:) has not been implemented")
     }
 
     override func layoutSubviews() {

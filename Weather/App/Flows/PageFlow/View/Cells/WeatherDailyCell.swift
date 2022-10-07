@@ -64,7 +64,7 @@ final class WeatherDailyCell: UITableViewCell {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("📛\tWeatherDailyCell init(coder:) has not been implemented")
+        fatalError("📛 WeatherDailyCell init(coder:) has not been implemented")
     }
 
     override func prepareForReuse() {

@@ -58,7 +58,7 @@ final class SettingsViewController: UIViewController {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("📛\tSettingsViewController init(coder:) has not been implemented")
+        fatalError("📛 SettingsViewController init(coder:) has not been implemented")
     }
     
     

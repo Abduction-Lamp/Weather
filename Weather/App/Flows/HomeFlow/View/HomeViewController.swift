@@ -65,7 +65,7 @@ final class HomeViewController: UIViewController {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("📛\tHomeViewController init(coder:) has not been implemented")
+        fatalError("📛 HomeViewController init(coder:) has not been implemented")
     }
     
     

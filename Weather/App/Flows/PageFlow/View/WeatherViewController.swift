@@ -25,7 +25,7 @@ final class WeatherViewController: UIViewController {
             case .failure(let message as String):
                 self.weatherView.refreshControl.endRefreshing()
                 self.alert(title: "",
-                           message: message as String,
+                           message: message,
                            actionTitle: NSLocalizedString("General.Alert.Cancel", comment: "Cancel"),
                            handler: nil)
             default: break
@@ -44,7 +44,7 @@ final class WeatherViewController: UIViewController {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("📛\tWeatherViewController init(coder:) has not been implemented")
+        fatalError("📛 WeatherViewController init(coder:) has not been implemented")
     }
     
     

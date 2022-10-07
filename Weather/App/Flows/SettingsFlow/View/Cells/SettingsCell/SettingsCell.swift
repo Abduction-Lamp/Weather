@@ -50,7 +50,7 @@ final class SettingsCell: UITableViewCell {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("📛\tSettingsCell init(coder:) has not been implemented")
+        fatalError("📛 SettingsCell init(coder:) has not been implemented")
     }
 
     override func prepareForReuse() {

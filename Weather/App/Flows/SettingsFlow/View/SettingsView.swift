@@ -53,7 +53,7 @@ final class SettingsView: UIView {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("📛\tSettingsView init(coder:) has not been implemented")
+        fatalError("📛 SettingsView init(coder:) has not been implemented")
     }
     
     override func layoutSubviews() {

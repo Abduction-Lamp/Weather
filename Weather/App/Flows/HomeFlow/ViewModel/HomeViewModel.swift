@@ -49,7 +49,6 @@ final class HomeViewModel {
         else { return }
         
         var list: [WeatherViewController] = [locationPage]
-        
         for city in cities {
             let weatherViewModel = WeatherViewModel(city: city, network: network, settings: settings)
             list.append(WeatherViewController(viewModel: weatherViewModel))
