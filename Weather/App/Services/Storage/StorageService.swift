@@ -40,8 +40,8 @@ final class Storage: StorageServiceProtocol {
                 completion?(true)
             } catch {
                 DispatchQueue.main.async {
+                    print("⚠️ Storage > Save > Encode: " + error.localizedDescription)
                     completion?(false)
-                    print(error.localizedDescription)
                 }
             }
         }

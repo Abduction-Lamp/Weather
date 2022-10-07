@@ -158,7 +158,7 @@ extension SettingsViewModel: SettingsViewModelProtocol {
                 case .success(let cities):
                     self.searchResult.value = cities
                 case .failure(let error):
-                    print(error.description)
+                    print(error)
                 }
             }
         }

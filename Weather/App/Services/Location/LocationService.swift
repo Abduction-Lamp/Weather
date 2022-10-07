@@ -62,9 +62,10 @@ extension Location: CLLocationManagerDelegate {
         guard let location = locations.last else { return }
         CLGeocoder.init().reverseGeocodeLocation(location) { [weak self] (places, error) in
             if let error = error {
+                print("⚠️ Location > Update: " + error.localizedDescription)
                 self?.notify(location: .failure(error))
-            }
-            if let fist = places?.first, let locality = fist.locality {
+            } else {
+                guard let locality = places?.first?.locality else { return }
                 let city = CityData(eng: locality, rus: locality, latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
                 self?.notify(location: .success(city))
             }
@@ -73,6 +74,6 @@ extension Location: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         notify(location: .failure(error))
-        print("⚠️ Location: \(error.localizedDescription)")
+        print("⚠️ Location > Fail: " + error.localizedDescription)
     }
 }

@@ -65,8 +65,8 @@ extension WeatherViewModel: WeatherViewModelProtocol {
                 }
                 self.state.value = .success(nil)
             case .failure(let error):
+                print(error)
                 self.state.value = .failure(error.description)
-                print("\(error.description)")
             }
         }
     }

@@ -40,9 +40,8 @@ extension LocationWeatherViewModel: LocationObserver {
         case .success(let city):
             self.city = city
             super.feach()
-        case .failure(let error):
+        case .failure(_):
             self.state.value = .failure(NSLocalizedString("General.Locale.Error", comment: "Error"))
-            print(error)
         }
     }
 }
