@@ -39,10 +39,8 @@ final class Storage: StorageServiceProtocol {
                 UserDefaults.standard.set(data, forKey: AppKeys.shared.settings)
                 completion?(true)
             } catch {
-                DispatchQueue.main.async {
-                    print("⚠️ Storage > Save > Encode: " + error.localizedDescription)
-                    completion?(false)
-                }
+                print("⚠️ Storage > Save > Encode: " + error.localizedDescription)
+                completion?(false)
             }
         }
     }

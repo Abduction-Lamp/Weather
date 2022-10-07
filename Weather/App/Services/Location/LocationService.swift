@@ -62,7 +62,7 @@ extension Location: CLLocationManagerDelegate {
         guard let location = locations.last else { return }
         CLGeocoder.init().reverseGeocodeLocation(location) { [weak self] (places, error) in
             if let error = error {
-                print("⚠️ Location > Update: " + error.localizedDescription)
+                print("⚠️ Location > Geocoder: " + error.localizedDescription)
                 self?.notify(location: .failure(error))
             } else {
                 guard let locality = places?.first?.locality else { return }

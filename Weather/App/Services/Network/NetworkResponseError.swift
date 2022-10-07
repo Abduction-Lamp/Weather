@@ -20,15 +20,15 @@ extension NetworkResponseError: CustomStringConvertible {
     var description: String {
         switch self {
         case .status(let url, let code):
-            return "⚠️ Network > Status [\(url)]\nStatus = \(code ?? 0)\n"
+            return "⚠️ Network > Status [\(url)] > status = \(code ?? 0)"
         case .error(let url, let message):
-            return "⚠️ Network > Error [\(url)]\nmessage: \(message ?? "")\n"
+            return "⚠️ Network > Error [\(url)] > message: \(message ?? "")"
         case .data(let url, let message):
-            return "⚠️ Network > Data [\(url)]\nmessage: \(message ?? "")\n"
+            return "⚠️ Network > Data [\(url)] > message: \(message ?? "")"
         case .decode(let url, let message):
-            return "⚠️ Network > Decode [\(url)]\nmessage: \(message ?? "")\n"
+            return "⚠️ Network > Decode [\(url)] > message: \(message ?? "")"
         case .url(message: let message):
-            return "⚠️ Network > URL []\nmessage: \(message ?? "")\n"
+            return "⚠️ Network > URL [] > message: \(message ?? "")"
         }
     }
 }
