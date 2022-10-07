@@ -8,21 +8,20 @@
 import Foundation
 
 enum CompletionError: Error, Equatable {
-    case decode     (source: String, message: String)
-    case encode     (source: String, message: String)
-    case empty      (source: String, message: String)
-    case undefined  (source: String, message: String)
+    case decode    (source: String, message: String)
+    case encode    (source: String, message: String)
+    case empty     (source: String, message: String)
+    case undefined (source: String, message: String)
 }
 
 extension CompletionError: CustomStringConvertible {
     
     var description: String {
         switch self {
-        case
-                .decode     (let source, let message),
-                .encode     (let source, let message),
-                .empty      (let source, let message),
-                .undefined  (let source, let message):
+        case .decode    (let source, let message),
+             .encode    (let source, let message),
+             .empty     (let source, let message),
+             .undefined (let source, let message):
             return "⚠️ CompletionError > (\(source)): \(message)"
         }
     }

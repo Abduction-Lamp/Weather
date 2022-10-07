@@ -32,7 +32,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             }
             
             DispatchQueue.main.sync {
-                self.homeViewModel = HomeViewModel(settings: self.settings, storage: self.storage, network: self.network, location: self.location)
+                self.homeViewModel = HomeViewModel(settings: self.settings,
+                                                   storage: self.storage,
+                                                   network: self.network,
+                                                   location: self.location)
                 if let viewModel = self.homeViewModel {
                     let homeVC = HomeViewController(viewModel: viewModel)
                     let window = UIWindow(windowScene: windowScene)
@@ -50,4 +53,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillEnterForeground(_ scene: UIScene) { }
     func sceneDidEnterBackground(_ scene: UIScene) { }
 }
-
