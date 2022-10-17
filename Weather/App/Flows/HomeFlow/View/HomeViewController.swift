@@ -82,7 +82,7 @@ final class HomeViewController: UIViewController {
                 self.gradientLayer.colors = self.const.gradient.indefinite
             } else {
                 self.pageViewController.setViewControllers([pages[0]], direction: .forward, animated: false, completion: nil)
-                pages[0].viewModel?.statusDay.bind({ status in
+                pages[0].viewModel.statusDay.bind({ status in
                     self.statusDay = status
                     self.gradientLayer.colors = self.const.gradient.indefinite
                 })
@@ -194,7 +194,7 @@ extension HomeViewController: UIPageViewControllerDelegate, UIPageViewController
               let index = viewModel.pages.value.firstIndex(where: { $0 == current })
         else { return }
         
-        current.viewModel?.statusDay.bind({ self.statusDay = $0 })
+        current.viewModel.statusDay.bind({ self.statusDay = $0 })
         pageControl.currentPage = index
     }
 }

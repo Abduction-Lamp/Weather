@@ -30,14 +30,17 @@ final class HomeViewModel {
         
         let locationWeatherViewModel = LocationWeatherViewModel(city: nil, network: network, settings: settings, location: location)
         pages.value.append(WeatherViewController.init(viewModel: locationWeatherViewModel))
-        
+
         settings.cities.bind { [weak self] list in
             self?.pagemaker(cities: list)
         }
         
         settings.units.bind { [weak self] _ in
-            self?.updateView()
+            DispatchQueue.main.async {
+                self?.updateView()
+            }
         }
+
     }
 
 
@@ -47,12 +50,13 @@ final class HomeViewModel {
             let network = network,
             let locationPage = pages.value.first
         else { return }
-        
+
         var list: [WeatherViewController] = [locationPage]
         for city in cities {
             let weatherViewModel = WeatherViewModel(city: city, network: network, settings: settings)
-            list.append(WeatherViewController(viewModel: weatherViewModel))
-        } 
+            let weatherViewController = WeatherViewController(viewModel: weatherViewModel)
+            list.append(weatherViewController)
+        }
         pages.value = list
     }
     

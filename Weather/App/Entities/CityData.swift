@@ -51,3 +51,10 @@ extension CityData: Equatable {
         lhs.longitude == rhs.longitude
     }
 }
+
+extension CityData: CustomStringConvertible {
+    
+    var description: String {
+        return "\(rus)/\(eng)"
+    }
+}

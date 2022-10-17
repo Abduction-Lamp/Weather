@@ -8,7 +8,7 @@
 import UIKit
 
 final class WeatherViewController: UIViewController {
-    
+
     public var weatherView: WeatherView {
         guard let view = self.view as? WeatherView else {
             return WeatherView(frame: self.view.frame)
@@ -33,7 +33,7 @@ final class WeatherViewController: UIViewController {
         }
     }
     
-    var viewModel: WeatherViewModelProtocol?
+    var viewModel: WeatherViewModelProtocol
     
     
     // MARK: Initialization
@@ -60,9 +60,9 @@ final class WeatherViewController: UIViewController {
         
         weatherView.refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         
-        viewModel?.state.bind { state in
+        viewModel.state.bind { [weak self] state in
             DispatchQueue.main.async {
-                self.mode = state
+                self?.mode = state
             }
         }
     }
@@ -71,7 +71,7 @@ final class WeatherViewController: UIViewController {
         super.viewDidLoad()
 
         weatherView.refreshControl.beginRefreshing()
-        viewModel?.feach()
+        viewModel.feach()
     }
 }
 
@@ -109,11 +109,10 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 0 {
-            guard
-                let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: WeatherCityHeader.reuseIdentifier) as? WeatherCityHeader,
-                let model = viewModel?.makeWeatherCityHeaderModel()
+            guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: WeatherCityHeader.reuseIdentifier) as? WeatherCityHeader
             else { return nil }
-
+            
+            let model = viewModel.makeWeatherCityHeaderModel()
             header.setup(model: model)
             return header
         }
@@ -127,36 +126,32 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherHourlyCell.reuseIdentifier) as? WeatherHourlyCell else {
                 return UITableViewCell()
             }
-            if let model = viewModel?.makeWeatherHourlyModel() {
-                cell.setup(model: model)
-            }
+            let model = viewModel.makeWeatherHourlyModel()
+            cell.setup(model: model)
             return cell
             
         case 1:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherDailyCell.reuseIdentifier) as? WeatherDailyCell else {
                 return UITableViewCell()
             }
-            if let model = viewModel?.makeWeatherDailyModel() {
-                cell.setup(model: model)
-            }
+            let model = viewModel.makeWeatherDailyModel()
+            cell.setup(model: model)
             return cell
             
         case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherWindCell.reuseIdentifier) as? WeatherWindCell else {
                 return UITableViewCell()
             }
-            if let model = viewModel?.makeWeatherWindModel() {
-                cell.setup(model: model)
-            }
+            let model = viewModel.makeWeatherWindModel()
+            cell.setup(model: model)
             return cell
             
         case 3:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherPressureAndHumidityCell.reuseIdentifier) as? WeatherPressureAndHumidityCell else {
                 return UITableViewCell()
             }
-            if let model = viewModel?.makeWeatherPressureAndHumidityModel() {
-                cell.setup(model: model)
-            }
+            let model = viewModel.makeWeatherPressureAndHumidityModel()
+            cell.setup(model: model)
             return cell
             
         default:
@@ -172,6 +167,6 @@ extension WeatherViewController {
     
     @objc func refresh(_ sender: AnyObject) {
         weatherView.refreshControl.beginRefreshing()
-        viewModel?.feach()
+        viewModel.feach()
     }
 }

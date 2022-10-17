@@ -177,7 +177,10 @@ extension WeatherViewModel: WeatherViewModelProtocol {
                 text = ""
             }
         }
-        return WeatherWindModel(measurement: measurement, degrees: degrees, units: units, text: text)
+        return WeatherWindModel(measurement: measurement,
+                                degrees: degrees,
+                                units: units,
+                                text: text)
     }
 
     func makeWeatherPressureAndHumidityModel() -> WeatherPressureAndHumidityModel {
