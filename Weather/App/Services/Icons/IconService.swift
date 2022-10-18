@@ -19,6 +19,11 @@ final class IconService: IconServiceProtocol {
         case sunset = 1001
     }
     
+    static let shared = IconService()
+    
+    private init() { }
+    
+    
     func fetch(conditions id: Int?, time: TimeInterval? = nil, sunrise: TimeInterval? = nil, sunset: TimeInterval? = nil) -> UIImage? {
         
         var isNight: Bool = false

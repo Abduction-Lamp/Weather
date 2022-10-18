@@ -31,7 +31,7 @@ class WeatherViewModel {
     
     private weak var settings: Settings?
     private weak var network: NetworkServiceProtocol?
-    private var iconManager = IconService()
+    private var iconManager = IconService.shared
     
     init(city: CityData?, network: NetworkServiceProtocol, settings: Settings?) {
         self.city = city
