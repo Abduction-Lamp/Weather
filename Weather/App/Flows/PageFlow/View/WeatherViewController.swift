@@ -123,33 +123,29 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
         
         switch indexPath.section {
         case 0:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherHourlyCell.reuseIdentifier) as? WeatherHourlyCell else {
-                return UITableViewCell()
-            }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherHourlyCell.reuseIdentifier) as? WeatherHourlyCell
+            else { return UITableViewCell() }
             let model = viewModel.makeWeatherHourlyModel()
             cell.setup(model: model)
             return cell
             
         case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherDailyCell.reuseIdentifier) as? WeatherDailyCell else {
-                return UITableViewCell()
-            }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherDailyCell.reuseIdentifier) as? WeatherDailyCell
+            else { return UITableViewCell() }
             let model = viewModel.makeWeatherDailyModel()
             cell.setup(model: model)
             return cell
             
         case 2:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherWindCell.reuseIdentifier) as? WeatherWindCell else {
-                return UITableViewCell()
-            }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherWindCell.reuseIdentifier) as? WeatherWindCell
+            else { return UITableViewCell() }
             let model = viewModel.makeWeatherWindModel()
             cell.setup(model: model)
             return cell
             
         case 3:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherPressureAndHumidityCell.reuseIdentifier) as? WeatherPressureAndHumidityCell else {
-                return UITableViewCell()
-            }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherPressureAndHumidityCell.reuseIdentifier) as? WeatherPressureAndHumidityCell
+            else { return UITableViewCell() }
             let model = viewModel.makeWeatherPressureAndHumidityModel()
             cell.setup(model: model)
             return cell
