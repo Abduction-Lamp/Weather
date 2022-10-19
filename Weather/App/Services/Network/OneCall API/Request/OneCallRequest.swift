@@ -28,7 +28,8 @@ struct OneCallRequest: BaseRequest {
     /// - Parameter alerts: Национальные погодные предупреждения
     ///
     let exclude: String = "minutely"
-    
+
+    /// - Parameter appid: API key -- Обязательный параметр
     var params: [URLQueryItem] {
         return [
             URLQueryItem(name: "lat", value: "\(lat)"),

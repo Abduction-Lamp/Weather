@@ -28,6 +28,7 @@ class WeatherViewModel {
     var state = Bindable<UIViewController.Mode>(.none)
     
     private var weather: OneCallResponse?
+    private var air: AirPollutionResponse?
     
     private weak var settings: Settings?
     private weak var network: NetworkServiceProtocol?
@@ -67,6 +68,19 @@ extension WeatherViewModel: WeatherViewModelProtocol {
             case .failure(let error):
                 print(error)
                 self.state.value = .failure(error.description)
+            }
+        }
+        
+        network?.getAirPollution(lat: city.latitude, lon: city.longitude) { [weak self] response in
+            guard let self = self else { return }
+            
+            switch response {
+            case .success(let result):
+                self.air = result
+                print(result)
+            case .failure(let error):
+                self.air = nil
+                print(error)
             }
         }
     }
@@ -177,10 +191,7 @@ extension WeatherViewModel: WeatherViewModelProtocol {
                 text = ""
             }
         }
-        return WeatherWindModel(measurement: measurement,
-                                degrees: degrees,
-                                units: units,
-                                text: text)
+        return WeatherWindModel(measurement: measurement, degrees: degrees, units: units, text: text)
     }
 
     func makeWeatherPressureAndHumidityModel() -> WeatherPressureAndHumidityModel {

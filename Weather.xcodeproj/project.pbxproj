@@ -13,6 +13,9 @@
 		4E0A661128EC8DD7000061F5 /* MockURLs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E0A661028EC8DD7000061F5 /* MockURLs.swift */; };
 		4E10EA44283843BC00074D3E /* IconService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E10EA43283843BC00074D3E /* IconService.swift */; };
 		4E1C118A283BE015009537F4 /* TimeOfDay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1C1189283BE015009537F4 /* TimeOfDay.swift */; };
+		4E1CE13828FED72E0055219E /* AirPollutionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CE13728FED72E0055219E /* AirPollutionRequest.swift */; };
+		4E1CE13A28FED8EF0055219E /* AirPollutionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CE13928FED8EF0055219E /* AirPollutionResponse.swift */; };
+		4E1CE13C28FEDC540055219E /* AirPollutionItemResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E1CE13B28FEDC540055219E /* AirPollutionItemResponse.swift */; };
 		4E2BC2C128087E2B00018EB3 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2BC2C028087E2B00018EB3 /* SettingsViewModel.swift */; };
 		4E2BC2CA280887F800018EB3 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E2BC2C9280887F800018EB3 /* Bindable.swift */; };
 		4E4F6C34282D44E3007BAE62 /* URLSessionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E4F6C33282D44E3007BAE62 /* URLSessionProtocol.swift */; };
@@ -123,6 +126,9 @@
 		4E0A661028EC8DD7000061F5 /* MockURLs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLs.swift; sourceTree = "<group>"; };
 		4E10EA43283843BC00074D3E /* IconService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconService.swift; sourceTree = "<group>"; };
 		4E1C1189283BE015009537F4 /* TimeOfDay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeOfDay.swift; sourceTree = "<group>"; };
+		4E1CE13728FED72E0055219E /* AirPollutionRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPollutionRequest.swift; sourceTree = "<group>"; };
+		4E1CE13928FED8EF0055219E /* AirPollutionResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPollutionResponse.swift; sourceTree = "<group>"; };
+		4E1CE13B28FEDC540055219E /* AirPollutionItemResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirPollutionItemResponse.swift; sourceTree = "<group>"; };
 		4E2BC2C028087E2B00018EB3 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 		4E2BC2C9280887F800018EB3 /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		4E4F6C29282D3BC6007BAE62 /* Unit.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = Unit.xctestplan; sourceTree = "<group>"; };
@@ -294,6 +300,32 @@
 				4E10EA43283843BC00074D3E /* IconService.swift */,
 			);
 			path = Icons;
+			sourceTree = "<group>";
+		};
+		4E1CE13428FED6C60055219E /* AirPollution API */ = {
+			isa = PBXGroup;
+			children = (
+				4E1CE13528FED6F10055219E /* Request */,
+				4E1CE13628FED7000055219E /* Response */,
+			);
+			path = "AirPollution API";
+			sourceTree = "<group>";
+		};
+		4E1CE13528FED6F10055219E /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				4E1CE13728FED72E0055219E /* AirPollutionRequest.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		4E1CE13628FED7000055219E /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				4E1CE13928FED8EF0055219E /* AirPollutionResponse.swift */,
+				4E1CE13B28FEDC540055219E /* AirPollutionItemResponse.swift */,
+			);
+			path = Response;
 			sourceTree = "<group>";
 		};
 		4E2BC2C72808878000018EB3 /* Resources */ = {
@@ -524,6 +556,7 @@
 				4E91A0482816C59200A37732 /* NetworkService.swift */,
 				4E91A04F2816C75A00A37732 /* NetworkResponseError.swift */,
 				4E91A04C2816C66500A37732 /* Protocols */,
+				4E1CE13428FED6C60055219E /* AirPollution API */,
 				4E91A04A2816C60A00A37732 /* Geocoding API */,
 				4E91A04B2816C61B00A37732 /* OneCall API */,
 			);
@@ -935,6 +968,7 @@
 				4E70199C286C61C100B61709 /* LocationProtocols.swift in Sources */,
 				4E91A05A2816CEE200A37732 /* OneCallRequest.swift in Sources */,
 				4EE8A043283FBDD900902950 /* WeatherWindModel.swift in Sources */,
+				4E1CE13828FED72E0055219E /* AirPollutionRequest.swift in Sources */,
 				4E91A0612816CFF800A37732 /* RainResponse.swift in Sources */,
 				4EFF9EBB28183A0A002A0FC6 /* SearchCityCellModel.swift in Sources */,
 				4E9BDC392809A449007FDB7E /* CityCellViewModel.swift in Sources */,
@@ -982,6 +1016,8 @@
 				4E91A0692816D05100A37732 /* MinutelyResponse.swift in Sources */,
 				4E2BC2C128087E2B00018EB3 /* SettingsViewModel.swift in Sources */,
 				4E5721782858C3EC00BE7E59 /* LocationService.swift in Sources */,
+				4E1CE13A28FED8EF0055219E /* AirPollutionResponse.swift in Sources */,
+				4E1CE13C28FEDC540055219E /* AirPollutionItemResponse.swift in Sources */,
 				4E91A0502816C75A00A37732 /* NetworkResponseError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

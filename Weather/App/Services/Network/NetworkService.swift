@@ -14,6 +14,9 @@ protocol NetworkServiceProtocol: AnyObject {
     
     func getWeatherOneCall(lat: Double, lon: Double, units: String, lang: String,
                            completed: @escaping (Result<OneCallResponse, NetworkResponseError>) -> Void)
+    
+    func getAirPollution(lat: Double, lon: Double,
+                         completed: @escaping (Result<AirPollutionResponse, NetworkResponseError>) -> Void)
 }
 
 
@@ -42,10 +45,10 @@ final class Network: NetworkServiceProtocol {
     /// Получает подробнейший прогноз погоды для заданных координат:
     /// (текущая погода, поминутный прогноз (на 1 час), почасовой прогноз (на 48 часов), нрогноз на денелю (7 дней), национальные погодные предупреждения)
     ///
-    /// - Parameter lat: Географическая координата широты
-    /// - Parameter lon: Географическая координата долготы
+    /// - Parameter lat:   Географическая координата широты
+    /// - Parameter lon:   Географическая координата долготы
     /// - Parameter units: Единицы измерения может принимать одно из значений: ["standard", "metric", "imperial"]
-    /// - Parameter lang: Язык выходных данных ["ru", "en", и др.]
+    /// - Parameter lang:  Язык выходных данных ["ru", "en", и др.]
     ///
     /// - Для температуры в градусах Фаренгейта и скорости ветра в милях/час используйте единицы измерения units = "imperial"
     /// - Для температуры в градусах Цельсия и скорости ветра в метрах/сек используйте единицы измерения units = "metric"
@@ -56,6 +59,29 @@ final class Network: NetworkServiceProtocol {
                            lang: String = NSLocalizedString("General.Lang", comment: "Lang"),
                            completed: @escaping (Result<OneCallResponse, NetworkResponseError>) -> Void) {
         if let url = makeUrl(request: OneCallRequest(lat: lat, lon: lon, units: units, lang: lang)) {
+            fetchData(from: url) { response in completed(response) }
+        } else {
+            completed(.failure(.url(message: "Failed to retrieve url.")))
+        }
+    }
+    
+    // MARK: - Air Pollution
+    /// Получает данных о качестве воздуха:
+    /// Компоненты по которым оценивается качество воздуха, [мкг/м3]:
+    /// - CO (Оксид углерода);
+    /// - NO (Оксид азота);
+    /// - NO2 (Диоксида азота);
+    /// - О3 (Озон);
+    /// - SO2 (Диоксид серы);
+    /// -  PM2.5 (Мелкие частицы);
+    /// - PM10 (Крупные частицы);
+    /// - Концентрация NH3 (Аммиак).
+    ///
+    /// - Parameter lat: Географическая координата широты
+    /// - Parameter lon: Географическая координата долготы
+    ///
+    func getAirPollution(lat: Double, lon: Double, completed: @escaping (Result<AirPollutionResponse, NetworkResponseError>) -> Void) {
+        if let url = makeUrl(request: AirPollutionRequest(lat: lat, lon: lon)) {
             fetchData(from: url) { response in completed(response) }
         } else {
             completed(.failure(.url(message: "Failed to retrieve url.")))
