@@ -8,12 +8,6 @@
 import UIKit
 
 final class WeatherDailyCell: UITableViewCell {
-    static let reuseIdentifier = "WeatherDailyCell"
-    static var height: CGFloat {
-        let const = DesignConstants.shared
-        let result = 8 * (2 * const.padding.small.top + const.font.medium.lineHeight) + const.padding.medium.top
-        return result.rounded(.up)
-    }
     
     private let const = DesignConstants.shared
     
@@ -165,5 +159,19 @@ extension WeatherDailyCell {
             mainStack.addArrangedSubview(item)
         }
         mainStack.setNeedsLayout()
+    }
+}
+
+
+// MARK: - Static class parameters
+//
+extension WeatherDailyCell {
+    
+    static let reuseIdentifier = "WeatherDailyCell"
+    
+    static var height: CGFloat {
+        let const = DesignConstants.shared
+        let result = 8 * (2 * const.padding.small.top + const.font.medium.lineHeight) + const.padding.medium.top
+        return result.rounded(.up)
     }
 }

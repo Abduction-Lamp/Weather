@@ -81,7 +81,7 @@ final class WeatherViewController: UIViewController {
 extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        4
+        viewModel.getNumberOfSections()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -98,6 +98,8 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
             return WeatherWindCell.height
         case 3:
             return WeatherPressureAndHumidityCell.height
+        case 4:
+            return WeatherAirPollutionCell.height
         default:
             return 44
         }
@@ -148,6 +150,14 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
             else { return UITableViewCell() }
             let model = viewModel.makeWeatherPressureAndHumidityModel()
             cell.setup(model: model)
+            return cell
+            
+        case 4:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: WeatherAirPollutionCell.reuseIdentifier) as? WeatherAirPollutionCell
+            else { return UITableViewCell() }
+            if let model = viewModel.makeWeatherAirPollutionModel() {
+                cell.setup(model: model)
+            }
             return cell
             
         default:

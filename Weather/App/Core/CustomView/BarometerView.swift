@@ -52,7 +52,7 @@ final class BarometerView: UIView {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("📛\tCompassView init(coder:) has not been implemented")
+        fatalError("📛 BarometerView init(coder:) has not been implemented")
     }
 
     override func layoutSubviews() {

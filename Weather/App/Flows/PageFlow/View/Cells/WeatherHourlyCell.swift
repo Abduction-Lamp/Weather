@@ -8,13 +8,6 @@
 import UIKit
 
 final class WeatherHourlyCell: UITableViewCell {
-    static let reuseIdentifier = "WeatherHourlyCell"
-    static var height: CGFloat {
-        let padding = 4 * DesignConstants.shared.padding.small.top + DesignConstants.shared.padding.medium.top
-        let font = 3 * DesignConstants.shared.font.height.small + DesignConstants.shared.font.height.medium
-        let result = padding + font
-        return result.rounded(.up)
-    }
     
     private let const = DesignConstants.shared
     
@@ -170,5 +163,23 @@ extension WeatherHourlyCell {
             mainStack.addArrangedSubview(item)
         }
         mainStack.setNeedsLayout()
+    }
+}
+
+
+// MARK: - Static class parameters
+//
+extension WeatherHourlyCell {
+    
+    static let reuseIdentifier = "WeatherHourlyCell"
+    
+    static var height: CGFloat {
+        let const = DesignConstants.shared
+        
+        let padding = 4 * const.padding.small.top + const.padding.medium.top
+        let font = 3 * const.font.height.small + const.font.height.medium
+        
+        let result = padding + font
+        return result.rounded(.up)
     }
 }

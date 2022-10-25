@@ -71,13 +71,23 @@
 "CompassView.Western" = "W";
 
 
+// MARK: - AirIndicatorView
+
+"AirIndicatorView.Good"     = "Good";
+"AirIndicatorView.Fair"     = "Fair";
+"AirIndicatorView.Moderate" = "Moderate";
+"AirIndicatorView.Poor"     = "Poor";
+"AirIndicatorView.VeryPoor" = "Very Poor";
+
+
 // MARK: - WeatherView
 
-"WeatherView.HourlyCell.DescriptionLabel"   = "Hourly forecast";
-"WeatherView.DailyCell.DescriptionLabel"    = "Forecast for the week";
-"WeatherView.WindCell.DescriptionLabel"     = "Wind";
-"WeatherView.PressureCell.DescriptionLabel" = "Pressure";
-"WeatherView.HumidityCell.DescriptionLabel" = "Humidity";
+"WeatherView.HourlyCell.DescriptionLabel"       = "Hourly forecast";
+"WeatherView.DailyCell.DescriptionLabel"        = "Forecast for the week";
+"WeatherView.WindCell.DescriptionLabel"         = "Wind";
+"WeatherView.PressureCell.DescriptionLabel"     = "Pressure";
+"WeatherView.HumidityCell.DescriptionLabel"     = "Humidity";
+"WeatherView.AirPollutionCell.DescriptionLabel" = "Air quality";
 
 "WeatherView.CommonWords.Now"     = "Now";
 "WeatherView.CommonWords.Today"   = "Today";

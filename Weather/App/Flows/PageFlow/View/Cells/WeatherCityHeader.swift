@@ -8,17 +8,6 @@
 import UIKit
 
 final class WeatherCityHeader: UITableViewHeaderFooterView {
-    static let reuseIdentifier = "WeatherCityHeader"
-    static var height: CGFloat {
-        let largePadding = 3 * DesignConstants.shared.padding.large.top
-        let smallPadding = 3 * DesignConstants.shared.padding.small.top
-        let largeLineHeight = DesignConstants.shared.font.height.large
-        let mediumLineHeight = DesignConstants.shared.font.height.medium
-        let smallLineHeight = DesignConstants.shared.font.height.small
-        
-        let result = largePadding + smallPadding + mediumLineHeight + largeLineHeight + smallLineHeight
-        return result.rounded(.up)
-    }
     
     private let const = DesignConstants.shared
     
@@ -104,5 +93,26 @@ extension WeatherCityHeader {
         cityLabel.text = model.city
         temperatureLabel.text = model.temperature
         descriptionLabel.text = model.description
+    }
+}
+
+
+// MARK: - Static class parameters
+//
+extension WeatherCityHeader {
+    
+    static let reuseIdentifier = "WeatherCityHeader"
+    
+    static var height: CGFloat {
+        let const = DesignConstants.shared
+        
+        let largePadding = 3 * const.padding.large.top
+        let smallPadding = 3 * const.padding.small.top
+        let largeLineHeight = const.font.height.large
+        let mediumLineHeight = const.font.height.medium
+        let smallLineHeight = const.font.height.small
+        
+        let result = largePadding + smallPadding + mediumLineHeight + largeLineHeight + smallLineHeight
+        return result.rounded(.up)
     }
 }

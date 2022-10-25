@@ -71,13 +71,23 @@
 "CompassView.Western" = "З";
 
 
+// MARK: - AirIndicatorView
+
+"AirIndicatorView.Good"     = "Отичный";
+"AirIndicatorView.Fair"     = "Хороший";
+"AirIndicatorView.Moderate" = "Умеренный";
+"AirIndicatorView.Poor"     = "Загрезненный";
+"AirIndicatorView.VeryPoor" = "Опастный";
+
+
 // MARK: - WeatherView
 
-"WeatherView.HourlyCell.DescriptionLabel"   = "Почасовой прогноз";
-"WeatherView.DailyCell.DescriptionLabel"    = "Прогноз на неделю";
-"WeatherView.WindCell.DescriptionLabel"     = "Ветер";
-"WeatherView.PressureCell.DescriptionLabel" = "Давление";
-"WeatherView.HumidityCell.DescriptionLabel" = "Влажность";
+"WeatherView.HourlyCell.DescriptionLabel"       = "Почасовой прогноз";
+"WeatherView.DailyCell.DescriptionLabel"        = "Прогноз на неделю";
+"WeatherView.WindCell.DescriptionLabel"         = "Ветер";
+"WeatherView.PressureCell.DescriptionLabel"     = "Давление";
+"WeatherView.HumidityCell.DescriptionLabel"     = "Влажность";
+"WeatherView.AirPollutionCell.DescriptionLabel" = "Качество воздуха";
 
 "WeatherView.CommonWords.Now"     = "Сейчас";
 "WeatherView.CommonWords.Today"   = "Сегодня";

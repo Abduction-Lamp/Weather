@@ -30,6 +30,7 @@ final class WeatherView: UIView {
         table.register(WeatherDailyCell.self, forCellReuseIdentifier: WeatherDailyCell.reuseIdentifier)
         table.register(WeatherWindCell.self, forCellReuseIdentifier: WeatherWindCell.reuseIdentifier)
         table.register(WeatherPressureAndHumidityCell.self, forCellReuseIdentifier: WeatherPressureAndHumidityCell.reuseIdentifier)
+        table.register(WeatherAirPollutionCell.self, forCellReuseIdentifier: WeatherAirPollutionCell.reuseIdentifier)
         
         return table
     }()

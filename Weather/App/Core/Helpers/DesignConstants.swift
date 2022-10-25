@@ -17,6 +17,10 @@ final class DesignConstants {
     let size = Sizes()
     let gradient = GradientLayer()
     
+    var screen: CGSize {
+        return CGSize(width: min(UIScreen.main.bounds.width, UIScreen.main.bounds.height),
+                      height: max(UIScreen.main.bounds.width, UIScreen.main.bounds.height))
+    }
     
     // MARK: - Support structs
     //

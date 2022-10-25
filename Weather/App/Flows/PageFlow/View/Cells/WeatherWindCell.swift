@@ -8,9 +8,7 @@
 import UIKit
 
 final class WeatherWindCell: UITableViewCell {
-    static let reuseIdentifier = "WeatherWindCell"
-    static let height: CGFloat = 180
-    
+
     private let const = DesignConstants.shared
     
     private var canvasBlurEffect: UIVisualEffectView = {
@@ -139,4 +137,13 @@ extension WeatherWindCell {
         infoText.text = model.text
         compass.setup(measurement: model.measurement, degrees: model.degrees, units: model.units)
     }
+}
+
+
+// MARK: - Static class parameters
+//
+extension WeatherWindCell {
+    
+    static let reuseIdentifier = "WeatherWindCell"
+    static let height: CGFloat = 180
 }

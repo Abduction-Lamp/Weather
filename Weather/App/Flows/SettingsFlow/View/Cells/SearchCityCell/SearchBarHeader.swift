@@ -49,7 +49,7 @@ final class SearchBarHeader: UITableViewHeaderFooterView {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("📛\tSearchBarHeader init(coder:) has not been implemented")
+        fatalError("📛 SearchBarHeader init(coder:) has not been implemented")
     }
 
     override func prepareForReuse() {

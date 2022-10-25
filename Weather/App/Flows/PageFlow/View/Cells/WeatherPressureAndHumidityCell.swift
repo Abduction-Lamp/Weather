@@ -8,11 +8,8 @@
 import UIKit
 
 final class WeatherPressureAndHumidityCell: UITableViewCell {
-    static let reuseIdentifier = "WeatherPressureAndHumidityCell"
-    static let height: CGFloat = 180
     
     private let const = DesignConstants.shared
-    
     
     // Pressure
     private var pressureView: UIView = {
@@ -110,7 +107,7 @@ final class WeatherPressureAndHumidityCell: UITableViewCell {
     }
 
     required init?(coder: NSCoder) {
-        fatalError("📛 WeatherWindCell init(coder:) has not been implemented")
+        fatalError("📛 WeatherPressureAndHumidityCell init(coder:) has not been implemented")
     }
 
     override func layoutSubviews() {
@@ -204,4 +201,13 @@ extension WeatherPressureAndHumidityCell {
         humidityValueLabel.text = model.humidity
         dewPointLabel.text = model.dewPoint
     }
+}
+
+
+// MARK: - Static class parameters
+//
+extension WeatherPressureAndHumidityCell {
+    
+    static let reuseIdentifier = "WeatherPressureAndHumidityCell"
+    static let height: CGFloat = 180
 }

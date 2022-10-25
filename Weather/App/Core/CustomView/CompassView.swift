@@ -96,7 +96,7 @@ final class CompassView: UIView {
     }
     
     required init?(coder: NSCoder) {
-        fatalError("📛\tCompassView init(coder:) has not been implemented")
+        fatalError("📛 CompassView init(coder:) has not been implemented")
     }
 
     override func layoutSubviews() {
@@ -213,6 +213,8 @@ final class CompassView: UIView {
         units.text = unitsMeasurement
     }
     
+    // FIXME:   Построить стрелочку во время иницилизации, а в конфигурации оставить только поворот стрелки на нужный угол
+    //          Стрелка не будет каждый раз создоваться, а будет просто менять свой угол
     private func arrowConfiguration(degrees: Int) {
         let size = CGSize(width: 3, height: dial.bounds.height)
         

@@ -14,11 +14,14 @@ protocol WeatherViewModelProtocol: AnyObject {
     
     func feach()
     
+    func getNumberOfSections() -> Int
+    
     func makeWeatherCityHeaderModel() -> WeatherCityHeaderModel
     func makeWeatherHourlyModel() -> [WeatherHourlyModel]
     func makeWeatherDailyModel() -> [WeatherDailyModel]
     func makeWeatherWindModel() -> WeatherWindModel
     func makeWeatherPressureAndHumidityModel() -> WeatherPressureAndHumidityModel
+    func makeWeatherAirPollutionModel() -> WeatherAirPollutionModel?
 }
 
 
@@ -71,6 +74,7 @@ extension WeatherViewModel: WeatherViewModelProtocol {
             }
         }
         
+        // ???: Где должен быть сделан это вызав
         network?.getAirPollution(lat: city.latitude, lon: city.longitude) { [weak self] response in
             guard let self = self else { return }
             
@@ -83,6 +87,16 @@ extension WeatherViewModel: WeatherViewModelProtocol {
                 print(error)
             }
         }
+    }
+    
+    
+    func getNumberOfSections() -> Int {
+        var numberOfSections = 0
+        
+        if weather != nil { numberOfSections += 4 }
+        if air != nil { numberOfSections += 1 }
+        
+        return numberOfSections
     }
     
     
@@ -216,5 +230,18 @@ extension WeatherViewModel: WeatherViewModelProtocol {
                                                units: units,
                                                humidity: humidity,
                                                dewPoint: dewPoint)
+    }
+    
+    func makeWeatherAirPollutionModel() -> WeatherAirPollutionModel? {
+        guard let now = air?.list.first else { return nil }
+        return WeatherAirPollutionModel(aqi: now.main.aqi,
+                                        co: now.components.co,
+                                        no: now.components.no,
+                                        no2: now.components.no2,
+                                        o3: now.components.o3,
+                                        so2: now.components.so2,
+                                        pm2_5: now.components.pm2_5,
+                                        pm10: now.components.pm10,
+                                        nh3: now.components.nh3)
     }
 }
