@@ -15,18 +15,17 @@ final class AirIndicatorView: UIView {
     /// 4, Poor, Red
     /// 5, Very Poor, Vinous / Purple
     private let segmentInfo: [(index: Int, name: String, color: UIColor)] = [
-        (index: 1, name: "", color: .systemGreen),
-        (index: 2, name: "", color: .systemYellow),
-        (index: 3, name: "", color: .systemOrange),
-        (index: 4, name: "", color: .systemRed),
-        (index: 5, name: "", color: .systemPurple)
+        (index: 1, name: NSLocalizedString("AirIndicatorView.Good", comment: "Fair"), color: .systemGreen),
+        (index: 2, name: NSLocalizedString("AirIndicatorView.Moderate", comment: "Poor"), color: .systemYellow),
+        (index: 3, name: NSLocalizedString("AirIndicatorView.VeryPoor", comment: "Good"), color: .systemOrange),
+        (index: 4, name: NSLocalizedString("AirIndicatorView.Fair", comment: "Moderate"), color: .systemRed),
+        (index: 5, name: NSLocalizedString("AirIndicatorView.Poor", comment: "VeryPoor"), color: .systemPurple)
     ]
 
     private var indicator: [CAShapeLayer] = []
     
     // Air quality index
     private var aqi: Int = 0
-    
     
     
     // MARK: Initialization
@@ -70,7 +69,6 @@ final class AirIndicatorView: UIView {
         var start = 180.degreesToRadians()
         var end = start + step
         
-
         if segmentInfo.count == indicator.count {
             for index in 0 ..< indicator.count {
                 let path = UIBezierPath()
@@ -89,7 +87,7 @@ final class AirIndicatorView: UIView {
                     
                     indicator[index].path = path.cgPath
                     indicator[index].fillColor = segmentInfo[index].color.cgColor
-                    indicator[index].opacity = 0.4
+                    indicator[index].opacity = 0.7
                 }
                 
                 start = end
@@ -103,7 +101,6 @@ final class AirIndicatorView: UIView {
 extension AirIndicatorView {
     
     public func setup(aqi: Int) {
-        
         if segmentInfo.contains(where: { $0.index == aqi }) {
             self.aqi = aqi
             setNeedsLayout()
