@@ -73,11 +73,22 @@
 
 // MARK: - AirIndicatorView
 
-"AirIndicatorView.Good"     = "Good";
-"AirIndicatorView.Fair"     = "Fair";
-"AirIndicatorView.Moderate" = "Moderate";
-"AirIndicatorView.Poor"     = "Poor";
-"AirIndicatorView.VeryPoor" = "Very Poor";
+"AirIndicatorView.Good"         = "Good";
+"AirIndicatorView.Fair"         = "Fair";
+"AirIndicatorView.Satisfactory" = "Satisfactory";
+"AirIndicatorView.Moderate"     = "Moderate";
+"AirIndicatorView.Poor"         = "Poor";
+"AirIndicatorView.VeryPoor"     = "Very Poor";
+"AirIndicatorView.Severe"       = "Severe";
+
+"AirIndicatorView.co"       = " Oxocarbon";
+"AirIndicatorView.no"       = " Nitrogen oxide";
+"AirIndicatorView.no2"      = " Nitrogen dioxide";
+"AirIndicatorView.o3"       = " Ozone";
+"AirIndicatorView.so2"      = " Sulfur dioxide";
+"AirIndicatorView.pm2_5"    = " Fine particles matter";
+"AirIndicatorView.pm10"     = " Coarse particulate matter";
+"AirIndicatorView.nh3"      = " Ammonia";
 
 
 // MARK: - WeatherView

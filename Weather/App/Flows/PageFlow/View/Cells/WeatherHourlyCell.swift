@@ -130,7 +130,7 @@ extension WeatherHourlyCell {
         time.translatesAutoresizingMaskIntoConstraints = false
         time.textAlignment = .center
         time.textColor = .white
-        time.font = const.font.tiny
+        time.font = const.font.small
         time.text = model.time
         
         let icon = UIImageView()

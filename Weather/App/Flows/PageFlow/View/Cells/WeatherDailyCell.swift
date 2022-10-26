@@ -114,7 +114,7 @@ extension WeatherDailyCell {
         day.translatesAutoresizingMaskIntoConstraints = false
         day.textAlignment = .left
         day.textColor = .white
-        day.font = const.font.tiny
+        day.font = const.font.small
         day.text = model.day
         
         let icon = UIImageView()

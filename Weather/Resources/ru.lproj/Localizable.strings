@@ -73,11 +73,22 @@
 
 // MARK: - AirIndicatorView
 
-"AirIndicatorView.Good"     = "Отичный";
-"AirIndicatorView.Fair"     = "Хороший";
-"AirIndicatorView.Moderate" = "Умеренный";
-"AirIndicatorView.Poor"     = "Загрезненный";
-"AirIndicatorView.VeryPoor" = "Опастный";
+"AirIndicatorView.Good"         = "Отичный";
+"AirIndicatorView.Fair"         = "Хороший";
+"AirIndicatorView.Satisfactory" = "Удовлетворительный";
+"AirIndicatorView.Moderate"     = "Умеренный";
+"AirIndicatorView.Poor"         = "Загрезненный";
+"AirIndicatorView.VeryPoor"     = "Опастный";
+"AirIndicatorView.Severe"       = "Суровый";
+
+"AirIndicatorView.co"       = " Оксид углерода";
+"AirIndicatorView.no"       = " Оксид азота";
+"AirIndicatorView.no2"      = " Диоксида азота";
+"AirIndicatorView.o3"       = " Озон";
+"AirIndicatorView.so2"      = " Диоксид серы";
+"AirIndicatorView.pm2_5"    = " Мелкие частицы";
+"AirIndicatorView.pm10"     = " Крупные частицы";
+"AirIndicatorView.nh3"      = " Аммиак";
 
 
 // MARK: - WeatherView

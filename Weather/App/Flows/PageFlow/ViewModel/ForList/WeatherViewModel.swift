@@ -15,6 +15,7 @@ protocol WeatherViewModelProtocol: AnyObject {
     func feach()
     
     func getNumberOfSections() -> Int
+    func getNumberOfAirComponents() -> Int
     
     func makeWeatherCityHeaderModel() -> WeatherCityHeaderModel
     func makeWeatherHourlyModel() -> [WeatherHourlyModel]
@@ -81,10 +82,8 @@ extension WeatherViewModel: WeatherViewModelProtocol {
             switch response {
             case .success(let result):
                 self.air = result
-                print(result)
-            case .failure(let error):
+            case .failure:
                 self.air = nil
-                print(error)
             }
         }
     }
@@ -97,6 +96,19 @@ extension WeatherViewModel: WeatherViewModelProtocol {
         if air != nil { numberOfSections += 1 }
         
         return numberOfSections
+    }
+    
+    func getNumberOfAirComponents() -> Int {
+        var count = 0
+        if let _ = air?.list.first?.components.co    { count += 1 }
+        if let _ = air?.list.first?.components.nh3   { count += 1 }
+        if let _ = air?.list.first?.components.pm10  { count += 1 }
+        if let _ = air?.list.first?.components.pm2_5 { count += 1 }
+        if let _ = air?.list.first?.components.so2   { count += 1 }
+        if let _ = air?.list.first?.components.o3    { count += 1 }
+        if let _ = air?.list.first?.components.no2   { count += 1 }
+        if let _ = air?.list.first?.components.no    { count += 1 }
+        return count
     }
     
     

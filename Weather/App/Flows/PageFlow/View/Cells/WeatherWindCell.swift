@@ -55,7 +55,7 @@ final class WeatherWindCell: UITableViewCell {
         textView.textAlignment = .natural
         textView.backgroundColor = .clear
         textView.textColor = .white
-        textView.font = const.font.tiny
+        textView.font = const.font.small
         textView.text = ""
         return textView
     }()

@@ -92,6 +92,8 @@
 		4ED41440283D121900024E17 /* WeatherWindCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED4143F283D121900024E17 /* WeatherWindCell.swift */; };
 		4ED41443283D36E700024E17 /* CompassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED41442283D36E700024E17 /* CompassView.swift */; };
 		4ED68E222905B55300AD363E /* WeatherAirPollutionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED68E212905B55300AD363E /* WeatherAirPollutionModel.swift */; };
+		4EDBDC20290930A6008ED7BC /* ItemAirComponentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDBDC1F290930A6008ED7BC /* ItemAirComponentView.swift */; };
+		4EDBDC2229094B05008ED7BC /* AirQualityIndexScales.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDBDC2129094B05008ED7BC /* AirQualityIndexScales.swift */; };
 		4EDC018128EDD6F300EA7E78 /* MockURLSession_CoordinatesByLocationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC018028EDD6F300EA7E78 /* MockURLSession_CoordinatesByLocationName.swift */; };
 		4EDC018328EDDAC000EA7E78 /* MockWeatherData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC018228EDDAC000EA7E78 /* MockWeatherData.swift */; };
 		4EDC018528EDE62000EA7E78 /* MockCityData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4EDC018428EDE62000EA7E78 /* MockCityData.swift */; };
@@ -217,6 +219,8 @@
 		4ED4143F283D121900024E17 /* WeatherWindCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherWindCell.swift; sourceTree = "<group>"; };
 		4ED41442283D36E700024E17 /* CompassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompassView.swift; sourceTree = "<group>"; };
 		4ED68E212905B55300AD363E /* WeatherAirPollutionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAirPollutionModel.swift; sourceTree = "<group>"; };
+		4EDBDC1F290930A6008ED7BC /* ItemAirComponentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemAirComponentView.swift; sourceTree = "<group>"; };
+		4EDBDC2129094B05008ED7BC /* AirQualityIndexScales.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirQualityIndexScales.swift; sourceTree = "<group>"; };
 		4EDC018028EDD6F300EA7E78 /* MockURLSession_CoordinatesByLocationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession_CoordinatesByLocationName.swift; sourceTree = "<group>"; };
 		4EDC018228EDDAC000EA7E78 /* MockWeatherData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockWeatherData.swift; sourceTree = "<group>"; };
 		4EDC018428EDE62000EA7E78 /* MockCityData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCityData.swift; sourceTree = "<group>"; };
@@ -804,6 +808,7 @@
 				4ED41442283D36E700024E17 /* CompassView.swift */,
 				4E9D4C8F28494B7500FA39B7 /* BarometerView.swift */,
 				4E71C92D2902B2D500E46B3E /* AirIndicatorView.swift */,
+				4EDBDC1F290930A6008ED7BC /* ItemAirComponentView.swift */,
 			);
 			path = CustomView;
 			sourceTree = "<group>";
@@ -816,6 +821,7 @@
 				4E1C1189283BE015009537F4 /* TimeOfDay.swift */,
 				4EE8A044283FC0AC00902950 /* BeaufortScale.swift */,
 				4EE8A046283FD22600902950 /* WindDirection.swift */,
+				4EDBDC2129094B05008ED7BC /* AirQualityIndexScales.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -989,6 +995,7 @@
 				4ED41440283D121900024E17 /* WeatherWindCell.swift in Sources */,
 				4E91A0712816D0B600A37732 /* TempResponse.swift in Sources */,
 				4E4F6C34282D44E3007BAE62 /* URLSessionProtocol.swift in Sources */,
+				4EDBDC2229094B05008ED7BC /* AirQualityIndexScales.swift in Sources */,
 				4EFF9EB728183664002A0FC6 /* SearchCityCell.swift in Sources */,
 				4E9D4C8E2849496400FA39B7 /* WeatherPressureAndHumidityCell.swift in Sources */,
 				4E5E6D69283E7EE7005C49F1 /* Int.swift in Sources */,
@@ -1018,6 +1025,7 @@
 				4E662AAE28520CAC00B60C36 /* SearchBarHeader.swift in Sources */,
 				4E7C33D82805A835006EBBE6 /* AppDelegate.swift in Sources */,
 				4E7C33DA2805A835006EBBE6 /* SceneDelegate.swift in Sources */,
+				4EDBDC20290930A6008ED7BC /* ItemAirComponentView.swift in Sources */,
 				4E6801D2280725C200337997 /* SettingsViewController.swift in Sources */,
 				4EBA7CF5280B12290084B586 /* SettingsCellViewModel.swift in Sources */,
 				4EE8A047283FD22600902950 /* WindDirection.swift in Sources */,

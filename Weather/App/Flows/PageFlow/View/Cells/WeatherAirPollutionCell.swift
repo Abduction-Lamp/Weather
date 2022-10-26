@@ -34,9 +34,10 @@ final class WeatherAirPollutionCell: UITableViewCell {
         label.text = NSLocalizedString("WeatherView.AirPollutionCell.DescriptionLabel", comment: "Air")
         return label
     }()
-    
+        
     private var airIndicator = AirIndicatorView()
-    
+    private var airComponentViews: [UIView] = []
+
     
     // MARK: Initialization
     //
@@ -52,10 +53,16 @@ final class WeatherAirPollutionCell: UITableViewCell {
 
     override func layoutSubviews() {
         super.layoutSubviews()
+        
         makeLayoutByFrame()
+        makeAirComponentsLayoutByFrame()
     }
     
     override func prepareForReuse() {
+        airIndicator.setup(aqi: 0)
+        airComponentViews.forEach { $0.removeFromSuperview() }
+        airComponentViews.removeAll()
+
         super.prepareForReuse()
     }
 }
@@ -100,9 +107,59 @@ extension WeatherAirPollutionCell {
         airIndicator.layoutSubviews()
     }
     
+    private func makeAirComponentsLayoutByFrame() {
+        let size = CGSize(width: contentView.bounds.width - 2 * const.padding.medium.left,
+                          height: const.font.height.medium)
+        var origin = CGPoint(x: const.padding.medium.left, y: airIndicator.frame.maxY + const.padding.large.top)
+        
+        airComponentViews.forEach { view in
+            view.frame = CGRect(origin: origin, size: size)
+            origin.y += size.height + const.padding.small.top
+        }
+    }
     
+
     public func setup(model: WeatherAirPollutionModel) {
         airIndicator.setup(aqi: model.aqi)
+    
+        model.airComponents.forEach { element in
+            let item = ItemAirComponentView()
+            
+            var designation: String = ""
+            var value: String = ""
+            
+            switch element {
+            case let .co(wt):
+                designation = "CO"
+                value = wt.description
+            case let .no(wt):
+                designation = "NO"
+                value = wt.description
+            case let .no2(wt):
+                designation = "NO2"
+                value = wt.description
+            case let .o3(wt):
+                designation = "O3"
+                value = wt.description
+            case let .so2(wt):
+                designation = "SO2"
+                value = wt.description
+            case let .pm2_5(wt):
+                designation = "PM2.5"
+                value = wt.description
+            case let .pm10(wt):
+                designation = "PM10"
+                value = wt.description
+            case let .nh3(wt):
+                designation = "NH3"
+                value = wt.description
+            }
+            
+            item.setup(name: element.description, designation: designation, value: value, color: CAQIEuropeScale.init(for: element).getColor())
+            contentView.addSubview(item)
+            airComponentViews.append(item)
+        }
+        makeAirComponentsLayoutByFrame()
     }
 }
 
@@ -118,9 +175,9 @@ extension WeatherAirPollutionCell {
         
         let padding =  2 * const.padding.small.top + const.padding.large.top + const.padding.medium.bottom
         let font = const.font.height.small
-        let body = const.screen.width / 4
+        let indicator = const.screen.width / 4
         
-        let result = padding + font + body
+        let result = padding + font + indicator
         return result.rounded(.up)
     }
 }
