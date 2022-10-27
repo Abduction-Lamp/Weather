@@ -80,7 +80,7 @@ final class WeatherAirPollutionCell: UITableViewCell {
 extension WeatherAirPollutionCell {
     
     private func configureContent() {
-        self.backgroundColor = .clear
+        backgroundColor = .clear
         contentView.backgroundColor = .clear
         
         contentView.addSubview(canvasBlurEffect)
@@ -105,32 +105,37 @@ extension WeatherAirPollutionCell {
         icon.frame = CGRect(origin: origin, size: size)
         
         origin.x = icon.frame.maxX + const.padding.small.left
-        size.width = contentView.bounds.width - icon.frame.maxX - 2 * const.padding.medium.left
+        size.width = contentView.bounds.width - icon.bounds.width - 2 * const.padding.medium.left
         descriptionLabel.frame = CGRect(origin: origin, size: size)
         
         size.width = const.screen.width / 2
         size.height = size.width / 2
         origin.x = (contentView.bounds.width - size.width) / 2
         origin.y = icon.frame.maxY + const.padding.large.top
-        
         airIndicator.frame = CGRect(origin: origin, size: size)
         airIndicator.layoutSubviews()
-        
-        size.width = contentView.bounds.width / 4
-        size.height = const.font.height.tiny
-        origin.x = contentView.bounds.width - size.width - const.padding.medium.right
-        origin.y = airIndicator.frame.maxY + const.padding.large.top
-        unitsLabel.frame = CGRect(origin: origin, size: size)
     }
     
     private func makeAirComponentsLayoutByFrame() {
-        let size = CGSize(width: contentView.bounds.width - 2 * const.padding.medium.left,
-                          height: const.font.height.medium)
-        var origin = CGPoint(x: const.padding.medium.left, y: unitsLabel.frame.maxY + const.padding.small.top)
-        
-        airComponentViews.forEach { view in
-            view.frame = CGRect(origin: origin, size: size)
-            origin.y += size.height + const.padding.small.top
+        if !airComponentViews.isEmpty {
+            var origin: CGPoint = .zero
+            var size: CGSize = .zero
+            
+            size.width = contentView.bounds.width / 4
+            size.height = const.font.height.tiny
+            origin.x = contentView.bounds.width - size.width - const.padding.medium.right
+            origin.y = airIndicator.frame.maxY + const.padding.large.top
+            unitsLabel.frame = CGRect(origin: origin, size: size)
+            
+            size.width = contentView.bounds.width - 2 * const.padding.medium.left
+            size.height = const.font.height.medium
+            origin.x = const.padding.medium.left
+            origin.y = unitsLabel.frame.maxY + const.padding.small.top
+            
+            airComponentViews.forEach { view in
+                view.frame = CGRect(origin: origin, size: size)
+                origin.y += size.height + const.padding.small.top
+            }
         }
     }
     
@@ -192,7 +197,7 @@ extension WeatherAirPollutionCell {
     static var height: CGFloat {
         let const = DesignConstants.shared
         
-        let padding =  2 * const.padding.small.top + const.padding.large.top + const.padding.medium.bottom
+        let padding = const.padding.small.top + 2 * const.padding.large.top // + const.padding.small.top
         let font = const.font.height.small + const.font.height.tiny
         let indicator = const.screen.width / 4
         

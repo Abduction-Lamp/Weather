@@ -246,14 +246,6 @@ extension WeatherViewModel: WeatherViewModelProtocol {
     
     func makeWeatherAirPollutionModel() -> WeatherAirPollutionModel? {
         guard let now = air?.list.first else { return nil }
-        return WeatherAirPollutionModel(aqi: now.main.aqi,
-                                        co: now.components.co,
-                                        no: now.components.no,
-                                        no2: now.components.no2,
-                                        o3: now.components.o3,
-                                        so2: now.components.so2,
-                                        pm2_5: now.components.pm2_5,
-                                        pm10: now.components.pm10,
-                                        nh3: now.components.nh3)
+        return WeatherAirPollutionModel(response: now)
     }
 }

@@ -9,36 +9,27 @@ import UIKit
 
 final class ItemAirComponentView: UIView {
     
-    private let const = DesignConstants.shared
-    
-//    private var canvasBlurEffect: UIVisualEffectView = {
-//        let canvas = UIVisualEffectView()
-//        canvas.effect = UIBlurEffect(style: .regular)
-//        canvas.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-//        return canvas
-//    }()
-
-    private lazy var name: UILabel = {
+    private var name: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
         label.textColor = .white
-        label.font = const.font.small
+        label.font = DesignConstants.shared.font.small
         return label
     }()
 
-    private lazy var designation: UILabel = {
+    private var designation: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .white
-        label.font = const.font.small
+        label.font = DesignConstants.shared.font.small
         return label
     }()
     
-    private lazy var value: UILabel = {
+    private var value: UILabel = {
         let label = UILabel()
         label.textAlignment = .right
         label.textColor = .white
-        label.font = const.font.small
+        label.font = DesignConstants.shared.font.small
         return label
     }()
     
@@ -75,11 +66,11 @@ extension ItemAirComponentView {
     
     private func contentConfiguration() {
         var origin: CGPoint = .zero
-        var size: CGSize = CGSize(width: bounds.width/2, height: bounds.height)
+        var size: CGSize = CGSize(width: bounds.width / 2, height: bounds.height)
         name.frame = CGRect(origin: origin, size: size)
         
         origin.x = name.frame.maxX
-        size.width = bounds.width / 4 - const.padding.small.right
+        size.width = bounds.width / 4 - DesignConstants.shared.padding.small.right
         designation.frame = CGRect(origin: origin, size: size)
         
         origin.x = designation.frame.maxX
@@ -90,12 +81,8 @@ extension ItemAirComponentView {
     
     public func setup(name: String, designation: String, value: String, color: UIColor = .clear) {
         backgroundColor = (color == .clear) ? color : color.withAlphaComponent(0.9)
-        
         self.name.text = name
         self.designation.text = designation
         self.value.text = value
-        
-        // ???: -
-        setNeedsLayout()
     }
 }

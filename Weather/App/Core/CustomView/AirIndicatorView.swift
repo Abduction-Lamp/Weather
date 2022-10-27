@@ -9,17 +9,20 @@ import UIKit
 
 final class AirIndicatorView: UIView {
     
-    /// 1, Good, Green
-    /// 2, Fair, Yellow
-    /// 3, Moderate, Orange
-    /// 4, Poor, Red
-    /// 5, Very Poor, Vinous / Purple
+    // MARK: Info for Europe Common Air Quality Index (CAQI)
+    //
+    // 1,   Good,         Green
+    // 2,   Fair,         Yellow
+    // 3,   Moderate,     Orange
+    // 4,   Poor,         Red
+    // 5,   Very Poor,    Vinous / Purple
+    //
     private let segmentInfo: [(index: Int, name: String, color: UIColor)] = [
-        (index: 1, name: NSLocalizedString("AirIndicatorView.Good", comment: "Fair"), color: .systemGreen),
-        (index: 2, name: NSLocalizedString("AirIndicatorView.Moderate", comment: "Poor"), color: .systemYellow),
-        (index: 3, name: NSLocalizedString("AirIndicatorView.VeryPoor", comment: "Good"), color: .systemOrange),
-        (index: 4, name: NSLocalizedString("AirIndicatorView.Fair", comment: "Moderate"), color: .systemRed),
-        (index: 5, name: NSLocalizedString("AirIndicatorView.Poor", comment: "VeryPoor"), color: .systemPurple)
+        (index: 1, name: NSLocalizedString("AirIndicatorView.Good",     comment: "Good"),      color: .systemGreen),
+        (index: 2, name: NSLocalizedString("AirIndicatorView.Fair",     comment: "Fair"),      color: .systemYellow),
+        (index: 3, name: NSLocalizedString("AirIndicatorView.Moderate", comment: "Moderate"),  color: .systemOrange),
+        (index: 4, name: NSLocalizedString("AirIndicatorView.Poor",     comment: "Poor"),      color: .systemRed),
+        (index: 5, name: NSLocalizedString("AirIndicatorView.VeryPoor", comment: "Very Poor"), color: .systemPurple)
     ]
 
     private var indicator: [CAShapeLayer] = []
@@ -66,6 +69,7 @@ final class AirIndicatorView: UIView {
         let center = CGPoint(x: bounds.midX, y: bounds.maxY)
         
         let step = (180 / indicator.count).degreesToRadians()
+        
         var start = 180.degreesToRadians()
         var end = start + step
         
@@ -73,22 +77,16 @@ final class AirIndicatorView: UIView {
             for index in 0 ..< indicator.count {
                 let path = UIBezierPath()
                 path.addArc(withCenter: center, radius: bigRadius, startAngle: start, endAngle: end, clockwise: true)
-                
                 if segmentInfo[index].index == aqi {
                     path.addLine(to: center)
-                    path.close()
-                    
-                    indicator[index].path = path.cgPath
-                    indicator[index].fillColor = segmentInfo[index].color.cgColor
-                    indicator[index].opacity = 1
                 } else {
                     path.addArc(withCenter: center, radius: smallRadius, startAngle: end, endAngle: start, clockwise: false)
-                    path.close()
-                    
-                    indicator[index].path = path.cgPath
-                    indicator[index].fillColor = segmentInfo[index].color.cgColor
-                    indicator[index].opacity = 0.7
                 }
+                path.close()
+                
+                indicator[index].path = path.cgPath
+                indicator[index].fillColor = segmentInfo[index].color.cgColor
+                indicator[index].opacity = 1
                 
                 start = end
                 end += step

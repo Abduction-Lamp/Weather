@@ -99,9 +99,7 @@ extension WeatherViewController: UITableViewDelegate, UITableViewDataSource {
         case 3:
             return WeatherPressureAndHumidityCell.height
         case 4:
-            let itemHeight = DesignConstants.shared.font.height.medium + DesignConstants.shared.padding.small.top
-            let components = CGFloat(viewModel.getNumberOfAirComponents()) * itemHeight
-            return WeatherAirPollutionCell.height + components + DesignConstants.shared.padding.medium.bottom
+            return calculationHeightOfAirPollutionCell()
         default:
             return 44
         }
@@ -176,5 +174,16 @@ extension WeatherViewController {
     @objc func refresh(_ sender: AnyObject) {
         weatherView.refreshControl.beginRefreshing()
         viewModel.feach()
+    }
+}
+
+
+extension WeatherViewController {
+    
+    private func calculationHeightOfAirPollutionCell() -> CGFloat {
+        let itemHeight = DesignConstants.shared.font.height.medium + DesignConstants.shared.padding.small.top
+        let components = CGFloat(viewModel.getNumberOfAirComponents()) * itemHeight
+        let result = (WeatherAirPollutionCell.height + components + DesignConstants.shared.padding.small.bottom).rounded(.up)
+        return result
     }
 }
