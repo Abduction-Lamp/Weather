@@ -15,8 +15,16 @@ import UIKit
 /// - Parameter pm2_5: PM2.5 (Мелкие частицы)
 /// - Parameter pm10:  PM10 (Крупные частицы)
 /// - Parameter nh3:   NH3 (Аммиак)
-enum ChemicalElements: CustomStringConvertible {
-    case co(Double), no(Double), no2(Double), o3(Double), so2(Double), pm2_5(Double), pm10(Double), nh3(Double)
+/// 
+enum ChemicalElements {
+    case co(Double)
+    case no(Double)
+    case no2(Double)
+    case o3(Double)
+    case so2(Double)
+    case pm2_5(Double)
+    case pm10(Double)
+    case nh3(Double)
     
     var description: String {
         switch self {
@@ -121,7 +129,7 @@ enum CAQIEuropeScale: CustomStringConvertible {
 enum AQIIndiaScale: CustomStringConvertible {
     case good, satisfactory, moderate, poor, veryPoor, severe, indefinite
     
-    init(for element: ChemicalElements, value: Double) {
+    init(for element: ChemicalElements) {
         switch element {
         case let .pm10(value):
             switch value {
@@ -153,7 +161,7 @@ enum AQIIndiaScale: CustomStringConvertible {
         case let .o3(value):
             switch value {
             case 0   ..< 50:  self = .good
-            case 50  ..< 100:  self = .satisfactory
+            case 50  ..< 100: self = .satisfactory
             case 100 ..< 168: self = .moderate
             case 168 ..< 208: self = .poor
             case 208 ..< 748: self = .veryPoor
@@ -190,6 +198,17 @@ enum AQIIndiaScale: CustomStringConvertible {
         }
     }
     
+    func getColor() -> UIColor {
+        switch self {
+        case .good:         return .systemGreen
+        case .satisfactory: return .systemYellow
+        case .moderate:     return .systemOrange
+        case .poor:         return .systemRed
+        case .veryPoor:     return .systemPurple
+        case .severe:       return .systemBrown
+        case .indefinite:   return .clear
+        }
+    }
     
     var description: String {
         switch self {
@@ -198,7 +217,7 @@ enum AQIIndiaScale: CustomStringConvertible {
         case .moderate:     return NSLocalizedString("AirIndicatorView.Moderate", comment: "Moderate")
         case .poor:         return NSLocalizedString("AirIndicatorView.Poor",     comment: "Poor")
         case .veryPoor:     return NSLocalizedString("AirIndicatorView.VeryPoor", comment: "Very Poor")
-        case .severe:       return NSLocalizedString("AirIndicatorView.VeryPoor", comment: "Very Poor")
+        case .severe:       return NSLocalizedString("AirIndicatorView.Severe",   comment: "Severe")
         case .indefinite:   return "-"
         }
     }

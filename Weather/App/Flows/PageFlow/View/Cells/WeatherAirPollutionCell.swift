@@ -34,6 +34,15 @@ final class WeatherAirPollutionCell: UITableViewCell {
         label.text = NSLocalizedString("WeatherView.AirPollutionCell.DescriptionLabel", comment: "Air")
         return label
     }()
+    
+    private lazy var unitsLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .right
+        label.textColor = .white
+        label.font = const.font.tiny
+        label.text = NSLocalizedString("WeatherView.AirPollutionCell.Units", comment: "Units") + "\u{00B3}"
+        return label
+    }()
         
     private var airIndicator = AirIndicatorView()
     private var airComponentViews: [UIView] = []
@@ -78,6 +87,7 @@ extension WeatherAirPollutionCell {
         contentView.addSubview(icon)
         contentView.addSubview(descriptionLabel)
         contentView.addSubview(airIndicator)
+        contentView.addSubview(unitsLabel)
         
         setNeedsLayout()
     }
@@ -105,12 +115,18 @@ extension WeatherAirPollutionCell {
         
         airIndicator.frame = CGRect(origin: origin, size: size)
         airIndicator.layoutSubviews()
+        
+        size.width = contentView.bounds.width / 4
+        size.height = const.font.height.tiny
+        origin.x = contentView.bounds.width - size.width - const.padding.medium.right
+        origin.y = airIndicator.frame.maxY + const.padding.large.top
+        unitsLabel.frame = CGRect(origin: origin, size: size)
     }
     
     private func makeAirComponentsLayoutByFrame() {
         let size = CGSize(width: contentView.bounds.width - 2 * const.padding.medium.left,
                           height: const.font.height.medium)
-        var origin = CGPoint(x: const.padding.medium.left, y: airIndicator.frame.maxY + const.padding.large.top)
+        var origin = CGPoint(x: const.padding.medium.left, y: unitsLabel.frame.maxY + const.padding.small.top)
         
         airComponentViews.forEach { view in
             view.frame = CGRect(origin: origin, size: size)
@@ -136,28 +152,31 @@ extension WeatherAirPollutionCell {
                 designation = "NO"
                 value = wt.description
             case let .no2(wt):
-                designation = "NO2"
+                designation = "NO\u{2082}"
                 value = wt.description
             case let .o3(wt):
-                designation = "O3"
+                designation = "O\u{2083}"
                 value = wt.description
             case let .so2(wt):
-                designation = "SO2"
+                designation = "SO\u{2082}"
                 value = wt.description
             case let .pm2_5(wt):
-                designation = "PM2.5"
+                designation = "PM\u{2082}\u{2085}"
                 value = wt.description
             case let .pm10(wt):
-                designation = "PM10"
+                designation = "PM\u{2081}\u{2080}"
                 value = wt.description
             case let .nh3(wt):
-                designation = "NH3"
+                designation = "NH\u{2083}"
                 value = wt.description
             }
             
-            item.setup(name: element.description, designation: designation, value: value, color: CAQIEuropeScale.init(for: element).getColor())
-            contentView.addSubview(item)
+            item.setup(name: element.description,
+                       designation: designation,
+                       value: value,
+                       color: CAQIEuropeScale.init(for: element).getColor())
             airComponentViews.append(item)
+            contentView.addSubview(item)
         }
         makeAirComponentsLayoutByFrame()
     }
@@ -174,7 +193,7 @@ extension WeatherAirPollutionCell {
         let const = DesignConstants.shared
         
         let padding =  2 * const.padding.small.top + const.padding.large.top + const.padding.medium.bottom
-        let font = const.font.height.small
+        let font = const.font.height.small + const.font.height.tiny
         let indicator = const.screen.width / 4
         
         let result = padding + font + indicator

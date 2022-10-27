@@ -100,6 +100,8 @@
 "WeatherView.HumidityCell.DescriptionLabel"     = "Humidity";
 "WeatherView.AirPollutionCell.DescriptionLabel" = "Air quality";
 
+"WeatherView.AirPollutionCell.Units"            = "μg/m";
+
 "WeatherView.CommonWords.Now"     = "Now";
 "WeatherView.CommonWords.Today"   = "Today";
 "WeatherView.CommonWords.Sunrise" = "Sunrise";
