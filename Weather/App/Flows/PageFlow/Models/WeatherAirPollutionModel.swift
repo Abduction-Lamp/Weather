@@ -5,47 +5,65 @@
 //  Created by Владимир on 23.10.2022.
 //
 
-import Foundation
+import UIKit
 
 struct WeatherAirPollutionModel {
+    typealias AirComponents = (name: String, designation: String, value: String, color: UIColor)
+    
     let aqi: Int
-    let airComponents: [ChemicalElements]
+    let airComponents: [AirComponents]
     
     init(aqi: Int, co: Double?, no: Double?, no2: Double?, o3: Double?, so2: Double?, pm2_5: Double?, pm10: Double?, nh3: Double?) {
         self.aqi = aqi
-        var components: [ChemicalElements] = []
-        
+        var components: [AirComponents] = []
+ 
         if let co = co {
-            let element = ChemicalElements.co(co)
-            components.append(element)
+            components.append((name: NSLocalizedString("AirIndicatorView.co", comment: "CO"),
+                               designation: "CO",
+                               value: co.description,
+                               color: CAQIEuropeScale.init(for: .co(co)).getColor()))
         }
         if let no = no {
-            let element = ChemicalElements.no(no)
-            components.append(element)
+            components.append((name: NSLocalizedString("AirIndicatorView.no", comment: "NO"),
+                               designation: "NO",
+                               value: no.description,
+                               color: CAQIEuropeScale.init(for: .no(no)).getColor()))
         }
         if let no2 = no2 {
-            let element = ChemicalElements.no2(no2)
-            components.append(element)
+            components.append((name: NSLocalizedString("AirIndicatorView.no2", comment: "NO2"),
+                               designation: "NO\u{2082}",
+                               value: no2.description,
+                               color: CAQIEuropeScale.init(for: .no2(no2)).getColor()))
         }
         if let o3 = o3 {
-            let element = ChemicalElements.o3(o3)
-            components.append(element)
+            components.append((name: NSLocalizedString("AirIndicatorView.o3", comment: "O3"),
+                               designation: "O\u{2083}",
+                               value: o3.description,
+                               color: CAQIEuropeScale.init(for: .o3(o3)).getColor()))
         }
         if let so2 = so2 {
-            let element = ChemicalElements.so2(so2)
-            components.append(element)
+            components.append((name: NSLocalizedString("AirIndicatorView.so2", comment: "SO2"),
+                               designation: "SO\u{2082}",
+                               value: so2.description,
+                               color: CAQIEuropeScale.init(for: .so2(so2)).getColor()))
         }
         if let pm2_5 = pm2_5 {
-            let element = ChemicalElements.pm2_5(pm2_5)
-            components.append(element)
+            components.append((name: NSLocalizedString("AirIndicatorView.pm2_5", comment: "PM2_5"),
+                               designation: "PM\u{2082}\u{2085}",
+                               value: pm2_5.description,
+                               color: CAQIEuropeScale.init(for: .pm2_5(pm2_5)).getColor()))
         }
         if let pm10 = pm10 {
-            let element = ChemicalElements.pm10(pm10)
-            components.append(element)
+            components.append((name: NSLocalizedString("AirIndicatorView.pm10", comment: "PM10"),
+                               designation: "PM\u{2081}\u{2080}",
+                               value: pm10.description,
+                               color: CAQIEuropeScale.init(for: .pm10(pm10)).getColor()))
         }
         if let nh3 = nh3 {
-            let element = ChemicalElements.nh3(nh3)
-            components.append(element)
+            components.append((name: NSLocalizedString("AirIndicatorView.nh3", comment: "NH3"),
+                               designation: "NH\u{2083}",
+                               value: nh3.description,
+                               color: CAQIEuropeScale.init(for: .nh3(nh3)).getColor()))
         }
         airComponents = components
     }

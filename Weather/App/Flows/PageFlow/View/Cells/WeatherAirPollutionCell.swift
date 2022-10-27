@@ -145,42 +145,9 @@ extension WeatherAirPollutionCell {
     
         model.airComponents.forEach { element in
             let item = ItemAirComponentView()
-            
-            var designation: String = ""
-            var value: String = ""
-            
-            switch element {
-            case let .co(wt):
-                designation = "CO"
-                value = wt.description
-            case let .no(wt):
-                designation = "NO"
-                value = wt.description
-            case let .no2(wt):
-                designation = "NO\u{2082}"
-                value = wt.description
-            case let .o3(wt):
-                designation = "O\u{2083}"
-                value = wt.description
-            case let .so2(wt):
-                designation = "SO\u{2082}"
-                value = wt.description
-            case let .pm2_5(wt):
-                designation = "PM\u{2082}\u{2085}"
-                value = wt.description
-            case let .pm10(wt):
-                designation = "PM\u{2081}\u{2080}"
-                value = wt.description
-            case let .nh3(wt):
-                designation = "NH\u{2083}"
-                value = wt.description
-            }
-            
-            item.setup(name: element.description,
-                       designation: designation,
-                       value: value,
-                       color: CAQIEuropeScale.init(for: element).getColor())
+            item.setup(name: element.name, designation: element.designation, value: element.value, color: element.color)
             airComponentViews.append(item)
+            
             contentView.addSubview(item)
         }
         makeAirComponentsLayoutByFrame()
