@@ -62,7 +62,7 @@ extension DesignConstants {
         let icon = CGSize(width: 50, height: 25)
         
         var screen: CGSize {
-            return CGSize(width: min(UIScreen.main.bounds.width, UIScreen.main.bounds.height),
+            return CGSize(width:  min(UIScreen.main.bounds.width, UIScreen.main.bounds.height),
                           height: max(UIScreen.main.bounds.width, UIScreen.main.bounds.height))
         }
     }

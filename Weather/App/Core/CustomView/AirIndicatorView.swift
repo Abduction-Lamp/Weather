@@ -14,10 +14,8 @@ final class AirIndicatorView: UIView {
 
     
     // MARK: Initialization
-    //
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         buildContent()
     }
     
