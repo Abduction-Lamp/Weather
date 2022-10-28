@@ -145,12 +145,14 @@ extension WeatherAirPollutionCell {
     
         model.airComponents.forEach { element in
             let item = ItemAirComponentView()
-            item.setup(name: element.name, designation: element.designation, value: element.value, color: element.color)
+            item.setup(name: element.description,
+                       designation: element.designation,
+                       value: element.value.description,
+                       color: CAQIEuropeScale.init(for: element).getColor())
             airComponentViews.append(item)
-            
             contentView.addSubview(item)
         }
-        makeAirComponentsLayoutByFrame()
+//        makeAirComponentsLayoutByFrame()
     }
 }
 

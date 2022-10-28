@@ -16,7 +16,7 @@ import UIKit
 /// - Parameter pm10:  PM10 (Крупные частицы)
 /// - Parameter nh3:   NH3 (Аммиак)
 /// 
-enum ChemicalElements {
+enum ChemicalElements: CustomStringConvertible {
     case co(Double)
     case no(Double)
     case no2(Double)
@@ -25,6 +25,32 @@ enum ChemicalElements {
     case pm2_5(Double)
     case pm10(Double)
     case nh3(Double)
+    
+    var value: Double {
+        switch self {
+        case let .co(value):    return value
+        case let .no(value):    return value
+        case let .no2(value):   return value
+        case let .o3(value):    return value
+        case let .so2(value):   return value
+        case let .pm2_5(value): return value
+        case let .pm10(value):  return value
+        case let .nh3(value):   return value
+        }
+    }
+    
+    var designation: String {
+        switch self {
+        case .co:    return "CO"
+        case .no:    return "NO"
+        case .no2:   return "NO\u{2082}"
+        case .o3:    return "O\u{2083}"
+        case .so2:   return "SO\u{2082}"
+        case .pm2_5: return "PM\u{2082}\u{2085}"
+        case .pm10:  return "PM\u{2081}\u{2080}"
+        case .nh3:   return "NH\u{2083}"
+        }
+    }
     
     var description: String {
         switch self {
@@ -50,8 +76,8 @@ enum ChemicalElements {
 // High      = Poor         200–400     180–240     55–110      90–180
 // Very high = Very Poor    >400        >240        >110        >180
 //
-enum CAQIEuropeScale: CustomStringConvertible {
-    case good, fair, moderate, poor, veryPoor, indefinite
+enum CAQIEuropeScale: Int, CustomStringConvertible {
+    case good = 1, fair = 2, moderate = 3, poor = 4, veryPoor = 5, indefinite = 0
     
     init(for element: ChemicalElements) {
         switch element {
