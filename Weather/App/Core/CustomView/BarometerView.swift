@@ -9,7 +9,10 @@ import UIKit
 
 final class BarometerView: UIView {
 
-    private let const = DesignConstants.shared
+    private let font = DesignConstants.shared.font
+    
+    private let indicatorSize = CGSize(width: 7, height: 20)
+    private let color = UIColor.white
 
     private let dotLeft = CALayer()
     private let dotRight = CALayer()
@@ -22,7 +25,7 @@ final class BarometerView: UIView {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .white
-        label.font = const.font.medium
+        label.font = font.medium
         return label
     }()
     
@@ -30,24 +33,16 @@ final class BarometerView: UIView {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .white
-        label.font = const.font.small
+        label.font = font.small
         return label
     }()
     
-    private let indicatorSize = CGSize(width: 7, height: 20)
-    
-    private var color = UIColor.white
-    
-    private var measurement: String = ""
     private var pressure: Int = 0
-    private var unitsMeasurement: String = NSLocalizedString("Units.Pressure.mmHg", comment: "mm Hg")
     
 
     // MARK: Initialization
-    //
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         buildContent()
     }
     
@@ -55,20 +50,18 @@ final class BarometerView: UIView {
         fatalError("📛 BarometerView init(coder:) has not been implemented")
     }
 
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        dotConfiguration()
-        graduationConfiguration(dotCount: 13)
-        
-        arrowConfiguration(value: pressure)
-        
-        displayConfiguration()
+        dotConfigure()
+        graduationConfigure(number: 13)
+        arrowConfigure(value: pressure)
+        displayConfigure()
     }
     
     
     // MARK: Configuration content
-    //
     private func buildContent() {
         backgroundColor = .clear
         
@@ -85,7 +78,7 @@ final class BarometerView: UIView {
         addSubview(units)
     }
     
-    private func dotConfiguration() {
+    private func dotConfigure() {
         let dotSize = CGSize(width: 3, height: 10)
         
         dotLeft.masksToBounds = true
@@ -104,9 +97,9 @@ final class BarometerView: UIView {
         dotRight.position = CGPoint(x: bounds.midY, y: indicatorSize.height/2)
     }
     
-    private func graduationConfiguration(dotCount: Int) {
+    private func graduationConfigure(number dot: Int) {
         let rotationAngle = 135
-        let angle: CGFloat = rotationAngle.degreesToRadians()/Double(dotCount)
+        let angle: CGFloat = rotationAngle.degreesToRadians()/Double(dot)
         
         graduationLeft.frame = bounds
         graduationRight.frame = bounds
@@ -114,8 +107,8 @@ final class BarometerView: UIView {
         graduationLeft.masksToBounds = true
         graduationRight.masksToBounds = true
         
-        graduationLeft.instanceCount = dotCount
-        graduationRight.instanceCount = dotCount
+        graduationLeft.instanceCount = dot
+        graduationRight.instanceCount = dot
         
         graduationLeft.instanceColor = color.withAlphaComponent(0.5).cgColor
         graduationRight.instanceColor = color.withAlphaComponent(0.5).cgColor
@@ -124,7 +117,7 @@ final class BarometerView: UIView {
         graduationRight.instanceTransform = CATransform3DMakeRotation(angle, 0.0, 0.0, 1.0)
     }
     
-    private func arrowConfiguration(value: Int) {
+    private func arrowConfigure(value: Int) {
         let arrowSize = CGSize(width: indicatorSize.width, height: bounds.height)
         
         indicator.masksToBounds = true
@@ -143,22 +136,12 @@ final class BarometerView: UIView {
         arrow.transform = CATransform3DMakeRotation(calculationDeviationArrow(pressure: value), 0.0, 0.0, 1.0)
     }
     
-    private func displayConfiguration() {
-        value.bounds = CGRect(origin: .zero, size: CGSize(width: bounds.width, height: const.font.height.medium))
+    private func displayConfigure() {
+        value.bounds = CGRect(origin: .zero, size: CGSize(width: bounds.width, height: font.height.medium))
         value.center = CGPoint(x: bounds.midX, y: bounds.midY - 10)
-        value.text = measurement
         
-        units.bounds = CGRect(origin: .zero, size: CGSize(width: bounds.width, height: const.font.height.small))
+        units.bounds = CGRect(origin: .zero, size: CGSize(width: bounds.width, height: font.height.small))
         units.center = CGPoint(x: bounds.midX, y: bounds.midY + 10)
-        units.text = unitsMeasurement
-    }
-
-    
-    public func setup(measurement: String, pressure: Int, units: String) {
-        self.measurement = measurement
-        self.pressure = pressure
-        self.unitsMeasurement = units
-        setNeedsLayout()
     }
 }
 
@@ -190,5 +173,16 @@ extension BarometerView {
         let angle = -deviation * arc / delta
         
         return angle.degreesToRadians()
+    }
+}
+
+
+extension BarometerView {
+    
+    public func setup(measurement: String, pressure: Int, units: String) {
+        self.value.text = measurement
+        self.units.text = units
+        self.pressure = pressure
+        setNeedsLayout()
     }
 }
