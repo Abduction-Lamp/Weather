@@ -15,14 +15,10 @@ enum TimeOfDay {
         let twoHours: TimeInterval = 7200
         
         switch time {
-        case (sunrise - oneHour) ... (sunrise + twoHours):
-            self = .morning
-        case (sunrise + twoHours + 1) ... (sunset - oneHour - 1):
-            self = .afternoon
-        case (sunset - oneHour) ... (sunset + twoHours):
-            self = .evening
-        default:
-            self = .night
+        case (sunrise - oneHour) ..< (sunrise + twoHours): self = .morning
+        case (sunrise + twoHours) ..< (sunset - oneHour):  self = .afternoon
+        case (sunset - oneHour) ... (sunset + twoHours):   self = .evening
+        default:                                           self = .night
         }
     }
 }

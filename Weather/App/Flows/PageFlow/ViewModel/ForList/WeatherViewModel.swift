@@ -143,18 +143,19 @@ extension WeatherViewModel: WeatherViewModelProtocol {
             ///
             /// Вставка информации о sunrise и sunset
             ///
-            if let sunrise = weather?.current?.sunrise,
-               let sunset = weather?.current?.sunset,
-               let sunriseIndex = model.firstIndex(where: { $0.time == sunrise.toStringLocolTime(offset: value.timezoneOffset, format: "HH") }),
-               let sunsetIndex = model.firstIndex(where: { $0.time == sunset.toStringLocolTime(offset: value.timezoneOffset, format: "HH") }) {
-                let wordSunrise = NSLocalizedString("WeatherView.CommonWords.Sunrise", comment: "Sunrise")
-                let wordSunset = NSLocalizedString("WeatherView.CommonWords.Sunset", comment: "Sunset")
-                model.insert(WeatherHourlyModel(time: sunrise.toStringLocolTime(offset: value.timezoneOffset, format: "HH:mm"),
-                                                icon: iconManager.fetch(conditions: IconService.ExpandedIconSet.sunrise.rawValue),
-                                                temperature: wordSunrise), at: sunriseIndex + 1)
-                model.insert(WeatherHourlyModel(time: sunset.toStringLocolTime(offset: value.timezoneOffset, format: "HH:mm"),
-                                                icon: iconManager.fetch(conditions: IconService.ExpandedIconSet.sunset.rawValue),
-                                                temperature: wordSunset), at: sunsetIndex + 1)
+            if let sunrise = weather?.current?.sunrise, let sunset = weather?.current?.sunset {
+                if let sunriseIndex = model.firstIndex(where: { $0.time == sunrise.toStringLocolTime(offset: value.timezoneOffset, format: "HH") }) {
+                    let wordSunrise = NSLocalizedString("WeatherView.CommonWords.Sunrise", comment: "Sunrise")
+                    model.insert(WeatherHourlyModel(time: sunrise.toStringLocolTime(offset: value.timezoneOffset, format: "HH:mm"),
+                                                    icon: iconManager.fetch(conditions: IconService.ExpandedIconSet.sunrise.rawValue),
+                                                    temperature: wordSunrise), at: sunriseIndex + 1)
+                }
+                if let sunsetIndex = model.firstIndex(where: { $0.time == sunset.toStringLocolTime(offset: value.timezoneOffset, format: "HH") }) {
+                    let wordSunset = NSLocalizedString("WeatherView.CommonWords.Sunset", comment: "Sunset")
+                    model.insert(WeatherHourlyModel(time: sunset.toStringLocolTime(offset: value.timezoneOffset, format: "HH:mm"),
+                                                    icon: iconManager.fetch(conditions: IconService.ExpandedIconSet.sunset.rawValue),
+                                                    temperature: wordSunset), at: sunsetIndex + 1)
+                }
             }
         }
         return model
