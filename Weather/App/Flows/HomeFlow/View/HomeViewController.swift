@@ -9,7 +9,7 @@ import UIKit
 
 final class HomeViewController: UIViewController {
 
-    private let const = DesignConstants.shared
+    private let gradient = DesignConstants.shared.gradient
     
     private let gradientLayer: CAGradientLayer = {
         let layer = CAGradientLayer()
@@ -48,7 +48,7 @@ final class HomeViewController: UIViewController {
     private var statusDay: TimeOfDay? {
         didSet {
             DispatchQueue.main.async {
-                self.gradientLayer.colors = self.const.gradient.fetch(status: self.statusDay)
+                self.gradientLayer.colors = self.gradient.fetch(status: self.statusDay)
                 self.view.setNeedsLayout()
             }
         }
@@ -79,12 +79,12 @@ final class HomeViewController: UIViewController {
             guard let self = self else { return }
             if pages.isEmpty {
                 self.pageViewController.setViewControllers([UIViewController()], direction: .forward, animated: false, completion: nil)
-                self.gradientLayer.colors = self.const.gradient.indefinite
+                self.gradientLayer.colors = self.gradient.indefinite
             } else {
                 self.pageViewController.setViewControllers([pages[0]], direction: .forward, animated: false, completion: nil)
                 pages[0].viewModel.statusDay.bind({ status in
                     self.statusDay = status
-                    self.gradientLayer.colors = self.const.gradient.indefinite
+                    self.gradientLayer.colors = self.gradient.indefinite
                 })
             }
             self.pageControl.numberOfPages = self.viewModel.pages.value.count
@@ -135,7 +135,7 @@ extension HomeViewController {
             settingsButton.topAnchor.constraint(equalTo: pageViewController.view.bottomAnchor),
             settingsButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             settingsButton.rightAnchor.constraint(equalTo: view.safeAreaLayoutGuide.rightAnchor),
-            settingsButton.widthAnchor.constraint(equalToConstant: const.size.icon.width)
+            settingsButton.widthAnchor.constraint(equalToConstant: DesignConstants.shared.size.icon.width)
         ])
     }
 }
