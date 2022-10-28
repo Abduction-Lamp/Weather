@@ -51,7 +51,6 @@ final class SettingsViewController: UIViewController {
 
 
     // MARK: Initialization
-    //
     init(viewModel: SettingsViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
@@ -63,7 +62,6 @@ final class SettingsViewController: UIViewController {
     
     
     // MARK: Lifecycle
-    //
     override func loadView() {
         super.loadView()
         configureUI()

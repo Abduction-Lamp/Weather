@@ -12,7 +12,6 @@ final class WeatherPressureAndHumidityCell: UITableViewCell {
     private let font = DesignConstants.shared.font
     private let padding = DesignConstants.shared.padding
     
-    // Pressure
     private var pressureView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
@@ -47,8 +46,6 @@ final class WeatherPressureAndHumidityCell: UITableViewCell {
     
     private var barometer = BarometerView()
     
-    
-    // Humidity
     private var humidityView: UIView = {
         let view = UIView()
         view.backgroundColor = .clear
@@ -100,7 +97,6 @@ final class WeatherPressureAndHumidityCell: UITableViewCell {
     
     
     // MARK: Initialization
-    //
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureUI()

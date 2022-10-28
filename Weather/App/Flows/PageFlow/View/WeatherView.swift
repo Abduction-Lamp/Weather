@@ -37,7 +37,6 @@ final class WeatherView: UIView {
     
     
     // MARK: Initialization
-    //
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureUI()

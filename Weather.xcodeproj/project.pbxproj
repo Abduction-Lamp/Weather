@@ -657,9 +657,9 @@
 		4E91A0742816D3C600A37732 /* SearchCityCell */ = {
 			isa = PBXGroup;
 			children = (
-				4E662AAD28520CAC00B60C36 /* SearchBarHeader.swift */,
 				4EFF9EBA28183A0A002A0FC6 /* SearchCityCellModel.swift */,
 				4EFF9EB828183674002A0FC6 /* SearchCityCellViewModel.swift */,
+				4E662AAD28520CAC00B60C36 /* SearchBarHeader.swift */,
 				4EFF9EB628183664002A0FC6 /* SearchCityCell.swift */,
 			);
 			path = SearchCityCell;

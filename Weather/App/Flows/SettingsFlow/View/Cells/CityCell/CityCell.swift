@@ -10,7 +10,7 @@ import UIKit
 final class CityCell: UITableViewCell {
     static let reuseIdentifier = "CityCell"
     
-    private let const = DesignConstants.shared
+    private let padding = DesignConstants.shared.padding
     
     private lazy var city: UILabel = {
         let label = UILabel()
@@ -21,7 +21,7 @@ final class CityCell: UITableViewCell {
         return label
     }()
     
-    
+
     var viewModel: CityCellViewModelProtocol? {
         willSet(viewModel) {
             guard let viewModel = viewModel else { return }
@@ -31,7 +31,6 @@ final class CityCell: UITableViewCell {
     
     
     // MARK: Initialization
-    //
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureUI()
@@ -59,8 +58,8 @@ extension CityCell {
         NSLayoutConstraint.activate([
             city.topAnchor.constraint(equalTo: contentView.topAnchor),
             city.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            city.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: const.padding.medium),
-            city.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -const.padding.medium)
+            city.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: padding.medium),
+            city.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -padding.medium)
         ])
     }
 }

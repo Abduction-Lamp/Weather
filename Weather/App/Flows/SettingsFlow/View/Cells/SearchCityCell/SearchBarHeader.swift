@@ -8,14 +8,9 @@
 import UIKit
 
 final class SearchBarHeader: UITableViewHeaderFooterView {
-    static let reuseIdentifier = "SearchBarHeader"
-    static var height: CGFloat {
-        let padding = 2 * DesignConstants.shared.padding.medium + DesignConstants.shared.padding.small
-        let size: CGFloat = 36 + DesignConstants.shared.font.height.large
-        return (padding + size).rounded(.up)
-    }
-    
-    private let const = DesignConstants.shared
+
+    private let font = DesignConstants.shared.font
+    private let padding = DesignConstants.shared.padding
     
     private(set) var backButton: UIButton = {
         let button = UIButton()
@@ -69,19 +64,34 @@ extension SearchBarHeader {
         contentView.addSubview(searchBar)
         
         NSLayoutConstraint.activate([
-            backButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: const.padding.medium),
-            backButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.medium),
+            backButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding.medium),
+            backButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding.medium),
             backButton.widthAnchor.constraint(equalToConstant: 100),
-            backButton.heightAnchor.constraint(equalToConstant: const.font.height.large),
+            backButton.heightAnchor.constraint(equalToConstant: font.height.large),
             
-            searchBar.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: const.padding.small),
+            searchBar.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: padding.small),
             searchBar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             searchBar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            searchBar.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -const.padding.medium)
+            searchBar.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding.medium)
         ])
     }
     
     public func setup() {
         searchBar.becomeFirstResponder()
     }
+}
+
+
+// MARK: - Static class parameters
+//
+extension SearchBarHeader {
+    
+    static let reuseIdentifier = "SearchBarHeader"
+    
+    static var height: CGFloat {
+        let padding = 2 * DesignConstants.shared.padding.medium + DesignConstants.shared.padding.small
+        let size: CGFloat = 36 + DesignConstants.shared.font.height.large
+        return (padding + size).rounded(.up)
+    }
+    
 }

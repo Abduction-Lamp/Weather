@@ -10,8 +10,6 @@ import UIKit
 final class SearchCityCell: UITableViewCell {
     static let reuseIdentifier = "SearchCityCell"
     
-    private let const = DesignConstants.shared
-
     private lazy var mark: UIImageView = {
         let imageView = UIImageView(image: UIImage(systemName: "bookmark.fill"))
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -45,7 +43,6 @@ final class SearchCityCell: UITableViewCell {
     }
     
     // MARK: Initialization
-    //
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         configureUI()
@@ -81,7 +78,7 @@ extension SearchCityCell {
             city.topAnchor.constraint(equalTo: contentView.topAnchor),
             city.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             city.leftAnchor.constraint(equalTo: mark.rightAnchor),
-            city.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -const.padding.small)
+            city.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -DesignConstants.shared.padding.small)
         ])
     }
 }

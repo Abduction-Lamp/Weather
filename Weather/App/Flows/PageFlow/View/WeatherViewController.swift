@@ -37,7 +37,6 @@ final class WeatherViewController: UIViewController {
     
     
     // MARK: Initialization
-    //
     init(viewModel: WeatherViewModelProtocol) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)

@@ -9,7 +9,7 @@ import UIKit
 
 final class SettingsView: UIView {
     
-    private let const = DesignConstants.shared
+    private let padding = DesignConstants.shared.padding
     
     private(set) var segment: UISegmentedControl = {
         let segment = UISegmentedControl()
@@ -71,12 +71,12 @@ final class SettingsView: UIView {
         addSubview(emptyView)
 
         NSLayoutConstraint.activate([
-            segment.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: const.padding.medium),
+            segment.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: padding.medium),
             segment.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
             segment.widthAnchor.constraint(equalToConstant: 200),
             segment.heightAnchor.constraint(equalToConstant: 37),
 
-            table.topAnchor.constraint(equalTo: segment.bottomAnchor, constant: const.padding.medium),
+            table.topAnchor.constraint(equalTo: segment.bottomAnchor, constant: padding.medium),
             table.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor),
             table.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor),
             table.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
