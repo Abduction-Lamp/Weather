@@ -9,7 +9,8 @@ import UIKit
 
 final class CompassView: UIView {
 
-    private let const = DesignConstants.shared
+    private let font = DesignConstants.shared.font
+    private let padding = DesignConstants.shared.padding
     
     private let circle = CAReplicatorLayer()
     private let graduation = CAReplicatorLayer()
@@ -64,7 +65,7 @@ final class CompassView: UIView {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .white
-        label.font = const.font.medium
+        label.font = font.medium
         return label
     }()
     
@@ -72,7 +73,7 @@ final class CompassView: UIView {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .white
-        label.font = const.font.small
+        label.font = font.small
         return label
     }()
     
@@ -143,7 +144,7 @@ final class CompassView: UIView {
         let size = CGSize(width: 1, height: 7)
         
         dot.bounds = CGRect(origin: .zero, size: size)
-        dot.position = CGPoint(x: bounds.midY, y: const.padding.small.top)
+        dot.position = CGPoint(x: bounds.midY, y: padding.small.top)
         
         dot.masksToBounds = true
         dot.backgroundColor = color.cgColor
@@ -154,7 +155,7 @@ final class CompassView: UIView {
         let size = CGSize(width: 2, height: 7)
         
         level.bounds = CGRect(origin: .zero, size: size)
-        level.position = CGPoint(x: bounds.midY, y: const.padding.small.top)
+        level.position = CGPoint(x: bounds.midY, y: padding.small.top)
         
         level.masksToBounds = true
         level.backgroundColor = color.cgColor
@@ -184,29 +185,29 @@ final class CompassView: UIView {
     }
     
     private func textConfigure() {
-        let size = CGSize(width: const.font.height.tiny, height: const.font.height.tiny)
+        let size = CGSize(width: font.height.tiny, height: font.height.tiny)
         
         north.bounds = CGRect(origin: .zero, size: size)
-        north.center = CGPoint(x: bounds.midX, y: const.font.height.tiny)
+        north.center = CGPoint(x: bounds.midX, y: font.height.tiny)
         
         south.bounds = CGRect(origin: .zero, size: size)
-        south.center = CGPoint(x: bounds.midX, y: bounds.size.height - const.font.height.tiny)
+        south.center = CGPoint(x: bounds.midX, y: bounds.size.height - font.height.tiny)
         
         west.bounds = CGRect(origin: .zero, size: size)
-        west.center = CGPoint(x: const.font.height.tiny, y: bounds.midY)
+        west.center = CGPoint(x: font.height.tiny, y: bounds.midY)
 
         east.bounds = CGRect(origin: .zero, size: size)
-        east.center = CGPoint(x:  bounds.size.width - const.font.height.tiny, y: bounds.midY)
+        east.center = CGPoint(x:  bounds.size.width - font.height.tiny, y: bounds.midY)
     }
 
     private func dialConfigure() {
         dial.frame = bounds
 
-        value.bounds = CGRect(origin: .zero, size: CGSize(width: dial.bounds.width, height: const.font.height.medium))
+        value.bounds = CGRect(origin: .zero, size: CGSize(width: dial.bounds.width, height: font.height.medium))
         value.center = CGPoint(x: dial.bounds.midX, y: dial.bounds.midY - 10)
         value.text = measurement
         
-        units.bounds = CGRect(origin: .zero, size: CGSize(width: dial.bounds.width, height: const.font.height.small))
+        units.bounds = CGRect(origin: .zero, size: CGSize(width: dial.bounds.width, height: font.height.small))
         units.center = CGPoint(x: dial.bounds.midX, y: dial.bounds.midY + 10)
         units.text = unitsMeasurement
     }
@@ -233,8 +234,8 @@ final class CompassView: UIView {
         path.addLine(to: CGPoint(x: -5, y: 20))
         
         path.move(to: CGPoint(x: 0, y: 3/4 * dial.bounds.height))
-        path.addLine(to: CGPoint(x: 0, y: dial.bounds.height - const.padding.small.top - 10))
-        path.addLine(to: CGPoint(x: 3, y: dial.bounds.height - const.padding.small.top - 10))
+        path.addLine(to: CGPoint(x: 0, y: dial.bounds.height - padding.small.top - 10))
+        path.addLine(to: CGPoint(x: 3, y: dial.bounds.height - padding.small.top - 10))
         path.addLine(to: CGPoint(x: 3, y: 3/4 * dial.bounds.height))
         path.addLine(to: CGPoint(x: 0, y: 3/4 * dial.bounds.height))
         path.close()
@@ -245,7 +246,7 @@ final class CompassView: UIView {
         tipArrow.lineWidth = 1
         
         let oval = UIBezierPath(ovalIn: CGRect(x: -5,
-                                               y: dial.bounds.height - const.padding.small.top - 10,
+                                               y: dial.bounds.height - padding.small.top - 10,
                                                width: 13,
                                                height: 13))
         endArrow.path = oval.cgPath
