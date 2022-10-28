@@ -8,28 +8,10 @@
 import UIKit
 
 final class AirIndicatorView: UIView {
-    
-    // MARK: Info for Europe Common Air Quality Index (CAQI)
-    //
-    // 1,   Good,         Green
-    // 2,   Fair,         Yellow
-    // 3,   Moderate,     Orange
-    // 4,   Poor,         Red
-    // 5,   Very Poor,    Vinous / Purple
-    //
-    private let segmentInfo: [(index: Int, name: String, color: UIColor)] = [
-        (index: 1, name: NSLocalizedString("AirIndicatorView.Good",     comment: "Good"),      color: .systemGreen),
-        (index: 2, name: NSLocalizedString("AirIndicatorView.Fair",     comment: "Fair"),      color: .systemYellow),
-        (index: 3, name: NSLocalizedString("AirIndicatorView.Moderate", comment: "Moderate"),  color: .systemOrange),
-        (index: 4, name: NSLocalizedString("AirIndicatorView.Poor",     comment: "Poor"),      color: .systemRed),
-        (index: 5, name: NSLocalizedString("AirIndicatorView.VeryPoor", comment: "Very Poor"), color: .systemPurple)
-    ]
 
-    private var indicator: [CAShapeLayer] = []
-    
-    // Air quality index
     private var aqi: Int = 0
-    
+    private var indicator: [CAShapeLayer] = []
+
     
     // MARK: Initialization
     //
@@ -52,8 +34,8 @@ final class AirIndicatorView: UIView {
     
     private func buildContent() {
         backgroundColor = .clear
-        
-        segmentInfo.forEach { _ in
+
+        for _ in 1 ..< CAQIEuropeScale.allCases.count {
             indicator.append(CAShapeLayer())
         }
         indicator.forEach { segment in
@@ -73,11 +55,12 @@ final class AirIndicatorView: UIView {
         var start = 180.degreesToRadians()
         var end = start + step
         
-        if segmentInfo.count == indicator.count {
+        if indicator.count == (CAQIEuropeScale.allCases.count - 1) {
             for index in 0 ..< indicator.count {
                 let path = UIBezierPath()
                 path.addArc(withCenter: center, radius: bigRadius, startAngle: start, endAngle: end, clockwise: true)
-                if segmentInfo[index].index == aqi {
+                
+                if CAQIEuropeScale.allCases[index].rawValue == aqi {
                     path.addLine(to: center)
                 } else {
                     path.addArc(withCenter: center, radius: smallRadius, startAngle: end, endAngle: start, clockwise: false)
@@ -85,7 +68,7 @@ final class AirIndicatorView: UIView {
                 path.close()
                 
                 indicator[index].path = path.cgPath
-                indicator[index].fillColor = segmentInfo[index].color.cgColor
+                indicator[index].fillColor = CAQIEuropeScale.allCases[index].color.cgColor
                 indicator[index].opacity = 1
                 
                 start = end
@@ -99,7 +82,7 @@ final class AirIndicatorView: UIView {
 extension AirIndicatorView {
     
     public func setup(aqi: Int) {
-        if segmentInfo.contains(where: { $0.index == aqi }) {
+        if CAQIEuropeScale.allCases.contains(where: { $0.rawValue == aqi }) {
             self.aqi = aqi
             setNeedsLayout()
         }

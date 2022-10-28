@@ -7,67 +7,7 @@
 
 import UIKit
 
-/// - Parameter co:    CO (Оксид углерода)
-/// - Parameter no:    NO (Оксид азота)
-/// - Parameter no2:   NO2 (Диоксида азота)
-/// - Parameter o3:    О3 (Озон)
-/// - Parameter so2:   SO2 (Диоксид серы)
-/// - Parameter pm2_5: PM2.5 (Мелкие частицы)
-/// - Parameter pm10:  PM10 (Крупные частицы)
-/// - Parameter nh3:   NH3 (Аммиак)
-/// 
-enum ChemicalElements: CustomStringConvertible {
-    case co(Double)
-    case no(Double)
-    case no2(Double)
-    case o3(Double)
-    case so2(Double)
-    case pm2_5(Double)
-    case pm10(Double)
-    case nh3(Double)
-    
-    var value: Double {
-        switch self {
-        case let .co(value):    return value
-        case let .no(value):    return value
-        case let .no2(value):   return value
-        case let .o3(value):    return value
-        case let .so2(value):   return value
-        case let .pm2_5(value): return value
-        case let .pm10(value):  return value
-        case let .nh3(value):   return value
-        }
-    }
-    
-    var designation: String {
-        switch self {
-        case .co:    return "CO"
-        case .no:    return "NO"
-        case .no2:   return "NO\u{2082}"
-        case .o3:    return "O\u{2083}"
-        case .so2:   return "SO\u{2082}"
-        case .pm2_5: return "PM\u{2082}\u{2085}"
-        case .pm10:  return "PM\u{2081}\u{2080}"
-        case .nh3:   return "NH\u{2083}"
-        }
-    }
-    
-    var description: String {
-        switch self {
-        case .co:    return NSLocalizedString("AirIndicatorView.co",    comment: "CO")
-        case .no:    return NSLocalizedString("AirIndicatorView.no",    comment: "NO")
-        case .no2:   return NSLocalizedString("AirIndicatorView.no2",   comment: "NO2")
-        case .o3:    return NSLocalizedString("AirIndicatorView.o3",    comment: "O3")
-        case .so2:   return NSLocalizedString("AirIndicatorView.so2",   comment: "SO2")
-        case .pm2_5: return NSLocalizedString("AirIndicatorView.pm2_5", comment: "PM2.5")
-        case .pm10:  return NSLocalizedString("AirIndicatorView.pm10",  comment: "PM10")
-        case .nh3:   return NSLocalizedString("AirIndicatorView.nh3",   comment: "NH3")
-        }
-    }
-}
-
-
-// MARK: Europe Common Air Quality Index (CAQI)
+// MARK: - Europe Common Air Quality Index (CAQI)
 //
 //                          NO2         O3          PM2.5       PM10
 // Very low  = Good         0–50        0–60        0–15        0–25
@@ -76,7 +16,7 @@ enum ChemicalElements: CustomStringConvertible {
 // High      = Poor         200–400     180–240     55–110      90–180
 // Very high = Very Poor    >400        >240        >110        >180
 //
-enum CAQIEuropeScale: Int, CustomStringConvertible {
+enum CAQIEuropeScale: Int, CustomStringConvertible, CaseIterable {
     case good = 1, fair = 2, moderate = 3, poor = 4, veryPoor = 5, indefinite = 0
     
     init(for element: ChemicalElements) {
@@ -128,7 +68,7 @@ enum CAQIEuropeScale: Int, CustomStringConvertible {
         }
     }
     
-    func getColor() -> UIColor {
+    var color: UIColor {
         switch self {
         case .good:       return .systemGreen
         case .fair:       return .systemYellow
@@ -141,8 +81,7 @@ enum CAQIEuropeScale: Int, CustomStringConvertible {
 }
 
 
-
-// MARK: India Air Quality Index (AQI)
+// MARK: - India Air Quality Index (AQI)
 //
 //                 (Range)     PM10      PM2.5     NO2       O3        CO        SO2        NH3         Pb        Colour
 //  Good           (0–50)      0–50      0–30      0–40      0–50      0–1.0     0–40       0–200       0–0.5     Deep Green
@@ -152,8 +91,8 @@ enum CAQIEuropeScale: Int, CustomStringConvertible {
 //  Very Poor      (301–400)   351–430   121–250   281–400   209–748   17–34     801–1600   1200–1800   3.1–3.5   Red
 //  Severe         (401-500)   430+      250+      400+      748+      34+       1600+      1800+       3.5+      Maroon
 //
-enum AQIIndiaScale: CustomStringConvertible {
-    case good, satisfactory, moderate, poor, veryPoor, severe, indefinite
+enum AQIIndiaScale: CustomStringConvertible, CaseIterable {
+    case good, satisfactory, moderate, poor, veryPoor, severe,  indefinite
     
     init(for element: ChemicalElements) {
         switch element {
@@ -223,19 +162,7 @@ enum AQIIndiaScale: CustomStringConvertible {
         default: self = .indefinite
         }
     }
-    
-    func getColor() -> UIColor {
-        switch self {
-        case .good:         return .systemGreen
-        case .satisfactory: return .systemYellow
-        case .moderate:     return .systemOrange
-        case .poor:         return .systemRed
-        case .veryPoor:     return .systemPurple
-        case .severe:       return .systemBrown
-        case .indefinite:   return .clear
-        }
-    }
-    
+        
     var description: String {
         switch self {
         case .good:         return NSLocalizedString("AirIndicatorView.Good",     comment: "Good")
@@ -245,6 +172,18 @@ enum AQIIndiaScale: CustomStringConvertible {
         case .veryPoor:     return NSLocalizedString("AirIndicatorView.VeryPoor", comment: "Very Poor")
         case .severe:       return NSLocalizedString("AirIndicatorView.Severe",   comment: "Severe")
         case .indefinite:   return "-"
+        }
+    }
+    
+    var color: UIColor {
+        switch self {
+        case .good:         return .systemGreen
+        case .satisfactory: return .systemYellow
+        case .moderate:     return .systemOrange
+        case .poor:         return .systemRed
+        case .veryPoor:     return .systemPurple
+        case .severe:       return .systemBrown
+        case .indefinite:   return .clear
         }
     }
 }
