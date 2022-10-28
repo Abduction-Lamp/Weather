@@ -9,7 +9,9 @@ import UIKit
 
 final class WeatherAirPollutionCell: UITableViewCell {
     
-    private let const = DesignConstants.shared
+    private let font = DesignConstants.shared.font
+    private let padding = DesignConstants.shared.padding
+    private let screen = DesignConstants.shared.size.screen
     
     private var canvasBlurEffect: UIVisualEffectView = {
         let canvas = UIVisualEffectView()
@@ -30,7 +32,7 @@ final class WeatherAirPollutionCell: UITableViewCell {
         let label = UILabel()
         label.textAlignment = .left
         label.textColor = .white
-        label.font = const.font.small
+        label.font = font.small
         label.text = NSLocalizedString("WeatherView.AirPollutionCell.DescriptionLabel", comment: "Air")
         return label
     }()
@@ -39,7 +41,7 @@ final class WeatherAirPollutionCell: UITableViewCell {
         let label = UILabel()
         label.textAlignment = .right
         label.textColor = .white
-        label.font = const.font.tiny
+        label.font = font.tiny
         label.text = NSLocalizedString("WeatherView.AirPollutionCell.Units", comment: "Units") + "\u{00B3}"
         return label
     }()
@@ -97,20 +99,20 @@ extension WeatherAirPollutionCell {
         
         canvasBlurEffect.frame = contentView.bounds
         
-        origin.x = const.padding.medium
-        origin.y = const.padding.small
-        size.width = const.font.height.small
+        origin.x = padding.medium
+        origin.y = padding.small
+        size.width = font.height.small
         size.height = size.width
         icon.frame = CGRect(origin: origin, size: size)
         
-        origin.x = icon.frame.maxX + const.padding.small
-        size.width = contentView.bounds.width - icon.bounds.width - 2 * const.padding.medium
+        origin.x = icon.frame.maxX + padding.small
+        size.width = contentView.bounds.width - icon.bounds.width - 2 * padding.medium
         descriptionLabel.frame = CGRect(origin: origin, size: size)
         
-        size.width = const.size.screen.width / 2
+        size.width = screen.width / 2
         size.height = size.width / 2
         origin.x = (contentView.bounds.width - size.width) / 2
-        origin.y = icon.frame.maxY + const.padding.large
+        origin.y = icon.frame.maxY + padding.large
         airIndicator.frame = CGRect(origin: origin, size: size)
         airIndicator.layoutSubviews()
     }
@@ -121,19 +123,19 @@ extension WeatherAirPollutionCell {
             var size: CGSize = .zero
             
             size.width = contentView.bounds.width / 4
-            size.height = const.font.height.tiny
-            origin.x = contentView.bounds.width - size.width - const.padding.medium
-            origin.y = airIndicator.frame.maxY + const.padding.large
+            size.height = font.height.tiny
+            origin.x = contentView.bounds.width - size.width - padding.medium
+            origin.y = airIndicator.frame.maxY + padding.large
             unitsLabel.frame = CGRect(origin: origin, size: size)
             
-            size.width = contentView.bounds.width - 2 * const.padding.medium
-            size.height = const.font.height.medium
-            origin.x = const.padding.medium
-            origin.y = unitsLabel.frame.maxY + const.padding.small
+            size.width = contentView.bounds.width - 2 * padding.medium
+            size.height = font.height.medium
+            origin.x = padding.medium
+            origin.y = unitsLabel.frame.maxY + padding.small
             
             airComponentViews.forEach { view in
                 view.frame = CGRect(origin: origin, size: size)
-                origin.y += size.height + const.padding.small
+                origin.y += size.height + padding.small
             }
         }
     }
@@ -163,7 +165,7 @@ extension WeatherAirPollutionCell {
     static var height: CGFloat {
         let const = DesignConstants.shared
         
-        let padding = const.padding.small + 2 * const.padding.large // + const.padding.small.top
+        let padding = const.padding.small + 2 * const.padding.large
         let font = const.font.height.small + const.font.height.tiny
         let indicator = const.size.screen.width / 4
         

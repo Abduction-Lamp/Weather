@@ -9,7 +9,8 @@ import UIKit
 
 final class WeatherHourlyCell: UITableViewCell {
     
-    private let const = DesignConstants.shared
+    private let font = DesignConstants.shared.font
+    private let padding = DesignConstants.shared.padding
     
     private var icon: UIImageView = {
         let icon = UIImageView()
@@ -25,7 +26,7 @@ final class WeatherHourlyCell: UITableViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .left
         label.textColor = .white
-        label.font = const.font.small
+        label.font = font.small
         label.text = NSLocalizedString("WeatherView.HourlyCell.DescriptionLabel", comment: "Hourly forecast")
         return label
     }()
@@ -45,7 +46,7 @@ final class WeatherHourlyCell: UITableViewCell {
         stack.axis = .horizontal
         stack.distribution = .equalSpacing
         stack.alignment = .fill
-        stack.spacing = const.padding.medium
+        stack.spacing = padding.medium
         return stack
     }()
     
@@ -94,20 +95,20 @@ extension WeatherHourlyCell {
         scroll.addSubview(mainStack)
 
         NSLayoutConstraint.activate([
-            icon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: const.padding.small),
-            icon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: const.padding.medium),
-            icon.widthAnchor.constraint(equalToConstant: const.font.height.small),
-            icon.heightAnchor.constraint(equalToConstant: const.font.height.small),
+            icon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding.small),
+            icon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding.medium),
+            icon.widthAnchor.constraint(equalToConstant: font.height.small),
+            icon.heightAnchor.constraint(equalToConstant: font.height.small),
             
-            descriptionLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: const.padding.small),
-            descriptionLabel.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: const.padding.small),
-            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.small),
-            descriptionLabel.heightAnchor.constraint(equalToConstant: const.font.height.small),
+            descriptionLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding.small),
+            descriptionLabel.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: padding.small),
+            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding.small),
+            descriptionLabel.heightAnchor.constraint(equalToConstant: font.height.small),
             
-            scroll.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: const.padding.medium),
-            scroll.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: const.padding.small),
-            scroll.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.small),
-            scroll.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -const.padding.small),
+            scroll.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: padding.medium),
+            scroll.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding.small),
+            scroll.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding.small),
+            scroll.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -padding.small),
             
             mainStack.topAnchor.constraint(equalTo: scroll.topAnchor),
             mainStack.leadingAnchor.constraint(equalTo: scroll.leadingAnchor),
@@ -129,7 +130,7 @@ extension WeatherHourlyCell {
         time.translatesAutoresizingMaskIntoConstraints = false
         time.textAlignment = .center
         time.textColor = .white
-        time.font = const.font.small
+        time.font = font.small
         time.text = model.time
         
         let icon = UIImageView()
@@ -146,7 +147,7 @@ extension WeatherHourlyCell {
         temperature.translatesAutoresizingMaskIntoConstraints = false
         temperature.textAlignment = .center
         temperature.textColor = .white
-        temperature.font = const.font.small
+        temperature.font = font.small
         temperature.text = model.temperature
         
         stack.addArrangedSubview(time)

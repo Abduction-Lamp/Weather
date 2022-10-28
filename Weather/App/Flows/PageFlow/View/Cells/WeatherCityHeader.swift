@@ -9,14 +9,15 @@ import UIKit
 
 final class WeatherCityHeader: UITableViewHeaderFooterView {
     
-    private let const = DesignConstants.shared
+    private let font = DesignConstants.shared.font
+    private let padding = DesignConstants.shared.padding
     
     private lazy var cityLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.textColor = .white
-        label.font = const.font.medium
+        label.font = font.medium
         return label
     }()
     
@@ -25,7 +26,7 @@ final class WeatherCityHeader: UITableViewHeaderFooterView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.textColor = .white
-        label.font = const.font.large
+        label.font = font.large
         return label
     }()
     
@@ -34,7 +35,7 @@ final class WeatherCityHeader: UITableViewHeaderFooterView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         label.textColor = .white
-        label.font = const.font.small
+        label.font = font.small
         return label
     }()
     
@@ -71,20 +72,20 @@ extension WeatherCityHeader {
         contentView.addSubview(descriptionLabel)
         
         NSLayoutConstraint.activate([
-            cityLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: const.padding.large),
-            cityLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: const.padding.small),
-            cityLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.small),
-            cityLabel.heightAnchor.constraint(equalToConstant: const.font.height.medium),
+            cityLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: padding.large),
+            cityLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding.small),
+            cityLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding.small),
+            cityLabel.heightAnchor.constraint(equalToConstant: font.height.medium),
             
-            temperatureLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: const.padding.small),
-            temperatureLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: const.padding.small),
-            temperatureLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.small),
-            temperatureLabel.heightAnchor.constraint(equalToConstant: const.font.height.large),
+            temperatureLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: padding.small),
+            temperatureLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding.small),
+            temperatureLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding.small),
+            temperatureLabel.heightAnchor.constraint(equalToConstant: font.height.large),
             
-            descriptionLabel.topAnchor.constraint(equalTo: temperatureLabel.bottomAnchor, constant: const.padding.small),
-            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: const.padding.small),
-            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.small),
-            descriptionLabel.heightAnchor.constraint(equalToConstant: const.font.height.small)
+            descriptionLabel.topAnchor.constraint(equalTo: temperatureLabel.bottomAnchor, constant: padding.small),
+            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: padding.small),
+            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -padding.small),
+            descriptionLabel.heightAnchor.constraint(equalToConstant: font.height.small)
         ])
     }
 

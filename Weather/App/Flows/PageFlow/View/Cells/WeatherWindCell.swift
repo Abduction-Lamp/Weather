@@ -9,7 +9,8 @@ import UIKit
 
 final class WeatherWindCell: UITableViewCell {
 
-    private let const = DesignConstants.shared
+    private let font = DesignConstants.shared.font
+    private let padding = DesignConstants.shared.padding
     
     private var canvasBlurEffect: UIVisualEffectView = {
         let canvas = UIVisualEffectView()
@@ -30,7 +31,7 @@ final class WeatherWindCell: UITableViewCell {
         let label = UILabel()
         label.textAlignment = .left
         label.textColor = .white
-        label.font = const.font.small
+        label.font = font.small
         label.text = NSLocalizedString("WeatherView.WindCell.DescriptionLabel", comment: "Wind")
         return label
     }()
@@ -41,7 +42,7 @@ final class WeatherWindCell: UITableViewCell {
         let label = UILabel()
         label.textAlignment = .left
         label.textColor = .white
-        label.font = const.font.small
+        label.font = font.small
         label.text = ""
         return label
     }()
@@ -55,7 +56,7 @@ final class WeatherWindCell: UITableViewCell {
         textView.textAlignment = .natural
         textView.backgroundColor = .clear
         textView.textColor = .white
-        textView.font = const.font.small
+        textView.font = font.small
         textView.text = ""
         return textView
     }()
@@ -108,26 +109,26 @@ extension WeatherWindCell {
         
         canvasBlurEffect.frame = contentView.bounds
         
-        origin.x = const.padding.medium
-        origin.y = const.padding.small
-        size.width = const.font.height.small
+        origin.x = padding.medium
+        origin.y = padding.small
+        size.width = font.height.small
         size.height = size.width
         icon.frame = CGRect(origin: origin, size: size)
         
-        origin.x = icon.frame.maxX + const.padding.small
-        size.width = contentView.bounds.width - icon.frame.maxX - 2 * const.padding.medium
+        origin.x = icon.frame.maxX + padding.small
+        size.width = contentView.bounds.width - icon.frame.maxX - 2 * padding.medium
         descriptionLabel.frame = CGRect(origin: origin, size: size)
         
-        origin.x = const.padding.medium
-        origin.y = icon.frame.maxY + const.padding.medium
-        size.width = contentView.bounds.height - icon.frame.maxY - 2 * const.padding.medium
+        origin.x = padding.medium
+        origin.y = icon.frame.maxY + padding.medium
+        size.width = contentView.bounds.height - icon.frame.maxY - 2 * padding.medium
         size.height = size.width
         compass.frame = CGRect(origin: origin, size: size)
         compass.layoutSubviews()
 
-        origin.x = compass.frame.maxX + const.padding.medium
-        size.width = contentView.bounds.width - compass.frame.maxX - 2 * const.padding.medium
-        size.height = contentView.bounds.height - origin.y - const.padding.medium
+        origin.x = compass.frame.maxX + padding.medium
+        size.width = contentView.bounds.width - compass.frame.maxX - 2 * padding.medium
+        size.height = contentView.bounds.height - origin.y - padding.medium
         infoText.frame = CGRect(origin: origin, size: size)
     }
     
