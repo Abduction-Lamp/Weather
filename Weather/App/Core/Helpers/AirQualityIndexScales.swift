@@ -9,12 +9,12 @@ import UIKit
 
 // MARK: - Europe Common Air Quality Index (CAQI)
 //
-//                          NO2         O3          PM2.5       PM10
-// Very low  = Good         0–50        0–60        0–15        0–25
-// Low       = Fair         50–100      60–120      15–30       25–50
-// Medium    = Moderate     100–200     120–180     30–55       50–90
-// High      = Poor         200–400     180–240     55–110      90–180
-// Very high = Very Poor    >400        >240        >110        >180
+//                          NO2         O3          PM2.5       PM10        (Color)
+// Very low  = Good         0–50        0–60        0–15        0–25        (Green)
+// Low       = Fair         50–100      60–120      15–30       25–50       (Yellow)
+// Medium    = Moderate     100–200     120–180     30–55       50–90       (Orange)
+// High      = Poor         200–400     180–240     55–110      90–180      (Red)
+// Very high = Very Poor    >400        >240        >110        >180        (Purple)
 //
 enum CAQIEuropeScale: Int, CustomStringConvertible, CaseIterable {
     case good = 1, fair = 2, moderate = 3, poor = 4, veryPoor = 5, indefinite = 0
@@ -83,13 +83,13 @@ enum CAQIEuropeScale: Int, CustomStringConvertible, CaseIterable {
 
 // MARK: - India Air Quality Index (AQI)
 //
-//                 (Range)     PM10      PM2.5     NO2       O3        CO        SO2        NH3         Pb        Colour
-//  Good           (0–50)      0–50      0–30      0–40      0–50      0–1.0     0–40       0–200       0–0.5     Deep Green
-//  Satisfactory   (51–100)    51–100    31–60     41–80     51–100    1.1–2.0   41–80      201–400     0.5–1.0   Light Green
-//  Moderate       (101–200)   101–250   61–90     81–180    101–168   2.1–10    81–380     401–800     1.1–2.0   Yellow
-//  Poor           (201–300)   251–350   91–120    181–280   169–208   10–17     381–800    801–1200    2.1–3.0   Orange
-//  Very Poor      (301–400)   351–430   121–250   281–400   209–748   17–34     801–1600   1200–1800   3.1–3.5   Red
-//  Severe         (401-500)   430+      250+      400+      748+      34+       1600+      1800+       3.5+      Maroon
+//                 (Range)     PM10      PM2.5     NO2       O3        CO        SO2        NH3         Pb        (Color)
+//  Good           (0–50)      0–50      0–30      0–40      0–50      0–1.0     0–40       0–200       0–0.5     (Deep Green)
+//  Satisfactory   (51–100)    51–100    31–60     41–80     51–100    1.1–2.0   41–80      201–400     0.5–1.0   (Light Green)
+//  Moderate       (101–200)   101–250   61–90     81–180    101–168   2.1–10    81–380     401–800     1.1–2.0   (Yellow)
+//  Poor           (201–300)   251–350   91–120    181–280   169–208   10–17     381–800    801–1200    2.1–3.0   (Orange)
+//  Very Poor      (301–400)   351–430   121–250   281–400   209–748   17–34     801–1600   1200–1800   3.1–3.5   (Red)
+//  Severe         (401-500)   430+      250+      400+      748+      34+       1600+      1800+       3.5+      (Maroon)
 //
 enum AQIIndiaScale: CustomStringConvertible, CaseIterable {
     case good, satisfactory, moderate, poor, veryPoor, severe,  indefinite

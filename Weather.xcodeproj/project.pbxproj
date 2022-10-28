@@ -823,8 +823,8 @@
 				4E1C1189283BE015009537F4 /* TimeOfDay.swift */,
 				4EE8A044283FC0AC00902950 /* BeaufortScale.swift */,
 				4EE8A046283FD22600902950 /* WindDirection.swift */,
-				4EDBDC2129094B05008ED7BC /* AirQualityIndexScales.swift */,
 				4E9BC6A0290C05EE0093356E /* ChemicalElements.swift */,
+				4EDBDC2129094B05008ED7BC /* AirQualityIndexScales.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
