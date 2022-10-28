@@ -71,19 +71,19 @@ extension WeatherCityHeader {
         contentView.addSubview(descriptionLabel)
         
         NSLayoutConstraint.activate([
-            cityLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: const.padding.large.top),
-            cityLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: const.padding.small.left),
-            cityLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.small.right),
+            cityLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: const.padding.large),
+            cityLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: const.padding.small),
+            cityLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.small),
             cityLabel.heightAnchor.constraint(equalToConstant: const.font.height.medium),
             
-            temperatureLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: const.padding.small.top),
-            temperatureLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: const.padding.small.left),
-            temperatureLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.small.right),
+            temperatureLabel.topAnchor.constraint(equalTo: cityLabel.bottomAnchor, constant: const.padding.small),
+            temperatureLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: const.padding.small),
+            temperatureLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.small),
             temperatureLabel.heightAnchor.constraint(equalToConstant: const.font.height.large),
             
-            descriptionLabel.topAnchor.constraint(equalTo: temperatureLabel.bottomAnchor, constant: const.padding.small.top),
-            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: const.padding.small.left),
-            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.small.right),
+            descriptionLabel.topAnchor.constraint(equalTo: temperatureLabel.bottomAnchor, constant: const.padding.small),
+            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: const.padding.small),
+            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.small),
             descriptionLabel.heightAnchor.constraint(equalToConstant: const.font.height.small)
         ])
     }
@@ -105,8 +105,8 @@ extension WeatherCityHeader {
     static var height: CGFloat {
         let const = DesignConstants.shared
         
-        let largePadding = 3 * const.padding.large.top
-        let smallPadding = 3 * const.padding.small.top
+        let largePadding = 3 * const.padding.large
+        let smallPadding = 3 * const.padding.small
         let largeLineHeight = const.font.height.large
         let mediumLineHeight = const.font.height.medium
         let smallLineHeight = const.font.height.small

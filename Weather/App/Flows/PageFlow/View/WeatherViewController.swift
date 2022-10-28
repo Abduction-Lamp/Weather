@@ -181,9 +181,9 @@ extension WeatherViewController {
 extension WeatherViewController {
     
     private func calculationHeightOfAirPollutionCell() -> CGFloat {
-        let itemHeight = DesignConstants.shared.font.height.medium + DesignConstants.shared.padding.small.top
+        let itemHeight = DesignConstants.shared.font.height.medium + DesignConstants.shared.padding.small
         let components = CGFloat(viewModel.getNumberOfAirComponents()) * itemHeight
-        let result = (WeatherAirPollutionCell.height + components + DesignConstants.shared.padding.small.bottom).rounded(.up)
+        let result = (WeatherAirPollutionCell.height + components + DesignConstants.shared.padding.small).rounded(.up)
         return result
     }
 }

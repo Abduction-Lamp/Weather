@@ -70,7 +70,7 @@ extension ItemAirComponentView {
         name.frame = CGRect(origin: origin, size: size)
         
         origin.x = name.frame.maxX
-        size.width = bounds.width / 4 - DesignConstants.shared.padding.small.right
+        size.width = bounds.width / 4 - DesignConstants.shared.padding.small
         designation.frame = CGRect(origin: origin, size: size)
         
         origin.x = designation.frame.maxX

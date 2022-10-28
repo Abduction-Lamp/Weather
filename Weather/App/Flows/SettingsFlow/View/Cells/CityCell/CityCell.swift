@@ -59,8 +59,8 @@ extension CityCell {
         NSLayoutConstraint.activate([
             city.topAnchor.constraint(equalTo: contentView.topAnchor),
             city.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            city.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: const.padding.medium.left),
-            city.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -const.padding.medium.right)
+            city.leftAnchor.constraint(equalTo: contentView.leftAnchor, constant: const.padding.medium),
+            city.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -const.padding.medium)
         ])
     }
 }

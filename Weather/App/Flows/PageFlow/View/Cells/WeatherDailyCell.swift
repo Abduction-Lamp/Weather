@@ -36,7 +36,7 @@ final class WeatherDailyCell: UITableViewCell {
         stack.axis = .vertical
         stack.distribution = .equalSpacing
         stack.alignment = .fill
-        stack.spacing = const.padding.small.left
+        stack.spacing = const.padding.small
         return stack
     }()
     
@@ -85,27 +85,27 @@ extension WeatherDailyCell {
         contentView.addSubview(mainStack)
 
         NSLayoutConstraint.activate([
-            icon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: const.padding.small.top),
-            icon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: const.padding.medium.left),
+            icon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: const.padding.small),
+            icon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: const.padding.medium),
             icon.widthAnchor.constraint(equalToConstant: const.font.height.small),
             icon.heightAnchor.constraint(equalToConstant: const.font.height.small),
             
-            descriptionLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: const.padding.small.top),
-            descriptionLabel.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: const.padding.small.left),
-            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.small.right),
+            descriptionLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: const.padding.small),
+            descriptionLabel.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: const.padding.small),
+            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.small),
             descriptionLabel.heightAnchor.constraint(equalToConstant: const.font.height.small),
             
-            mainStack.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: const.padding.medium.top),
+            mainStack.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: const.padding.medium),
             mainStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             mainStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -const.padding.small.top)
+            mainStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -const.padding.small)
         ])
     }
 
     private func buildItem(model: WeatherDailyModel) -> UIView {
         let viewFrame = CGRect(origin: .zero,
                                size: CGSize(width: contentView.frame.width,
-                                            height: (2 * const.padding.small.top + const.font.medium.lineHeight)))
+                                            height: (2 * const.padding.small + const.font.medium.lineHeight)))
         let view = UIView(frame: viewFrame)
         view.translatesAutoresizingMaskIntoConstraints = false
 
@@ -138,15 +138,15 @@ extension WeatherDailyCell {
             icon.widthAnchor.constraint(equalToConstant: const.size.icon.width),
             icon.heightAnchor.constraint(equalToConstant: const.size.icon.height),
             
-            day.topAnchor.constraint(equalTo: view.topAnchor, constant: const.padding.small.top),
-            day.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: const.padding.medium.right),
-            day.trailingAnchor.constraint(equalTo: icon.leadingAnchor, constant: -const.padding.small.right),
-            day.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -const.padding.small.bottom),
+            day.topAnchor.constraint(equalTo: view.topAnchor, constant: const.padding.small),
+            day.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: const.padding.medium),
+            day.trailingAnchor.constraint(equalTo: icon.leadingAnchor, constant: -const.padding.small),
+            day.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -const.padding.small),
             
-            temperature.topAnchor.constraint(equalTo: view.topAnchor, constant: const.padding.small.top),
-            temperature.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: const.padding.small.right),
-            temperature.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -const.padding.medium.right),
-            temperature.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -const.padding.small.bottom)
+            temperature.topAnchor.constraint(equalTo: view.topAnchor, constant: const.padding.small),
+            temperature.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: const.padding.small),
+            temperature.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -const.padding.medium),
+            temperature.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -const.padding.small)
         ])
         
         return view
@@ -170,7 +170,7 @@ extension WeatherDailyCell {
     
     static var height: CGFloat {
         let const = DesignConstants.shared
-        let result = 8 * (2 * const.padding.small.top + const.font.medium.lineHeight) + const.padding.medium.top
+        let result = 8 * (2 * const.padding.small + const.font.medium.lineHeight) + const.padding.medium
         return result.rounded(.up)
     }
 }

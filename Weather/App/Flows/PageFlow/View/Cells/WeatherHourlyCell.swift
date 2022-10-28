@@ -45,7 +45,7 @@ final class WeatherHourlyCell: UITableViewCell {
         stack.axis = .horizontal
         stack.distribution = .equalSpacing
         stack.alignment = .fill
-        stack.spacing = const.padding.medium.left
+        stack.spacing = const.padding.medium
         return stack
     }()
     
@@ -94,20 +94,20 @@ extension WeatherHourlyCell {
         scroll.addSubview(mainStack)
 
         NSLayoutConstraint.activate([
-            icon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: const.padding.small.top),
-            icon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: const.padding.medium.left),
+            icon.topAnchor.constraint(equalTo: contentView.topAnchor, constant: const.padding.small),
+            icon.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: const.padding.medium),
             icon.widthAnchor.constraint(equalToConstant: const.font.height.small),
             icon.heightAnchor.constraint(equalToConstant: const.font.height.small),
             
-            descriptionLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: const.padding.small.top),
-            descriptionLabel.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: const.padding.small.left),
-            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.small.right),
+            descriptionLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: const.padding.small),
+            descriptionLabel.leadingAnchor.constraint(equalTo: icon.trailingAnchor, constant: const.padding.small),
+            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.small),
             descriptionLabel.heightAnchor.constraint(equalToConstant: const.font.height.small),
             
-            scroll.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: const.padding.medium.top),
-            scroll.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: const.padding.small.left),
-            scroll.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.small.right),
-            scroll.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -const.padding.small.bottom),
+            scroll.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: const.padding.medium),
+            scroll.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: const.padding.small),
+            scroll.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.small),
+            scroll.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -const.padding.small),
             
             mainStack.topAnchor.constraint(equalTo: scroll.topAnchor),
             mainStack.leadingAnchor.constraint(equalTo: scroll.leadingAnchor),
@@ -175,7 +175,7 @@ extension WeatherHourlyCell {
     static var height: CGFloat {
         let const = DesignConstants.shared
         
-        let padding = 4 * const.padding.small.top + const.padding.medium.top
+        let padding = 4 * const.padding.small + const.padding.medium
         let font = 3 * const.font.height.small + const.font.height.medium
         
         let result = padding + font

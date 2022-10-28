@@ -8,11 +8,12 @@
 import UIKit
 
 final class DesignConstants {
+    typealias Padding = (small: CGFloat, medium: CGFloat, large: CGFloat)
     
     static let shared = DesignConstants()
     private init() { }
 
-    let padding = Padding()
+    let padding: Padding = (small: 5, medium: 16, large: 27)
     let font = Fonts()
     let size = Sizes()
     let gradient = GradientLayer()
@@ -24,11 +25,11 @@ final class DesignConstants {
     
     // MARK: - Support structs
     //
-    struct Padding {
-        let small =  UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
-        let medium = UIEdgeInsets(top: 16, left: 16, bottom: 16, right: 16)
-        let large =  UIEdgeInsets(top: 27, left: 27, bottom: 27, right: 27)
-    }
+//    struct Padding {
+//        let small:  CGFloat = 5
+//        let medium: CGFloat = 16
+//        let large:  CGFloat = 27
+//    }
     
     struct Fonts {
         let tiny:   UIFont

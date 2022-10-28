@@ -97,20 +97,20 @@ extension WeatherAirPollutionCell {
         
         canvasBlurEffect.frame = contentView.bounds
         
-        origin.x = const.padding.medium.left
-        origin.y = const.padding.small.top
+        origin.x = const.padding.medium
+        origin.y = const.padding.small
         size.width = const.font.height.small
         size.height = size.width
         icon.frame = CGRect(origin: origin, size: size)
         
-        origin.x = icon.frame.maxX + const.padding.small.left
-        size.width = contentView.bounds.width - icon.bounds.width - 2 * const.padding.medium.left
+        origin.x = icon.frame.maxX + const.padding.small
+        size.width = contentView.bounds.width - icon.bounds.width - 2 * const.padding.medium
         descriptionLabel.frame = CGRect(origin: origin, size: size)
         
         size.width = const.screen.width / 2
         size.height = size.width / 2
         origin.x = (contentView.bounds.width - size.width) / 2
-        origin.y = icon.frame.maxY + const.padding.large.top
+        origin.y = icon.frame.maxY + const.padding.large
         airIndicator.frame = CGRect(origin: origin, size: size)
         airIndicator.layoutSubviews()
     }
@@ -122,18 +122,18 @@ extension WeatherAirPollutionCell {
             
             size.width = contentView.bounds.width / 4
             size.height = const.font.height.tiny
-            origin.x = contentView.bounds.width - size.width - const.padding.medium.right
-            origin.y = airIndicator.frame.maxY + const.padding.large.top
+            origin.x = contentView.bounds.width - size.width - const.padding.medium
+            origin.y = airIndicator.frame.maxY + const.padding.large
             unitsLabel.frame = CGRect(origin: origin, size: size)
             
-            size.width = contentView.bounds.width - 2 * const.padding.medium.left
+            size.width = contentView.bounds.width - 2 * const.padding.medium
             size.height = const.font.height.medium
-            origin.x = const.padding.medium.left
-            origin.y = unitsLabel.frame.maxY + const.padding.small.top
+            origin.x = const.padding.medium
+            origin.y = unitsLabel.frame.maxY + const.padding.small
             
             airComponentViews.forEach { view in
                 view.frame = CGRect(origin: origin, size: size)
-                origin.y += size.height + const.padding.small.top
+                origin.y += size.height + const.padding.small
             }
         }
     }
@@ -163,7 +163,7 @@ extension WeatherAirPollutionCell {
     static var height: CGFloat {
         let const = DesignConstants.shared
         
-        let padding = const.padding.small.top + 2 * const.padding.large.top // + const.padding.small.top
+        let padding = const.padding.small + 2 * const.padding.large // + const.padding.small.top
         let font = const.font.height.small + const.font.height.tiny
         let indicator = const.screen.width / 4
         

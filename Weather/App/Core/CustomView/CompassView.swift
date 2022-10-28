@@ -144,7 +144,7 @@ final class CompassView: UIView {
         let size = CGSize(width: 1, height: 7)
         
         dot.bounds = CGRect(origin: .zero, size: size)
-        dot.position = CGPoint(x: bounds.midY, y: padding.small.top)
+        dot.position = CGPoint(x: bounds.midY, y: padding.small)
         
         dot.masksToBounds = true
         dot.backgroundColor = color.cgColor
@@ -155,7 +155,7 @@ final class CompassView: UIView {
         let size = CGSize(width: 2, height: 7)
         
         level.bounds = CGRect(origin: .zero, size: size)
-        level.position = CGPoint(x: bounds.midY, y: padding.small.top)
+        level.position = CGPoint(x: bounds.midY, y: padding.small)
         
         level.masksToBounds = true
         level.backgroundColor = color.cgColor
@@ -234,8 +234,8 @@ final class CompassView: UIView {
         path.addLine(to: CGPoint(x: -5, y: 20))
         
         path.move(to: CGPoint(x: 0, y: 3/4 * dial.bounds.height))
-        path.addLine(to: CGPoint(x: 0, y: dial.bounds.height - padding.small.top - 10))
-        path.addLine(to: CGPoint(x: 3, y: dial.bounds.height - padding.small.top - 10))
+        path.addLine(to: CGPoint(x: 0, y: dial.bounds.height - padding.small - 10))
+        path.addLine(to: CGPoint(x: 3, y: dial.bounds.height - padding.small - 10))
         path.addLine(to: CGPoint(x: 3, y: 3/4 * dial.bounds.height))
         path.addLine(to: CGPoint(x: 0, y: 3/4 * dial.bounds.height))
         path.close()
@@ -246,7 +246,7 @@ final class CompassView: UIView {
         tipArrow.lineWidth = 1
         
         let oval = UIBezierPath(ovalIn: CGRect(x: -5,
-                                               y: dial.bounds.height - padding.small.top - 10,
+                                               y: dial.bounds.height - padding.small - 10,
                                                width: 13,
                                                height: 13))
         endArrow.path = oval.cgPath

@@ -108,26 +108,26 @@ extension WeatherWindCell {
         
         canvasBlurEffect.frame = contentView.bounds
         
-        origin.x = const.padding.medium.left
-        origin.y = const.padding.small.top
+        origin.x = const.padding.medium
+        origin.y = const.padding.small
         size.width = const.font.height.small
         size.height = size.width
         icon.frame = CGRect(origin: origin, size: size)
         
-        origin.x = icon.frame.maxX + const.padding.small.left
-        size.width = contentView.bounds.width - icon.frame.maxX - 2 * const.padding.medium.left
+        origin.x = icon.frame.maxX + const.padding.small
+        size.width = contentView.bounds.width - icon.frame.maxX - 2 * const.padding.medium
         descriptionLabel.frame = CGRect(origin: origin, size: size)
         
-        origin.x = const.padding.medium.left
-        origin.y = icon.frame.maxY + const.padding.medium.top
-        size.width = contentView.bounds.height - icon.frame.maxY - 2 * const.padding.medium.top
+        origin.x = const.padding.medium
+        origin.y = icon.frame.maxY + const.padding.medium
+        size.width = contentView.bounds.height - icon.frame.maxY - 2 * const.padding.medium
         size.height = size.width
         compass.frame = CGRect(origin: origin, size: size)
         compass.layoutSubviews()
 
-        origin.x = compass.frame.maxX + const.padding.medium.left
-        size.width = contentView.bounds.width - compass.frame.maxX - 2 * const.padding.medium.top
-        size.height = contentView.bounds.height - origin.y - const.padding.medium.bottom
+        origin.x = compass.frame.maxX + const.padding.medium
+        size.width = contentView.bounds.width - compass.frame.maxX - 2 * const.padding.medium
+        size.height = contentView.bounds.height - origin.y - const.padding.medium
         infoText.frame = CGRect(origin: origin, size: size)
     }
     

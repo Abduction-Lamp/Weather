@@ -10,7 +10,7 @@ import UIKit
 final class SearchBarHeader: UITableViewHeaderFooterView {
     static let reuseIdentifier = "SearchBarHeader"
     static var height: CGFloat {
-        let padding = 2 * DesignConstants.shared.padding.medium.top + DesignConstants.shared.padding.small.top
+        let padding = 2 * DesignConstants.shared.padding.medium + DesignConstants.shared.padding.small
         let size: CGFloat = 36 + DesignConstants.shared.font.height.large
         return (padding + size).rounded(.up)
     }
@@ -69,15 +69,15 @@ extension SearchBarHeader {
         contentView.addSubview(searchBar)
         
         NSLayoutConstraint.activate([
-            backButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: const.padding.medium.top),
-            backButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.medium.right),
+            backButton.topAnchor.constraint(equalTo: contentView.topAnchor, constant: const.padding.medium),
+            backButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -const.padding.medium),
             backButton.widthAnchor.constraint(equalToConstant: 100),
             backButton.heightAnchor.constraint(equalToConstant: const.font.height.large),
             
-            searchBar.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: const.padding.small.top),
+            searchBar.topAnchor.constraint(equalTo: backButton.bottomAnchor, constant: const.padding.small),
             searchBar.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             searchBar.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-            searchBar.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -const.padding.medium.bottom)
+            searchBar.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -const.padding.medium)
         ])
     }
     

@@ -81,7 +81,7 @@ extension SearchCityCell {
             city.topAnchor.constraint(equalTo: contentView.topAnchor),
             city.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             city.leftAnchor.constraint(equalTo: mark.rightAnchor),
-            city.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -const.padding.small.right)
+            city.rightAnchor.constraint(equalTo: contentView.rightAnchor, constant: -const.padding.small)
         ])
     }
 }

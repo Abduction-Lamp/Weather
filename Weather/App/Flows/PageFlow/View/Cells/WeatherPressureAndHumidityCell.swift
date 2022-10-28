@@ -151,45 +151,45 @@ extension WeatherPressureAndHumidityCell {
         var origin: CGPoint = .zero
         var size: CGSize = .zero
         
-        size = CGSize(width: (contentView.bounds.width - const.padding.medium.left)/2, height: WeatherPressureAndHumidityCell.height)
+        size = CGSize(width: (contentView.bounds.width - const.padding.medium)/2, height: WeatherPressureAndHumidityCell.height)
         humidityView.frame = CGRect(origin: origin, size: size)
-        origin.x = humidityView.frame.maxX + const.padding.medium.left
+        origin.x = humidityView.frame.maxX + const.padding.medium
         pressureView.frame = CGRect(origin: origin, size: size)
         
         humidityBlurEffect.frame = CGRect(origin: .zero, size: size)
         pressureBlurEffect.frame = CGRect(origin: .zero, size: size)
         
-        origin.x = const.padding.medium.left
-        origin.y = const.padding.small.top
+        origin.x = const.padding.medium
+        origin.y = const.padding.small
         size.width = const.font.height.small
         size.height = size.width
         humidityIcon.frame = CGRect(origin: origin, size: size)
         pressureIcon.frame = CGRect(origin: origin, size: size)
         
-        origin.x = humidityIcon.frame.maxX + const.padding.small.left
-        size.width = humidityView.bounds.width - humidityIcon.bounds.maxX - 2 * const.padding.medium.left
+        origin.x = humidityIcon.frame.maxX + const.padding.small
+        size.width = humidityView.bounds.width - humidityIcon.bounds.maxX - 2 * const.padding.medium
         humidityLabel.frame = CGRect(origin: origin, size: size)
         
-        origin.x = pressureIcon.frame.maxX + const.padding.small.left
-        size.width = pressureView.bounds.width - pressureIcon.bounds.maxX - 2 * const.padding.medium.left
+        origin.x = pressureIcon.frame.maxX + const.padding.small
+        size.width = pressureView.bounds.width - pressureIcon.bounds.maxX - 2 * const.padding.medium
         pressureLabel.frame = CGRect(origin: origin, size: size)
         
-        size.width = humidityView.bounds.width - 2 * const.padding.medium.left
+        size.width = humidityView.bounds.width - 2 * const.padding.medium
         size.height = const.font.height.large
-        origin.x = const.padding.medium.left
-        origin.y = humidityLabel.frame.maxY + const.padding.medium.top
+        origin.x = const.padding.medium
+        origin.y = humidityLabel.frame.maxY + const.padding.medium
         humidityValueLabel.frame = CGRect(origin: origin, size: size)
         
         size.height = 2 * const.font.height.tiny
-        origin.x = const.padding.medium.left
-        origin.y = humidityView.frame.height - const.padding.medium.bottom - size.height
+        origin.x = const.padding.medium
+        origin.y = humidityView.frame.height - const.padding.medium - size.height
         dewPointLabel.frame = CGRect(origin: origin, size: size)
         
-        size.width = min(pressureView.bounds.width - 2 * const.padding.medium.left,
-                         pressureView.bounds.height - 2 * const.padding.medium.left - pressureLabel.frame.maxY)
+        size.width = min(pressureView.bounds.width - 2 * const.padding.medium,
+                         pressureView.bounds.height - 2 * const.padding.medium - pressureLabel.frame.maxY)
         size.height = size.width
         origin.x = pressureView.bounds.midX - size.width/2
-        origin.y = pressureLabel.frame.maxY + const.padding.medium.top
+        origin.y = pressureLabel.frame.maxY + const.padding.medium
         barometer.frame = CGRect(origin: origin, size: size)
         barometer.layoutSubviews()
     }
