@@ -92,7 +92,19 @@ enum CAQIEuropeScale: Int, CustomStringConvertible, CaseIterable {
 //  Severe         (401-500)   430+      250+      400+      748+      34+       1600+      1800+       3.5+      (Maroon)
 //
 enum AQIIndiaScale: CustomStringConvertible, CaseIterable {
-    case good, satisfactory, moderate, poor, veryPoor, severe,  indefinite
+    case good, satisfactory, moderate, poor, veryPoor, severe, indefinite
+    
+    init(aqi: Int) {
+        switch aqi {
+        case 0...50:    self = .good
+        case 51...100:  self = .satisfactory
+        case 101...200: self = .moderate
+        case 201...300: self = .poor
+        case 301...400: self = .veryPoor
+        case 401...500: self = .severe
+        default:        self = .indefinite
+        }
+    }
     
     init(for element: ChemicalElements) {
         switch element {
