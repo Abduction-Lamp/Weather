@@ -45,17 +45,9 @@ final class Settings {
             destinationIndex >= 0, destinationIndex < cities.value.count
         else { return }
         
-        var tempList = cities.value
-        let ccity = tempList[sourceIndex]
-        tempList.remove(at: sourceIndex)
-        tempList.insert(ccity, at: destinationIndex)
-        
-        cities.value = tempList
-        tempList.removeAll()
-        
-//        let city = cities.value[sourceIndex]
-//        cities.value.remove(at: sourceIndex)
-//        cities.value.insert(city, at: destinationIndex)
+        let city = cities.value[sourceIndex]
+        cities.value.remove(at: sourceIndex)
+        cities.value.insert(city, at: destinationIndex)
     }
 }
 
