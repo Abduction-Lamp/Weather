@@ -107,7 +107,7 @@ extension WeatherAirPollutionCell {
         size.width = contentView.bounds.width - icon.bounds.width - 2 * const.padding.medium
         descriptionLabel.frame = CGRect(origin: origin, size: size)
         
-        size.width = const.screen.width / 2
+        size.width = const.size.screen.width / 2
         size.height = size.width / 2
         origin.x = (contentView.bounds.width - size.width) / 2
         origin.y = icon.frame.maxY + const.padding.large
@@ -165,7 +165,7 @@ extension WeatherAirPollutionCell {
         
         let padding = const.padding.small + 2 * const.padding.large // + const.padding.small.top
         let font = const.font.height.small + const.font.height.tiny
-        let indicator = const.screen.width / 4
+        let indicator = const.size.screen.width / 4
         
         let result = padding + font + indicator
         return result.rounded(.up)

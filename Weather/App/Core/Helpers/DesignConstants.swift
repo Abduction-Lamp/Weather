@@ -17,21 +17,16 @@ final class DesignConstants {
     let font = Fonts()
     let size = Sizes()
     let gradient = GradientLayer()
-    
-    var screen: CGSize {
-        return CGSize(width: min(UIScreen.main.bounds.width, UIScreen.main.bounds.height),
-                      height: max(UIScreen.main.bounds.width, UIScreen.main.bounds.height))
-    }
-    
-    // MARK: - Support structs
-    //
-//    struct Padding {
-//        let small:  CGFloat = 5
-//        let medium: CGFloat = 16
-//        let large:  CGFloat = 27
-//    }
+}
+
+
+// MARK: - Support Fonts struct
+//
+extension DesignConstants {
     
     struct Fonts {
+        typealias LineHeight = (tiny: CGFloat, small: CGFloat, medium: CGFloat, large: CGFloat, huge: CGFloat)
+        
         let tiny:   UIFont
         let small:  UIFont
         let medium: UIFont
@@ -49,25 +44,34 @@ final class DesignConstants {
             large  = newyork.withSize(41)
             huge   = newyork.withSize(57)
             
-            height = LineHeight(tiny:   tiny.lineHeight.rounded(.up),
-                                small:  small.lineHeight.rounded(.up),
-                                medium: medium.lineHeight.rounded(.up),
-                                large:  large.lineHeight.rounded(.up),
-                                huge:   huge.lineHeight.rounded(.up))
-        }
-        
-        struct LineHeight {
-            let tiny:   CGFloat
-            let small:  CGFloat
-            let medium: CGFloat
-            let large:  CGFloat
-            let huge:   CGFloat
+            height = (tiny: tiny.lineHeight.rounded(.up),
+                      small: small.lineHeight.rounded(.up),
+                      medium: medium.lineHeight.rounded(.up),
+                      large: large.lineHeight.rounded(.up),
+                      huge: huge.lineHeight.rounded(.up))
         }
     }
+}
+
+
+// MARK: - Support Sizes struct
+//
+extension DesignConstants {
     
     struct Sizes {
         let icon = CGSize(width: 50, height: 25)
+        
+        var screen: CGSize {
+            return CGSize(width: min(UIScreen.main.bounds.width, UIScreen.main.bounds.height),
+                          height: max(UIScreen.main.bounds.width, UIScreen.main.bounds.height))
+        }
     }
+}
+
+
+// MARK: - Support Gradient struct
+//
+extension DesignConstants {
     
     struct GradientLayer {
         typealias Gradient = [CGColor]
