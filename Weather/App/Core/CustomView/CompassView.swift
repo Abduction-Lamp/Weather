@@ -88,10 +88,8 @@ final class CompassView: UIView {
     
 
     // MARK: Initialization
-    //
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         buildContent()
     }
     
@@ -99,24 +97,24 @@ final class CompassView: UIView {
         fatalError("📛 CompassView init(coder:) has not been implemented")
     }
 
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        dotConfiguration()
-        circleConfiguration(dotCount: 120)
+        dotConfigure()
+        circleConfigure(dotCount: 120)
         
-        levelConfiguration()
-        graduationConfiguration(dotCount: 8)
+        levelConfigure()
+        graduationConfigure(dotCount: 8)
         
-        textConfiguration()
+        textConfigure()
         
-        arrowConfiguration(degrees: degrees)
-        dialConfiguration()
+        arrowConfigure(degrees: degrees)
+        dialConfigure()
     }
     
     
     // MARK: Configuration content
-    //
     private func buildContent() {
         backgroundColor = .clear
 
@@ -141,7 +139,7 @@ final class CompassView: UIView {
         addSubview(dial)
     }
     
-    private func dotConfiguration() {
+    private func dotConfigure() {
         let size = CGSize(width: 1, height: 7)
         
         dot.bounds = CGRect(origin: .zero, size: size)
@@ -152,7 +150,7 @@ final class CompassView: UIView {
         dot.opacity = 0.5
     }
     
-    private func levelConfiguration() {
+    private func levelConfigure() {
         let size = CGSize(width: 2, height: 7)
         
         level.bounds = CGRect(origin: .zero, size: size)
@@ -163,7 +161,7 @@ final class CompassView: UIView {
         level.opacity = 1
     }
     
-    private func graduationConfiguration(dotCount: Int) {
+    private func graduationConfigure(dotCount: Int) {
         graduation.frame = bounds
         graduation.masksToBounds = true
         
@@ -174,7 +172,7 @@ final class CompassView: UIView {
         graduation.instanceTransform = CATransform3DMakeRotation(angle, 0.0, 0.0, 1.0)
     }
 
-    private func circleConfiguration(dotCount: Int) {
+    private func circleConfigure(dotCount: Int) {
         circle.frame = bounds
         circle.masksToBounds = true
         
@@ -185,7 +183,7 @@ final class CompassView: UIView {
         circle.instanceTransform = CATransform3DMakeRotation(angle, 0.0, 0.0, 1.0)
     }
     
-    private func textConfiguration() {
+    private func textConfigure() {
         let size = CGSize(width: const.font.height.tiny, height: const.font.height.tiny)
         
         north.bounds = CGRect(origin: .zero, size: size)
@@ -201,7 +199,7 @@ final class CompassView: UIView {
         east.center = CGPoint(x:  bounds.size.width - const.font.height.tiny, y: bounds.midY)
     }
 
-    private func dialConfiguration() {
+    private func dialConfigure() {
         dial.frame = bounds
 
         value.bounds = CGRect(origin: .zero, size: CGSize(width: dial.bounds.width, height: const.font.height.medium))
@@ -215,7 +213,7 @@ final class CompassView: UIView {
     
     // FIXME:   Построить стрелочку во время иницилизации, а в конфигурации оставить только поворот стрелки на нужный угол
     //          Стрелка не будет каждый раз создоваться, а будет просто менять свой угол
-    private func arrowConfiguration(degrees: Int) {
+    private func arrowConfigure(degrees: Int) {
         let size = CGSize(width: 3, height: dial.bounds.height)
         
         bodyArrow.bounds = CGRect(origin: .zero, size: size)
@@ -258,7 +256,10 @@ final class CompassView: UIView {
         let legal = degrees - 180
         bodyArrow.transform = CATransform3DMakeRotation(legal.degreesToRadians(), 0.0, 0.0, 1.0)
     }
-    
+}
+
+
+extension CompassView {
     
     public func setup(measurement: String, degrees: Int, units: String) {
         self.measurement = measurement

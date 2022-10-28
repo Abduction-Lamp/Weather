@@ -34,7 +34,7 @@ final class CityCell: UITableViewCell {
     //
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        configureContent()
+        configureUI()
     }
 
     required init?(coder: NSCoder) {
@@ -53,9 +53,7 @@ final class CityCell: UITableViewCell {
 //
 extension CityCell {
 
-    // MARK: Configure content
-    ///
-    private func configureContent() {        
+    private func configureUI() {        
         contentView.addSubview(city)
         
         NSLayoutConstraint.activate([

@@ -43,8 +43,7 @@ final class WeatherCityHeader: UITableViewHeaderFooterView {
     //
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        
-        configureContent()
+        configureUI()
     }
 
     required init?(coder: NSCoder) {
@@ -64,7 +63,7 @@ final class WeatherCityHeader: UITableViewHeaderFooterView {
 //
 extension WeatherCityHeader {
     
-    private func configureContent() {
+    private func configureUI() {
         contentView.backgroundColor = .clear
         
         contentView.addSubview(cityLabel)

@@ -46,7 +46,7 @@ final class SettingsCell: UITableViewCell {
     ///
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        configureContent()
+        configureUI()
     }
 
     required init?(coder: NSCoder) {
@@ -66,10 +66,8 @@ final class SettingsCell: UITableViewCell {
 // MARK: - Support methods
 //
 extension SettingsCell {
-    
-    // MARK: Configure content
-    ///
-    private func configureContent() {
+
+    private func configureUI() {
         contentView.addSubview(segmentControl)
         contentView.addSubview(label)
 

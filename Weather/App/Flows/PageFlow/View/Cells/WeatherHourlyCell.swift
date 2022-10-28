@@ -61,8 +61,7 @@ final class WeatherHourlyCell: UITableViewCell {
     //
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        configureContent()
+        configureUI()
     }
 
     required init?(coder: NSCoder) {
@@ -82,7 +81,7 @@ final class WeatherHourlyCell: UITableViewCell {
 //
 extension WeatherHourlyCell {
     
-    private func configureContent() {
+    private func configureUI() {
         self.backgroundColor = .clear
         contentView.backgroundColor = .clear
         

@@ -47,7 +47,6 @@ final class SettingsView: UIView {
     
     
     // MARK: Initialization
-    //
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -58,13 +57,12 @@ final class SettingsView: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        configureContent()
+        configureUI()
     }
     
     
-    // MARK: Configure content
-    //
-    private func configureContent() {
+    // MARK: Configure
+    private func configureUI() {
         backgroundColor = .systemRed
         emptyView.backgroundColor = table.backgroundColor
         
