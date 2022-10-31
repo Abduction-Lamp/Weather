@@ -48,10 +48,10 @@ extension AirQualityIndexScalesTests {
         
         
         arrGood.forEach { element in
-            let happened = CAQIEuropeScale.init(for: element)
+            let aqi = CAQIEuropeScale.init(for: element)
             
-            switch happened {
-            case .good:       XCTAssertEqual(happened.rawValue, 1)
+            switch aqi {
+            case .good:       XCTAssertEqual(aqi.rawValue, 1)
             case .fair:       XCTFail("Wrong branch (Fair)")
             case .moderate:   XCTFail("Wrong branch (Moderate)")
             case .poor:       XCTFail("Wrong branch (Poor)")
@@ -61,11 +61,11 @@ extension AirQualityIndexScalesTests {
         }
 
         arrFair.forEach { element in
-            let happened = CAQIEuropeScale.init(for: element)
+            let aqi = CAQIEuropeScale.init(for: element)
             
-            switch happened {
+            switch aqi {
             case .good:       XCTFail("Wrong branch (Good)")
-            case .fair:       XCTAssertEqual(happened.rawValue, 2)
+            case .fair:       XCTAssertEqual(aqi.rawValue, 2)
             case .moderate:   XCTFail("Wrong branch (Moderate)")
             case .poor:       XCTFail("Wrong branch (Poor)")
             case .veryPoor:   XCTFail("Wrong branch (Very Poor)")
@@ -74,12 +74,12 @@ extension AirQualityIndexScalesTests {
         }
         
         arrModerate.forEach { element in
-            let happened = CAQIEuropeScale.init(for: element)
+            let aqi = CAQIEuropeScale.init(for: element)
             
-            switch happened {
+            switch aqi {
             case .good:       XCTFail("Wrong branch (Good)")
             case .fair:       XCTFail("Wrong branch (Fair)")
-            case .moderate:   XCTAssertEqual(happened.rawValue, 3)
+            case .moderate:   XCTAssertEqual(aqi.rawValue, 3)
             case .poor:       XCTFail("Wrong branch (Poor)")
             case .veryPoor:   XCTFail("Wrong branch (Very Poor)")
             case .indefinite: XCTFail("Wrong branch (Indefinite)")
@@ -87,41 +87,41 @@ extension AirQualityIndexScalesTests {
         }
         
         arrPoor.forEach { element in
-            let happened = CAQIEuropeScale.init(for: element)
+            let aqi = CAQIEuropeScale.init(for: element)
             
-            switch happened {
+            switch aqi {
             case .good:       XCTFail("Wrong branch (Good)")
             case .fair:       XCTFail("Wrong branch (Fair)")
             case .moderate:   XCTFail("Wrong branch (Moderate)")
-            case .poor:       XCTAssertEqual(happened.rawValue, 4)
+            case .poor:       XCTAssertEqual(aqi.rawValue, 4)
             case .veryPoor:   XCTFail("Wrong branch (Very Poor)")
             case .indefinite: XCTFail("Wrong branch (Indefinite)")
             }
         }
         
         arrVeryPoor.forEach { element in
-            let happened = CAQIEuropeScale.init(for: element)
+            let aqi = CAQIEuropeScale.init(for: element)
             
-            switch happened {
+            switch aqi {
             case .good:       XCTFail("Wrong branch (Good)")
             case .fair:       XCTFail("Wrong branch (Fair)")
             case .moderate:   XCTFail("Wrong branch (Moderate)")
             case .poor:       XCTFail("Wrong branch (Poor)")
-            case .veryPoor:   XCTAssertEqual(happened.rawValue, 5)
+            case .veryPoor:   XCTAssertEqual(aqi.rawValue, 5)
             case .indefinite: XCTFail("Wrong branch (Indefinite)")
             }
         }
         
         arrIndefinite.forEach { element in
-            let happened = CAQIEuropeScale.init(for: element)
+            let aqi = CAQIEuropeScale.init(for: element)
             
-            switch happened {
+            switch aqi {
             case .good:       XCTFail("Wrong branch (Good)")
             case .fair:       XCTFail("Wrong branch (Fair)")
             case .moderate:   XCTFail("Wrong branch (Moderate)")
             case .poor:       XCTFail("Wrong branch (Poor)")
             case .veryPoor:   XCTFail("Wrong branch (Very Poor)")
-            case .indefinite: XCTAssertEqual(happened.rawValue, 0)
+            case .indefinite: XCTAssertEqual(aqi.rawValue, 0)
             }
         }
     }
@@ -150,10 +150,10 @@ extension AirQualityIndexScalesTests {
         
         
         arrGood.forEach { element in
-            let happened = AQIIndiaScale.init(for: element)
+            let aqi = AQIIndiaScale.init(for: element)
             
-            switch happened {
-            case .good:         XCTAssertEqual(happened.rawValue, 1)
+            switch aqi {
+            case .good:         XCTAssertEqual(aqi.rawValue, 1)
             case .satisfactory: XCTFail("Wrong branch (Satisfactory)")
             case .moderate:     XCTFail("Wrong branch (Moderate)")
             case .poor:         XCTFail("Wrong branch (Poor)")
@@ -164,11 +164,11 @@ extension AirQualityIndexScalesTests {
         }
 
         arrSatisfactory.forEach { element in
-            let happened = AQIIndiaScale.init(for: element)
+            let aqi = AQIIndiaScale.init(for: element)
             
-            switch happened {
+            switch aqi {
             case .good:         XCTFail("Wrong branch (Good)")
-            case .satisfactory: XCTAssertEqual(happened.rawValue, 2)
+            case .satisfactory: XCTAssertEqual(aqi.rawValue, 2)
             case .moderate:     XCTFail("Wrong branch (Moderate)")
             case .poor:         XCTFail("Wrong branch (Poor)")
             case .veryPoor:     XCTFail("Wrong branch (Very Poor)")
@@ -178,12 +178,12 @@ extension AirQualityIndexScalesTests {
         }
         
         arrModerate.forEach { element in
-            let happened = AQIIndiaScale.init(for: element)
+            let aqi = AQIIndiaScale.init(for: element)
             
-            switch happened {
+            switch aqi {
             case .good:         XCTFail("Wrong branch (Good)")
             case .satisfactory: XCTFail("Wrong branch (Satisfactory)")
-            case .moderate:     XCTAssertEqual(happened.rawValue, 3)
+            case .moderate:     XCTAssertEqual(aqi.rawValue, 3)
             case .poor:         XCTFail("Wrong branch (Poor)")
             case .veryPoor:     XCTFail("Wrong branch (Very Poor)")
             case .severe:       XCTFail("Wrong branch (Severe)")
@@ -192,13 +192,13 @@ extension AirQualityIndexScalesTests {
         }
         
         arrPoor.forEach { element in
-            let happened = AQIIndiaScale.init(for: element)
+            let aqi = AQIIndiaScale.init(for: element)
             
-            switch happened {
+            switch aqi {
             case .good:         XCTFail("Wrong branch (Good)")
             case .satisfactory: XCTFail("Wrong branch (Satisfactory)")
             case .moderate:     XCTFail("Wrong branch (Moderate)")
-            case .poor:         XCTAssertEqual(happened.rawValue, 4)
+            case .poor:         XCTAssertEqual(aqi.rawValue, 4)
             case .veryPoor:     XCTFail("Wrong branch (Very Poor)")
             case .severe:       XCTFail("Wrong branch (Severe)")
             case .indefinite:   XCTFail("Wrong branch (Indefinite)")
@@ -206,44 +206,44 @@ extension AirQualityIndexScalesTests {
         }
         
         arrVeryPoor.forEach { element in
-            let happened = AQIIndiaScale.init(for: element)
+            let aqi = AQIIndiaScale.init(for: element)
             
-            switch happened {
+            switch aqi {
             case .good:         XCTFail("Wrong branch (Good)")
             case .satisfactory: XCTFail("Wrong branch (Satisfactory)")
             case .moderate:     XCTFail("Wrong branch (Moderate)")
             case .poor:         XCTFail("Wrong branch (Poor)")
-            case .veryPoor:     XCTAssertEqual(happened.rawValue, 5)
+            case .veryPoor:     XCTAssertEqual(aqi.rawValue, 5)
             case .severe:       XCTFail("Wrong branch (Severe)")
             case .indefinite:   XCTFail("Wrong branch (Indefinite)")
             }
         }
         
         arrSevere.forEach { element in
-            let happened = AQIIndiaScale.init(for: element)
+            let aqi = AQIIndiaScale.init(for: element)
             
-            switch happened {
+            switch aqi {
             case .good:         XCTFail("Wrong branch (Good)")
             case .satisfactory: XCTFail("Wrong branch (Satisfactory)")
             case .moderate:     XCTFail("Wrong branch (Moderate)")
             case .poor:         XCTFail("Wrong branch (Poor)")
             case .veryPoor:     XCTFail("Wrong branch (Very Poor)")
-            case .severe:       XCTAssertEqual(happened.rawValue, 6)
+            case .severe:       XCTAssertEqual(aqi.rawValue, 6)
             case .indefinite:   XCTFail("Wrong branch (Indefinite)")
             }
         }
         
         arrIndefinite.forEach { element in
-            let happened = AQIIndiaScale.init(for: element)
+            let aqi = AQIIndiaScale.init(for: element)
             
-            switch happened {
+            switch aqi {
             case .good:         XCTFail("Wrong branch (Good)")
             case .satisfactory: XCTFail("Wrong branch (Satisfactory)")
             case .moderate:     XCTFail("Wrong branch (Moderate)")
             case .poor:         XCTFail("Wrong branch (Poor)")
             case .veryPoor:     XCTFail("Wrong branch (Very Poor)")
             case .severe:       XCTFail("Wrong branch (Severe)")
-            case .indefinite:   XCTAssertEqual(happened.rawValue, 0)
+            case .indefinite:   XCTAssertEqual(aqi.rawValue, 0)
             }
         }
     }
