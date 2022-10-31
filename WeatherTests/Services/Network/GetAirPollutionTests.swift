@@ -13,7 +13,6 @@ class GetAirPollutionTests: XCTestCase {
     let timeout = TimeInterval(0.5)
     var expectation: XCTestExpectation!
     
-    
     var mockURLs: MockURLs = MockURLs()
     var session: URLSessionProtocol = MockURLSession_AirPollution()
     

@@ -42,6 +42,7 @@
 		4E7DDFFB291002F00085702B /* GetAirPollutionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DDFFA291002F00085702B /* GetAirPollutionTests.swift */; };
 		4E7DDFFD2910038A0085702B /* NetworkServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DDFFC2910038A0085702B /* NetworkServiceProtocol.swift */; };
 		4E7DDFFF291006FF0085702B /* MockURLSession_AirPollution.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DDFFE291006FF0085702B /* MockURLSession_AirPollution.swift */; };
+		4E7DE002291026F00085702B /* AirQualityIndexScalesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E7DE001291026F00085702B /* AirQualityIndexScalesTests.swift */; };
 		4E8651DF2833B73D00B883DD /* StorageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8651DE2833B73D00B883DD /* StorageTests.swift */; };
 		4E8651E12833D4A400B883DD /* SettingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8651E02833D4A400B883DD /* SettingsTests.swift */; };
 		4E8651E42834072400B883DD /* WeatherCityHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E8651E32834072400B883DD /* WeatherCityHeader.swift */; };
@@ -174,6 +175,7 @@
 		4E7DDFFA291002F00085702B /* GetAirPollutionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetAirPollutionTests.swift; sourceTree = "<group>"; };
 		4E7DDFFC2910038A0085702B /* NetworkServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceProtocol.swift; sourceTree = "<group>"; };
 		4E7DDFFE291006FF0085702B /* MockURLSession_AirPollution.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession_AirPollution.swift; sourceTree = "<group>"; };
+		4E7DE001291026F00085702B /* AirQualityIndexScalesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AirQualityIndexScalesTests.swift; sourceTree = "<group>"; };
 		4E8651DE2833B73D00B883DD /* StorageTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageTests.swift; sourceTree = "<group>"; };
 		4E8651E02833D4A400B883DD /* SettingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTests.swift; sourceTree = "<group>"; };
 		4E8651E32834072400B883DD /* WeatherCityHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherCityHeader.swift; sourceTree = "<group>"; };
@@ -272,7 +274,7 @@
 		4E0A660028EC5FAF000061F5 /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				4E0A660128EC5FFC000061F5 /* BindableTests.swift */,
+				4E7DE000291026AA0085702B /* Helpers */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -498,6 +500,15 @@
 				4E7C33FA2805A839006EBBE6 /* WeatherUITestsLaunchTests.swift */,
 			);
 			path = WeatherUITests;
+			sourceTree = "<group>";
+		};
+		4E7DE000291026AA0085702B /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				4E0A660128EC5FFC000061F5 /* BindableTests.swift */,
+				4E7DE001291026F00085702B /* AirQualityIndexScalesTests.swift */,
+			);
+			path = Helpers;
 			sourceTree = "<group>";
 		};
 		4E8651DC2833B69200B883DD /* Storage */ = {
@@ -1075,6 +1086,7 @@
 				4E0A660C28EC86DB000061F5 /* MockURLSessionDataTask.swift in Sources */,
 				4E7DDFFF291006FF0085702B /* MockURLSession_AirPollution.swift in Sources */,
 				4E7DDFF9290FF1940085702B /* MockAirPollutionData.swift in Sources */,
+				4E7DE002291026F00085702B /* AirQualityIndexScalesTests.swift in Sources */,
 				4E0A661128EC8DD7000061F5 /* MockURLs.swift in Sources */,
 				4EDC018528EDE62000EA7E78 /* MockCityData.swift in Sources */,
 				4E7C33EF2805A839006EBBE6 /* WeatherTests.swift in Sources */,

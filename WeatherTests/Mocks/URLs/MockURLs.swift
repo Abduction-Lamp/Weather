@@ -10,8 +10,8 @@ import Foundation
 
 struct MockURLs {
 
-    let getWeather = MockURLs.OneCall()
-    let getCoordinates = MockURLs.Geocoding()
+    let getWeather      = MockURLs.OneCall()
+    let getCoordinates  = MockURLs.Geocoding()
     let getAirPollution = MockURLs.AirPollution()
 }
 

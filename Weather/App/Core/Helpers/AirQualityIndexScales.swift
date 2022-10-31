@@ -23,35 +23,39 @@ enum CAQIEuropeScale: Int, CustomStringConvertible, CaseIterable {
         switch element {
         case let .no2(value):
             switch value {
-            case 0   ..< 50:  self = .good
-            case 50  ..< 100: self = .fair
-            case 100 ..< 200: self = .moderate
-            case 200 ..< 400: self = .poor
-            default:          self = .veryPoor
+            case 0   ..< 50:              self = .good
+            case 50  ..< 100:             self = .fair
+            case 100 ..< 200:             self = .moderate
+            case 200 ..< 400:             self = .poor
+            case 400 ..< Double.infinity: self = .veryPoor
+            default:                      self = .indefinite
             }
         case let .o3(value):
             switch value {
-            case 0   ..< 60:  self = .good
-            case 60  ..< 120: self = .fair
-            case 120 ..< 180: self = .moderate
-            case 180 ..< 240: self = .poor
-            default:          self = .veryPoor
+            case 0   ..< 60:              self = .good
+            case 60  ..< 120:             self = .fair
+            case 120 ..< 180:             self = .moderate
+            case 180 ..< 240:             self = .poor
+            case 240 ..< Double.infinity: self = .veryPoor
+            default:                      self = .indefinite
             }
         case let .pm2_5(value):
             switch value {
-            case 0  ..< 15:  self = .good
-            case 15 ..< 30:  self = .fair
-            case 30 ..< 55:  self = .moderate
-            case 55 ..< 110: self = .poor
-            default:         self = .veryPoor
+            case 0  ..< 15:               self = .good
+            case 15 ..< 30:               self = .fair
+            case 30 ..< 55:               self = .moderate
+            case 55 ..< 110:              self = .poor
+            case 110 ..< Double.infinity: self = .veryPoor
+            default:                      self = .indefinite
             }
         case let .pm10(value):
             switch value {
-            case 0  ..< 25:  self = .good
-            case 25 ..< 50:  self = .fair
-            case 50 ..< 90:  self = .moderate
-            case 90 ..< 180: self = .poor
-            default:         self = .veryPoor
+            case 0  ..< 25:               self = .good
+            case 25 ..< 50:               self = .fair
+            case 50 ..< 90:               self = .moderate
+            case 90 ..< 180:              self = .poor
+            case 180 ..< Double.infinity: self = .veryPoor
+            default:                      self = .indefinite
             }
         default: self = .indefinite
         }
@@ -91,8 +95,8 @@ enum CAQIEuropeScale: Int, CustomStringConvertible, CaseIterable {
 //  Very Poor      (301–400)   351–430   121–250   281–400   209–748   17–34     801–1600   1200–1800   3.1–3.5   (Red)
 //  Severe         (401-500)   430+      250+      400+      748+      34+       1600+      1800+       3.5+      (Maroon)
 //
-enum AQIIndiaScale: CustomStringConvertible, CaseIterable {
-    case good, satisfactory, moderate, poor, veryPoor, severe, indefinite
+enum AQIIndiaScale: Int, CustomStringConvertible, CaseIterable {
+    case good = 1, satisfactory = 2, moderate = 3, poor = 4, veryPoor = 5, severe = 6, indefinite = 0
     
     init(aqi: Int) {
         switch aqi {
@@ -110,66 +114,73 @@ enum AQIIndiaScale: CustomStringConvertible, CaseIterable {
         switch element {
         case let .pm10(value):
             switch value {
-            case 0   ..< 50:  self = .good
-            case 50  ..< 100: self = .satisfactory
-            case 100 ..< 250: self = .moderate
-            case 250 ..< 350: self = .poor
-            case 350 ..< 430: self = .veryPoor
-            default:          self = .severe
+            case 0   ..< 50:              self = .good
+            case 50  ..< 100:             self = .satisfactory
+            case 100 ..< 250:             self = .moderate
+            case 250 ..< 350:             self = .poor
+            case 350 ..< 430:             self = .veryPoor
+            case 430 ..< Double.infinity: self = .severe
+            default:                      self = .indefinite
             }
         case let .pm2_5(value):
             switch value {
-            case 0   ..< 30:  self = .good
-            case 30  ..< 60:  self = .satisfactory
-            case 60  ..< 90:  self = .moderate
-            case 90  ..< 120: self = .poor
-            case 120 ..< 250: self = .veryPoor
-            default:          self = .severe
+            case 0   ..< 30:              self = .good
+            case 30  ..< 60:              self = .satisfactory
+            case 60  ..< 90:              self = .moderate
+            case 90  ..< 120:             self = .poor
+            case 120 ..< 250:             self = .veryPoor
+            case 250 ..< Double.infinity: self = .severe
+            default:                      self = .indefinite
             }
         case let .no2(value):
             switch value {
-            case 0   ..< 40:  self = .good
-            case 40  ..< 80:  self = .satisfactory
-            case 80  ..< 180: self = .moderate
-            case 180 ..< 280: self = .poor
-            case 280 ..< 400: self = .veryPoor
-            default:          self = .severe
+            case 0   ..< 40:              self = .good
+            case 40  ..< 80:              self = .satisfactory
+            case 80  ..< 180:             self = .moderate
+            case 180 ..< 280:             self = .poor
+            case 280 ..< 400:             self = .veryPoor
+            case 400 ..< Double.infinity: self = .severe
+            default:                      self = .indefinite
             }
         case let .o3(value):
             switch value {
-            case 0   ..< 50:  self = .good
-            case 50  ..< 100: self = .satisfactory
-            case 100 ..< 168: self = .moderate
-            case 168 ..< 208: self = .poor
-            case 208 ..< 748: self = .veryPoor
-            default:          self = .severe
+            case 0   ..< 50:              self = .good
+            case 50  ..< 100:             self = .satisfactory
+            case 100 ..< 168:             self = .moderate
+            case 168 ..< 208:             self = .poor
+            case 208 ..< 748:             self = .veryPoor
+            case 748 ..< Double.infinity: self = .severe
+            default:                      self = .indefinite
             }
         case let .co(value):
             switch value {
-            case 0  ..< 1:  self = .good
-            case 1  ..< 2:  self = .satisfactory
-            case 2  ..< 10: self = .moderate
-            case 10 ..< 17: self = .poor
-            case 17 ..< 34: self = .veryPoor
-            default:        self = .severe
+            case 0  ..< 1:                self = .good
+            case 1  ..< 2:                self = .satisfactory
+            case 2  ..< 10:               self = .moderate
+            case 10 ..< 17:               self = .poor
+            case 17 ..< 34:               self = .veryPoor
+            case 34 ..< Double.infinity: self = .severe
+            default:                      self = .indefinite
             }
         case let .so2(value):
             switch value {
-            case 0  ..< 40:    self = .good
-            case 40  ..< 80:   self = .satisfactory
-            case 80  ..< 380:  self = .moderate
-            case 380 ..< 800:  self = .poor
-            case 800 ..< 1600: self = .veryPoor
-            default:           self = .severe
+            case 0  ..< 40:               self = .good
+            case 40  ..< 80:              self = .satisfactory
+            case 80  ..< 380:             self = .moderate
+            case 380 ..< 800:             self = .poor
+            case 800 ..< 1600:            self = .veryPoor
+            case 1600 ..< Double.infinity: self = .severe
+            default:                      self = .indefinite
             }
         case let .nh3(value):
             switch value {
-            case 0    ..< 200:  self = .good
-            case 200  ..< 400:  self = .satisfactory
-            case 400  ..< 800:  self = .moderate
-            case 800  ..< 1200: self = .poor
-            case 1200 ..< 1800: self = .veryPoor
-            default:            self = .severe
+            case 0    ..< 200:            self = .good
+            case 200  ..< 400:            self = .satisfactory
+            case 400  ..< 800:            self = .moderate
+            case 800  ..< 1200:           self = .poor
+            case 1200 ..< 1800:           self = .veryPoor
+            case 1800 ..< Double.infinity: self = .severe
+            default:                      self = .indefinite
             }
         default: self = .indefinite
         }
