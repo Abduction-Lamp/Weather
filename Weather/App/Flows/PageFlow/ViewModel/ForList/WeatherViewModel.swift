@@ -56,10 +56,10 @@ extension WeatherViewModel: WeatherViewModelProtocol {
         
         state.value = .loading
         
-        network?.getWeatherOneCall(lat: city.latitude,
-                                   lon: city.longitude,
-                                   units: "metric",
-                                   lang: NSLocalizedString("General.Lang", comment: "Lang")) { [weak self] response in
+        network?.getWeather(lat: city.latitude,
+                            lon: city.longitude,
+                            units: "metric",
+                            lang: NSLocalizedString("General.Lang", comment: "Lang")) { [weak self] response in
             guard let self = self else { return }
             
             switch response {

@@ -26,13 +26,13 @@ struct GeocodingResponse: Codable {
     
     
     struct LocalNames: Codable {
-        let featureName: String?
+        let name: String?
         let ascii: String?
         let ru: String?
         let en: String?
         
         private enum CodingKeys: String, CodingKey {
-            case featureName = "feature_name"
+            case name = "feature_name"
             case ascii
             case ru
             case en
@@ -69,7 +69,7 @@ extension GeocodingResponse.LocalNames: Equatable {
     
     static func == (lhs: GeocodingResponse.LocalNames, rhs: GeocodingResponse.LocalNames) -> Bool {
         lhs.ascii == rhs.ascii &&
-        lhs.featureName == rhs.featureName &&
+        lhs.name == rhs.name &&
         lhs.ru == rhs.ru &&
         lhs.en == rhs.en
     }

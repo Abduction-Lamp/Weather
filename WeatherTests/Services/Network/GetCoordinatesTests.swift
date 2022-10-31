@@ -1,21 +1,21 @@
 //
-//  GetWeatherOneCallTests.swift
+//  GetCoordinatesTests.swift
 //  WeatherTests
 //
-//  Created by Владимир on 05.10.2022.
+//  Created by Владимир on 06.10.2022.
 //
 
 import XCTest
 @testable import Weather
 
-class GetWeatherOneCallTests: XCTestCase {
+class GetCoordinatesTests: XCTestCase {
     
     let timeout = TimeInterval(0.5)
     var expectation: XCTestExpectation!
     
     
     var mockURLs: MockURLs = MockURLs()
-    var session: URLSessionProtocol = MockURLSession_WeatherOneCall()
+    var session: URLSessionProtocol = MockURLSession_Coordinates()
     
     var network: Network!
     
@@ -23,7 +23,7 @@ class GetWeatherOneCallTests: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         
-        expectation = XCTestExpectation(description: "[ Network > WeatherOneCall ]")
+        expectation = XCTestExpectation(description: "[ Network > Get Coordinates ]")
         network = Network(session: session)
     }
 
@@ -38,33 +38,33 @@ class GetWeatherOneCallTests: XCTestCase {
 
 // MARK: - Functional test case
 //
-extension GetWeatherOneCallTests {
+extension GetCoordinatesTests {
     
     func testNetwork() throws {
         XCTAssertNotNil(network)
     }
     
-    func testGetWeatherOneCall_Success() throws {
-        let params = mockURLs.getWeatherOneCall.urlExcitesData.params
-        let weather = MockWeatherData().weather
+    func testGetCoordinates_Success() throws {
+        let params = mockURLs.getCoordinates.urlExcitesData
+        let cities = MockCityData()
         
-        network?.getWeatherOneCall(lat: params.lat, lon: params.lon, completed: { result in
+        network?.getCoordinates(for: params.params, completed: { result in
             switch result {
-            case .success(let response):
-                XCTAssertEqual(response, weather)
+            case .success(let list):
+                XCTAssertEqual(list, cities.raw)
             case .failure(let error):
-                XCTFail(error.description)
+                XCTFail(error.localizedDescription)
             }
             self.expectation.fulfill()
         })
         wait(for: [self.expectation], timeout: timeout)
     }
     
-    func testGetWeatherOneCall_ResponseError() throws {
-        let params = mockURLs.getWeatherOneCall.urlExcitesResponseError
+    func testGetCoordinates_ResponseError() throws {
+        let params = mockURLs.getCoordinates.urlExcitesResponseError
         var happened = false
         
-        network?.getWeatherOneCall(lat: params.params.lat, lon: params.params.lon, completed: { result in
+        network?.getCoordinates(for: params.params, completed: { result in
             switch result {
             case .success(_):
                 XCTFail("Wrong branch (success)")
@@ -90,11 +90,11 @@ extension GetWeatherOneCallTests {
         wait(for: [self.expectation], timeout: timeout)
     }
     
-    func testGetWeatherOneCall_Error() throws {
-        let params = mockURLs.getWeatherOneCall.urlExcitesError
+    func testGetCoordinates_Error() throws {
+        let params = mockURLs.getCoordinates.urlExcitesError
         var happened = false
         
-        network?.getWeatherOneCall(lat: params.params.lat, lon: params.params.lon, completed: { result in
+        network?.getCoordinates(for: params.params, completed: { result in
             switch result {
             case .success(_):
                 XCTFail("Wrong branch (success)")
@@ -120,11 +120,11 @@ extension GetWeatherOneCallTests {
         wait(for: [self.expectation], timeout: timeout)
     }
     
-    func testGetWeatherOneCall_NilData() throws {
-        let params = mockURLs.getWeatherOneCall.urlExcitesNilData
+    func testGetCoordinates_NilData() throws {
+        let params = mockURLs.getCoordinates.urlExcitesNilData
         var happened = false
-        
-        network?.getWeatherOneCall(lat: params.params.lat, lon: params.params.lon, completed: { result in
+         
+        network?.getCoordinates(for: params.params, completed: { result in
             switch result {
             case .success(_):
                 XCTFail("Wrong branch (success)")
@@ -150,11 +150,11 @@ extension GetWeatherOneCallTests {
         wait(for: [self.expectation], timeout: timeout)
     }
     
-    func testGetWeatherOneCall_DataDecodeError() throws {
-        let params = mockURLs.getWeatherOneCall.urlExcitesDecoderError
+    func testGetCoordinates_DataDecodeError() throws {
+        let params = mockURLs.getCoordinates.urlExcitesDecoderError
         var happened = false
-        
-        network?.getWeatherOneCall(lat: params.params.lat, lon: params.params.lon, completed: { result in
+         
+        network?.getCoordinates(for: params.params, completed: { result in
             switch result {
             case .success(_):
                 XCTFail("Wrong branch (success)")

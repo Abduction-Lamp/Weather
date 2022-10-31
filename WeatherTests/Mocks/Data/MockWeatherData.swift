@@ -15,7 +15,7 @@ class MockWeatherData {
     let data: Data
     
     init() {
-        let builder = MockOneCallResponseComponents()
+        let builder = BuilderMockOneCallResponseComponents()
         
         weather = OneCallResponse(lat: 1.0,
                                   lon: 1.0,
@@ -36,7 +36,7 @@ class MockWeatherData {
 
 
 
-class MockOneCallResponseComponents {
+class BuilderMockOneCallResponseComponents {
     
     func buildRainResponse() -> RainResponse {
         return RainResponse(lastOneHour: 1.0)

@@ -10,8 +10,9 @@ import Foundation
 
 struct MockURLs {
 
-    let getWeatherOneCall = MockURLs.OneCall()
-    let getCoordinatesByLocationName = MockURLs.Geocoding()
+    let getWeather = MockURLs.OneCall()
+    let getCoordinates = MockURLs.Geocoding()
+    let getAirPollution = MockURLs.AirPollution()
 }
 
 
@@ -53,6 +54,25 @@ extension MockURLs {
         let urlExcitesError = makeParams("Москва 3.0")
         let urlExcitesDecoderError = makeParams("Москва 4.0")
         let urlExcitesNilData = makeParams("Москва 5.0")
+    }
+    
+    
+    // MARK: AirPollution
+    //
+    struct AirPollution {
+        typealias AirPollutionParams = (params: (lat: Double, lon: Double),
+                                        url: URL?)
+        
+        private static func makeParams(lat: Double, lon: Double) -> AirPollutionParams {
+            return (params: (lat: lat, lon: lon),
+                    url: MockURLs.makeUrl(request: AirPollutionRequest(lat: lat, lon: lon)))
+        }
+        
+        let urlExcitesData = makeParams(lat: 1.0, lon: 1.0)
+        let urlExcitesResponseError = makeParams(lat: 2.0, lon: 2.0)
+        let urlExcitesError = makeParams(lat: 3.0, lon: 3.0)
+        let urlExcitesDecoderError = makeParams(lat: 4.0, lon: 4.0)
+        let urlExcitesNilData = makeParams(lat: 5.0, lon: 5.0)
     }
 }
 

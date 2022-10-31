@@ -1,21 +1,21 @@
 //
-//  GetCoordinatesByLocationNameTests.swift
+//  GetAirPollutionTests.swift
 //  WeatherTests
 //
-//  Created by Владимир on 06.10.2022.
+//  Created by Владимир on 31.10.2022.
 //
 
 import XCTest
 @testable import Weather
 
-class GetCoordinatesByLocationNameTests: XCTestCase {
-    
+class GetAirPollutionTests: XCTestCase {
+
     let timeout = TimeInterval(0.5)
     var expectation: XCTestExpectation!
     
     
     var mockURLs: MockURLs = MockURLs()
-    var session: URLSessionProtocol = MockURLSession_CoordinatesByLocationName()
+    var session: URLSessionProtocol = MockURLSession_AirPollution()
     
     var network: Network!
     
@@ -23,7 +23,7 @@ class GetCoordinatesByLocationNameTests: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         
-        expectation = XCTestExpectation(description: "[ Network > CoordinatesByLocationName ]")
+        expectation = XCTestExpectation(description: "[ Network > Get AirPollution ]")
         network = Network(session: session)
     }
 
@@ -36,35 +36,33 @@ class GetCoordinatesByLocationNameTests: XCTestCase {
 }
 
 
-// MARK: - Functional test case
-//
-extension GetCoordinatesByLocationNameTests {
+extension GetAirPollutionTests {
     
     func testNetwork() throws {
         XCTAssertNotNil(network)
     }
     
-    func testGetCoordinatesByLocationName_Success() throws {
-        let params = mockURLs.getCoordinatesByLocationName.urlExcitesData
-        let cities = MockCityData()
+    func testGetAirPollution_Success() throws {
+        let params = mockURLs.getAirPollution.urlExcitesData.params
+        let air = MockAirPollutionData().air
         
-        network?.getCoordinatesByLocationName(city: params.params, completed: { result in
+        network?.getAirPollution(lat: params.lat, lon: params.lon, completed: { result in
             switch result {
-            case .success(let list):
-                XCTAssertEqual(list, cities.raw)
+            case .success(let response):
+                XCTAssertEqual(response, air)
             case .failure(let error):
-                XCTFail(error.localizedDescription)
+                XCTFail(error.description)
             }
             self.expectation.fulfill()
         })
         wait(for: [self.expectation], timeout: timeout)
     }
     
-    func testGetCoordinatesByLocationName_ResponseError() throws {
-        let params = mockURLs.getCoordinatesByLocationName.urlExcitesResponseError
+    func testGetAirPollution_ResponseError() throws {
+        let params = mockURLs.getAirPollution.urlExcitesResponseError
         var happened = false
         
-        network?.getCoordinatesByLocationName(city: params.params, completed: { result in
+        network?.getAirPollution(lat: params.params.lat, lon: params.params.lon, completed: { result in
             switch result {
             case .success(_):
                 XCTFail("Wrong branch (success)")
@@ -90,11 +88,11 @@ extension GetCoordinatesByLocationNameTests {
         wait(for: [self.expectation], timeout: timeout)
     }
     
-    func testGetCoordinatesByLocationName_Error() throws {
-        let params = mockURLs.getCoordinatesByLocationName.urlExcitesError
+    func testGetAirPollution_Error() throws {
+        let params = mockURLs.getAirPollution.urlExcitesError
         var happened = false
         
-        network?.getCoordinatesByLocationName(city: params.params, completed: { result in
+        network?.getAirPollution(lat: params.params.lat, lon: params.params.lon, completed: { result in
             switch result {
             case .success(_):
                 XCTFail("Wrong branch (success)")
@@ -120,11 +118,11 @@ extension GetCoordinatesByLocationNameTests {
         wait(for: [self.expectation], timeout: timeout)
     }
     
-    func testGetCoordinatesByLocationName_NilData() throws {
-        let params = mockURLs.getCoordinatesByLocationName.urlExcitesNilData
+    func testGetAirPollution_NilData() throws {
+        let params = mockURLs.getAirPollution.urlExcitesNilData
         var happened = false
-         
-        network?.getCoordinatesByLocationName(city: params.params, completed: { result in
+        
+        network?.getAirPollution(lat: params.params.lat, lon: params.params.lon, completed: { result in
             switch result {
             case .success(_):
                 XCTFail("Wrong branch (success)")
@@ -150,11 +148,11 @@ extension GetCoordinatesByLocationNameTests {
         wait(for: [self.expectation], timeout: timeout)
     }
     
-    func testGetCoordinatesByLocationName_DataDecodeError() throws {
-        let params = mockURLs.getCoordinatesByLocationName.urlExcitesDecoderError
+    func testGetAirPollution_DataDecodeError() throws {
+        let params = mockURLs.getAirPollution.urlExcitesDecoderError
         var happened = false
-         
-        network?.getCoordinatesByLocationName(city: params.params, completed: { result in
+        
+        network?.getAirPollution(lat: params.params.lat, lon: params.params.lon, completed: { result in
             switch result {
             case .success(_):
                 XCTFail("Wrong branch (success)")

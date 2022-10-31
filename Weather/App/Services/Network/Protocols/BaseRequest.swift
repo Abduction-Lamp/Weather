@@ -13,7 +13,7 @@ protocol BaseRequest {
     var path:   String { get }
     var params: [URLQueryItem] { get }
     
-    var key:  String { get }
+    var key:    String { get }
 }
 
 extension BaseRequest {

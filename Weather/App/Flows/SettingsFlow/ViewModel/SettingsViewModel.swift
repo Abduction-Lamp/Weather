@@ -152,7 +152,7 @@ extension SettingsViewModel: SettingsViewModelProtocol {
         if city.isEmpty {
             searchResult.value = []
         } else {
-            network?.getCoordinatesByLocationName(city: city) { [weak self] result in
+            network?.getCoordinates(for: city) { [weak self] result in
                 guard let self = self else { return }
                 switch result {
                 case .success(let cities):

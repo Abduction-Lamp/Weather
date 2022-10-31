@@ -67,15 +67,15 @@ struct AirPollutionItemResponse: Codable {
 extension AirPollutionItemResponse: Equatable {
     
     static func == (lhs: AirPollutionItemResponse, rhs: AirPollutionItemResponse) -> Bool {
-        return  lhs.time == rhs.time &&
-                lhs.main.aqi == rhs.main.aqi &&
-                lhs.components.co == rhs.components.co &&
-                lhs.components.no == rhs.components.no &&
-                lhs.components.no2 == rhs.components.no2 &&
-                lhs.components.o3 == rhs.components.o3 &&
-                lhs.components.so2 == rhs.components.so2 &&
-                lhs.components.pm2_5 == rhs.components.pm2_5 &&
-                lhs.components.pm10 == rhs.components.pm10 &&
-                lhs.components.nh3 == rhs.components.nh3
+        lhs.time == rhs.time &&
+        lhs.main.aqi == rhs.main.aqi &&
+        lhs.components.co == rhs.components.co &&
+        lhs.components.no == rhs.components.no &&
+        lhs.components.no2 == rhs.components.no2 &&
+        lhs.components.o3 == rhs.components.o3 &&
+        lhs.components.so2 == rhs.components.so2 &&
+        lhs.components.pm2_5 == rhs.components.pm2_5 &&
+        lhs.components.pm10 == rhs.components.pm10 &&
+        lhs.components.nh3 == rhs.components.nh3
     }
 }

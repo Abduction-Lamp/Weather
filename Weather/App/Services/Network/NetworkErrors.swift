@@ -1,5 +1,5 @@
 //
-//  NetworkResponseError.swift
+//  NetworkErrors.swift
 //  Weather
 //
 //  Created by Владимир on 25.04.2022.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum NetworkResponseError: Error {
+enum NetworkErrors: Error {
     case status (url: String, code: Int?)
     case error  (url: String, message: String?)
     case data   (url: String, message: String?)
@@ -15,7 +15,7 @@ enum NetworkResponseError: Error {
     case url    (message: String?)
 }
 
-extension NetworkResponseError: CustomStringConvertible {
+extension NetworkErrors: CustomStringConvertible {
     
     var description: String {
         switch self {

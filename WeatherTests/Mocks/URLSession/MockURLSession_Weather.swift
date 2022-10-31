@@ -1,29 +1,29 @@
 //
-//  MockURLSession_CoordinatesByLocationName.swift
+//  MockURLSession_Weather.swift
 //  WeatherTests
 //
-//  Created by Владимир on 05.10.2022.
+//  Created by Владимир on 04.10.2022.
 //
 
 import Foundation
 @testable import Weather
 
-class MockURLSession_CoordinatesByLocationName: URLSessionProtocol {
-
-    private let mockURLs = MockURLs().getCoordinatesByLocationName
+class MockURLSession_Weather: URLSessionProtocol {
+    
+    private let mockURLs = MockURLs().getWeather
     
     func dataTaskEx(with url: URL, completionHandler: @escaping (Data?, URLResponse?, Error?) -> Void) -> URLSessionDataTaskProtocol {
         
         var data: Data? = nil
         var response: HTTPURLResponse? = nil
-        var error: NetworkResponseError? = nil
+        var error: NetworkErrors? = nil
         
         switch url {
         // MARK: Success
         case mockURLs.urlExcitesData.url:
             error = nil
             response = HTTPURLResponse.init(url: url, statusCode: 200, httpVersion: nil, headerFields: nil)
-            data = MockCityData.init().data
+            data = MockWeatherData.init().data
 
         // MARK: Failure Response (Response Error)
         case mockURLs.urlExcitesResponseError.url:
@@ -33,7 +33,7 @@ class MockURLSession_CoordinatesByLocationName: URLSessionProtocol {
             
         // MARK: Failure Error
         case mockURLs.urlExcitesError.url:
-            error = NetworkResponseError.error(url: url.absoluteString, message: "Error")
+            error = NetworkErrors.error(url: url.absoluteString, message: "Error")
             response = nil
             data = nil
             
