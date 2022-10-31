@@ -99,7 +99,7 @@ final class BarometerView: UIView {
     
     private func graduationConfigure(number dot: Int) {
         let rotationAngle = 135
-        let angle: CGFloat = rotationAngle.degreesToRadians()/Double(dot)
+        let angle: CGFloat = rotationAngle.toRadians()/Double(dot)
         
         graduationLeft.frame = bounds
         graduationRight.frame = bounds
@@ -172,7 +172,7 @@ extension BarometerView {
         
         let angle = -deviation * arc / delta
         
-        return angle.degreesToRadians()
+        return angle.toRadians()
     }
 }
 

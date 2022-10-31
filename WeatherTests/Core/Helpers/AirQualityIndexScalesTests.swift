@@ -10,31 +10,24 @@ import XCTest
 
 
 class AirQualityIndexScalesTests: XCTestCase {
-
-    let timeout = TimeInterval(0.5)
-    var expectation: XCTestExpectation!
     
     override func setUpWithError() throws {
         try super.setUpWithError()
-        
     }
 
     override func tearDownWithError() throws {
-
         try super.tearDownWithError()
     }
-}
 
-extension AirQualityIndexScalesTests {
     
     // MARK: - Europe Common Air Quality Index (CAQI)
     //
-    //                                              NO2         O3          PM2.5       PM10
-    // Good                                         0–50        0–60        0–15        0–25
-    // Fair                                         50–100      60–120      15–30       25–50
-    // Moderate                                     100–200     120–180     30–55       50–90
-    // Poor                                         200–400     180–240     55–110      90–180
-    // Very Poor                                    >400        >240        >110        >180
+    //                                            NO2         O3          PM2.5       PM10
+    // Good                                       0–50        0–60        0–15        0–25
+    // Fair                                       50–100      60–120      15–30       25–50
+    // Moderate                                   100–200     120–180     30–55       50–90
+    // Poor                                       200–400     180–240     55–110      90–180
+    // Very Poor                                  >400        >240        >110        >180
     //
     func testCAQIEuropeScale() throws {
         
@@ -146,7 +139,7 @@ extension AirQualityIndexScalesTests {
         let arrVeryPoor:     [ChemicalElements] = [.pm10(351),  .pm2_5(121),  .no2(281),  .o3(209),  .co(30),   .so2(1111), .nh3(1555)]
         let arrSevere:       [ChemicalElements] = [.pm10(2000), .pm2_5(2000), .no2(2000), .o3(2000), .co(2000), .so2(2000), .nh3(2000)]
         
-        let arrIndefinite: [ChemicalElements] = [.no(1), .pm10(-1), .pm2_5(-1), .no2(-1), .o3(-1), .co(-1), .so2(-1), .nh3(-1)]
+        let arrIndefinite:   [ChemicalElements] = [.no(1), .pm10(-1), .pm2_5(-1), .no2(-1), .o3(-1), .co(-1), .so2(-1), .nh3(-1)]
         
         
         arrGood.forEach { element in

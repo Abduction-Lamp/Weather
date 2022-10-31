@@ -48,9 +48,9 @@ final class AirIndicatorView: UIView {
         let smallRadius = bigRadius - width
         let center = CGPoint(x: bounds.midX, y: bounds.maxY)
         
-        let step = (180 / indicator.count).degreesToRadians()
+        let step = (180 / indicator.count).toRadians()
         
-        var start = 180.degreesToRadians()
+        var start = 180.toRadians()
         var end = start + step
         
         if indicator.count == (CAQIEuropeScale.allCases.count - 1) {

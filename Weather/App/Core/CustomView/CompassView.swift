@@ -169,7 +169,7 @@ final class CompassView: UIView {
         graduation.instanceCount = dotCount
         graduation.instanceColor = color.cgColor
 
-        let angle: CGFloat = (360.degreesToRadians())/Double(dotCount)
+        let angle: CGFloat = (360.toRadians())/Double(dotCount)
         graduation.instanceTransform = CATransform3DMakeRotation(angle, 0.0, 0.0, 1.0)
     }
 
@@ -180,7 +180,7 @@ final class CompassView: UIView {
         circle.instanceCount = dotCount
         circle.instanceColor = color.cgColor
 
-        let angle: CGFloat = (360.degreesToRadians())/Double(dotCount)
+        let angle: CGFloat = (360.toRadians())/Double(dotCount)
         circle.instanceTransform = CATransform3DMakeRotation(angle, 0.0, 0.0, 1.0)
     }
     
@@ -255,7 +255,7 @@ final class CompassView: UIView {
         endArrow.lineWidth = 3
 
         let legal = degrees - 180
-        bodyArrow.transform = CATransform3DMakeRotation(legal.degreesToRadians(), 0.0, 0.0, 1.0)
+        bodyArrow.transform = CATransform3DMakeRotation(legal.toRadians(), 0.0, 0.0, 1.0)
     }
 }
 

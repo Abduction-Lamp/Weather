@@ -9,12 +9,8 @@ import UIKit
 
 extension Int {
     
-    func degreesToRadians() -> CGFloat {
+    func toRadians() -> CGFloat {
         return CGFloat(Double.init(self) * Double.pi / 180.0)
-    }
-
-    func radiansToDegrees() -> CGFloat {
-        return CGFloat(Double.init(self) / Double.pi * 180.0)
     }
     
     func pressure(in unit: PressureUnits) -> Double {
