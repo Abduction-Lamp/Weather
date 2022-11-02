@@ -193,12 +193,12 @@ extension WeatherViewModel: WeatherViewModelProtocol {
         if let value = weather?.current, let settings = settings {
             let speed = value.windSpeed.windSpeed(in: settings.units.value.windSpeed)
             
-            measurement = String(Int(speed.rounded(.toNearestOrAwayFromZero)))
+            measurement = String(Int(speed))
             degrees = value.windDeg
             
             if let windGust = value.windGust, value.windSpeed < windGust {
                 let gustSpeed = windGust.windSpeed(in: settings.units.value.windSpeed)
-                gust = gustLocalWord + String(Int(gustSpeed.rounded(.toNearestOrAwayFromZero))) + " " + units
+                gust = gustLocalWord + String(Int(gustSpeed)) + " " + units
             }
             
             let stringDirection = WindDirection.init(degrees).description

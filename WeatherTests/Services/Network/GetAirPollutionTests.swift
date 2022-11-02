@@ -177,3 +177,58 @@ extension GetAirPollutionTests {
         wait(for: [self.expectation], timeout: timeout)
     }
 }
+
+
+extension GetAirPollutionTests {
+    
+    func testAirPollutionResponse_Equatable_() {
+        // Equals
+        var lhs = MockAirPollutionData.init().air
+        let rhs = MockAirPollutionData.init().air
+        XCTAssertTrue(lhs == rhs)
+        
+        
+        // Does not  equals (Coordinates)
+        let coord = AirPollutionResponse.CoordinatesResponse(lat: 0.0, lon: 1.0)
+        var list = rhs.list
+        lhs = AirPollutionResponse(coord: coord, list: list)
+        XCTAssertFalse(lhs == rhs)
+        
+        
+        // Does not  equals (List count)
+        lhs = AirPollutionResponse(coord: rhs.coord, list: (list + list))
+        XCTAssertFalse(lhs == rhs)
+        
+        
+        // Does not  equals (List.time)
+        let time = TimeInterval(123)
+        list = [
+            AirPollutionItemResponse(time: time,
+                                     main: rhs.list.first!.main,
+                                     components: rhs.list.first!.components)
+        ]
+        lhs = AirPollutionResponse(coord: rhs.coord, list: list)
+        XCTAssertFalse(lhs == rhs)
+        
+        
+        // Does not  equals (List.main)
+        let main = AirPollutionItemResponse.AirQualityIndex(aqi: 5)
+        list = [
+            AirPollutionItemResponse(time: rhs.list.first!.time,
+                                     main: main,
+                                     components: rhs.list.first!.components)
+        ]
+        lhs = AirPollutionResponse(coord: rhs.coord, list: list)
+        XCTAssertFalse(lhs == rhs)
+        
+        // Does not  equals (List.components)
+        let components = AirPollutionItemResponse.AirComponents(co: nil, no: nil, no2: nil, o3: nil, so2: nil, pm2_5: nil, pm10: nil, nh3: nil)
+        list = [
+            AirPollutionItemResponse(time: rhs.list.first!.time,
+                                     main: rhs.list.first!.main,
+                                     components: components)
+        ]
+        lhs = AirPollutionResponse(coord: rhs.coord, list: list)
+        XCTAssertFalse(lhs == rhs)
+    }
+}

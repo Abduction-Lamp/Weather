@@ -17,11 +17,11 @@ extension Int {
         switch unit {
         case .mmHg:
             let torr = 0.750064
-            return (torr * Double(self))
+            return (torr * Double(self)).rounded(.toNearestOrAwayFromZero)
         case .hPa:
             return Double(self)
         case .bar:
-            return 0.001 * Double(self)
+            return (0.001 * Double(self))
         }
     }
     
