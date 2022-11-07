@@ -19,9 +19,11 @@ final class WeatherViewController: UIViewController {
     private var mode: Mode = .none {
         didSet {
             switch self.mode {
-            case .success(_):
+            case .success(let isReloadData as Bool):
                 self.weatherView.refreshControl.endRefreshing()
-                self.weatherView.table.reloadData()
+                if isReloadData {
+                    self.weatherView.table.reloadData()
+                }
             case .failure(let message as String):
                 self.weatherView.refreshControl.endRefreshing()
                 self.alert(title: "",

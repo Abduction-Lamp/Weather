@@ -68,20 +68,20 @@ extension WeatherViewModel: WeatherViewModelProtocol {
                 if let time = result.current?.time, let sunrise = result.current?.sunrise, let sunset = result.current?.sunset {
                     self.statusDay.value = .init(time: time, sunrise: sunrise, sunset: sunset)
                 }
-                self.state.value = .success(nil)
+                self.state.value = .success(true)
             case .failure(let error):
                 print(error)
                 self.state.value = .failure(error.description)
             }
         }
         
-        // ???: Где должен быть сделан это вызав
         network?.getAirPollution(lat: city.latitude, lon: city.longitude) { [weak self] response in
             guard let self = self else { return }
             
             switch response {
             case .success(let result):
                 self.air = result
+                self.state.value = .success(true)
             case .failure:
                 self.air = nil
             }
