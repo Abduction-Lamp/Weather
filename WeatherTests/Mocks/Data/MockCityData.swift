@@ -10,48 +10,34 @@ import Foundation
 
 class MockCityData {
     
-    let raw: [GeocodingResponse]
+    let raw:    [GeocodingResponse]
     let cities: [CityData]
-    let data: Data
+    let data:   Data
     
     init() {
         typealias LocalNames = GeocodingResponse.LocalNames
         
         raw = [
-            GeocodingResponse(name: "Москва 1.0", localNames: LocalNames(name:  "Moscow 1.0",
-                                                                         ascii: "Москва 1.0",
-                                                                         ru:    "Москва 1.0",
-                                                                         en:    "Moscow 1.0"),
-                              country: "RU", state: nil,
-                              lat: 1.0, lon: 1.0),
+            GeocodingResponse(name: "Moscow",
+                              localNames: LocalNames(name: "Moscow", ascii: "Moscow", ru: "Москва", en: "Moscow"),
+                              country: "RU",
+                              state: "Moscow",
+                              lat: 55.7504461,
+                              lon: 37.6174943),
             
-            GeocodingResponse(name: "Москва 2.0", localNames: LocalNames(name:  "Moscow 2.0",
-                                                                         ascii: "Москва 2.0",
-                                                                         ru:    "Москва 2.0",
-                                                                         en:    "Moscow 2.0"),
-                              country: "RU", state: nil,
-                              lat: 2.0, lon: 2.0),
-            
-            GeocodingResponse(name: "Москва 3.0", localNames: LocalNames(name:  "Moscow 3.0",
-                                                                         ascii: "Москва 3.0",
-                                                                         ru:    "Москва 3.0",
-                                                                         en:    "Moscow 3.0"),
-                              country: "RU", state: nil,
-                              lat: 3.0, lon: 3.0),
-            
-            GeocodingResponse(name: "Москва 4.0", localNames: LocalNames(name:  "Moscow 4.0",
-                                                                         ascii: "Москва 4.0",
-                                                                         ru:    "Москва 4.0",
-                                                                         en:    "Moscow 4.0"),
-                              country: "RU", state: nil,
-                              lat: 4.0, lon: 4.0),
-            
-            GeocodingResponse(name: "Москва 5.0", localNames: LocalNames(name:  "Moscow 5.0",
-                                                                         ascii: "Москва 5.0",
-                                                                         ru:    "Москва 5.0",
-                                                                         en:    "Moscow 5.0"),
-                              country: "RU", state: nil,
-                              lat: 5.0, lon: 5.0)
+            GeocodingResponse(name: "London",
+                              localNames: LocalNames(name: "London", ascii: "London", ru: "Лондон", en: "London"),
+                              country: "GB",
+                              state: "England",
+                              lat: 51.5073219,
+                              lon: -0.1276474),
+                        
+            GeocodingResponse(name: "New York County",
+                              localNames: LocalNames(name: nil, ascii: nil, ru: "Нью-Йорк", en: "New York"),
+                              country: "US",
+                              state: "New York",
+                              lat: 40.7127281,
+                              lon: -74.0060152)
         ]
         
         var list: [CityData] = []

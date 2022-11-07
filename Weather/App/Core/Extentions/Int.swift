@@ -13,7 +13,7 @@ extension Int {
         return CGFloat(Double.init(self) * Double.pi / 180.0)
     }
     
-    func pressure(in unit: PressureUnits) -> Double {
+    func toPressure(in unit: PressureUnits) -> Double {
         switch unit {
         case .mmHg:
             let torr = 0.750064
@@ -25,8 +25,8 @@ extension Int {
         }
     }
     
-    func pressureToString(in unit: PressureUnits) -> String {
-        let measurements = pressure(in: unit)
+    func toPressureToString(in unit: PressureUnits) -> String {
+        let measurements = toPressure(in: unit)
         switch unit {
         case .mmHg:
             return String(Int(measurements.rounded(.toNearestOrAwayFromZero)))

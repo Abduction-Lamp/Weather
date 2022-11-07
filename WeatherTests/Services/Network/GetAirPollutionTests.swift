@@ -14,7 +14,7 @@ class GetAirPollutionTests: XCTestCase {
     var expectation: XCTestExpectation!
     
     var mockURLs: MockURLs = MockURLs()
-    var session: URLSessionProtocol = MockURLSession_AirPollution()
+    var session: URLSessionProtocol = MockURLSession_Network()
     
     var network: Network!
     

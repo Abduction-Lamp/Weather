@@ -54,19 +54,24 @@ class DoubleTests: XCTestCase {
 
     
     func testTemperature() throws {
-        let celsius:     [Double] = [-50, -10, -3, -1, 0, 0, 0, 1, 3, 10, 50]
-        let fahrenheit:  [Double] = [-58, 14, 26, 31, 32, 32, 32, 33, 38, 50, 122]
-        let kelvin:      [Double] = [223, 263, 270, 272, 273, 273, 273, 274, 276, 283, 323]
+        let celsius:     [Double] = [-50, -10,  -3,  -1,   0,   0,   0,   1,   3,   10,  50]
+        let fahrenheit:  [Double] = [-58,  14,   26,  31,  32,  32,  32,  33,  38,  50,  122]
+        let kelvin:      [Double] = [223,  263,  270, 272, 273, 273, 273, 274, 276, 283, 323]
         
         let temperature: [Double] = [-50, -10, -3.33, -0.7, -0.1, 0, 0.1, 0.7, 3.33, 10, 50]
         
         if temperature.count == celsius.count,
            temperature.count == fahrenheit.count,
            temperature.count == kelvin.count {
+            
             for index in 0 ..< temperature.count {
-                XCTAssertEqual(celsius[index], temperature[index].temperature(in: .celsius))
-                XCTAssertEqual(fahrenheit[index], temperature[index].temperature(in: .fahrenheit))
-                XCTAssertEqual(kelvin[index], temperature[index].temperature(in: .kelvin))
+                let celsiusRounded = temperature[index].toTemperature(in: .celsius).rounded(.toNearestOrAwayFromZero)
+                let fahrenheitRounded = temperature[index].toTemperature(in: .fahrenheit).rounded(.toNearestOrAwayFromZero)
+                let kelvinRounded = temperature[index].toTemperature(in: .kelvin).rounded(.toNearestOrAwayFromZero)
+                
+                XCTAssertEqual(celsius[index], celsiusRounded)
+                XCTAssertEqual(fahrenheit[index], fahrenheitRounded)
+                XCTAssertEqual(kelvin[index], kelvinRounded)
             }
         } else {
             XCTFail("The sizes of the arrays being checked do not match")
@@ -85,9 +90,13 @@ class DoubleTests: XCTestCase {
            speed.count == kmh.count,
            speed.count == mph.count {
             for index in 0 ..< speed.count {
-                XCTAssertEqual(ms[index], speed[index].windSpeed(in: .ms))
-                XCTAssertEqual(kmh[index], speed[index].windSpeed(in: .kmh))
-                XCTAssertEqual(mph[index], speed[index].windSpeed(in: .mph))
+                let msToRounded = speed[index].toWindSpeed(in: .ms).rounded(.toNearestOrAwayFromZero)
+                let kmhToRounded = speed[index].toWindSpeed(in: .kmh).rounded(.toNearestOrAwayFromZero)
+                let mphToRounded = speed[index].toWindSpeed(in: .mph).rounded(.toNearestOrAwayFromZero)
+                
+                XCTAssertEqual(ms[index], msToRounded)
+                XCTAssertEqual(kmh[index], kmhToRounded)
+                XCTAssertEqual(mph[index], mphToRounded)
             }
         } else {
             XCTFail("The sizes of the arrays being checked do not match")

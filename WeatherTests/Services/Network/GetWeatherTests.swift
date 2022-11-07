@@ -15,7 +15,7 @@ class GetWeatherTests: XCTestCase {
     
     
     var mockURLs: MockURLs = MockURLs()
-    var session: URLSessionProtocol = MockURLSession_Weather()
+    var session: URLSessionProtocol = MockURLSession_Network()
     
     var network: Network!
     

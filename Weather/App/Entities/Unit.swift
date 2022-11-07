@@ -40,7 +40,7 @@ public enum TemperatureUnits: Int, Codable, CustomStringConvertible, MetaType {
         case .fahrenheit:
             return "\u{00B0}F"
         case .kelvin:
-            return "\u{00B0}K"
+            return "K"
         }
     }
 }

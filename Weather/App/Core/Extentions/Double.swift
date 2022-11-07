@@ -14,19 +14,21 @@ extension Double {
         return x > 0 ? "+\(x)\u{00B0}" : "\(x)\u{00B0}"
     }
     
-    public func temperature(in unit: TemperatureUnits) -> Double {
+    public func toTemperature(in unit: TemperatureUnits) -> Double {
+        var temperature: Double
         switch unit {
-        case .celsius:    return self.rounded(.toNearestOrAwayFromZero)
-        case .fahrenheit: return (9.0/5.0 * self + 32.0).rounded(.toNearestOrAwayFromZero)
-        case .kelvin:     return (self + 273.15).rounded(.toNearestOrAwayFromZero)
+        case .celsius:    temperature = self
+        case .fahrenheit: temperature = 9.0/5.0 * self + 32.0
+        case .kelvin:     temperature = self + 273.15
         }
+        return temperature
     }
     
-    public func windSpeed(in unit: WindSpeedUnits) -> Double {
+    public func toWindSpeed(in unit: WindSpeedUnits) -> Double {
         switch unit {
-        case .ms:  return self.rounded(.toNearestOrAwayFromZero)
-        case .kmh: return (3.6 * self).rounded(.toNearestOrAwayFromZero)
-        case .mph: return (2.24 * self).rounded(.toNearestOrAwayFromZero)
+        case .ms:  return self
+        case .kmh: return self * 3.6
+        case .mph: return self * 2.24
         }
     }
 }

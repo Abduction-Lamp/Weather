@@ -70,7 +70,7 @@ final class WeatherViewController: UIViewController {
         super.viewDidLoad()
 
         weatherView.refreshControl.beginRefreshing()
-        viewModel.feach()
+        viewModel.fetch()
     }
 }
 
@@ -172,7 +172,7 @@ extension WeatherViewController {
     
     @objc func refresh(_ sender: AnyObject) {
         weatherView.refreshControl.beginRefreshing()
-        viewModel.feach()
+        viewModel.fetch()
     }
 }
 

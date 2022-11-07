@@ -1,7 +1,7 @@
 //
 //  LocationWeatherViewModel.swift
 //  Weather
-//
+//  
 //  Created by Владимир on 27.06.2022.
 //
 
@@ -27,7 +27,7 @@ final class LocationWeatherViewModel: WeatherViewModel {
     }
     
     @objc
-    public override func feach() {
+    public override func fetch() {
         location?.current()
     }
 }
@@ -39,7 +39,7 @@ extension LocationWeatherViewModel: LocationObserver {
         switch location {
         case .success(let city):
             self.city = city
-            super.feach()
+            super.fetch()
         case .failure(_):
             self.state.value = .failure(NSLocalizedString("General.Locale.Error", comment: "Error"))
         }

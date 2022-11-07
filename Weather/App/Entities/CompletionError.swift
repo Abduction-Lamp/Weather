@@ -22,7 +22,7 @@ extension CompletionError: CustomStringConvertible {
              .encode    (let source, let message),
              .empty     (let source, let message),
              .undefined (let source, let message):
-            return "⚠️ CompletionError > (\(source)): \(message)"
+            return "⚠️ Completion Error > (\(source)): \(message)"
         }
     }
 }

@@ -12,7 +12,7 @@ protocol WeatherViewModelProtocol: AnyObject {
     var statusDay: Bindable<TimeOfDay?> { get }
     var state: Bindable<UIViewController.Mode> { get }
     
-    func feach()
+    func fetch()
     
     func getNumberOfSections() -> Int
     func getNumberOfAirComponents() -> Int
@@ -36,7 +36,7 @@ class WeatherViewModel {
     
     private weak var settings: Settings?
     private weak var network: NetworkServiceProtocol?
-    private var iconManager = IconService.shared
+    private var icons = IconService.shared
     
     init(city: CityData?, network: NetworkServiceProtocol, settings: Settings?) {
         self.city = city
@@ -51,7 +51,7 @@ class WeatherViewModel {
 extension WeatherViewModel: WeatherViewModelProtocol {
 
     @objc
-    public func feach() {
+    public func fetch() {
         guard let city = city else { return }
         
         state.value = .loading
@@ -119,7 +119,7 @@ extension WeatherViewModel: WeatherViewModelProtocol {
         
         var temperature: String = ""
         if let temp = weather?.current?.temp, let settings = settings {
-            temperature = temp.temperature(in: settings.units.value.temperature).toStringWithDegreeSymbol()
+            temperature = temp.toTemperature(in: settings.units.value.temperature).toStringWithDegreeSymbol()
         }
         return WeatherCityHeaderModel(city: city.getName(lang: NSLocalizedString("General.Lang", comment: "Lang")),
                                       temperature: temperature,
@@ -132,11 +132,11 @@ extension WeatherViewModel: WeatherViewModelProtocol {
             let wordNow = NSLocalizedString("WeatherView.CommonWords.Now", comment: "Now")
             for (index, response) in hourly.enumerated() where index < 24 {
                 let hour = response.time.toStringLocolTime(offset: value.timezoneOffset, format: "HH")
-                let icon = iconManager.fetch(conditions: response.weather.first?.id,
-                                             time: response.time,
-                                             sunrise: value.current?.sunrise,
-                                             sunset: value.current?.sunset)
-                let temperature = response.temp.temperature(in: settings.units.value.temperature).toStringWithDegreeSymbol()
+                let icon = icons.fetch(conditions: response.weather.first?.id,
+                                       time: response.time,
+                                       sunrise: value.current?.sunrise,
+                                       sunset: value.current?.sunset)
+                let temperature = response.temp.toTemperature(in: settings.units.value.temperature).toStringWithDegreeSymbol()
                 model.append(WeatherHourlyModel(time: index == 0 ? wordNow : hour, icon: icon, temperature: temperature))
             }
             
@@ -144,17 +144,20 @@ extension WeatherViewModel: WeatherViewModelProtocol {
             /// Вставка информации о sunrise и sunset
             ///
             if let sunrise = weather?.current?.sunrise, let sunset = weather?.current?.sunset {
-                if let sunriseIndex = model.firstIndex(where: { $0.time == sunrise.toStringLocolTime(offset: value.timezoneOffset, format: "HH") }) {
+                let timeSunrise = sunrise.toStringLocolTime(offset: value.timezoneOffset, format: "HH")
+                if let sunriseIndex = model.firstIndex(where: { $0.time == timeSunrise }) {
                     let wordSunrise = NSLocalizedString("WeatherView.CommonWords.Sunrise", comment: "Sunrise")
-                    model.insert(WeatherHourlyModel(time: sunrise.toStringLocolTime(offset: value.timezoneOffset, format: "HH:mm"),
-                                                    icon: iconManager.fetch(conditions: IconService.ExpandedIconSet.sunrise.rawValue),
-                                                    temperature: wordSunrise), at: sunriseIndex + 1)
+                    let time = sunrise.toStringLocolTime(offset: value.timezoneOffset, format: "HH:mm")
+                    let icon = icons.fetch(conditions: IconService.ExpandedIconSet.sunrise.rawValue)
+                    model.insert(WeatherHourlyModel(time: time, icon: icon, temperature: wordSunrise), at: sunriseIndex + 1)
                 }
-                if let sunsetIndex = model.firstIndex(where: { $0.time == sunset.toStringLocolTime(offset: value.timezoneOffset, format: "HH") }) {
+                
+                let timeSunset = sunset.toStringLocolTime(offset: value.timezoneOffset, format: "HH")
+                if let sunsetIndex = model.firstIndex(where: { $0.time == timeSunset }) {
                     let wordSunset = NSLocalizedString("WeatherView.CommonWords.Sunset", comment: "Sunset")
-                    model.insert(WeatherHourlyModel(time: sunset.toStringLocolTime(offset: value.timezoneOffset, format: "HH:mm"),
-                                                    icon: iconManager.fetch(conditions: IconService.ExpandedIconSet.sunset.rawValue),
-                                                    temperature: wordSunset), at: sunsetIndex + 1)
+                    let time = sunset.toStringLocolTime(offset: value.timezoneOffset, format: "HH:mm")
+                    let icon = icons.fetch(conditions: IconService.ExpandedIconSet.sunset.rawValue)
+                    model.insert(WeatherHourlyModel(time: time, icon: icon, temperature: wordSunset), at: sunsetIndex + 1)
                 }
             }
         }
@@ -166,12 +169,12 @@ extension WeatherViewModel: WeatherViewModelProtocol {
         if let value = weather, let daily = value.daily, let settings = settings {
             for (index, response) in daily.enumerated() {
                 let day = response.time.toStringLocolTime(offset: value.timezoneOffset, format: "E.,  d MMM")
-                let temperature = response.temp.min.temperature(in: settings.units.value.temperature).toStringWithDegreeSymbol()
-                                  + " ... "
-                                  + response.temp.max.temperature(in: settings.units.value.temperature).toStringWithDegreeSymbol()
+                let min = response.temp.min.toTemperature(in: settings.units.value.temperature).toStringWithDegreeSymbol()
+                let max = response.temp.max.toTemperature(in: settings.units.value.temperature).toStringWithDegreeSymbol()
+                let temperature = min + " ... " + max
                 let wordToday = NSLocalizedString("WeatherView.CommonWords.Today", comment: "Today")
                 model.append(WeatherDailyModel(day: index == 0 ? wordToday : day,
-                                               icon: iconManager.fetch(conditions: response.weather.first?.id),
+                                               icon: icons.fetch(conditions: response.weather.first?.id),
                                                temperature: temperature))
             }
         }
@@ -181,26 +184,30 @@ extension WeatherViewModel: WeatherViewModelProtocol {
     func makeWeatherWindModel() -> WeatherWindModel {
         var measurement: String = ""
         var degrees: Int = 0
-        let units: String = settings?.units.value.windSpeed.description ?? ""
-        var text = ""
-        var gust = ""
-        var direction = ""
-        
-        let gustLocalWord = NSLocalizedString("WeatherView.CommonWords.GustWind", comment: "gust wind")
-        let windLocalWord = NSLocalizedString("WeatherView.CommonWords.WindTitle", comment: "Wind")
-        let windSpeedLocalWord = NSLocalizedString("WeatherView.CommonWords.WindSpeed", comment: "Wind speed")
-        
+        let unitDesignation: String = settings?.units.value.windSpeed.description ?? ""
+        var info: String = ""
+
         if let value = weather?.current, let settings = settings {
-            let speed = value.windSpeed.windSpeed(in: settings.units.value.windSpeed)
-            
-            measurement = String(Int(speed))
+            let gustLocalWord = NSLocalizedString("WeatherView.CommonWords.GustWind", comment: "Gust Wind")
+            let windLocalWord = NSLocalizedString("WeatherView.CommonWords.WindTitle", comment: "Wind")
+            let windSpeedLocalWord = NSLocalizedString("WeatherView.CommonWords.WindSpeed", comment: "Wind Speed")
+        
+            let unit = settings.units.value.windSpeed
+            let speed = value.windSpeed.toWindSpeed(in: unit).rounded(.toNearestOrAwayFromZero)
+
+            measurement = String(format: "%.0f", speed)
             degrees = value.windDeg
-            
+    
+            var gust = ""
             if let windGust = value.windGust, value.windSpeed < windGust {
-                let gustSpeed = windGust.windSpeed(in: settings.units.value.windSpeed)
-                gust = gustLocalWord + String(Int(gustSpeed)) + " " + units
+                let gustSpeed = windGust.toWindSpeed(in: unit).rounded(.toNearestOrAwayFromZero)
+                gust = gustLocalWord
+                gust += String(format: "%.0f", gustSpeed)
+                gust += " "
+                gust += unitDesignation
             }
             
+            var direction = ""
             let stringDirection = WindDirection.init(degrees).description
             if !stringDirection.isEmpty {
                 direction = ", " + stringDirection
@@ -209,38 +216,61 @@ extension WeatherViewModel: WeatherViewModelProtocol {
             let measurementDescription = BeaufortScale.init(speed: value.windSpeed)
             switch measurementDescription {
             case .calm:
-                text = measurementDescription.description
+                info = measurementDescription.description
             case .air, .light, .gentle, .moderate, .fresh, .strong, .high, .gale, .severe:
-                text = "\(windLocalWord) \(measurementDescription.description)\(direction)\n\(windSpeedLocalWord) \(measurement) \(units)\(gust)"
+                info = windLocalWord
+                info += " "
+                info += measurementDescription.description
+                info += direction
+                info += "\n"
+                info += windSpeedLocalWord
+                info += " "
+                info += measurement
+                info += " "
+                info += unitDesignation
+                info += gust
             case .storm, .violent, .hurricane:
-                text = "\(measurementDescription.description)\(direction)\n\(windSpeedLocalWord) \(measurement) \(units)\(gust)"
+                info = measurementDescription.description
+                info += direction
+                info += "\n"
+                info += windSpeedLocalWord
+                info += " "
+                info += measurement
+                info += " "
+                info += unitDesignation
+                info += gust
             case .indefinite:
-                text = ""
+                info = ""
             }
         }
-        return WeatherWindModel(measurement: measurement, degrees: degrees, units: units, text: text)
+        return WeatherWindModel(measurement: measurement, degrees: degrees, units: unitDesignation, info: info)
     }
-
+    
     func makeWeatherPressureAndHumidityModel() -> WeatherPressureAndHumidityModel {
         var measurement: String = ""
         var pressure: Int = 0
-        let units: String = settings?.units.value.pressure.description ?? ""
+        let unitDesignation: String = settings?.units.value.pressure.description ?? ""
         var humidity: String = ""
         var dewPoint: String = ""
 
         if let value = weather?.current, let settings = settings {
-            measurement = value.pressure.pressureToString(in: settings.units.value.pressure)
+            measurement = value.pressure.toPressureToString(in: settings.units.value.pressure)
             pressure = value.pressure
             
             let wordNow = NSLocalizedString("WeatherView.CommonWords.Now", comment: "Now")
             let wordDewPoint = NSLocalizedString("WeatherView.CommonWords.DewPoint", comment: "Dew point")
             humidity = "\(value.humidity) %"
-            dewPoint = "\(wordDewPoint)\n\(wordNow): \(value.dewPoint.temperature(in: settings.units.value.temperature).toStringWithDegreeSymbol())."
+            dewPoint = wordDewPoint
+            dewPoint += "\n"
+            dewPoint += wordNow
+            dewPoint += ": "
+            dewPoint += value.dewPoint.toTemperature(in: settings.units.value.temperature).toStringWithDegreeSymbol()
+            dewPoint += "."
         }
         
         return WeatherPressureAndHumidityModel(measurement: measurement,
                                                pressure: pressure,
-                                               units: units,
+                                               units: unitDesignation,
                                                humidity: humidity,
                                                dewPoint: dewPoint)
     }

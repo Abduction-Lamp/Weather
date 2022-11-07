@@ -22,7 +22,7 @@ class IntTests: XCTestCase {
 //        return CGFloat(Double.init(self) * Double.pi / 180.0)
 //    }
 //
-//    func pressure(in unit: PressureUnits) -> Double {
+//    func toPressure(in unit: PressureUnits) -> Double {
 //        switch unit {
 //        case .mmHg:
 //            let torr = 0.750064
@@ -34,8 +34,8 @@ class IntTests: XCTestCase {
 //        }
 //    }
 //
-//    func pressureToString(in unit: PressureUnits) -> String {
-//        let measurements = pressure(in: unit)
+//    func toPressureToString(in unit: PressureUnits) -> String {
+//        let measurements = toPressure(in: unit)
 //        switch unit {
 //        case .mmHg:
 //            return String(Int(measurements.rounded(.toNearestOrAwayFromZero)))
@@ -57,9 +57,9 @@ class IntTests: XCTestCase {
            pressure.count == hPa.count,
            pressure.count == bar.count {
             for index in 0 ..< pressure.count {
-                XCTAssertEqual(mmHg[index], pressure[index].pressure(in: .mmHg))
-                XCTAssertEqual(hPa[index], pressure[index].pressure(in: .hPa))
-                XCTAssertEqual(bar[index], pressure[index].pressure(in: .bar))
+                XCTAssertEqual(mmHg[index], pressure[index].toPressure(in: .mmHg))
+                XCTAssertEqual(hPa[index], pressure[index].toPressure(in: .hPa))
+                XCTAssertEqual(bar[index], pressure[index].toPressure(in: .bar))
             }
         } else {
             XCTFail("The sizes of the arrays being checked do not match")
@@ -77,9 +77,9 @@ class IntTests: XCTestCase {
            pressure.count == hPa.count,
            pressure.count == bar.count {
             for index in 0 ..< pressure.count {
-                XCTAssertEqual(mmHg[index], pressure[index].pressureToString(in: .mmHg))
-                XCTAssertEqual(hPa[index], pressure[index].pressureToString(in: .hPa))
-                XCTAssertEqual(bar[index], pressure[index].pressureToString(in: .bar))
+                XCTAssertEqual(mmHg[index], pressure[index].toPressureToString(in: .mmHg))
+                XCTAssertEqual(hPa[index], pressure[index].toPressureToString(in: .hPa))
+                XCTAssertEqual(bar[index], pressure[index].toPressureToString(in: .bar))
             }
         } else {
             XCTFail("The sizes of the arrays being checked do not match")

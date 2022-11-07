@@ -11,5 +11,5 @@ struct WeatherWindModel {
     let measurement: String
     let degrees: Int
     let units: String
-    let text: String
+    let info: String
 }

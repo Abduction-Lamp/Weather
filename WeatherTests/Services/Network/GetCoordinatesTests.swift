@@ -15,7 +15,7 @@ class GetCoordinatesTests: XCTestCase {
     
     
     var mockURLs: MockURLs = MockURLs()
-    var session: URLSessionProtocol = MockURLSession_Coordinates()
+    var session: URLSessionProtocol = MockURLSession_Network()
     
     var network: Network!
     

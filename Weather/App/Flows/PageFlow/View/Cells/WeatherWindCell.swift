@@ -133,7 +133,7 @@ extension WeatherWindCell {
     
     
     public func setup(model: WeatherWindModel) {
-        infoText.text = model.text
+        infoText.text = model.info
         compass.setup(measurement: model.measurement, degrees: model.degrees, units: model.units)
     }
 }
