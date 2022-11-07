@@ -60,23 +60,45 @@ class BuilderWeatherModels {
     }
     
     func buildWeatherDailyModel() -> [WeatherDailyModel] {
-        return [
-            WeatherDailyModel(day: "1", icon: nil, temperature: "+37\u{00B0}" + " ... " + "+37\u{00B0}"),
-            WeatherDailyModel(day: "2", icon: nil, temperature: "+37\u{00B0}" + " ... " + "+37\u{00B0}"),
-            WeatherDailyModel(day: "3", icon: nil, temperature: "+37\u{00B0}" + " ... " + "+37\u{00B0}"),
-            WeatherDailyModel(day: "4", icon: nil, temperature: "+37\u{00B0}" + " ... " + "+37\u{00B0}"),
-            WeatherDailyModel(day: "5", icon: nil, temperature: "+37\u{00B0}" + " ... " + "+37\u{00B0}"),
-            WeatherDailyModel(day: "6", icon: nil, temperature: "+37\u{00B0}" + " ... " + "+37\u{00B0}"),
-            WeatherDailyModel(day: "7", icon: nil, temperature: "+37\u{00B0}" + " ... " + "+37\u{00B0}")
+        let icons = IconService.shared
+        let times = MockWeatherData.init().weather.daily!
+        return [ 
+            WeatherDailyModel(day: times[0].time.toStringLocolTime(offset: TimeInterval(1.0), format: "E.,  d MMM"),
+                              icon: icons.fetch(conditions: 1, time: 1, sunrise: 1, sunset: 1),
+                              temperature: "+37\u{00B0}" + " ... " + "+37\u{00B0}"),
+            WeatherDailyModel(day: times[1].time.toStringLocolTime(offset: TimeInterval(1.0), format: "E.,  d MMM"),
+                              icon: icons.fetch(conditions: 1, time: 1, sunrise: 1, sunset: 1),
+                              temperature: "+37\u{00B0}" + " ... " + "+37\u{00B0}"),
+            WeatherDailyModel(day: times[2].time.toStringLocolTime(offset: TimeInterval(1.0), format: "E.,  d MMM"),
+                              icon: icons.fetch(conditions: 1, time: 1, sunrise: 1, sunset: 1),
+                              temperature: "+37\u{00B0}" + " ... " + "+37\u{00B0}"),
+            WeatherDailyModel(day: times[3].time.toStringLocolTime(offset: TimeInterval(1.0), format: "E.,  d MMM"),
+                              icon: icons.fetch(conditions: 1, time: 1, sunrise: 1, sunset: 1),
+                              temperature: "+37\u{00B0}" + " ... " + "+37\u{00B0}"),
+            WeatherDailyModel(day: times[4].time.toStringLocolTime(offset: TimeInterval(1.0), format: "E.,  d MMM"),
+                              icon: icons.fetch(conditions: 1, time: 1, sunrise: 1, sunset: 1),
+                              temperature: "+37\u{00B0}" + " ... " + "+37\u{00B0}"),
+            WeatherDailyModel(day: times[5].time.toStringLocolTime(offset: TimeInterval(1.0), format: "E.,  d MMM"),
+                              icon: icons.fetch(conditions: 1, time: 1, sunrise: 1, sunset: 1),
+                              temperature: "+37\u{00B0}" + " ... " + "+37\u{00B0}"),
+            WeatherDailyModel(day: times[6].time.toStringLocolTime(offset: TimeInterval(1.0), format: "E.,  d MMM"),
+                              icon: icons.fetch(conditions: 1, time: 1, sunrise: 1, sunset: 1),
+                              temperature: "+37\u{00B0}" + " ... " + "+37\u{00B0}")
         ]
     }
     
     func buildWeatherWindModel() -> WeatherWindModel {
-        return WeatherWindModel(measurement: "1", degrees: 1, units: "1", info: "1")
+        let weather = MockWeatherData.init().weather
+        let units: WindSpeedUnits = .kmh
+        let measurement: String = String(format: "%.0f", weather.current!.windSpeed.toWindSpeed(in: units))
+        let info: String = "Ураган, СВ\nСкорасть ветра 133 км/ч"
+        return WeatherWindModel(measurement: measurement,
+                                degrees: weather.current!.windDeg,
+                                units: units.description, info: info)
     }
         
     func buildWeatherPressureAndHumidityModel() -> WeatherPressureAndHumidityModel {
-        return WeatherPressureAndHumidityModel(measurement: "1", pressure: 1, units: "1", humidity: "1", dewPoint: "1")
+        return WeatherPressureAndHumidityModel(measurement: "37", pressure: 37, units: "гПа", humidity: "37 %", dewPoint: "Точка росы\nСейчас: +37°.")
     }
             
     func buildWeatherAirPollutionModel() -> WeatherAirPollutionModel {

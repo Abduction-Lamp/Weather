@@ -18,26 +18,26 @@ class MockCityData {
         typealias LocalNames = GeocodingResponse.LocalNames
         
         raw = [
-            GeocodingResponse(name: "Moscow",
-                              localNames: LocalNames(name: "Moscow", ascii: "Moscow", ru: "Москва", en: "Moscow"),
+            GeocodingResponse(name: "Moscow 1.0",
+                              localNames: LocalNames(name: "Moscow 1.0", ascii: "Moscow 1.0", ru: "Москва 1.0", en: "Moscow 1.0"),
                               country: "RU",
-                              state: "Moscow",
-                              lat: 55.7504461,
-                              lon: 37.6174943),
+                              state: "Moscow 1.0",
+                              lat: 1.0,
+                              lon: 1.0),
             
-            GeocodingResponse(name: "London",
-                              localNames: LocalNames(name: "London", ascii: "London", ru: "Лондон", en: "London"),
-                              country: "GB",
-                              state: "England",
-                              lat: 51.5073219,
-                              lon: -0.1276474),
+            GeocodingResponse(name: "Moscow 2.0",
+                              localNames: LocalNames(name: "Moscow 2.0", ascii: "Moscow 2.0", ru: "Москва 2.0", en: "Moscow 2.0"),
+                              country: "RU",
+                              state: "Moscow 2.0",
+                              lat: 2.0,
+                              lon: 2.0),
                         
-            GeocodingResponse(name: "New York County",
-                              localNames: LocalNames(name: nil, ascii: nil, ru: "Нью-Йорк", en: "New York"),
-                              country: "US",
-                              state: "New York",
-                              lat: 40.7127281,
-                              lon: -74.0060152)
+            GeocodingResponse(name: "Moscow 3.0",
+                              localNames: LocalNames(name: "Moscow 3.0", ascii: "Moscow 3.0", ru: "Москва 3.0", en: "Moscow 3.0"),
+                              country: "RU",
+                              state: "Moscow 3.0",
+                              lat: 3.0,
+                              lon: 3.0)
         ]
         
         var list: [CityData] = []

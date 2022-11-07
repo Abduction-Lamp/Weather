@@ -57,43 +57,69 @@ extension WeatherViewModelTests {
     }
     
     
-//    func testFetch() throws {
-//        viewModel.fetch()
-//        
-//        XCTAssertEqual(viewModel.city, city)
-//        XCTAssertEqual(viewModel.statusDay.value, TimeOfDay.morning)
-//        XCTAssertEqual(viewModel.getNumberOfSections(), 5)
-//        XCTAssertEqual(viewModel.getNumberOfAirComponents(), 8)
-//        
-//        
-//        let model = MockWeatherModels.init()
-//        
-//        // makeWeatherCityHeaderModel()
-//        let header = viewModel.makeWeatherCityHeaderModel()
-//        XCTAssertEqual(header.city, model.header.city)
-//        XCTAssertEqual(header.temperature, model.header.temperature)
-//        XCTAssertEqual(header.description, model.header.description)
-//        
-//        
-//        // makeWeatherHourlyModel()
-//        let hourly = viewModel.makeWeatherHourlyModel()
-//        XCTAssertEqual(hourly.count, model.hourly.count)
-//        
-//        for index in 0 ..< hourly.count {
-//            XCTAssertEqual(hourly[index].time, model.hourly[index].time)
-//            XCTAssertEqual(hourly[index].icon, model.hourly[index].icon)
-//            XCTAssertEqual(hourly[index].temperature, model.hourly[index].temperature)
-//        }
-//        
-//        
-//        // makeWeatherDailyModel
-//        let daily = viewModel.makeWeatherDailyModel()
-//        XCTAssertEqual(daily.count, model.daily.count)
-//        
-//        for index in 0 ..< daily.count {
-//            XCTAssertEqual(daily[index].day, model.daily[index].day)
-//            XCTAssertEqual(daily[index].icon, model.daily[index].icon)
-//            XCTAssertEqual(daily[index].temperature, model.daily[index].temperature)
-//        }
-//    }
+    func testFetchAndMakesModels() throws {
+        viewModel.fetch()
+        
+        XCTAssertEqual(viewModel.city, city)
+        XCTAssertEqual(viewModel.statusDay.value, TimeOfDay.morning)
+        XCTAssertEqual(viewModel.getNumberOfSections(), 5)
+        XCTAssertEqual(viewModel.getNumberOfAirComponents(), 8)
+        
+        let model = MockWeatherModels.init()
+
+        // MARK: makeWeatherCityHeaderModel()
+        let cityHederModel = viewModel.makeWeatherCityHeaderModel()
+        XCTAssertEqual(cityHederModel.city, model.header.city)
+        XCTAssertEqual(cityHederModel.temperature, model.header.temperature)
+        XCTAssertEqual(cityHederModel.description, model.header.description)
+        
+        // MARK: makeWeatherHourlyModel()
+        let hourlyMode = viewModel.makeWeatherHourlyModel()
+        XCTAssertEqual(hourlyMode.count, model.hourly.count)
+        for index in 0 ..< hourlyMode.count {
+            XCTAssertEqual(hourlyMode[index].time, model.hourly[index].time)
+            XCTAssertEqual(hourlyMode[index].icon, model.hourly[index].icon)
+            XCTAssertEqual(hourlyMode[index].temperature, model.hourly[index].temperature)
+        }
+        
+        // MARK: makeWeatherDailyModel()
+        let dailyModel = viewModel.makeWeatherDailyModel()
+        XCTAssertEqual(dailyModel.count, model.daily.count)
+        for index in 0 ..< dailyModel.count {
+            if index == 0 {
+                XCTAssertEqual(dailyModel[index].day, "Сегодня")
+            } else {
+                XCTAssertEqual(dailyModel[index].day, model.daily[index].day)
+            }
+            XCTAssertEqual(dailyModel[index].icon, model.daily[index].icon)
+            XCTAssertEqual(dailyModel[index].temperature, model.daily[index].temperature)
+        }
+        
+        // MARK: makeWeatherWindModel()
+        let windModel = viewModel.makeWeatherWindModel()
+        XCTAssertEqual(windModel.measurement, model.wind.measurement)
+        XCTAssertEqual(windModel.units, model.wind.units)
+        XCTAssertEqual(windModel.degrees, model.wind.degrees)
+        XCTAssertEqual(windModel.info, model.wind.info)
+
+        
+        // MARK: makeWeatherPressureAndHumidityModel()
+        let pressureAndHumidityModel = viewModel.makeWeatherPressureAndHumidityModel()
+        XCTAssertEqual(pressureAndHumidityModel.measurement, model.pressure.measurement)
+        XCTAssertEqual(pressureAndHumidityModel.units, model.pressure.units)
+        XCTAssertEqual(pressureAndHumidityModel.pressure, model.pressure.pressure)
+        XCTAssertEqual(pressureAndHumidityModel.humidity, model.pressure.humidity)
+        XCTAssertEqual(pressureAndHumidityModel.dewPoint, model.pressure.dewPoint)
+        
+        
+        // MARK: makeWeatherAirPollutionModel()
+        let airPollutionModel = viewModel.makeWeatherAirPollutionModel()
+        XCTAssertEqual(airPollutionModel?.aqi, model.air.aqi)
+        XCTAssertEqual(airPollutionModel?.airComponents.count, model.air.airComponents.count)
+        for index in 0 ..< model.air.airComponents.count {
+            XCTAssertEqual(airPollutionModel?.airComponents[index].description, model.air.airComponents[index].description)
+            XCTAssertEqual(airPollutionModel?.airComponents[index].value, model.air.airComponents[index].value)
+            XCTAssertEqual(airPollutionModel?.airComponents[index].designation, model.air.airComponents[index].designation)
+        }
+    }
 }
