@@ -182,9 +182,6 @@ extension HomeViewController: UIPageViewControllerDelegate, UIPageViewController
         return viewModel.pages.value[index + 1]
     }
     
-    // TODO:    - pageControl:
-    /// Индикатор текущей страницы определяеться не оптимальным образом
-    /// путем поиска индекса в массиве
     func pageViewController(_ pageViewController: UIPageViewController,
                             didFinishAnimating finished: Bool,
                             previousViewControllers: [UIViewController],
