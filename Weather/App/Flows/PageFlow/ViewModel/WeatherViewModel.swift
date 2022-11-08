@@ -116,14 +116,13 @@ extension WeatherViewModel: WeatherViewModelProtocol {
     //
     func makeWeatherCityHeaderModel() -> WeatherCityHeaderModel {
         guard let city = city else { return WeatherCityHeaderModel(city: "", temperature: "", description: "") }
-        
+        let cityName = city.getName(lang: NSLocalizedString("General.Lang", comment: "Lang"))
+        let description = weather?.current?.weather.first?.description ?? ""
         var temperature: String = ""
         if let temp = weather?.current?.temp, let settings = settings {
             temperature = temp.toTemperature(in: settings.units.value.temperature).toStringWithDegreeSymbol()
         }
-        return WeatherCityHeaderModel(city: city.getName(lang: NSLocalizedString("General.Lang", comment: "Lang")),
-                                      temperature: temperature,
-                                      description: weather?.current?.weather.first?.description ?? "")
+        return WeatherCityHeaderModel(city: cityName, temperature: temperature, description: description)
     }
     
     func makeWeatherHourlyModel() -> [WeatherHourlyModel] {
@@ -137,6 +136,7 @@ extension WeatherViewModel: WeatherViewModelProtocol {
                                        sunrise: value.current?.sunrise,
                                        sunset: value.current?.sunset)
                 let temperature = response.temp.toTemperature(in: settings.units.value.temperature).toStringWithDegreeSymbol()
+                
                 model.append(WeatherHourlyModel(time: index == 0 ? wordNow : hour, icon: icon, temperature: temperature))
             }
             
@@ -149,6 +149,7 @@ extension WeatherViewModel: WeatherViewModelProtocol {
                     let wordSunrise = NSLocalizedString("WeatherView.CommonWords.Sunrise", comment: "Sunrise")
                     let time = sunrise.toStringLocolTime(offset: value.timezoneOffset, format: "HH:mm")
                     let icon = icons.fetch(conditions: IconService.ExpandedIconSet.sunrise.rawValue)
+                    
                     model.insert(WeatherHourlyModel(time: time, icon: icon, temperature: wordSunrise), at: sunriseIndex + 1)
                 }
                 
@@ -157,6 +158,7 @@ extension WeatherViewModel: WeatherViewModelProtocol {
                     let wordSunset = NSLocalizedString("WeatherView.CommonWords.Sunset", comment: "Sunset")
                     let time = sunset.toStringLocolTime(offset: value.timezoneOffset, format: "HH:mm")
                     let icon = icons.fetch(conditions: IconService.ExpandedIconSet.sunset.rawValue)
+                    
                     model.insert(WeatherHourlyModel(time: time, icon: icon, temperature: wordSunset), at: sunsetIndex + 1)
                 }
             }
@@ -173,9 +175,9 @@ extension WeatherViewModel: WeatherViewModelProtocol {
                 let max = response.temp.max.toTemperature(in: settings.units.value.temperature).toStringWithDegreeSymbol()
                 let temperature = min + " ... " + max
                 let wordToday = NSLocalizedString("WeatherView.CommonWords.Today", comment: "Today")
-                model.append(WeatherDailyModel(day: index == 0 ? wordToday : day,
-                                               icon: icons.fetch(conditions: response.weather.first?.id),
-                                               temperature: temperature))
+                let icon = icons.fetch(conditions: response.weather.first?.id)
+                
+                model.append(WeatherDailyModel(day: index == 0 ? wordToday : day, icon: icon, temperature: temperature))
             }
         }
         return model

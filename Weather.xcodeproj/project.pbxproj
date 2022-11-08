@@ -752,8 +752,8 @@
 		4EA56B332836F42D003105FE /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				4EBFF6E82869F8F900C435BE /* ForList */,
-				4EBFF6E92869F92200C435BE /* ForLocation */,
+				4E50766D2822CA8E001B7E04 /* WeatherViewModel.swift */,
+				4EBFF6EA2869F9F900C435BE /* LocationWeatherViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -836,22 +836,6 @@
 				4EBFF6EC286B2DBF00C435BE /* UIViewController.swift */,
 			);
 			path = Extentions;
-			sourceTree = "<group>";
-		};
-		4EBFF6E82869F8F900C435BE /* ForList */ = {
-			isa = PBXGroup;
-			children = (
-				4E50766D2822CA8E001B7E04 /* WeatherViewModel.swift */,
-			);
-			path = ForList;
-			sourceTree = "<group>";
-		};
-		4EBFF6E92869F92200C435BE /* ForLocation */ = {
-			isa = PBXGroup;
-			children = (
-				4EBFF6EA2869F9F900C435BE /* LocationWeatherViewModel.swift */,
-			);
-			path = ForLocation;
 			sourceTree = "<group>";
 		};
 		4ECC1D8728EF35E500FCDF92 /* Entities */ = {
