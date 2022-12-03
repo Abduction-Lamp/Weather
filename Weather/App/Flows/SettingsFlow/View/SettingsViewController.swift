@@ -63,7 +63,6 @@ final class SettingsViewController: UIViewController {
     
     // MARK: Lifecycle
     override func loadView() {
-        super.loadView()
         configureUI()
     }
     
@@ -95,7 +94,7 @@ extension SettingsViewController {
     // MARK: Configure UI Content
     //
     private func configureUI() {
-        view = SettingsView(frame: view.frame)
+        view = SettingsView()
         
         navigationController?.isNavigationBarHidden = true
         navigationController?.isToolbarHidden = false

@@ -52,9 +52,7 @@ final class WeatherViewController: UIViewController {
     // MARK: Lifecycle
     //
     override func loadView() {
-        super.loadView()
-        
-        view = WeatherView(frame: view.frame)
+        view = WeatherView()
         
         weatherView.table.delegate = self
         weatherView.table.dataSource = self

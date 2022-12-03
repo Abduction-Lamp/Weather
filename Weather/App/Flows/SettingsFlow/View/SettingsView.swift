@@ -49,18 +49,15 @@ final class SettingsView: UIView {
     // MARK: Initialization
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        configureUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("📛 SettingsView init(coder:) has not been implemented")
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        configureUI()
-    }
-    
-    
+
     // MARK: Configure
     private func configureUI() {
         backgroundColor = .systemRed
