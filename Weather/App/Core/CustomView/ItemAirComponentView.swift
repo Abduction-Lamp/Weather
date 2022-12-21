@@ -38,7 +38,6 @@ final class ItemAirComponentView: UIView {
     //
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         buildContent()
     }
     
@@ -48,7 +47,6 @@ final class ItemAirComponentView: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-        
         contentConfiguration()
     }
 }
