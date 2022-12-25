@@ -56,36 +56,48 @@ extension WeatherViewModel: WeatherViewModelProtocol {
         
         state.value = .loading
         
+        let group = DispatchGroup()
+        var mode: UIViewController.Mode = .none
+        
+        group.enter()
         network?.getWeather(lat: city.latitude,
                             lon: city.longitude,
                             units: "metric",
                             lang: NSLocalizedString("General.Lang", comment: "Lang")) { [weak self] response in
+            defer { group.leave() }
             guard let self = self else { return }
             
             switch response {
             case .success(let result):
                 self.weather = result
-                if let time = result.current?.time, let sunrise = result.current?.sunrise, let sunset = result.current?.sunset {
+                if let time = result.current?.time,
+                   let sunrise = result.current?.sunrise,
+                   let sunset = result.current?.sunset {
                     self.statusDay.value = .init(time: time, sunrise: sunrise, sunset: sunset)
                 }
-                self.state.value = .success(true)
+                mode = .success(true)
             case .failure(let error):
                 print(error)
-                self.state.value = .failure(error.description)
+                mode = .failure(error.description)
             }
+
         }
         
+        group.enter()
         network?.getAirPollution(lat: city.latitude, lon: city.longitude) { [weak self] response in
+            defer { group.leave() }
             guard let self = self else { return }
             
             switch response {
             case .success(let result):
                 self.air = result
-                self.state.value = .success(true)
             case .failure:
                 self.air = nil
             }
         }
+        
+        group.wait()
+        state.value = mode
     }
     
     
