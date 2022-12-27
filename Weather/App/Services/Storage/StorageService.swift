@@ -17,8 +17,10 @@ protocol StorageServiceProtocol: AnyObject {
 
 final class Storage: StorageServiceProtocol {
     
+    private let queue = DispatchQueue(label: "ru.Lesnykh.Vladimir.Storage", qos: .utility, attributes: .concurrent)
+    
     func featch(_ completion: @escaping (Result<Settings, CompletionError>) -> Void) {
-        DispatchQueue.global().async {
+        queue.async {
             if let data = UserDefaults.standard.object(forKey: AppKeys.shared.settings) as? Data {
                 do {
                     let settings = try JSONDecoder().decode(Settings.self, from: data)
@@ -33,7 +35,7 @@ final class Storage: StorageServiceProtocol {
     }
     
     func save(_ settings: Settings, completion: ((Bool) -> Void)?) {
-        DispatchQueue.global().async {
+        queue.async {
             do {
                 let data = try JSONEncoder().encode(settings)
                 UserDefaults.standard.set(data, forKey: AppKeys.shared.settings)

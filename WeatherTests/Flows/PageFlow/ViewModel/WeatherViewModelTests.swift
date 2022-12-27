@@ -59,6 +59,7 @@ extension WeatherViewModelTests {
     
     func testFetchAndMakesModels() throws {
         viewModel.fetch()
+        sleep(1)
         
         XCTAssertEqual(viewModel.city, city)
         XCTAssertEqual(viewModel.statusDay.value, TimeOfDay.morning)

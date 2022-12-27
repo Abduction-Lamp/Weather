@@ -27,6 +27,7 @@ protocol WeatherViewModelProtocol: AnyObject {
 
 
 class WeatherViewModel {
+        
     var city: CityData?
     var statusDay = Bindable<TimeOfDay?>(nil)
     var state = Bindable<UIViewController.Mode>(.none)
@@ -54,37 +55,35 @@ extension WeatherViewModel: WeatherViewModelProtocol {
     public func fetch() {
         guard let city = city else { return }
         
-        state.value = .loading
-        
         let group = DispatchGroup()
+        
         var mode: UIViewController.Mode = .none
         
+        state.value = .loading
+        
         group.enter()
-        network?.getWeather(lat: city.latitude,
-                            lon: city.longitude,
-                            units: "metric",
-                            lang: NSLocalizedString("General.Lang", comment: "Lang")) { [weak self] response in
+        let lang = NSLocalizedString("General.Lang", comment: "Lang")
+        self.network?.getWeather(lat: city.latitude, lon: city.longitude,  units: "metric", lang: lang) { [weak self] response in
             defer { group.leave() }
             guard let self = self else { return }
-            
+
             switch response {
             case .success(let result):
                 self.weather = result
+                mode = .success(true)
                 if let time = result.current?.time,
                    let sunrise = result.current?.sunrise,
                    let sunset = result.current?.sunset {
                     self.statusDay.value = .init(time: time, sunrise: sunrise, sunset: sunset)
                 }
-                mode = .success(true)
             case .failure(let error):
-                print(error)
                 mode = .failure(error.description)
+                print(error)
             }
-
         }
         
         group.enter()
-        network?.getAirPollution(lat: city.latitude, lon: city.longitude) { [weak self] response in
+        self.network?.getAirPollution(lat: city.latitude, lon: city.longitude) { [weak self] response in
             defer { group.leave() }
             guard let self = self else { return }
             
@@ -96,8 +95,9 @@ extension WeatherViewModel: WeatherViewModelProtocol {
             }
         }
         
-        group.wait()
-        state.value = mode
+        group.notify(queue: .main) { [weak self] in
+            self?.state.value = mode
+        }
     }
     
     

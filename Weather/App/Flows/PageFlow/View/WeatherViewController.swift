@@ -60,8 +60,14 @@ final class WeatherViewController: UIViewController {
         weatherView.refreshControl.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
         
         viewModel.state.bind { [weak self] state in
-            DispatchQueue.main.async {
-                self?.mode = state
+            guard let self = self else { return }
+
+            if Thread.isMainThread {
+                self.mode = state
+            } else {
+                DispatchQueue.main.async {
+                    self.mode = state
+                }
             }
         }
     }

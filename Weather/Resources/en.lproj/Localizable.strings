@@ -14,6 +14,8 @@
 "General.Alert.Cancel" = "Cancel";
 "General.Locale.Error" = "Location could not be determined";
 
+"General.Network.TimedOut" = "Failed to process request during";
+
 
 // MARK: - Units
 

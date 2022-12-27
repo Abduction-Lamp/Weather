@@ -10,6 +10,7 @@ import Foundation
 final class Network: NetworkServiceProtocol {
     
     private let session: URLSessionProtocol
+    private let queue = DispatchQueue(label: "ru.Lesnykh.Vladimir.Network", qos: .userInitiated, attributes: .concurrent)
 
     init(session: URLSessionProtocol = URLSession.shared) {
         self.session = session
@@ -21,10 +22,12 @@ final class Network: NetworkServiceProtocol {
     ///
     func getCoordinates(for city: String,
                         completed: @escaping (Result<[GeocodingResponse], NetworkErrors>) -> Void) {
-        if let url = makeUrl(request: GeocodingRequest(сity: city)) {
-            fetchData(from: url) { response in completed(response) }
-        } else {
-            completed(.failure(.url(message: "Failed to retrieve url.")))
+        queue.async {
+            if let url = self.makeUrl(request: GeocodingRequest(сity: city)) {
+                self.fetchData(from: url) { response in completed(response) }
+            } else {
+                completed(.failure(.url(message: "Failed to retrieve url.")))
+            }
         }
     }
     
@@ -47,10 +50,12 @@ final class Network: NetworkServiceProtocol {
                     units: String = "metric",
                     lang: String = NSLocalizedString("General.Lang", comment: "Lang"),
                     completed: @escaping (Result<OneCallResponse, NetworkErrors>) -> Void) {
-        if let url = makeUrl(request: OneCallRequest(lat: lat, lon: lon, units: units, lang: lang)) {
-            fetchData(from: url) { response in completed(response) }
-        } else {
-            completed(.failure(.url(message: "Failed to retrieve url.")))
+        queue.async {
+            if let url = self.makeUrl(request: OneCallRequest(lat: lat, lon: lon, units: units, lang: lang)) {
+                self.fetchData(from: url) { response in completed(response) }
+            } else {
+                completed(.failure(.url(message: "Failed to retrieve url.")))
+            }
         }
     }
     
@@ -72,10 +77,12 @@ final class Network: NetworkServiceProtocol {
     ///
     func getAirPollution(lat: Double, lon: Double,
                          completed: @escaping (Result<AirPollutionResponse, NetworkErrors>) -> Void) {
-        if let url = makeUrl(request: AirPollutionRequest(lat: lat, lon: lon)) {
-            fetchData(from: url) { response in completed(response) }
-        } else {
-            completed(.failure(.url(message: "Failed to retrieve url.")))
+        queue.async {
+            if let url = self.makeUrl(request: AirPollutionRequest(lat: lat, lon: lon)) {
+                self.fetchData(from: url) { response in completed(response) }
+            } else {
+                completed(.failure(.url(message: "Failed to retrieve url.")))
+            }
         }
     }
 }
